@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4193C1C9-3FC4-44DD-B583-DE28D9FFA4CC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>IBY</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>A0CFC59CAD270E32077D2AB1E704095DC71F800C</key>
+		<string>192.168.99.83:mobile-ios/biyao.git</string>
+		<key>C2E71ABAA69986A2E0723B231F30727DB015DF5E</key>
+		<string>192.168.99.83:mobile-group/mobile-ios.git</string>
+		<key>CBF47DF33528DD533D16C03B34625DC8D2734A7F</key>
+		<string>192.168.99.83:mobile-ios/biyao-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>IBY/IBY.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>A0CFC59CAD270E32077D2AB1E704095DC71F800C</key>
+		<string>../../../biyao</string>
+		<key>C2E71ABAA69986A2E0723B231F30727DB015DF5E</key>
+		<string>../../../mobile-ios</string>
+		<key>CBF47DF33528DD533D16C03B34625DC8D2734A7F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>192.168.99.83:mobile-ios/biyao-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CBF47DF33528DD533D16C03B34625DC8D2734A7F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A0CFC59CAD270E32077D2AB1E704095DC71F800C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>biyao</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CBF47DF33528DD533D16C03B34625DC8D2734A7F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>biyao-ios</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C2E71ABAA69986A2E0723B231F30727DB015DF5E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>mobile-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

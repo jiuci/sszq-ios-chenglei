@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>appName</key>
+	<string>biyao</string>
+	<key>appVersion</key>
+	<string>2.0</string>
+	<key>channel</key>
+	<string>ios_biyao</string>
+	<key>platform</key>
+	<string>iOS</string>
+	<key>numVersion</key>
+	<integer>23</integer>
+</dict>
+</plist>

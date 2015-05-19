@@ -1,0 +1,53 @@
+
+support iOS5 ~
+
+
+设计思路
+1，Share，just share
+2，Be Simple，Be more simple
+3，u wanna share ？give me whole things
+
+使用方法
+1，配置
+ 你需要继承SAKShareConfig，实现一个自己的配置文件，实现相应的方法即可
+ 在info页面配置你的url type(针对微信、qq客户端的schema)
+2，开启分享模块
+  HTLShareConfig是我自己继承自SAKShareConfig的类
+
+didFinishLaunchingWithOptions里面，
+
+    HTLShareConfig *config = [[HTLShareConfig alloc] init];
+    [SAKShareEngine enableShareWithConfig:config];//此方法只可调用一次，做了断言
+
+openURL方法里面做app通信的监听 (很不幸，支付依然耦合在这里，需要再拆一下)
+    if ([SAKShareEngine isCapableOfURL:url]) {
+        [SAKShareEngine handleOpenURL:url didShare:^(NSError *error) {
+
+        }];
+    }
+3,使用
+  import SAKShareKit.h
+  实现SAKSharerProcotol协议，做自己的各种初始化、定制化的分享单元
+  分享的主要方法是 (willBlock和didBlock是可以让你用来做统计啊做结束处理的)
+    + (void)share:(id<SAKSharerProcotol>)sharer
+            from:(UIViewController*)fromVC
+        willShare:(SAKWillShareBlock)willBlock
+        didShare:(SAKDidShareBlock)finishBlock;
+  自己实现分享的ui展示(做是否支持分享的判定)
+
+4,统计用的标识...历史原因伤不起
+static NSString *shareMethodMediums[] = {@"sinaweibo", @"qqzone", @"qqweibo", @"sms", @"email", @"weixin", @"weixinfriends", @"qq"};
+
+5,几乎所有东西都已经经过测试。我累了，兄台，不放心的地方自己跑一边吧
+  微信回调没有测，微信支付没有测
+  
+6,文案
+  文案的话，自己处理，建议做一个ShareController做一些通用的文案配置工作
+
+7，参考资料
+https://github.com/ShareSDKPlatform/ShareSDK-for-iOS
+https://github.com/socialize/socialize-sdk-ios
+https://github.com/ShareKit/ShareKit
+https://github.com/ign/ShareThis
+https://github.com/blockhaus/BMSocialShare
+https://github.com/overshare/overshare-kit
