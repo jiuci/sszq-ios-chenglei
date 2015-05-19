@@ -235,6 +235,7 @@
 		F4D7E1F71A639E5500D56EA0 /* NSDateExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E1F61A639E5500D56EA0 /* NSDateExtend.m */; };
 		F4D7E9C91A2860710003AB33 /* BYWebPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
+		F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */; };
 		F4E6858419EE7F4900237412 /* BYMonitorService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858319EE7F4900237412 /* BYMonitorService.m */; };
 		F4E6858719EE818400237412 /* BYMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858619EE818400237412 /* BYMonitorView.m */; };
 		F4E6858B19EE8F1200237412 /* iConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858A19EE8F1200237412 /* iConsole.m */; };
@@ -693,6 +694,8 @@
 		F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYWebPayVC.m; path = pay/BYWebPayVC.m; sourceTree = "<group>"; };
 		F4D9325C1A59131F000E4C02 /* BYPoolNetworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPoolNetworkView.h; sourceTree = "<group>"; };
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
+		F4DD81E91B0B2ACD008D17BF /* BYGlassesMagnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGlassesMagnifier.h; sourceTree = "<group>"; };
+		F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYGlassesMagnifier.m; sourceTree = "<group>"; };
 		F4E6858219EE7F4900237412 /* BYMonitorService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorService.h; sourceTree = "<group>"; };
 		F4E6858319EE7F4900237412 /* BYMonitorService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMonitorService.m; sourceTree = "<group>"; };
 		F4E6858519EE818400237412 /* BYMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorView.h; sourceTree = "<group>"; };
@@ -1451,20 +1454,22 @@
 				F4D134701AF85C3100B7164D /* BioRuler */,
 				F4D1343C1AF857F400B7164D /* BYCameraManager.h */,
 				F4D1343D1AF857F400B7164D /* BYCameraManager.m */,
-				F4D1343E1AF857F400B7164D /* BYCaptureVC.h */,
-				F4D1343F1AF857F400B7164D /* BYCaptureVC.m */,
-				F4D134401AF857F400B7164D /* BYGlassLocateDistVC.h */,
-				F4D134411AF857F400B7164D /* BYGlassLocateDistVC.m */,
 				F4D134421AF857F400B7164D /* BYGlassPageVC.h */,
 				F4D134431AF857F400B7164D /* BYGlassPageVC.m */,
-				F4D134441AF857F400B7164D /* BYGlassProcessVC.h */,
-				F4D134451AF857F400B7164D /* BYGlassProcessVC.m */,
-				F4D134461AF857F400B7164D /* BYGlassSampleView.h */,
-				F4D134471AF857F400B7164D /* BYGlassSampleView.m */,
 				F4D134481AF857F400B7164D /* BYGlassSinglePageView.h */,
 				F4D134491AF857F400B7164D /* BYGlassSinglePageView.m */,
+				F4D1343E1AF857F400B7164D /* BYCaptureVC.h */,
+				F4D1343F1AF857F400B7164D /* BYCaptureVC.m */,
+				F4D134441AF857F400B7164D /* BYGlassProcessVC.h */,
+				F4D134451AF857F400B7164D /* BYGlassProcessVC.m */,
+				F4D134401AF857F400B7164D /* BYGlassLocateDistVC.h */,
+				F4D134411AF857F400B7164D /* BYGlassLocateDistVC.m */,
+				F4DD81E91B0B2ACD008D17BF /* BYGlassesMagnifier.h */,
+				F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */,
 				F4D1344A1AF857F400B7164D /* BYGlassTryVC.h */,
 				F4D1344B1AF857F400B7164D /* BYGlassTryVC.m */,
+				F4D134461AF857F400B7164D /* BYGlassSampleView.h */,
+				F4D134471AF857F400B7164D /* BYGlassSampleView.m */,
 				F4D1344D1AF857F400B7164D /* faceData */,
 			);
 			path = camera;
@@ -2262,6 +2267,7 @@
 				F48C675F1A0C6EE600023B49 /* NSStringExtension.m in Sources */,
 				F4159D7719F23C3900126BDF /* BYPortalCenter.m in Sources */,
 				F4D1345B1AF857F400B7164D /* BYCameraManager.m in Sources */,
+				F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */,
 				F4505E4C19F0F66C00A12AD2 /* BYCartParams.m in Sources */,
 				F44EC76A1A71EA8E00C2AFF6 /* BYAnalysisConfig.m in Sources */,
 				CC771F8A19CAE06000E11BAE /* BYAddressService.m in Sources */,

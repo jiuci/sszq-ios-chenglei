@@ -168,7 +168,7 @@
         [_pageControl setNumberOfPages:[_dataArray count] + 2];
     }
     _contentView.contentOffset = CGPointMake(_orginContentPointX, 0);//恢复位标
-    
+    [self scrollViewDidScroll:_contentView];//恢复当前选择的删除标记
     
     if (_dataArray.count == 0) {
         [self createNewFace];
@@ -195,15 +195,6 @@
 {
     CGFloat pageWidth = _suitWidthForPic + 6 + 18;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    if (_dataArray.count > NUMBER_OF_MIN) {
-        if (page == _dataArray.count+1) {
-            //scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x - (_dataArray.count+1)*(_suitWidthForPic + 6 + 18), 0);
-        }
-        if (page == -1) {
-            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x + (_dataArray.count+2)*(_suitWidthForPic + 6 + 18), 0);
-        }
-    }
-    
     _pageControl.currentPage = page;
     for (BYGlassSinglePageView * pageView in _contentView.subviews) {
         if (![pageView isKindOfClass:[BYGlassSinglePageView class]]) {

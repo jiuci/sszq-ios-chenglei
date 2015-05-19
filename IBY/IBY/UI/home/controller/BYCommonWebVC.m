@@ -206,14 +206,14 @@
         _webView = webView;
         
         
-//        UIButton *btn1 = [UIButton redButton];
-//        btn1.frame = BYRectMake(0, 200, 40, 40);
-//        [btn1 setTitle:@"photo" forState:UIControlStateNormal];
-//        [btn1 bk_addEventHandler:^(id sender) {
-//            [BYCaptureController sharedGlassesController].designId = 1;
-//            [[BYCaptureController sharedGlassesController] goGlassWearingFromVC:self];
-//        } forControlEvents:UIControlEventTouchUpInside];
-//        [self.view addSubview:btn1];
+        UIButton *btn1 = [UIButton redButton];
+        btn1.frame = BYRectMake(0, 200, 40, 40);
+        [btn1 setTitle:@"photo" forState:UIControlStateNormal];
+        [btn1 bk_addEventHandler:^(id sender) {
+            [BYCaptureController sharedGlassesController].designId = 1;
+            [[BYCaptureController sharedGlassesController] goGlassWearingFromVC:self];
+        } forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn1];
     }
 }
 
