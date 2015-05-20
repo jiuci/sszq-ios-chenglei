@@ -110,8 +110,8 @@
     [_captureManager.session startRunning];
     
     
-//    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:manager action:@selector(pinchCameraView:)];
-//    [self.view addGestureRecognizer:pinch];
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:manager action:@selector(pinchCameraView:)];
+    [self.view addGestureRecognizer:pinch];
     
 }
 
@@ -238,7 +238,7 @@
 #endif
 }
 
-#pragma actions
+#pragma mark actions
 //拍照页面，拍照按钮
 - (void)takePictureBtnPressed:(UIButton*)sender {
     
@@ -319,7 +319,6 @@
             imageView.size = rightImage.size;
             imageView.center = self.view.center;
             [self.view addSubview:imageView];
-            //TODO 顺序
             [UIView animateWithDuration:0.3 animations:^{
                 self.view.alpha = 0;
             } completion:^(BOOL finished) {
@@ -382,7 +381,7 @@
 
     [self dismissViewControllerAnimated:YES completion:^{
         
-    }];//TODO 5
+    }];
     
     if (self.navigationController) {
         if ([UIApplication sharedApplication].statusBarHidden == YES) {
@@ -391,7 +390,7 @@
     }
 }
 
-#pragma   default touch to focus
+#pragma mark  default touch to focus
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     alphaTimes = -1;

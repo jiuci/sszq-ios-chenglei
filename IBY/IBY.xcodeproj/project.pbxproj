@@ -2378,6 +2378,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				"OTHER_CFLAGS[arch=*]" = (
+					"-Wall",
+					"-Wno-unused-variable",
+					"-Wno-unused-property-ivar",
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2523,6 +2528,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_CFLAGS[arch=*]" = (
+					"-Wall",
+					"-Wno-unused-variable",
+					"-Wno-unused-property-ivar",
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7s armv7 arm64";
@@ -2557,6 +2567,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				"OTHER_CFLAGS[arch=*]" = (
+					"-Wall",
+					"-Wno-unused-variable",
+					"-Wno-unused-property-ivar",
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

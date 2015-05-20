@@ -291,6 +291,14 @@
         CGContextRelease(ctx);
         CGImageRelease(cgimg);
         
+        CGSize newSize = CGSizeMake(img.size.width*_scaleNum, img.size.height*_scaleNum);
+        UIGraphicsBeginImageContext(newSize);
+        [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+        UIImage * tempImg = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        img = [tempImg getSubImage:CGRectMake(img.size.width*(_scaleNum-1)/2 , img.size.height*(_scaleNum-1)/2 , img.size.width,img.size.height)];
+        
+        
         if (block) {
             block(img);
         }
