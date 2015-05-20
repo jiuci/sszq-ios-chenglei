@@ -11,6 +11,7 @@
 #import "BYGlassTryVC.h"
 #import "BYGlassService.h"
 #import "BYGlassesAnimateView.h"
+#import "BYGlassesMagnifier.h"
 
 @interface BYGlassLocateDistVC ()
 
@@ -21,6 +22,8 @@
 
 @property (nonatomic , strong) UIView * leftEyeView;
 @property (nonatomic , strong) UIView * rightEyeView;
+
+@property (nonatomic , strong) BYGlassesMagnifier * magnifier;
 
 @property (nonatomic , strong) BYGlassesAnimateView * guideView;
 
@@ -55,6 +58,13 @@
     _imageView.size = _image.size;
     _imageView.center = self.view.center;
     [self.view addSubview:_imageView];
+    
+    
+    _magnifier = [[BYGlassesMagnifier alloc]initWithFrame:CGRectMake(5, 60, SCREEN_WIDTH/4, SCREEN_WIDTH/4)];
+    [self.view addSubview:_magnifier];
+    _magnifier.baseIMG = _image;
+    _magnifier.alpha = 0;
+    
     
     _leftEyeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42*2, 42*2)];
     UIImageView * leye = [[UIImageView alloc]initWithFrame:CGRectMake(21, 21, 42, 42)];
@@ -104,9 +114,24 @@
 }
 
 - (void)handleAction:(UIPanGestureRecognizer*) recognizer{
+    _magnifier.alpha = 1;
     CGPoint translation = [recognizer translationInView:self.view];
-    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-                                         recognizer.view.center.y + translation.y);
+    float locationX = recognizer.view.center.x + translation.x;
+    float locationY = recognizer.view.center.y + translation.y;
+    int dis = (SCREEN_WIDTH/16);//预留1/16宽度
+    if (locationX<dis) {
+        locationX = dis;
+    }else if (locationX>(SCREEN_WIDTH-dis)){
+        locationX = SCREEN_WIDTH - dis;
+    }
+    if (locationY<dis) {
+        locationY = dis;
+    }else if (locationY>(SCREEN_HEIGHT-dis)){
+        locationY = SCREEN_HEIGHT - dis;
+    }
+    recognizer.view.center = CGPointMake(locationX,locationY);
+    _magnifier.location = recognizer.view.center;
+    recognizer.view.center = CGPointMake(locationX,locationY);
     [recognizer setTranslation:CGPointZero inView:self.view];
     if (recognizer.view == _leftEyeView) {
         _faceData.lEye = recognizer.view.center;
@@ -114,7 +139,13 @@
     if (recognizer.view == _rightEyeView) {
         _faceData.rEye = recognizer.view.center;
     }
-    
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [UIView animateWithDuration:1 animations:^{
+            _magnifier.alpha = 0;
+        } completion:^(BOOL finish){
+            
+        }];
+    }
 }
 
 - (void)dismiss{

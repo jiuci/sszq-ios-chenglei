@@ -10,30 +10,30 @@
 	<string>IBY</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>34727934E32AE7434336604B8C9377A626980A33</key>
+		<string>192.168.99.83:mobile-ios/biyao-ios.git</string>
 		<key>A0CFC59CAD270E32077D2AB1E704095DC71F800C</key>
 		<string>192.168.99.83:mobile-ios/biyao.git</string>
 		<key>C2E71ABAA69986A2E0723B231F30727DB015DF5E</key>
 		<string>192.168.99.83:mobile-group/mobile-ios.git</string>
-		<key>CBF47DF33528DD533D16C03B34625DC8D2734A7F</key>
-		<string>192.168.99.83:mobile-ios/biyao-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>IBY/IBY.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>34727934E32AE7434336604B8C9377A626980A33</key>
+		<string>../..</string>
 		<key>A0CFC59CAD270E32077D2AB1E704095DC71F800C</key>
 		<string>../../../biyao</string>
 		<key>C2E71ABAA69986A2E0723B231F30727DB015DF5E</key>
 		<string>../../../mobile-ios</string>
-		<key>CBF47DF33528DD533D16C03B34625DC8D2734A7F</key>
-		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>192.168.99.83:mobile-ios/biyao-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CBF47DF33528DD533D16C03B34625DC8D2734A7F</string>
+	<string>34727934E32AE7434336604B8C9377A626980A33</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -48,7 +48,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CBF47DF33528DD533D16C03B34625DC8D2734A7F</string>
+			<string>34727934E32AE7434336604B8C9377A626980A33</string>
 			<key>IDESourceControlWCCName</key>
 			<string>biyao-ios</string>
 		</dict>

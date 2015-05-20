@@ -327,7 +327,7 @@ namespace rt
             else
             {
                 split.first = m_keys[num-1];
-                split.second = m_data.size()-1;
+                split.second = (int)m_data.size()-1;
                 float maxDiff = fabs( m_data[split.first] - m_data[split.second ] );
 
                 for (int i = num-1; i > 0; --i)
@@ -359,7 +359,7 @@ namespace rt
             CvScalar gray  = cvScalar(128,128,128);
             if (bWidthOrHeight)
             {
-                histImage = cvCreateImage( cvSize(num, 256), IPL_DEPTH_8U, 1);
+                histImage = cvCreateImage( cvSize((int)num, 256), IPL_DEPTH_8U, 1);
                 for (int w = 0; w < num; ++w)
                 {
                     int hh = ToInt( m_data[w] );
@@ -381,7 +381,7 @@ namespace rt
             }
             else
             {
-                histImage = cvCreateImage( cvSize(256, num ), IPL_DEPTH_8U, 1);
+                histImage = cvCreateImage( cvSize(256, (int)num ), IPL_DEPTH_8U, 1);
                 for (int h = 0; h < num; ++h)
                 {
                     int ww = ToInt( m_data[h] );
