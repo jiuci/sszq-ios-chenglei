@@ -44,13 +44,17 @@
 
 @property (nonatomic, strong) UIView *bottomContainerView;//除了顶部标题、拍照区域剩下的所有区域
 
+@property (nonatomic, strong) UIView *guideView;//引导流程view
+
 @property (nonatomic, strong) UILabel* noticeLabel;
+
+@property (nonatomic, strong) UIImageView* guideImv;
 
 //对焦
 @property (nonatomic, strong) UIImageView *focusImageView;
 
 @property (nonatomic, strong)  UIButton* switchBtn;
-
+@property (nonatomic, strong)  UIButton* showGuide;
 //数据
 @property (nonatomic, strong) BYFaceDataUnit* dataUnit;
 
@@ -67,11 +71,7 @@
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [MBProgressHUD topShow:@"该设备不支持拍照功能~~！T_T"];
-        
-//        runBlockAfterDelay(2, ^{
-//            [MBProgressHUD topHide];
-//            [self dismissView];
-//        });
+
         [self dismissView];
         return;
     }
@@ -104,14 +104,15 @@
     [self addTopView];
     [self addFocusView];
     [self addBottomView];
+    [self addGuideView];
     
     [self step1];
     
     [_captureManager.session startRunning];
     
-    
-    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:manager action:@selector(pinchCameraView:)];
-    [self.view addGestureRecognizer:pinch];
+    //缩放被屏蔽掉啦屏蔽掉啦！！！
+//    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:manager action:@selector(pinchCameraView:)];
+//    [self.view addGestureRecognizer:pinch];
     
 }
 
@@ -120,13 +121,14 @@
     _noticeLabel.text = @"请将卡片贴紧下巴，放在提示区域";
     _faceFrameView.image = [UIImage imageNamed:@"camera_faceframe_withcard"];
     self.switchBtn.hidden = NO;
+    self.showGuide.hidden = NO;
 }
 
 - (void)step2{
     _noticeLabel.text = @"请拿掉卡片再拍一张";
     _faceFrameView.image = [UIImage imageNamed:@"camera_faceframe_withoutcard"];
     self.switchBtn.hidden = YES;
-
+    self.showGuide.hidden = YES;
     _status = DetectUnfinished;
 }
 
@@ -199,6 +201,13 @@
         [dismissBtn addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
         [tView addSubview:dismissBtn];
         
+        _showGuide = [UIButton buttonWithFrame:CGRectMake(0, 0, 100, 40) icon:@"icon_glasses_info" iconEdge:UIEdgeInsetsMake(0, 0, 0, 60) bgIcon:nil title:@"新手引导"];
+        _showGuide.right = _switchBtn.left - 5 * SCREEN_PIXELUNIT;
+        _showGuide.centerY = _switchBtn.centerY;
+        [_showGuide addTarget:self action:@selector(showGuideView) forControlEvents:UIControlEventTouchUpInside];
+        [tView addSubview:_showGuide];
+        
+        
     }
 }
 
@@ -238,6 +247,116 @@
 #endif
 }
 
+
+-(void)addGuideView
+{
+    _guideView = [[UIView alloc]initWithFrame:self.view.frame];
+    UIScrollView * guideScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+    NSArray * imageArray = [NSArray arrayWithObjects:@"tutorial01",@"tutorial02",@"tutorial03",@"tutorial04",@"tutorial05", nil];
+    for (int i = 0 ; i<imageArray.count; i++) {
+        UIImageView*imv =[[UIImageView alloc]init];
+        imv.image = [UIImage imageNamed:imageArray[i]];
+        imv.size = CGSizeMake(SCREEN_WIDTH, imv.image.size.height/imv.image.size.width*SCREEN_WIDTH);
+        imv.left = i*SCREEN_WIDTH;
+        [guideScroll addSubview:imv];
+        guideScroll.size = CGSizeMake(SCREEN_WIDTH, imv.height);
+        guideScroll.contentSize = CGSizeMake(i*SCREEN_WIDTH+SCREEN_WIDTH, imv.size.height);
+        if (i == imageArray.count-1) {
+            //加入关闭按钮（区域）
+            UIButton * useRightNow = [UIButton buttonWithType:UIButtonTypeCustom];
+            [useRightNow addTarget:self action:@selector(closeGuideView) forControlEvents:UIControlEventTouchUpInside];
+            
+            useRightNow.size = CGSizeMake(imv.size.width * 2 / 9, imv.size.height /10);
+            useRightNow.bottom = imv.bottom;
+            useRightNow.centerX = imv.centerX;
+            [guideScroll addSubview:useRightNow];
+        }
+    }
+    
+    
+    
+    guideScroll.centerY = SCREEN_HEIGHT / 2;
+    guideScroll.pagingEnabled = YES;
+    [_guideView addSubview:guideScroll];
+    _guideView.backgroundColor = [UIColor colorWithWhite:.0 alpha:.9];
+    
+    UIButton * closeGuide = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage * closeImg = [UIImage imageNamed:@"close_guide"];
+    [closeGuide setImage:closeImg forState:UIControlStateNormal];
+    closeGuide.size = CGSizeMake(10*SCREEN_PIXELUNIT, 10*SCREEN_PIXELUNIT);
+    [_guideView addSubview:closeGuide];
+    closeGuide.right = SCREEN_WIDTH - 8 * SCREEN_PIXELUNIT;
+    closeGuide.top = 5 * SCREEN_PIXELUNIT;
+    [closeGuide addTarget:self action:@selector(closeGuideView) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_guideView];
+    
+    _guideImv = [[UIImageView alloc]init];
+    UIGraphicsBeginImageContext(_guideView.bounds.size);
+    [_guideView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    _guideImv.image = viewImage;
+    
+    NSString* kHasShowGuide = @"kHasShowGuide";
+    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] objectForKey:kHasShowGuide];
+    if (!dict) {
+        dict = [NSDictionary dictionary];
+    }
+    BOOL hasShow = [dict[[BYAppCenter sharedAppCenter].appVersion] boolValue];
+    if (!hasShow) {
+        hasShow = YES;
+        NSMutableDictionary* mdict = [NSMutableDictionary dictionaryWithDictionary:dict];
+        mdict[[BYAppCenter sharedAppCenter].appVersion] = @(YES);
+        [[NSUserDefaults standardUserDefaults] setObject:mdict forKey:kHasShowGuide];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        _guideView.alpha = 1;
+    }else{
+        _guideView.alpha = 0;
+    }
+    
+}
+
+-(void)closeGuideView
+{
+
+    UIGraphicsBeginImageContext(_guideView.bounds.size);
+    [_guideView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    _guideImv.image = viewImage;
+    _guideImv.frame = self.view.frame;
+    [self.view addSubview:_guideImv];
+    _guideView.alpha = 0;
+    _guideImv.alpha = 1;
+    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _guideImv.frame = CGRectMake(_showGuide.centerX, _showGuide.centerY, 0, 0);
+        _guideImv.alpha = 0;
+    } completion:^(BOOL finished){
+        [_guideImv removeFromSuperview];
+        _showGuide.enabled = YES;
+    }];
+}
+-(void)showGuideView
+{
+//    if (_guideView.alpha > 0||_guideImv.superview) {
+//        return;
+//    }
+    _showGuide.enabled = NO;
+    _guideImv.frame = CGRectMake(_showGuide.centerX, _showGuide.centerY, 0, 0);
+    _guideImv.alpha = 0;
+    [self.view addSubview:_guideImv];
+    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        _guideImv.alpha = 1;
+        _guideImv.frame = self.view.frame;
+    } completion:^(BOOL finished){
+        _guideView.frame = self.view.frame;
+        _guideView.alpha = 1;
+        [_guideImv removeFromSuperview];
+        
+    }];
+}
 #pragma mark actions
 //拍照页面，拍照按钮
 - (void)takePictureBtnPressed:(UIButton*)sender {
@@ -393,6 +512,9 @@
 #pragma mark  default touch to focus
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (_guideView.alpha == 1) {//引导页出现的情况下不显示聚焦
+        return;
+    }
     alphaTimes = -1;
     
     UITouch *touch = [touches anyObject];
@@ -401,9 +523,10 @@
     if (CGRectContainsPoint(_captureManager.previewLayer.bounds, _currTouchPoint) == NO) {
         return;
     }
-    if (_currTouchPoint.y > SCREEN_HEIGHT * .8) {
+    if (_currTouchPoint.y > SCREEN_HEIGHT * .8 || _currTouchPoint.y < SCREEN_HEIGHT * .2) {
         return;
     }
+    
     [_captureManager focusInPoint:_currTouchPoint];
     
     //对焦框

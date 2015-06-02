@@ -121,12 +121,7 @@
             return;
         }
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"共需拍摄2张照片，请准备一张身份证或者相同大小的卡片，摘下眼镜，秀发放到耳后"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"知道了"
-                                              otherButtonTitles:nil];
-    [alertView show];
+
     BYCaptureVC* capVC = [[BYCaptureVC alloc] init];
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:capVC];
     [self presentViewController:nav animated:YES completion:^{
@@ -162,11 +157,6 @@
     [self buildCreateNewFaceWithLeft:.0];
     _contentView.contentSize = CGSizeMake((_suitWidthForPic + 6 + 18) * (_dataArray.count + 1), _suitHeight );
     
-    if (_dataArray.count > 2) {
-        [self buildCreateNewFaceWithLeft:(_dataArray.count+1) * (_suitWidthForPic + 6 + 18) ];
-        _contentView.contentSize = CGSizeMake((_suitWidthForPic + 6 + 18) * (_dataArray.count + 2), _suitHeight );
-        [_pageControl setNumberOfPages:[_dataArray count] + 2];
-    }
     _contentView.contentOffset = CGPointMake(_orginContentPointX, 0);//恢复位标
     [self scrollViewDidScroll:_contentView];//恢复当前选择的删除标记
     

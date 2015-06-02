@@ -31,7 +31,8 @@
     CGRect newRect = CGRectMake(_location.x - self.size.width/2, _location.y - self.size.width/2, self.size.width, self.size.height);
     CGImageRef subImageRef = CGImageCreateWithImageInRect(_baseIMG.CGImage, newRect);
     CGFloat width = CGImageGetWidth(subImageRef)*_scale;
-    CGRect smallBounds = CGRectMake(-width/4, -width/4, width, width);
+    float x = (_scale-1 ) / _scale / 2;
+    CGRect smallBounds = CGRectMake(-width * x, -width * x, width, width);
     
     UIGraphicsBeginImageContext(smallBounds.size);
     CGContextDrawImage(context, smallBounds, subImageRef);

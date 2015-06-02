@@ -80,12 +80,7 @@
                 return;
             }
         }
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"共需拍摄2张照片，请准备一张身份证或者相同大小的卡片，摘下眼镜，秀发放到耳后"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"知道了"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+
         BYCaptureVC* capVC = [[BYCaptureVC alloc] init];
         UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:capVC];
         [fromVC presentViewController:nav animated:YES completion:^{

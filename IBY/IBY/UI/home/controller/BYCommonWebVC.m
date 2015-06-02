@@ -18,14 +18,152 @@
 
 #import "BYCaptureController.h"
 
+#import "BYLoginVC.h"
+
+#import  <CFNetwork/CFHost.h>
+#import <netinet/in.h>
+#import <netdb.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+
 @interface BYCommonWebVC ()<UIWebViewDelegate>
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic,strong) BYPoolNetworkView* poolNetworkView;
+@property (nonatomic,assign) int loginCount;
 @property (nonatomic,copy)NSString *currentUrl;
 @end
 
 @implementation BYCommonWebVC
 
+#pragma mark - dns解析
+-(NSString*) getAddressFromArray:(CFArrayRef) addresses
+{
+    struct sockaddr  *addr;
+    char             ipAddress[INET6_ADDRSTRLEN];
+    CFIndex          index, count;
+    int              err;
+    
+    assert(addresses != NULL);
+    
+    
+    count = CFArrayGetCount(addresses);
+    for (index = 0; index < count; index++) {
+        addr = (struct sockaddr *)CFDataGetBytePtr(CFArrayGetValueAtIndex(addresses, index));
+        assert(addr != NULL);
+        
+        /* getnameinfo coverts an IPv4 or IPv6 address into a text string. */
+        err = getnameinfo(addr, addr->sa_len, ipAddress, INET6_ADDRSTRLEN, NULL, 0, NI_NUMERICHOST);
+//        if (err == 0) {
+//            NSLog(@"解析到ip地址：%s\n", ipAddress);
+//        } else {
+//            NSLog(@"地址格式转换错误：%d\n", err);
+//        }
+    }
+    return    [[NSString alloc] initWithFormat:@"%s",ipAddress];//这里只返回最后一个，一般认为只有一个地址
+}
+
+
+-(bool)getReachability:(CFDataRef) data withNameOrAddress:(CFStringRef) nameOrAddress
+{
+    SCNetworkConnectionFlags  *flags;
+    CFIndex                   length;
+    char                      *input;
+    Boolean                   success;
+    
+    assert(data != NULL);
+    assert(nameOrAddress != NULL);
+    
+    /* CFStringGetMaximumSizeForEncoding determines max bytes a string of specified length will take up if encoded. */
+    length = CFStringGetMaximumSizeForEncoding(CFStringGetLength(nameOrAddress), kCFStringEncodingASCII);
+    input = malloc(length + 1);
+    assert(input != NULL);
+    
+    success = CFStringGetCString(nameOrAddress, input, length + 1, kCFStringEncodingASCII);
+    assert(success);
+    
+    flags = (SCNetworkConnectionFlags *)CFDataGetBytePtr(data);
+    assert (flags != NULL);
+    
+    /* If you only have a PPP interface enabled, the flags will be 0 because of a bug. <rdar://problem/3627771> */
+//    if (*flags == 0) NSLog(@"%s -> Reachability Unknown\n", input);
+//    
+//    if (*flags & kSCNetworkFlagsTransientConnection)  NSLog(@"%s -> Transient Connection\n",  input);
+//    if (*flags & kSCNetworkFlagsReachable)           {
+//        NSLog(@"%s -> Reachable\n",             input);
+//        success = YES;
+//    }else {
+//        success = NO;
+//    }
+//    if (*flags & kSCNetworkFlagsConnectionRequired)   NSLog(@"%s -> Connection Required\n",   input);
+//    if (*flags & kSCNetworkFlagsConnectionAutomatic)  NSLog(@"%s -> Connection Automatic\n",  input);
+//    if (*flags & kSCNetworkFlagsInterventionRequired) NSLog(@"%s -> Intervention Required\n", input);
+//    if (*flags & kSCNetworkFlagsIsLocalAddress)       NSLog(@"%s -> Is Local Address\n",      input);
+//    if (*flags & kSCNetworkFlagsIsDirect)             NSLog(@"%s -> Is Direct\n",             input);
+//    
+    free(input);
+    return success;
+}
+
+-(NSString*)serverResoluton{
+    
+    NSMutableSet * whiteList = [NSMutableSet setWithObjects:
+                                @"118.144.72.198",
+                                nil];//此处为白名单需要服务器协助维护，todo
+    NSMutableSet * whiteListTest = [NSMutableSet setWithObjects:
+                                    @"118.144.72.200",
+                                    @"192.168.99.60",
+                                    @"192.168.99.231",
+                                    nil];//此处为白名单需要服务器协助维护，todo
+    NSString * serverAddress = @"m.biyao.com";
+    CFStringRef             hostName = (__bridge CFStringRef)serverAddress;
+    CFHostRef            host;
+    CFStreamError        error;
+    Boolean              success;
+    CFArrayRef             addressArray;
+    CFDataRef             ReachableData;
+    
+    assert(hostName != NULL);
+    
+    /* Creates a new host object with the given name. */
+    host = CFHostCreateWithName(kCFAllocatorDefault, hostName);
+    assert(host != NULL);
+    
+    success = CFHostStartInfoResolution(host, kCFHostAddresses, &error);
+    if (!success) {//此处表象应为网络连接失败，并不需要单独处理
+//        NSLog(@"CFHostStartInfoResolution 返回错误 (%ld, %d)", error.domain, (int)error.error);//如果解析地址失败，使用直接指定IP
+//        NSLog(@"启用直接指定IP：%@",@"118.144.72.198");
+//        serverAddress = @"118.144.72.198";
+    }else {
+        addressArray = CFHostGetAddressing(host, nil);
+        serverAddress = [[NSString alloc] initWithFormat:@"%@",[self getAddressFromArray:addressArray]];
+        if ([whiteListTest containsObject:serverAddress]) {//解析地址不在白名单中，给予警告
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"警告" message:@"正在测试环境下运行" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
+            [alert show];
+            return nil;
+            NSLog(@"%@",serverAddress);
+        }
+        if (![whiteList containsObject:serverAddress]) {//解析地址不在白名单中，给予警告
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"警告" message:@"检测到你即将访问的地址并非必要官方网站，建议检查您网络提供者的DNS设置" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
+            [alert show];
+            NSLog(@"%@",serverAddress);
+        }
+    }
+    return nil;
+    //使用新地址来确认可连接性
+    hostName = (__bridge CFStringRef)serverAddress;
+    host = CFHostCreateWithName(kCFAllocatorDefault, hostName);
+    success = CFHostStartInfoResolution(host, kCFHostReachability, &error);
+    if (!success) {
+        NSLog(@"CFHostStartInfoResolution 返回错误 (%ld, %d)", error.domain, (int)error.error);
+        //暂不知到这里会在什么情况下发生
+    }else {
+        ReachableData = CFHostGetReachability(host, nil);
+        success = [self getReachability:ReachableData withNameOrAddress:(CFStringRef)hostName];
+        if (!success) {
+            serverAddress = @"118.144.72.198";//在这里添加备用服务器
+        }
+    }
+    return serverAddress;
+}
 #pragma mark -
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
@@ -39,13 +177,32 @@
             preUrlString = [preUrlString substringToIndex:preUrlString.length - 1];
         }
     }
-    
+
     
     BYLog(@"%@",preUrlString);
     
     if (!preUrlString) {
         return NO;
     }
+    if (_loginCount < 5) {
+        _loginCount++;
+        [[BYAppCenter sharedAppCenter] uploadToken:nil];
+    }
+    
+    if ([requestString rangeOfString:@"login"].length > 0){
+//        __weak BYCommonWebVC * bself = self;   //本地化登录
+//        BYLoginSuccessBlock blk = ^(){
+//            NSLog(@"login success");
+//            [bself dismissViewControllerAnimated:NO completion:nil];
+//        };
+//        [[BYAppCenter sharedAppCenter] updateUidAndToken];
+//        BYNavVC * nav = makeLoginnav(blk);
+//        [self presentViewController:nav animated:YES completion:nil];
+//        return NO;
+        _loginCount = 0;
+        return YES;
+    }
+
     
     BOOL willShowTabbar = NO;
     if ([preUrlString rangeOfString:@"biyao.com"].length > 0) {
@@ -205,16 +362,18 @@
         
         _webView = webView;
         
-        
-        UIButton *btn1 = [UIButton redButton];
-        btn1.frame = BYRectMake(0, 200, 40, 40);
-        [btn1 setTitle:@"photo" forState:UIControlStateNormal];
-        [btn1 bk_addEventHandler:^(id sender) {
-            [BYCaptureController sharedGlassesController].designId = 1;
-            [[BYCaptureController sharedGlassesController] goGlassWearingFromVC:self];
-        } forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn1];
+
+//        UIButton *btn1 = [UIButton redButton];
+//        btn1.frame = BYRectMake(0, 200, 40, 40);
+//        [btn1 setTitle:@"photo" forState:UIControlStateNormal];
+//        [btn1 bk_addEventHandler:^(id sender) {
+//            [BYCaptureController sharedGlassesController].designId = 31020;
+//            [[BYCaptureController sharedGlassesController] goGlassWearingFromVC:self];
+//            
+//        } forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:btn1];
     }
+    _loginCount = 10;
 }
 
 - (BYMutiSwitch*)mutiSwitch {
@@ -285,6 +444,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //[self serverResoluton];
     [self.navigationController setNavigationBarHidden:YES];
 }
 

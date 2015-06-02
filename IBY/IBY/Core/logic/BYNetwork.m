@@ -77,7 +77,7 @@ NSString* baseUrlByMode(BYNetMode mode)
     self = [super init];
     if (self) {
         _currentMode = BYNetModeOnline;
-        //        _currentMode = BYNetModePreview;
+//        _currentMode = BYNetModePreview;
         //        _currentMode = BYNetModeDev;
     }
     return self;

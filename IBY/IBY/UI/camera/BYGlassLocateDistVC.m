@@ -60,10 +60,7 @@
     [self.view addSubview:_imageView];
     
     
-    _magnifier = [[BYGlassesMagnifier alloc]initWithFrame:CGRectMake(5, 60, SCREEN_WIDTH/4, SCREEN_WIDTH/4)];
-    [self.view addSubview:_magnifier];
-    _magnifier.baseIMG = _image;
-    _magnifier.alpha = 0;
+    
     
     
     _leftEyeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42*2, 42*2)];
@@ -93,6 +90,14 @@
     [dismissBtn setImage:[UIImage imageNamed:@"camera_back"] forState:UIControlStateNormal];
     [dismissBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:dismissBtn];
+    
+    
+    _magnifier = [[BYGlassesMagnifier alloc]initWithFrame:CGRectMake(3*SCREEN_PIXELUNIT, 60, 18*SCREEN_PIXELUNIT, 18*SCREEN_PIXELUNIT)];
+    [self.view addSubview:_magnifier];
+    _magnifier.baseIMG = _image;
+    _magnifier.alpha = 0;
+    _magnifier.top = dismissBtn.bottom + 7 * SCREEN_PIXELUNIT;
+    
     
     UIButton* nextBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, 104, 40) title:@"下一步" titleColor:BYColorWhite bgName:@"camera_reshoot_btn" handler:^(id sender) {
         BYGlassTryVC* tryVC = [[BYGlassTryVC alloc]initWithData:_faceData backGroundImg:_image];

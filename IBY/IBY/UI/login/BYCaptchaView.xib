@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="BYCaptchaView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXf-Yv-pjC">
+                    <rect key="frame" x="187" y="12" width="133" height="47"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="133" id="J0j-Le-6AU"/>
+                        <constraint firstAttribute="height" constant="47" id="ftq-0f-vCD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onRefreshCaptcha:" destination="iN0-l3-epB" eventType="touchUpInside" id="h9R-XI-WUu"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_captcha" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-6b-4Ce">
+                    <rect key="frame" x="284" y="19" width="24" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Efk-q6-QmZ"/>
+                        <constraint firstAttribute="width" constant="24" id="iQ8-c0-ucp"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zwR-8e-oex">
+                    <rect key="frame" x="188" y="19" width="96" height="40"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="contentStretch" x="0.10000000000000002" y="0.25" width="0.49999999999999961" height="0.64999999999999969"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="PXq-Ka-iGt"/>
+                        <constraint firstAttribute="width" constant="96" id="xQy-dx-6SC"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="2014" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_inputbox" translatesAutoresizingMaskIntoConstraints="NO" id="lMe-bA-hAd">
+                    <rect key="frame" x="12" y="19" width="160" height="40"/>
+                    <rect key="contentStretch" x="0.20000000000000001" y="0.15000000000000002" width="0.5499999999999996" height="0.29999999999999966"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="0Lw-aY-MHi"/>
+                        <constraint firstAttribute="width" constant="160" id="Unu-LS-FuA"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="2015" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_captcha_refresh" translatesAutoresizingMaskIntoConstraints="NO" id="gWr-82-v2P">
+                    <rect key="frame" x="286" y="29" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="JqQ-pl-8SD"/>
+                        <constraint firstAttribute="height" constant="20" id="WH6-ei-dJF"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R6o-8N-cqu">
+                    <rect key="frame" x="21" y="21" width="136" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="vs3-dg-dfU"/>
+                    </constraints>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="lMe-bA-hAd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="19" id="7pN-pq-hKd"/>
+                <constraint firstItem="R6o-8N-cqu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="21" id="BJO-dn-KHE"/>
+                <constraint firstItem="R6o-8N-cqu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="21" id="DFd-Fg-1aE"/>
+                <constraint firstAttribute="trailing" secondItem="TXf-Yv-pjC" secondAttribute="trailing" id="DGy-ai-f6c"/>
+                <constraint firstItem="Ofm-6b-4Ce" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="19" id="F60-r7-Tb2"/>
+                <constraint firstItem="lMe-bA-hAd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="MMd-Gl-wZN"/>
+                <constraint firstItem="TXf-Yv-pjC" firstAttribute="leading" secondItem="R6o-8N-cqu" secondAttribute="trailing" constant="30" id="R4Z-5Q-kpw"/>
+                <constraint firstAttribute="trailing" secondItem="gWr-82-v2P" secondAttribute="trailing" constant="14" id="SVn-Ly-m7B"/>
+                <constraint firstItem="Ofm-6b-4Ce" firstAttribute="leading" secondItem="zwR-8e-oex" secondAttribute="trailing" id="VSe-KX-Eex"/>
+                <constraint firstItem="zwR-8e-oex" firstAttribute="leading" secondItem="lMe-bA-hAd" secondAttribute="trailing" constant="16" id="Wkf-ei-fQC"/>
+                <constraint firstItem="zwR-8e-oex" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="19" id="bPT-sD-vnM"/>
+                <constraint firstItem="gWr-82-v2P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="29" id="cHM-U0-jhf"/>
+                <constraint firstAttribute="trailing" secondItem="Ofm-6b-4Ce" secondAttribute="trailing" constant="12" id="kRR-K3-pWr"/>
+                <constraint firstItem="TXf-Yv-pjC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="tfM-dY-jwt"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="captchaFileld" destination="R6o-8N-cqu" id="524-AM-Ang"/>
+                <outlet property="captchaImgView" destination="zwR-8e-oex" id="6Nm-56-ubq"/>
+            </connections>
+            <point key="canvasLocation" x="271" y="221.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_captcha" width="12" height="12"/>
+        <image name="bg_inputbox" width="12" height="12"/>
+        <image name="icon_captcha_refresh" width="20" height="20"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

@@ -29,6 +29,9 @@
 
 @property (nonatomic , strong) BYGlassSampleView* activeGlasses;
 
+@property (nonatomic , strong) UIWebView * web;//test
+
+
 @end
 
 @implementation BYGlassTryVC{
@@ -197,7 +200,7 @@
         glassSampleView.userInteractionEnabled = YES;
         glassSampleView.left = 12 + i * (12 + 60);
         glassSampleView.parentVC = self;
-        
+        glassSampleView.tag = i;
         [_glassContentScrollView addSubview:glassSampleView];
         [_glassViewArray addObject:glassSampleView];
         
@@ -307,6 +310,15 @@
 }
 - (void)selectedGlass:(BYGlassSampleView*)sampleGlasses{
 
+//    BYGlasses *glass =_glassArray[sampleGlasses.tag];
+//    int designID = glass.designId;
+//    NSString * str = [NSString stringWithFormat:@"http://m.biyao.com/product/show?designid=%d",designID];
+//    if (!_web.superview) {
+//        _web = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _glassContentScrollView.top)];
+//        [self.view addSubview:_web];
+//    }
+//    [_web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+//    return;//测试下单等操作用
     if (_activeGlasses == sampleGlasses) {
         return;
     }
