@@ -182,6 +182,9 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     NSString* token = [NSString stringWithFormat:@"%@", deviceToken];
+    [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"com.biyao.push.token"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [[BYAppCenter sharedAppCenter] uploadToken:token];
     
     //[MBProgressHUD topShowTmpMessage:token];

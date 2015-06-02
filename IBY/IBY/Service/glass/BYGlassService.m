@@ -21,12 +21,12 @@
     NSDictionary* params = @{@"designId":@(designId),
                              @"needShow":@(needShow),
                              @"faceWidth":@(faceWidth)};
-    
     [BYNetwork post:url params:params isCacheValid:YES finish:^(NSDictionary *data, BYError *error) {
         if (error) {
             finished(nil,error);
         } else {
             finished([BYGlasses mtlObjectsWithKeyValueslist:data[@"tryList"]], nil);
+            
         }
     }];
 }

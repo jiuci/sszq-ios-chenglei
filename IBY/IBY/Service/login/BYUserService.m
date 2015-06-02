@@ -26,7 +26,6 @@ BYError* makeUsrError()
     NSString* url = @"/user/customer/login";
     NSDictionary* params = @{ @"username" : user,
                               @"password" : pwd };
-
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
             BYUser *user = [[BYUser alloc] init];

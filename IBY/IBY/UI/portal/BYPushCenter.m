@@ -41,7 +41,7 @@
             }
         } break;
         case BYPushTypeMWeb: {
-            if (unit.pushParams[@"url"]) {
+            if (unit.pushParams[@"url"] && [unit.pushParams[@"url"] hasPrefix:@"http://"]) {
                 NSDictionary* params = @{@"JumpURL":unit.pushParams[@"url"]};
                 [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome params:params];
             }

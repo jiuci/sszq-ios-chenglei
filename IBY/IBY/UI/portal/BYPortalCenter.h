@@ -11,6 +11,7 @@
 
 typedef enum {
     BYPortalHome = 0,
+    BYPortalLoginFromMineVC = 1,
     BYPortalpay = 9,
     BYPortalHomeWithGlassesId = 10,
 } BYPortal;

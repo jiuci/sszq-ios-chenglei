@@ -236,6 +236,26 @@
 		F4D7E9C91A2860710003AB33 /* BYWebPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
 		F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */; };
+		F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */; };
+		F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */; };
+		F4E007491B0F075A00438FD5 /* BYLoginMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007421B0F075A00438FD5 /* BYLoginMenu.m */; };
+		F4E0074A1B0F075A00438FD5 /* BYLoginMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007431B0F075A00438FD5 /* BYLoginMenu.xib */; };
+		F4E0074B1B0F075A00438FD5 /* BYLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007451B0F075A00438FD5 /* BYLoginVC.m */; };
+		F4E0074C1B0F075A00438FD5 /* BYLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007461B0F075A00438FD5 /* BYLoginVC.xib */; };
+		F4E007571B0F07F800438FD5 /* BYRegist1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0074F1B0F07F800438FD5 /* BYRegist1VC.m */; };
+		F4E007581B0F07F800438FD5 /* BYRegist1VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007501B0F07F800438FD5 /* BYRegist1VC.xib */; };
+		F4E007591B0F07F800438FD5 /* BYRegist2VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007521B0F07F800438FD5 /* BYRegist2VC.m */; };
+		F4E0075A1B0F07F800438FD5 /* BYRegist2VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007531B0F07F800438FD5 /* BYRegist2VC.xib */; };
+		F4E0075B1B0F07F800438FD5 /* BYRegist3VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007551B0F07F800438FD5 /* BYRegist3VC.m */; };
+		F4E0075C1B0F07F800438FD5 /* BYRegist3VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007561B0F07F800438FD5 /* BYRegist3VC.xib */; };
+		F4E0076A1B0F08E100438FD5 /* BYForgetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0075F1B0F08E100438FD5 /* BYForgetPasswordVC.m */; };
+		F4E0076B1B0F08E100438FD5 /* BYForgetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007601B0F08E100438FD5 /* BYForgetPasswordVC.xib */; };
+		F4E0076C1B0F08E100438FD5 /* BYPasswordSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007621B0F08E100438FD5 /* BYPasswordSettingVC.m */; };
+		F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007631B0F08E100438FD5 /* BYPasswordSettingVC.xib */; };
+		F4E0076E1B0F08E100438FD5 /* BYReSetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007651B0F08E100438FD5 /* BYReSetPasswordVC.m */; };
+		F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007661B0F08E100438FD5 /* BYReSetPasswordVC.xib */; };
+		F4E007701B0F08E100438FD5 /* BYVerifySmsCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */; };
+		F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */; };
 		F4E6858419EE7F4900237412 /* BYMonitorService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858319EE7F4900237412 /* BYMonitorService.m */; };
 		F4E6858719EE818400237412 /* BYMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858619EE818400237412 /* BYMonitorView.m */; };
 		F4E6858B19EE8F1200237412 /* iConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858A19EE8F1200237412 /* iConsole.m */; };
@@ -696,6 +716,36 @@
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
 		F4DD81E91B0B2ACD008D17BF /* BYGlassesMagnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGlassesMagnifier.h; sourceTree = "<group>"; };
 		F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYGlassesMagnifier.m; sourceTree = "<group>"; };
+		F4E0073E1B0F075A00438FD5 /* BYCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYCaptchaView.h; sourceTree = "<group>"; };
+		F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYCaptchaView.m; sourceTree = "<group>"; };
+		F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYCaptchaView.xib; sourceTree = "<group>"; };
+		F4E007411B0F075A00438FD5 /* BYLoginMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYLoginMenu.h; sourceTree = "<group>"; };
+		F4E007421B0F075A00438FD5 /* BYLoginMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYLoginMenu.m; sourceTree = "<group>"; };
+		F4E007431B0F075A00438FD5 /* BYLoginMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYLoginMenu.xib; sourceTree = "<group>"; };
+		F4E007441B0F075A00438FD5 /* BYLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYLoginVC.h; sourceTree = "<group>"; };
+		F4E007451B0F075A00438FD5 /* BYLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYLoginVC.m; sourceTree = "<group>"; };
+		F4E007461B0F075A00438FD5 /* BYLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYLoginVC.xib; sourceTree = "<group>"; };
+		F4E0074E1B0F07F800438FD5 /* BYRegist1VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYRegist1VC.h; sourceTree = "<group>"; };
+		F4E0074F1B0F07F800438FD5 /* BYRegist1VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYRegist1VC.m; sourceTree = "<group>"; };
+		F4E007501B0F07F800438FD5 /* BYRegist1VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYRegist1VC.xib; sourceTree = "<group>"; };
+		F4E007511B0F07F800438FD5 /* BYRegist2VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYRegist2VC.h; sourceTree = "<group>"; };
+		F4E007521B0F07F800438FD5 /* BYRegist2VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYRegist2VC.m; sourceTree = "<group>"; };
+		F4E007531B0F07F800438FD5 /* BYRegist2VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYRegist2VC.xib; sourceTree = "<group>"; };
+		F4E007541B0F07F800438FD5 /* BYRegist3VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYRegist3VC.h; sourceTree = "<group>"; };
+		F4E007551B0F07F800438FD5 /* BYRegist3VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYRegist3VC.m; sourceTree = "<group>"; };
+		F4E007561B0F07F800438FD5 /* BYRegist3VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYRegist3VC.xib; sourceTree = "<group>"; };
+		F4E0075E1B0F08E100438FD5 /* BYForgetPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYForgetPasswordVC.h; sourceTree = "<group>"; };
+		F4E0075F1B0F08E100438FD5 /* BYForgetPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYForgetPasswordVC.m; sourceTree = "<group>"; };
+		F4E007601B0F08E100438FD5 /* BYForgetPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYForgetPasswordVC.xib; sourceTree = "<group>"; };
+		F4E007611B0F08E100438FD5 /* BYPasswordSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPasswordSettingVC.h; sourceTree = "<group>"; };
+		F4E007621B0F08E100438FD5 /* BYPasswordSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPasswordSettingVC.m; sourceTree = "<group>"; };
+		F4E007631B0F08E100438FD5 /* BYPasswordSettingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYPasswordSettingVC.xib; sourceTree = "<group>"; };
+		F4E007641B0F08E100438FD5 /* BYReSetPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYReSetPasswordVC.h; sourceTree = "<group>"; };
+		F4E007651B0F08E100438FD5 /* BYReSetPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYReSetPasswordVC.m; sourceTree = "<group>"; };
+		F4E007661B0F08E100438FD5 /* BYReSetPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYReSetPasswordVC.xib; sourceTree = "<group>"; };
+		F4E007671B0F08E100438FD5 /* BYVerifySmsCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYVerifySmsCodeVC.h; sourceTree = "<group>"; };
+		F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYVerifySmsCodeVC.m; sourceTree = "<group>"; };
+		F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYVerifySmsCodeVC.xib; sourceTree = "<group>"; };
 		F4E6858219EE7F4900237412 /* BYMonitorService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorService.h; sourceTree = "<group>"; };
 		F4E6858319EE7F4900237412 /* BYMonitorService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMonitorService.m; sourceTree = "<group>"; };
 		F4E6858519EE818400237412 /* BYMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorView.h; sourceTree = "<group>"; };
@@ -1564,6 +1614,57 @@
 			path = Release;
 			sourceTree = "<group>";
 		};
+		F4E0073D1B0F075A00438FD5 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0073E1B0F075A00438FD5 /* BYCaptchaView.h */,
+				F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */,
+				F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */,
+				F4E007411B0F075A00438FD5 /* BYLoginMenu.h */,
+				F4E007421B0F075A00438FD5 /* BYLoginMenu.m */,
+				F4E007431B0F075A00438FD5 /* BYLoginMenu.xib */,
+				F4E007441B0F075A00438FD5 /* BYLoginVC.h */,
+				F4E007451B0F075A00438FD5 /* BYLoginVC.m */,
+				F4E007461B0F075A00438FD5 /* BYLoginVC.xib */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
+		F4E0074D1B0F07F800438FD5 /* regist */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0074E1B0F07F800438FD5 /* BYRegist1VC.h */,
+				F4E0074F1B0F07F800438FD5 /* BYRegist1VC.m */,
+				F4E007501B0F07F800438FD5 /* BYRegist1VC.xib */,
+				F4E007511B0F07F800438FD5 /* BYRegist2VC.h */,
+				F4E007521B0F07F800438FD5 /* BYRegist2VC.m */,
+				F4E007531B0F07F800438FD5 /* BYRegist2VC.xib */,
+				F4E007541B0F07F800438FD5 /* BYRegist3VC.h */,
+				F4E007551B0F07F800438FD5 /* BYRegist3VC.m */,
+				F4E007561B0F07F800438FD5 /* BYRegist3VC.xib */,
+			);
+			path = regist;
+			sourceTree = "<group>";
+		};
+		F4E0075D1B0F08E100438FD5 /* password */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0075E1B0F08E100438FD5 /* BYForgetPasswordVC.h */,
+				F4E0075F1B0F08E100438FD5 /* BYForgetPasswordVC.m */,
+				F4E007601B0F08E100438FD5 /* BYForgetPasswordVC.xib */,
+				F4E007611B0F08E100438FD5 /* BYPasswordSettingVC.h */,
+				F4E007621B0F08E100438FD5 /* BYPasswordSettingVC.m */,
+				F4E007631B0F08E100438FD5 /* BYPasswordSettingVC.xib */,
+				F4E007641B0F08E100438FD5 /* BYReSetPasswordVC.h */,
+				F4E007651B0F08E100438FD5 /* BYReSetPasswordVC.m */,
+				F4E007661B0F08E100438FD5 /* BYReSetPasswordVC.xib */,
+				F4E007671B0F08E100438FD5 /* BYVerifySmsCodeVC.h */,
+				F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */,
+				F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */,
+			);
+			path = password;
+			sourceTree = "<group>";
+		};
 		F4E6858119EE7F3800237412 /* monitor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1866,6 +1967,9 @@
 		FE14D6C219AC333E006B0E48 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F4E0075D1B0F08E100438FD5 /* password */,
+				F4E0073D1B0F075A00438FD5 /* login */,
+				F4E0074D1B0F07F800438FD5 /* regist */,
 				F4ED1DE21AF9B65200639322 /* glassWearing */,
 				F4D1343B1AF857F400B7164D /* camera */,
 				F48D0E511AE8AA110080DA22 /* setting */,
@@ -2055,10 +2159,13 @@
 				F467E1CF1A7733C700A4F1B2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				F4D134E41AF89BB600B7164D /* haarcascade_frontalface_default.xml in Resources */,
 				F4D134EA1AF89BB600B7164D /* haarcascade_mcs_leftear.xml in Resources */,
+				F4E007581B0F07F800438FD5 /* BYRegist1VC.xib in Resources */,
 				F4D134EE1AF89BB600B7164D /* haarcascade_mcs_rightear.xml in Resources */,
+				F4E0075A1B0F07F800438FD5 /* BYRegist2VC.xib in Resources */,
 				F42618001A2C3BEB0076B273 /* BYPaySuccessVC.xib in Resources */,
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
 				F42618051A2C4CBD0076B273 /* BYPayFailVC.xib in Resources */,
+				F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */,
 				F4AE74881A26FA55005ED6A9 /* BYPayVC.xib in Resources */,
 				F4D134F31AF89BB600B7164D /* haarcascade_smile.xml in Resources */,
 				F4D134E91AF89BB600B7164D /* haarcascade_mcs_eyepair_small.xml in Resources */,
@@ -2066,20 +2173,24 @@
 				F4159D7D19F247D300126BDF /* appinfo.plist in Resources */,
 				F4C4156E1A6818FE00F121B3 /* read_me.txt in Resources */,
 				F4C9AAFE1A7626B900325A38 /* AlipaySDK.bundle in Resources */,
+				F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */,
 				F4C77D101A2DA6F1005EADA0 /* res.xcassets in Resources */,
 				F4D134F21AF89BB600B7164D /* haarcascade_righteye_2splits.xml in Resources */,
 				F4D134F11AF89BB600B7164D /* haarcascade_profileface.xml in Resources */,
 				F4D134E71AF89BB600B7164D /* haarcascade_lowerbody.xml in Resources */,
+				F4E0076B1B0F08E100438FD5 /* BYForgetPasswordVC.xib in Resources */,
 				F48D0E5B1AE8AA110080DA22 /* BYAboutVC.xib in Resources */,
 				F4D134E61AF89BB600B7164D /* haarcascade_lefteye_2splits.xml in Resources */,
 				F48D728A1A89DBB000870F3F /* MJRefresh.bundle in Resources */,
 				F4D134E21AF89BB600B7164D /* haarcascade_frontalface_alt2.xml in Resources */,
+				F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */,
 				F4D134EF1AF89BB600B7164D /* haarcascade_mcs_righteye.xml in Resources */,
 				FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */,
 				F41B47A81A77841B00A59C84 /* WeiboSDK.bundle in Resources */,
 				F4D134E01AF89BB600B7164D /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
 				F4D134F61AF89BB600B7164D /* opencv_highgui2410.dll in Resources */,
 				F4D134EC1AF89BB600B7164D /* haarcascade_mcs_mouth.xml in Resources */,
+				F4E0074A1B0F075A00438FD5 /* BYLoginMenu.xib in Resources */,
 				F4D134E31AF89BB600B7164D /* haarcascade_frontalface_alt_tree.xml in Resources */,
 				F4D134F01AF89BB600B7164D /* haarcascade_mcs_upperbody.xml in Resources */,
 				F48D0E5D1AE8AA110080DA22 /* BYFeedbackVC.xib in Resources */,
@@ -2091,10 +2202,13 @@
 				F4D134E11AF89BB600B7164D /* haarcascade_frontalface_alt.xml in Resources */,
 				F4D134EB1AF89BB600B7164D /* haarcascade_mcs_lefteye.xml in Resources */,
 				F4D134F51AF89BB600B7164D /* opencv_core2410.dll in Resources */,
+				F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */,
+				F4E0075C1B0F07F800438FD5 /* BYRegist3VC.xib in Resources */,
 				F4D134DF1AF89BB600B7164D /* haarcascade_eye.xml in Resources */,
 				F4D134F81AF89BB600B7164D /* opencv_objdetect2410.dll in Resources */,
 				F4888A321A6D114A0056427E /* Readme in Resources */,
 				F4D134E51AF89BB600B7164D /* haarcascade_fullbody.xml in Resources */,
+				F4E0074C1B0F075A00438FD5 /* BYLoginVC.xib in Resources */,
 				F4D134ED1AF89BB600B7164D /* haarcascade_mcs_nose.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2148,6 +2262,7 @@
 				F4D7E1F71A639E5500D56EA0 /* NSDateExtend.m in Sources */,
 				F48D72911A89DBB000870F3F /* UIView+MJExtension.m in Sources */,
 				F44EC7651A71E51C00C2AFF6 /* BYAnalysis.m in Sources */,
+				F4E007491B0F075A00438FD5 /* BYLoginMenu.m in Sources */,
 				F4C77D131A2DA969005EADA0 /* UIImageExtend.m in Sources */,
 				F4E6B65C1AAFED3E0022EA66 /* BYAddBookUnit.m in Sources */,
 				F4D1345E1AF857F400B7164D /* BYGlassPageVC.m in Sources */,
@@ -2155,6 +2270,7 @@
 				F48D728E1A89DBB000870F3F /* MJRefreshHeaderView.m in Sources */,
 				CC6AD03119D11684001FB4EA /* BYPrice.m in Sources */,
 				CC957E3F19C16FAA000700DE /* BYNavVC.m in Sources */,
+				F4E007571B0F07F800438FD5 /* BYRegist1VC.m in Sources */,
 				F4ED1DE61AF9B7E900639322 /* BYPayUnknowVC.m in Sources */,
 				FE14D68F19AC2289006B0E48 /* main.m in Sources */,
 				CC771F8E19CAE06000E11BAE /* BYUserService.m in Sources */,
@@ -2170,6 +2286,7 @@
 				F4D134621AF857F400B7164D /* BYGlassTryVC.m in Sources */,
 				F4888A281A6D114A0056427E /* SAKPipeQQWeibo.m in Sources */,
 				F4607AF41A107B6400255B57 /* BYStarView.m in Sources */,
+				F4E0076E1B0F08E100438FD5 /* BYReSetPasswordVC.m in Sources */,
 				F4AE74871A26FA55005ED6A9 /* BYPayVC.m in Sources */,
 				CC771FA619CB3AC900E11BAE /* FMResultSet.m in Sources */,
 				F478BA691AA5BCD000627097 /* BYFCodeService.m in Sources */,
@@ -2198,6 +2315,7 @@
 				F48C94F91A174BC6009C10A1 /* NSArrayExtensions.m in Sources */,
 				CC771F8B19CAE06000E11BAE /* BYBannerService.m in Sources */,
 				F4818CF71A02203C009475FD /* BYPasswordService.m in Sources */,
+				F4E0075B1B0F07F800438FD5 /* BYRegist3VC.m in Sources */,
 				F4888A391A6DB5180056427E /* BYShareUnit.m in Sources */,
 				F4D031F21AA07A4500B12739 /* BYWelcomeVC.m in Sources */,
 				F489E43119FF6F83003C6567 /* NSNumberAdditions.m in Sources */,
@@ -2248,12 +2366,15 @@
 				F42617FF1A2C3BEB0076B273 /* BYPaySuccessVC.m in Sources */,
 				F4888A291A6D114A0056427E /* SAKPipeQzone.m in Sources */,
 				F471CCC219F89D78000A85A2 /* BYBasePopoverView.m in Sources */,
+				F4E007701B0F08E100438FD5 /* BYVerifySmsCodeVC.m in Sources */,
 				F46F938E1A0B5FFE0088C100 /* BYPartCategoryRelation.m in Sources */,
 				F4D1346F1AF8581800B7164D /* BYGlassService.m in Sources */,
 				F4D134841AF85C3100B7164D /* RtBioRuler.mm in Sources */,
+				F4E007591B0F07F800438FD5 /* BYRegist2VC.m in Sources */,
 				F4E6858B19EE8F1200237412 /* iConsole.m in Sources */,
 				F48D0E5A1AE8AA110080DA22 /* BYAboutVC.m in Sources */,
 				F4888A361A6DB4EE0056427E /* BYShareConfig.m in Sources */,
+				F4E0074B1B0F075A00438FD5 /* BYLoginVC.m in Sources */,
 				F4C77D191A2E7C7C005EADA0 /* UIButtonExtend.m in Sources */,
 				F4888A3F1A6DC96F0056427E /* BYShareSheet.m in Sources */,
 				F45CB8191A2840BA004F00EC /* BYConfirmOrder.m in Sources */,
@@ -2289,11 +2410,14 @@
 				F48CF4091A548E3B00EE4EF4 /* BYTestVC1.m in Sources */,
 				CC771F8C19CAE06000E11BAE /* BYCategoryService.m in Sources */,
 				F4FCC8EC1A508A4100C89C1F /* BYCustomTableCells.m in Sources */,
+				F4E0076C1B0F08E100438FD5 /* BYPasswordSettingVC.m in Sources */,
 				F4A7FCDA1AC97BBC000CDEB4 /* BYCommonWebVC.m in Sources */,
 				F4ED1DEC1AF9BEEB00639322 /* BYCaptureController.mm in Sources */,
 				F4505E5C19F1181D00A12AD2 /* BYDesign.m in Sources */,
 				CC1C2FA719CFC08400877FF8 /* BYAppCenter.m in Sources */,
 				F4422A841A2D7CB300A07598 /* CommonUtil.m in Sources */,
+				F4E0076A1B0F08E100438FD5 /* BYForgetPasswordVC.m in Sources */,
+				F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */,
 				F4818DE71AFC99A20023C0A6 /* BYGlassesAnimateView.m in Sources */,
 				F47747FD1A6E3C13008BF3FC /* BYInvoice.m in Sources */,
 				F4C77D161A2DA996005EADA0 /* UIViewExtend.m in Sources */,

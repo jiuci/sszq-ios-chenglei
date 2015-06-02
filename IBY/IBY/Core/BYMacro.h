@@ -19,6 +19,8 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+#define SCREEN_PIXELUNIT (SCREEN_WIDTH/80)
+
 #define SCREEN_BOUNDS_SIZE [UIScreen mainScreen].bounds.size
 
 #define SCREEN_APPLICATIONFRAME_SIZE [UIScreen mainScreen].applicationFrame.size
