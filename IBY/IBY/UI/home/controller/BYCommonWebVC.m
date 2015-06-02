@@ -184,7 +184,7 @@
     if (!preUrlString) {
         return NO;
     }
-    if (_loginCount < 5) {
+    if (_loginCount < 3) {
         _loginCount++;
         [[BYAppCenter sharedAppCenter] updateUidAndToken];
         [[BYAppCenter sharedAppCenter] uploadToken:nil];

@@ -70,7 +70,7 @@
     [super viewDidLoad];
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [MBProgressHUD topShow:@"该设备不支持拍照功能~~！T_T"];
+        [MBProgressHUD topShowTmpMessage:@"该设备不支持拍照功能~~！T_T"];
 
         [self dismissView];
         return;
@@ -280,14 +280,14 @@
     [_guideView addSubview:guideScroll];
     _guideView.backgroundColor = [UIColor colorWithWhite:.0 alpha:.9];
     
-    UIButton * closeGuide = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * closeGuideBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage * closeImg = [UIImage imageNamed:@"close_guide"];
-    [closeGuide setImage:closeImg forState:UIControlStateNormal];
-    closeGuide.size = CGSizeMake(10*SCREEN_PIXELUNIT, 10*SCREEN_PIXELUNIT);
-    [_guideView addSubview:closeGuide];
-    closeGuide.right = SCREEN_WIDTH - 8 * SCREEN_PIXELUNIT;
-    closeGuide.top = 5 * SCREEN_PIXELUNIT;
-    [closeGuide addTarget:self action:@selector(closeGuideView) forControlEvents:UIControlEventTouchUpInside];
+    [closeGuideBtn setImage:closeImg forState:UIControlStateNormal];
+    closeGuideBtn.size = CGSizeMake(10*SCREEN_PIXELUNIT, 10*SCREEN_PIXELUNIT);
+    [_guideView addSubview:closeGuideBtn];
+    closeGuideBtn.right = SCREEN_WIDTH - 8 * SCREEN_PIXELUNIT;
+    closeGuideBtn.top = 5 * SCREEN_PIXELUNIT;
+    [closeGuideBtn addTarget:self action:@selector(closeGuideView) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_guideView];
     
@@ -298,7 +298,7 @@
     UIGraphicsEndImageContext();
     _guideImv.image = viewImage;
     
-    NSString* kHasShowGuide = @"kHasShowGuide";
+    NSString* kHasShowGuide = @"com.biyao.glassesTryGuide";
     NSDictionary* dict = [[NSUserDefaults standardUserDefaults] objectForKey:kHasShowGuide];
     if (!dict) {
         dict = [NSDictionary dictionary];
@@ -512,7 +512,7 @@
 #pragma mark  default touch to focus
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (_guideView.alpha == 1) {//引导页出现的情况下不显示聚焦
+    if (!_showGuide.enabled) {//引导按钮不可交互时，不显示聚焦
         return;
     }
     alphaTimes = -1;
