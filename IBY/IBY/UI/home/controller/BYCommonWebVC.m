@@ -186,6 +186,7 @@
     }
     if (_loginCount < 5) {
         _loginCount++;
+        [[BYAppCenter sharedAppCenter] updateUidAndToken];
         [[BYAppCenter sharedAppCenter] uploadToken:nil];
     }
     
@@ -195,7 +196,7 @@
 //            NSLog(@"login success");
 //            [bself dismissViewControllerAnimated:NO completion:nil];
 //        };
-//        [[BYAppCenter sharedAppCenter] updateUidAndToken];
+//
 //        BYNavVC * nav = makeLoginnav(blk);
 //        [self presentViewController:nav animated:YES completion:nil];
 //        return NO;
