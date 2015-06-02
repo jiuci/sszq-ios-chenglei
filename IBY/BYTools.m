@@ -24,7 +24,7 @@ void clearCookies()
 void inputCookies()
 {
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
-    setCookies(@"fromapp", @"ios|9999");
+    setCookies(@"fromapp", @"ios|14");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
     
 //    if (![BYAppCenter sharedAppCenter].isLogin) {

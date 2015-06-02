@@ -194,6 +194,7 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
 
 - (void)uploadToken:(NSString*)token
 {
+    
     int oldUid = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"com.biyao.push.token.uid"];
     if (oldUid == [BYAppCenter sharedAppCenter].user.userID) {
         return;
@@ -209,11 +210,10 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
     }
     token = [token stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-
    
     [_appService uploadToken:token finished:^(BOOL success, BYError* error) {
         if (success) {
-            [[NSUserDefaults standardUserDefaults]setInteger:[BYAppCenter sharedAppCenter].user.userID forKey:@"com.biyao.push.token.uid"];
+            [[NSUserDefaults standardUserDefaults]setInteger:[BYAppCenter sharedAppCenter].user.userID forKey:@"com.biyao.push.last.uid"];
             [[NSUserDefaults standardUserDefaults]setObject:@(YES) forKey:pushTokenKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
