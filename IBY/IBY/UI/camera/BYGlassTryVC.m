@@ -104,14 +104,30 @@
     [self.view addSubview:dismissBtn];
     
 
-    UIButton* detailBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, 80, 20) icon:@"icon_glasses_info" iconEdge:UIEdgeInsetsMake(0, 0, 0, 60) bgIcon:nil title:@"镜框尺寸"];
+//    UIButton* detailBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, 80, 20) icon:@"icon_glasses_info" iconEdge:UIEdgeInsetsMake(0, 0, 0, 60) bgIcon:nil title:@"镜框尺寸"];
+//    detailBtn.centerY = dismissBtn.centerY;
+//    detailBtn.titleLabel.font = Font(12);
+//    detailBtn.titleLabel.textColor = HEXCOLOR(0xffffff);
+//    detailBtn.right = SCREEN_WIDTH - 12;
+//    [detailBtn addTarget:self action:@selector(showGlassesDetail) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:detailBtn];
+    
+    UIButton* detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    detailBtn.frame = CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
+    UIImageView*showGuideImageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_PIXELUNIT*1.5, SCREEN_PIXELUNIT*2, 4*SCREEN_PIXELUNIT, 4*SCREEN_PIXELUNIT)];
+    [detailBtn addSubview:showGuideImageView];
+    showGuideImageView.image = [UIImage imageNamed:@"icon_guide_info"];
+    UILabel*showGuideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 6*SCREEN_PIXELUNIT)];
+    [detailBtn addSubview:showGuideLabel];
+    showGuideLabel.textColor = BYColorWhite;
+    showGuideLabel.text = @"镜框尺寸";
+    showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
+    [detailBtn setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
+    [detailBtn setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
+    detailBtn.right = SCREEN_WIDTH - 2 * SCREEN_PIXELUNIT;
     detailBtn.centerY = dismissBtn.centerY;
-    detailBtn.titleLabel.font = Font(12);
-    detailBtn.titleLabel.textColor = HEXCOLOR(0xffffff);
-    detailBtn.right = SCREEN_WIDTH - 12;
     [detailBtn addTarget:self action:@selector(showGlassesDetail) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:detailBtn];
-    
     
     
     _buyBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, 104, 32) title:@"立即购买" titleColor:BYColorWhite bgName:@"camera_buy_btn" handler:^(id sender) {
