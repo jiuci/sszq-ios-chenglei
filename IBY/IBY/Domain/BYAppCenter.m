@@ -191,7 +191,13 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
         }
     }];
 }
-
+- (void)receivedPushInActive:(int)isactive
+{
+    [_appService receivedPushInActive:isactive finished:^(BOOL success, BYError* error) {
+        if (success) {
+        }
+    }];
+}
 - (void)uploadToken:(NSString*)token
 {
     
@@ -199,7 +205,7 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
     if (oldUid == [BYAppCenter sharedAppCenter].user.userID) {
         return;
     }
-    NSString* pushTokenKey = [NSString stringWithFormat:@"com.biyao.push.token.uid:%d",[BYAppCenter sharedAppCenter].user.userID];//[@"com.biyao.push.token" append:token];
+//    NSString* pushTokenKey = [NSString stringWithFormat:@"com.biyao.push.token.uid:%d",[BYAppCenter sharedAppCenter].user.userID];//[@"com.biyao.push.token" append:token];
 //    BOOL hasSent = [[[NSUserDefaults standardUserDefaults] objectForKey:pushTokenKey] boolValue];
 //    if (hasSent) {
 //        return;
@@ -214,7 +220,7 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
     [_appService uploadToken:token finished:^(BOOL success, BYError* error) {
         if (success) {
             [[NSUserDefaults standardUserDefaults]setInteger:[BYAppCenter sharedAppCenter].user.userID forKey:@"com.biyao.push.last.uid"];
-            [[NSUserDefaults standardUserDefaults]setObject:@(YES) forKey:pushTokenKey];
+           // [[NSUserDefaults standardUserDefaults]setObject:@(YES) forKey:pushTokenKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }];

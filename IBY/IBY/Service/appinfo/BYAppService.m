@@ -42,6 +42,23 @@
     }];
 }
 
+- (void)receivedPushInActive:(int)isactive finished:(void (^)(BOOL success, BYError* error))finished
+{
+    NSString* url = @"/apppush/pushid/put";
+    NSDictionary* params = @{
+                             @"isactive" : @(isactive),
+                             @"enable" : @(1)
+                             };
+    
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if (error) {
+            finished(NO,error);
+            return ;
+        }
+        finished(YES,nil);
+    }];
+}
+
 @end
 
 @implementation BYVersionInfo

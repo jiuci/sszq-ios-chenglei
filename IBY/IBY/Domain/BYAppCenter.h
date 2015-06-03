@@ -52,6 +52,7 @@ extern NSString* const BYAppWeixinAuthNotification;
 - (void)updateUserLatestStatus:(void (^)(BOOL isSuccess, BYError* error))finished;
 
 - (void)uploadToken:(NSString*)token;
+- (void)receivedPushInActive:(int)isactive;
 
 //- (void)runAfterLoginFromVC:(UIViewController*)vc withBlk:(BYLoginSuccessBlock)blk;
 

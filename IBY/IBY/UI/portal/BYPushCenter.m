@@ -27,9 +27,10 @@
     if (!unit) {
         return;
     }
-
+    int isActive = 0;
     //所有的数据监测在pushCenter内部就做完，让portal可以放心大胆的用
     if (application.applicationState == UIApplicationStateInactive) {
+        isActive = 0;
         //opened from a push notification when the app was on background
         switch (unit.type) {
         case BYPushTypeDesignDetail: {
@@ -51,11 +52,13 @@
         }
     }
     else if (application.applicationState == UIApplicationStateActive) {
+        isActive = 1;
         // a push notification when the app is running. So that you can display an alert and push in any view
         if (unit.message) {
             alertPushSimplely(unit.message);
         }
     }
+    [[BYAppCenter sharedAppCenter] receivedPushInActive:isActive];
 }
 
 @end
