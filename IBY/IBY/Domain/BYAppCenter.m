@@ -201,7 +201,7 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
 - (void)uploadToken:(NSString*)token
 {
     
-    int oldUid = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"com.biyao.push.token.uid"];
+    int oldUid = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"com.biyao.push.last.uid"];
     if (oldUid == [BYAppCenter sharedAppCenter].user.userID) {
         return;
     }
