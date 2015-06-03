@@ -201,8 +201,19 @@
         [dismissBtn addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
         [tView addSubview:dismissBtn];
         
-        _showGuide = [UIButton buttonWithFrame:CGRectMake(0, 0, 100, 40) icon:@"icon_glasses_info" iconEdge:UIEdgeInsetsMake(0, 0, 0, 60) bgIcon:nil title:@"新手引导"];
-        _showGuide.right = _switchBtn.left - 5 * SCREEN_PIXELUNIT;
+        _showGuide = [UIButton buttonWithType:UIButtonTypeCustom];
+        _showGuide.frame = CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
+        UIImageView*showGuideImageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_PIXELUNIT*1.5, SCREEN_PIXELUNIT*2, 4*SCREEN_PIXELUNIT, 4*SCREEN_PIXELUNIT)];
+        [_showGuide addSubview:showGuideImageView];
+        showGuideImageView.image = [UIImage imageNamed:@"icon_guide_info"];
+        UILabel*showGuideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 6*SCREEN_PIXELUNIT)];
+        [_showGuide addSubview:showGuideLabel];
+        showGuideLabel.textColor = BYColorWhite;
+        showGuideLabel.text = @"新手引导";
+        showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
+        [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
+        [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
+        _showGuide.right = _switchBtn.left - 3 * SCREEN_PIXELUNIT;
         _showGuide.centerY = _switchBtn.centerY;
         [_showGuide addTarget:self action:@selector(showGuideView) forControlEvents:UIControlEventTouchUpInside];
         [tView addSubview:_showGuide];
