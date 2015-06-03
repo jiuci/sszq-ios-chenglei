@@ -196,15 +196,21 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
         }
     }];
 }
-
+- (void)receivedPushInActive:(int)isactive
+{
+    [_appService receivedPushInActive:isactive finished:^(BOOL success, BYError* error) {
+        if (success) {
+        }
+    }];
+}
 - (void)uploadToken:(NSString*)token
 {
     
-    int oldUid = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"com.biyao.push.token.uid"];
+    int oldUid = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"com.biyao.push.last.uid"];
     if (oldUid == [BYAppCenter sharedAppCenter].user.userID) {
         return;
     }
-    NSString* pushTokenKey = [NSString stringWithFormat:@"com.biyao.push.token.uid:%d",[BYAppCenter sharedAppCenter].user.userID];//[@"com.biyao.push.token" append:token];
+//    NSString* pushTokenKey = [NSString stringWithFormat:@"com.biyao.push.token.uid:%d",[BYAppCenter sharedAppCenter].user.userID];//[@"com.biyao.push.token" append:token];
 //    BOOL hasSent = [[[NSUserDefaults standardUserDefaults] objectForKey:pushTokenKey] boolValue];
 //    if (hasSent) {
 //        return;
@@ -219,7 +225,7 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
     [_appService uploadToken:token finished:^(BOOL success, BYError* error) {
         if (success) {
             [[NSUserDefaults standardUserDefaults]setInteger:[BYAppCenter sharedAppCenter].user.userID forKey:@"com.biyao.push.last.uid"];
-            [[NSUserDefaults standardUserDefaults]setObject:@(YES) forKey:pushTokenKey];
+           // [[NSUserDefaults standardUserDefaults]setObject:@(YES) forKey:pushTokenKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }];

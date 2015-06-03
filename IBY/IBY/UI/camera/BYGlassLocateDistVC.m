@@ -27,6 +27,7 @@
 
 @property (nonatomic , strong) BYGlassesAnimateView * guideView;
 
+@property (nonatomic , assign) UIPanGestureRecognizer * currentRecognizer;
 
 @end
 
@@ -71,6 +72,8 @@
     _leftEyeView.userInteractionEnabled = YES;
     UIPanGestureRecognizer* panGestureRecognizer1 = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handleAction:)];
     [_leftEyeView addGestureRecognizer:panGestureRecognizer1];
+    panGestureRecognizer1.minimumNumberOfTouches = 1;
+    panGestureRecognizer1.maximumNumberOfTouches = 1;
     [self.view addSubview:_leftEyeView];
     
     _rightEyeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42*2, 42*2)];
@@ -81,6 +84,7 @@
     UIPanGestureRecognizer* panGestureRecognizer2 = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handleAction:)];
     [_rightEyeView addGestureRecognizer:panGestureRecognizer2];
     panGestureRecognizer2.minimumNumberOfTouches = 1;
+    panGestureRecognizer2.maximumNumberOfTouches = 1;
     _rightEyeView.userInteractionEnabled = YES;
     [self.view addSubview:_rightEyeView];
     
@@ -116,9 +120,15 @@
     _guideView.bottom = nextBtn.top - 12;
     
     [self.view addSubview:_guideView];
+    
 }
 
 - (void)handleAction:(UIPanGestureRecognizer*) recognizer{
+    
+    if (_currentRecognizer != recognizer && _currentRecognizer) {
+        return;
+    }
+    _currentRecognizer = recognizer;
     _magnifier.alpha = 1;
     CGPoint translation = [recognizer translationInView:self.view];
     float locationX = recognizer.view.center.x + translation.x;
@@ -147,6 +157,7 @@
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [UIView animateWithDuration:1 animations:^{
             _magnifier.alpha = 0;
+            _currentRecognizer = nil;
         } completion:^(BOOL finish){
             
         }];
