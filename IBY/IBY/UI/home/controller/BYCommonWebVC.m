@@ -184,6 +184,35 @@
     if (!preUrlString) {
         return NO;
     }
+
+
+    
+    BOOL willShowTabbar = NO;
+    
+    //非biyao.com域直接放行
+    if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
+        self.showTabbar = willShowTabbar;
+        _currentUrl = requestString;
+        return YES;
+    }
+    
+    
+    //对我们自己的地址进行分类处理
+    if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
+        || [preUrlString isEqualToString:@"http://m.biyao.com"]
+        || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
+        [self.mutiSwitch setSelectedAtIndex:0];
+        willShowTabbar = YES;
+    }else if ([requestString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
+        [self.mutiSwitch setSelectedAtIndex:1];
+        willShowTabbar = YES;
+        
+    }else if ([requestString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
+        [self.mutiSwitch setSelectedAtIndex:2];
+        willShowTabbar = YES;
+    }
+    
+    
     if (_loginCount < 3) {
         _loginCount++;
         [[BYAppCenter sharedAppCenter] updateUidAndToken];
@@ -191,36 +220,17 @@
     }
     
     if ([requestString rangeOfString:@"login"].length > 0){
-//        __weak BYCommonWebVC * bself = self;   //本地化登录
-//        BYLoginSuccessBlock blk = ^(){
-//            NSLog(@"login success");
-//            [bself dismissViewControllerAnimated:NO completion:nil];
-//        };
-//
-//        BYNavVC * nav = makeLoginnav(blk);
-//        [self presentViewController:nav animated:YES completion:nil];
-//        return NO;
+        //        __weak BYCommonWebVC * bself = self;   //本地化登录
+        //        BYLoginSuccessBlock blk = ^(){
+        //            NSLog(@"login success");
+        //            [bself dismissViewControllerAnimated:NO completion:nil];
+        //        };
+        //
+        //        BYNavVC * nav = makeLoginnav(blk);
+        //        [self presentViewController:nav animated:YES completion:nil];
+        //        return NO;
         _loginCount = 0;
         return YES;
-    }
-
-    
-    BOOL willShowTabbar = NO;
-    if ([preUrlString rangeOfString:@"biyao.com"].length > 0) {
-        if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
-            || [preUrlString isEqualToString:@"http://m.biyao.com"]
-            || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
-            [self.mutiSwitch setSelectedAtIndex:0];
-            willShowTabbar = YES;
-        }else if ([requestString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
-            [self.mutiSwitch setSelectedAtIndex:1];
-            willShowTabbar = YES;
-            
-        }else if ([requestString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
-            [self.mutiSwitch setSelectedAtIndex:2];
-            willShowTabbar = YES;
-        }
-        
     }
     
     self.showTabbar = willShowTabbar;

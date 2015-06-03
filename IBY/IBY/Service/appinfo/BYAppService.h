@@ -15,6 +15,8 @@
 
 - (void)uploadToken:(NSString*)token finished:(void (^)(BOOL success, BYError* error))finished;
 
+- (void)receivedPushInActive:(int)isactive finished:(void (^)(BOOL success, BYError* error))finished;
+
 @end
 
 @interface BYVersionInfo : NSObject

@@ -158,6 +158,9 @@
     _contentView.contentSize = CGSizeMake((_suitWidthForPic + 6 + 18) * (_dataArray.count + 1), _suitHeight );
     
     _contentView.contentOffset = CGPointMake(_orginContentPointX, 0);//恢复位标
+    if (_orginContentPointX > _contentView.contentSize.width) {//超出长度就显示到最后一张的位置
+        _contentView.contentOffset = CGPointMake(_contentView.contentSize.width - _contentView.size.width, 0);
+    }
     [self scrollViewDidScroll:_contentView];//恢复当前选择的删除标记
     
     if (_dataArray.count == 0) {
