@@ -15,6 +15,8 @@ extern NSString* const BYAppLoginNotification;
 extern NSString* const BYAppLogoutNotification;
 extern NSString* const BYAppShakeNotification;
 extern NSString* const BYAppWeixinAuthNotification;
+extern NSString* const BYAppSessionInvalidNotification;
+
 
 @interface BYAppCenter : NSObject
 
@@ -36,6 +38,7 @@ extern NSString* const BYAppWeixinAuthNotification;
 
 @property (nonatomic, assign) BOOL isLogin;
 @property (nonatomic, assign) BOOL isNetConnected;
+@property (nonatomic, copy) NSString* pushId;//用来统计push的参数
 
 + (instancetype)sharedAppCenter;
 
@@ -46,6 +49,8 @@ extern NSString* const BYAppWeixinAuthNotification;
 - (void)doUpgradeIfNeeded;
 - (void)didActive;
 - (void)logout;
+
+- (void)invalidPushId;
 
 - (void)checkVersionInfo;
 - (void)checkNetworkStatus;

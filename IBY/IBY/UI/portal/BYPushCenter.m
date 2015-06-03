@@ -27,7 +27,7 @@
     if (!unit) {
         return;
     }
-
+    
     //所有的数据监测在pushCenter内部就做完，让portal可以放心大胆的用
     if (application.applicationState == UIApplicationStateInactive) {
         //opened from a push notification when the app was on background
@@ -35,6 +35,7 @@
         case BYPushTypeDesignDetail: {
             if (unit.pushParams[@"did"]) {
                 NSString* designDetailUrl = [NSString stringWithFormat:@"%@%d",BYURL_M_DetailDesign,[unit.pushParams[@"did"] intValue]];
+                [BYAppCenter sharedAppCenter].pushId = unit.pushId;
                 NSDictionary* params = @{@"JumpURL":designDetailUrl};
                 [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome params:params];
 //                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalDesignDetail params:unit.pushParams];
@@ -42,6 +43,7 @@
         } break;
         case BYPushTypeMWeb: {
             if (unit.pushParams[@"url"] && [unit.pushParams[@"url"] hasPrefix:@"http://"]) {
+                [BYAppCenter sharedAppCenter].pushId = unit.pushId;
                 NSDictionary* params = @{@"JumpURL":unit.pushParams[@"url"]};
                 [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome params:params];
             }

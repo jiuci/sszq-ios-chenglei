@@ -22,6 +22,8 @@ NSString* const BYAppLoginNotification = @"com.biyao.login";
 NSString* const BYAppLogoutNotification = @"com.biyao.logout";
 NSString* const BYAppShakeNotification = @"com.biyao.app.shake";
 NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
+NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid";
+
 
 @interface BYAppCenter ()
 @property (nonatomic, strong) BYAppService* appService;
@@ -83,6 +85,9 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
         _isNetConnected = NO;
     };
     [reach startNotifier];
+    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSessionInvalid) name:BYAppSessionInvalidNotification object:nil];
     
 }
 
@@ -253,7 +258,17 @@ NSString* const BYAppWeixinAuthNotification = @"com.biyao.weixin.auth";
 //    }
 //}
 
-#pragma mark -
+#pragma mark - push
+
+- (void)invalidPushId {
+    _pushId = @"0";
+}
+
+- (void)onSessionInvalid {
+    [self invalidPushId];
+}
+
+#pragma mark - network
 
 static NSString* kNetworkRemindAllTimes = @"com.biyao.networkReminding.allTimes";
 static NSString* kNetworkRemindLastTimes = @"com.biyao.networkReminding.lastTimes";
@@ -330,6 +345,8 @@ static int kNetworkRemindMaxTimes = 3;
     return _deviceType;
 }
 
+
+static int kAppLiftCircle = 60 * 5;
 - (NSString*)sessionId
 {
     NSNumber* lastEventTime = [BYAnalysis lastEventTime];
@@ -338,16 +355,19 @@ static int kNetworkRemindMaxTimes = 3;
 
         NSDate* lastDate = [NSDate dateWithTimeIntervalSince1970:[lastEventTime doubleValue]];
         NSDate* currentDate = [NSDate date];
-        if ([currentDate timeIntervalSinceDate:lastDate] < 60 * 10) {
+        if ([currentDate timeIntervalSinceDate:lastDate] < kAppLiftCircle) {
             //如果间隔小于10分钟
             return _sessionId;
         }
     }
 
     int ranNum = arc4random() % 1000;
-
     NSString* oriStr = [NSString stringWithFormat:@"%@%@%d%d", self.uuid, [[NSDate date] dateStringWithFormat:BYDateFormatyyyyMMddHHmm], ranNum, (self.user ? self.user.userID : -1)];
     _sessionId = [oriStr generateMD5];
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:BYAppSessionInvalidNotification object:nil];
+    [self onSessionInvalid];
+    
     return _sessionId;
 }
 
@@ -367,6 +387,13 @@ static int kNetworkRemindMaxTimes = 3;
     return _visitCode;
 }
 
+- (NSString*)pushId {
+    if (!_pushId) {
+        return @"0";
+    }
+    return _pushId;
+}
+
 - (NSDictionary*)paramsMapForHeader
 {
     //set header需要的都是string，so都转换成string格式
@@ -383,7 +410,8 @@ static int kNetworkRemindMaxTimes = 3;
         @"uid" : [self isLogin] ? [@(_user.userID) stringValue] : @"",
         @"token" : [self isLogin] ? _user.token : @"",
         @"sessionId" : self.sessionId,
-        @"dzvisit" : self.visitCode
+        @"dzvisit" : self.visitCode,
+        @"pushId" : self.pushId,
     };
 }
 
