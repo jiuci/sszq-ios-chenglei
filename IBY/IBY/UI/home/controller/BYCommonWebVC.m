@@ -190,7 +190,7 @@
         [[BYAppCenter sharedAppCenter] uploadToken:nil];
     }
     
-    if ([requestString rangeOfString:@"login"].length > 0){
+    if ([requestString rangeOfString:@"login"].length > 0){//todo
 //        __weak BYCommonWebVC * bself = self;   //本地化登录
 //        BYLoginSuccessBlock blk = ^(){
 //            NSLog(@"login success");
