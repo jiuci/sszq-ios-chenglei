@@ -27,11 +27,8 @@
     if (!unit) {
         return;
     }
-<<<<<<< HEAD
-    
-=======
+
     int isActive = 0;
->>>>>>> kangjian/biyao-ios-master
     //所有的数据监测在pushCenter内部就做完，让portal可以放心大胆的用
     if (application.applicationState == UIApplicationStateInactive) {
         isActive = 0;

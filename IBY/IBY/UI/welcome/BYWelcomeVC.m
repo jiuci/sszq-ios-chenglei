@@ -17,9 +17,9 @@
     UIPageControl* _pageControl;
 
     NSArray* _frontImglist;
-    NSArray* _backImglist;
-    NSArray* _titlelist;
-    NSArray* _desclist;
+//    NSArray* _backImglist;
+//    NSArray* _titlelist;
+//    NSArray* _desclist;
 
     BOOL _hasDismiss;
     BOOL _needDismiss;
@@ -50,10 +50,11 @@
 
 - (void)viewDidLoad
 {
-    _frontImglist = @[ @"welcome1_front", @"welcome2_front", @"welcome3_front" ];
-    _backImglist = @[ @"welcome1_back", @"welcome2_back", @"welcome3_back" ];
-    _titlelist = @[ @"100%奢侈品质 1%价格", @"直连全球奢侈品制造商", @"我要的，才是必要的" ];
-    _desclist = @[ @"全球最高性价比", @"开启消费新时代", @"高度个性化" ];
+    _frontImglist = @[ @"wel_1", @"wel_2", @"wel_3",@"wel_4" ];
+    NSArray *upBgColors = @[HEXCOLOR(0xf9d350),HEXCOLOR(0xf85453),HEXCOLOR(0x43c8be),HEXCOLOR(0x8d7aa5)];
+//    _backImglist = @[ @"welcome1_back", @"welcome2_back", @"welcome3_back" ];
+//    _titlelist = @[ @"100%奢侈品质 1%价格", @"直连全球奢侈品制造商", @"我要的，才是必要的" ];
+//    _desclist = @[ @"全球最高性价比", @"开启消费新时代", @"高度个性化" ];
 
     _contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_contentView setContentSize:CGSizeMake(SCREEN_WIDTH * ([_frontImglist count] + 1), SCREEN_HEIGHT)];
@@ -64,29 +65,47 @@
     _contentView.delegate = self;
 
     for (int i = 0; i < [_frontImglist count]; i++) {
-        UIImageView* bg = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT), _backImglist[i]);
+//        UIImageView* bg = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT), _backImglist[i]);
+        UIImageView *bg = [[UIImageView alloc] initWithFrame:BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        bg.backgroundColor = [UIColor whiteColor];
         [_contentView addSubview:bg];
+        
+        UIImageView *bgUp = [[UIImageView alloc] initWithFrame:BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, 0)];
+        bgUp.backgroundColor = upBgColors[i];
+        [_contentView addSubview:bgUp];
+        
 
         CGFloat frontHeight = SCREEN_WIDTH * 1920 / 1080;
-        UIImageView* front = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, frontHeight), _frontImglist[i]);
+        CGFloat realWidth = frontHeight > SCREEN_HEIGHT ? SCREEN_HEIGHT *1080 /1920 : SCREEN_WIDTH;
+        CGFloat realHeight = frontHeight > SCREEN_HEIGHT ? SCREEN_HEIGHT : frontHeight;
+        UIImageView* front = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, realWidth, realHeight), _frontImglist[i]);
         front.centerY = SCREEN_HEIGHT / 2;
+        front.centerX = SCREEN_WIDTH * i + SCREEN_WIDTH/2;
         [_contentView addSubview:front];
+        
+        bgUp.height = (SCREEN_HEIGHT - realHeight)/2 + realHeight * 1262 / 1920;
 
-        UILabel* titlelabel = [UILabel labelWithFrame:BYRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 126, SCREEN_WIDTH, 20) font:Font(18) andTextColor:HEXCOLOR(0x000000)];
-        titlelabel.textAlignment = NSTextAlignmentCenter;
-        titlelabel.text = _titlelist[i];
-        [_contentView addSubview:titlelabel];
-
-        UILabel* desclabel = [UILabel labelWithFrame:BYRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 104, SCREEN_WIDTH, 20) font:Font(13) andTextColor:HEXCOLOR(0x473368)];
-        desclabel.textAlignment = NSTextAlignmentCenter;
-        desclabel.text = _desclist[i];
-        [_contentView addSubview:desclabel];
+//        UILabel* titlelabel = [UILabel labelWithFrame:BYRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 126, SCREEN_WIDTH, 20) font:Font(18) andTextColor:HEXCOLOR(0x000000)];
+//        titlelabel.textAlignment = NSTextAlignmentCenter;
+//        titlelabel.text = _titlelist[i];
+//        [_contentView addSubview:titlelabel];
+//
+//        UILabel* desclabel = [UILabel labelWithFrame:BYRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 104, SCREEN_WIDTH, 20) font:Font(13) andTextColor:HEXCOLOR(0x473368)];
+//        desclabel.textAlignment = NSTextAlignmentCenter;
+//        desclabel.text = _desclist[i];
+//        [_contentView addSubview:desclabel];
 
         if (i == (_frontImglist.count - 1)) {
-            CGRect r = CGRectMake(44 + SCREEN_WIDTH * i, SCREEN_HEIGHT - 80, SCREEN_WIDTH - 88, 34);
-            UIButton* button = [UIButton buttonWithFrame:r title:@"立即体验" titleColor:BYColorWhite bgName:@"btn_welcome" handler:^(id sender) {
+//            CGRect r = CGRectMake(44 + SCREEN_WIDTH * i, SCREEN_HEIGHT - 80, SCREEN_WIDTH - 88, 34);
+//            UIButton* button = [UIButton buttonWithFrame:r title:@"立即体验" titleColor:BYColorWhite bgName:@"btn_welcome" handler:^(id sender) {
+//                
+//            }];
+            CGRect r = CGRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 100, SCREEN_WIDTH, 100);
+            UIButton* button = [[UIButton alloc] initWithFrame:r];
+            button.backgroundColor = [UIColor clearColor];
+            [button bk_addEventHandler:^(id sender) {
                 [self willDismissLater];
-            }];
+            } forControlEvents:UIControlEventTouchUpInside];
             [_contentView addSubview:button];
         }
     }

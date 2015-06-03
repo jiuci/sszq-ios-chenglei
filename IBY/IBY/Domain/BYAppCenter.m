@@ -356,6 +356,8 @@ static int kAppLiftCircle = 60 * 5;
 - (NSString*)sessionId
 {
     NSNumber* lastEventTime = [BYAnalysis lastEventTime];
+    
+    BOOL isFirstVisit = (_sessionId == nil);
 
     if (_sessionId && lastEventTime) {
 
@@ -372,7 +374,9 @@ static int kAppLiftCircle = 60 * 5;
     _sessionId = [oriStr generateMD5];
     
 //    [[NSNotificationCenter defaultCenter] postNotificationName:BYAppSessionInvalidNotification object:nil];
-    [self onSessionInvalid];
+    if (!isFirstVisit) {
+        [self onSessionInvalid];
+    }
     
     return _sessionId;
 }
