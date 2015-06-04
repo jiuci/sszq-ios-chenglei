@@ -8,6 +8,6 @@
 
 #import "BYBaseVC.h"
 
-@interface BYCaptureVC : BYBaseVC
+@interface BYCaptureVC : BYBaseVC<UIScrollViewDelegate>
 
 @end

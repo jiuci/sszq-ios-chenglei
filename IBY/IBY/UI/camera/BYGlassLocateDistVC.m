@@ -106,6 +106,10 @@
     [self.view addSubview:_guideView];
     
 }
+- (void)showMagnifier
+{
+    _magnifier.alpha =1;
+}
 
 - (void)dismiss{
     if (![self.navigationController popViewControllerAnimated:YES]) {
@@ -172,6 +176,7 @@ static __weak UIView *touchPreView = nil;
         return;
     }
     
+
     if (!touchPreView) {
         return;
     }

@@ -121,7 +121,7 @@
     [detailBtn addSubview:showGuideLabel];
     showGuideLabel.textColor = BYColorWhite;
     showGuideLabel.text = @"镜框尺寸";
-    showGuideLabel.font = Font(12);
+    showGuideLabel.adjustsFontSizeToFitWidth = YES;
     showGuideLabel.textAlignment = NSTextAlignmentCenter;
     showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
     showGuideLabel.centerX = detailBtn.left + showGuideImageView.width + (detailBtn.width - showGuideImageView.width)/2;
