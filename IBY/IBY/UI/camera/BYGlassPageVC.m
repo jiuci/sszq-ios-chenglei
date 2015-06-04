@@ -50,14 +50,21 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
     if([self.glassService nativeFacelist].count == 0){
         [self.navigationController popViewControllerAnimated:NO];
         return;
     }
     
-    
     [self updateData];
     [self updateUI];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    _pageControl.centerY = self.view.height - (self.view.height - _contentView.height)/4;
 }
 
 
@@ -73,8 +80,6 @@
     [super viewDidLoad];
     
     self.title = @"选择一张照片试戴";
-    
-    
     
     _suitWidthForPic = (SCREEN_WIDTH * FRAMERATE);
     _suitHeightForPic = (SCREEN_HEIGHT * FRAMERATE);
@@ -94,15 +99,13 @@
     [self.view addSubview:_contentView];
     
     _pageControl = [[UIPageControl alloc]initWithFrame:BYRectMake(0, 0, 300, 30)];
-    _pageControl.bottom = _contentView.bottom + (SCREEN_HEIGHT - _contentView.bottom) /2;
+    
+    _pageControl.bottom = self.view.height - 60;
     _pageControl.centerX = SCREEN_WIDTH / 2;
     _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0x523669);
     _pageControl.pageIndicatorTintColor = HEXCOLOR(0xb0a4b9);
     
     [self.view addSubview:_pageControl];
-    
-    
-    
 }
 
 - (void)createNewFace{
@@ -158,7 +161,8 @@
     _contentView.contentSize = CGSizeMake((_suitWidthForPic + 6 + 18) * (_dataArray.count + 1), _suitHeight );
     
     _contentView.contentOffset = CGPointMake(_orginContentPointX, 0);//恢复位标
-    if (_orginContentPointX > _contentView.contentSize.width) {//超出长度就显示到最后一张的位置
+    
+    if (_orginContentPointX >= _contentView.contentSize.width) {//超出长度就显示到最后一张的位置
         _contentView.contentOffset = CGPointMake(_contentView.contentSize.width - _contentView.size.width, 0);
     }
     [self scrollViewDidScroll:_contentView];//恢复当前选择的删除标记
