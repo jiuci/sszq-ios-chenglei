@@ -120,7 +120,7 @@
 
 
 - (void)step1{
-    _noticeLabel.text = @"提示：使用卡片会使试戴效果更佳。";
+    _noticeLabel.text = @"提示：使用卡片会使试戴效果更佳";
     _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withcard"];
     self.switchBtn.hidden = NO;
     self.showGuide.hidden = NO;
@@ -148,35 +148,35 @@
     _faceFrameView.image = faceImage;
     [self.view addSubview:_faceFrameView];
     
-    UIImageView *dashLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 2)];
-    [self.view addSubview:dashLine];
+//    UIImageView *dashLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 2)];
+//    [self.view addSubview:dashLine];
+//    
+//    UIGraphicsBeginImageContext(dashLine.frame.size);   //开始画线
+//    [dashLine.image drawInRect:CGRectMake(0, 0, dashLine.frame.size.width, dashLine.frame.size.height)];
+//    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
+//    
+//    
+//    CGFloat lengths[] = {10,5};
+//    CGContextRef line = UIGraphicsGetCurrentContext();
+//    CGContextSetStrokeColorWithColor(line, [UIColor whiteColor].CGColor);
+//    
+//    CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
+//    CGContextMoveToPoint(line, -10.0, 2.0);    //开始画线
+//    CGContextAddLineToPoint(line, SCREEN_WIDTH + 10, 2.0);
+//    CGContextMoveToPoint(line, -10.0, 0.0);    //开始画线
+//    CGContextAddLineToPoint(line, SCREEN_WIDTH + 10, 0.0);
+//    CGContextMoveToPoint(line, -10.0, 1.0);    //开始画线
+//    CGContextAddLineToPoint(line, SCREEN_WIDTH + 10, 1.0);
+//    CGContextStrokePath(line);
+//    
+//    dashLine.image = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    dashLine.top = _faceFrameView.height * .45 + _faceFrameView.top;
     
-    UIGraphicsBeginImageContext(dashLine.frame.size);   //开始画线
-    [dashLine.image drawInRect:CGRectMake(0, 0, dashLine.frame.size.width, dashLine.frame.size.height)];
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
-    
-    
-    CGFloat lengths[] = {10,5};
-    CGContextRef line = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(line, [UIColor whiteColor].CGColor);
-    
-    CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
-    CGContextMoveToPoint(line, -10.0, 2.0);    //开始画线
-    CGContextAddLineToPoint(line, SCREEN_WIDTH + 10, 2.0);
-    CGContextMoveToPoint(line, -10.0, 0.0);    //开始画线
-    CGContextAddLineToPoint(line, SCREEN_WIDTH + 10, 0.0);
-    CGContextMoveToPoint(line, -10.0, 1.0);    //开始画线
-    CGContextAddLineToPoint(line, SCREEN_WIDTH + 10, 1.0);
-    CGContextStrokePath(line);
-    
-    dashLine.image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    dashLine.top = _faceFrameView.height * .45 + _faceFrameView.top;
-    
-    UILabel* noticeLabel = [UILabel labelWithFrame:CGRectMake(0, 0, 100, 15) font:[UIFont systemFontOfSize:10] andTextColor:BYColorWhite];
-    noticeLabel.text = @"眼睛水平线";
-    noticeLabel.bottom = dashLine.top;
-    [self.view addSubview:noticeLabel];
+//    UILabel* noticeLabel = [UILabel labelWithFrame:CGRectMake(0, 0, 100, 15) font:[UIFont systemFontOfSize:10] andTextColor:BYColorWhite];
+//    noticeLabel.text = @"眼睛水平线";
+//    noticeLabel.bottom = dashLine.top;
+//    [self.view addSubview:noticeLabel];
 }
 
 - (void)addTopView{
@@ -326,10 +326,10 @@
         _guideView.alpha = 0;
     }
     _pageControl = [[UIPageControl alloc]initWithFrame:BYRectMake(0, 0, 300, 30)];
-    _pageControl.bottom = guideScroll.bottom + (SCREEN_HEIGHT - 20 - 44 - guideScroll.bottom) /2;
+    _pageControl.centerY = guideScroll.bottom + (SCREEN_HEIGHT - guideScroll.bottom) /2;
     _pageControl.centerX = SCREEN_WIDTH / 2;
-    _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0x523669);
-    _pageControl.pageIndicatorTintColor = HEXCOLOR(0xb0a4b9);
+    _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0xffffff);
+    _pageControl.pageIndicatorTintColor = HEXCOLOR(0xeeeeee);
     _pageControl.numberOfPages = imageArray.count;
     [_guideView addSubview:_pageControl];
 }
