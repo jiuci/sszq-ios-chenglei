@@ -25,9 +25,9 @@
           action:(NSString*)action
             desc:(NSString*)desc
 {
-    NSMutableDictionary* flurryDict = [NSMutableDictionary dictionary];
-    [flurryDict setValue:action forKey:@"action"];
-    [flurryDict setValue:desc forKey:@"desc"];
+//    NSMutableDictionary* flurryDict = [NSMutableDictionary dictionary];
+//    [flurryDict setValue:action forKey:@"action"];
+//    [flurryDict setValue:desc forKey:@"desc"];
     //    [Flurry logEvent:eventName withParameters:flurryDict];
 
     [self saveCurrentEventTime];

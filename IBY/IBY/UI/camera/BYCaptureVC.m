@@ -210,9 +210,12 @@
         [_showGuide addSubview:showGuideLabel];
         showGuideLabel.textColor = BYColorWhite;
         showGuideLabel.text = @"新手引导";
+        showGuideLabel.font = Font(12);
+        showGuideLabel.textAlignment = NSTextAlignmentCenter;
         showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
         [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
         [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
+        showGuideLabel.centerX = _showGuide.left + showGuideImageView.width + (_showGuide.width - showGuideImageView.width)/2;
         _showGuide.right = _switchBtn.left - 3 * SCREEN_PIXELUNIT;
         _showGuide.centerY = _switchBtn.centerY;
         [_showGuide addTarget:self action:@selector(showGuideView) forControlEvents:UIControlEventTouchUpInside];
