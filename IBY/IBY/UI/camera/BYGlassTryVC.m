@@ -13,6 +13,8 @@
 #import "BYImageView.h"
 #import "BYCaptureController.h"
 #import "UIImage+Resize.h"
+#import "BYCustomButton.h"
+
 @interface BYGlassTryVC ()
 
 @property (nonatomic , strong) BYFaceDataUnit * faceData;
@@ -103,30 +105,16 @@
     [dismissBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:dismissBtn];
     
-
-//    UIButton* detailBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, 80, 20) icon:@"icon_glasses_info" iconEdge:UIEdgeInsetsMake(0, 0, 0, 60) bgIcon:nil title:@"镜框尺寸"];
-//    detailBtn.centerY = dismissBtn.centerY;
-//    detailBtn.titleLabel.font = Font(12);
-//    detailBtn.titleLabel.textColor = HEXCOLOR(0xffffff);
-//    detailBtn.right = SCREEN_WIDTH - 12;
-//    [detailBtn addTarget:self action:@selector(showGlassesDetail) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:detailBtn];
     
-    UIButton* detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    detailBtn.frame = CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
-    UIImageView*showGuideImageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_PIXELUNIT*1.5, SCREEN_PIXELUNIT*2, 4*SCREEN_PIXELUNIT, 4*SCREEN_PIXELUNIT)];
-    [detailBtn addSubview:showGuideImageView];
-    showGuideImageView.image = [UIImage imageNamed:@"icon_guide_info"];
-    UILabel*showGuideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 6*SCREEN_PIXELUNIT)];
-    [detailBtn addSubview:showGuideLabel];
-    showGuideLabel.textColor = BYColorWhite;
-    showGuideLabel.text = @"镜框尺寸";
-    showGuideLabel.adjustsFontSizeToFitWidth = YES;
-    showGuideLabel.textAlignment = NSTextAlignmentCenter;
-    showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
-    showGuideLabel.centerX = detailBtn.left + showGuideImageView.width + (detailBtn.width - showGuideImageView.width)/2;
-    [detailBtn setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
-    [detailBtn setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
+    
+    BYCustomButton *detailBtn = [BYCustomButton btnWithFrame:CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT)
+                                         icon:@"icon_guide_info"
+                                        title:@"镜框尺寸"
+                                    titleFont:Font(14)
+                                   titleColor:BYColorWhite];
+    [detailBtn setNormalBg:@"camera_reshoot_btn"];
+    [detailBtn setHighlightBg:@"camera_reshoot_btn"];
+    
     detailBtn.right = SCREEN_WIDTH - 2 * SCREEN_PIXELUNIT;
     detailBtn.centerY = dismissBtn.centerY;
     [detailBtn addTarget:self action:@selector(showGlassesDetail) forControlEvents:UIControlEventTouchUpInside];
@@ -235,19 +223,14 @@
     if (!_activeGlasses) {
         return;
     }
-//    [iConsole log:@"reload glass"];
     __weak BYGlassTryVC *weakself = self;
     [_glassImgView setImageWithUrl:_activeGlasses.glassesUnit.imgURL placeholderName:nil finish:^(UIImage* image){
         [weakself resizeGlassesImg:image];
     }];
-//    UIImage * img = [UIImage imageNamed:@"test_800"];//测试眼镜图片
-//    _glassImgView.image = img;
-//    [self resizeGlassesImg:img];
     
 }
 - (void)resizeGlassesImg:(UIImage*)image
 {
-//    [iConsole log:@"resize glass"];
     if (image && image.size.width>0 ) {
         int width=0;
         width = (_faceData.facePixels / _faceData.distance * (_activeGlasses.glassesUnit.faceWidth) * 40 / 37.0);//边框大小修正
@@ -258,7 +241,6 @@
         _glassImgView.centerX = _faceData.lEye.x/2 + _faceData.rEye.x/2 + (_faceData.rEye.y - _faceData.lEye.y) * deflection;
         float rotation = (_faceData.rEye.y-_faceData.lEye.y)/(float)(_faceData.rEye.x-_faceData.lEye.x);
         _glassImgView.transform = CGAffineTransformMakeRotation(rotation);
-//        [iConsole log:@"resize glass finish"];
     }else{
         [MBProgressHUD topShowTmpMessage:@"网络连接异常，请调整后重试"];
     }
