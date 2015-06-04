@@ -11,7 +11,7 @@
 
 @interface BYGlassLocateDistVC : BYBaseVC
 
-
 - (id)initWithData:(BYFaceDataUnit*)faceData backGroundImg:(UIImage*)backImg;
 
 @end
+

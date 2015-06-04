@@ -27,8 +27,6 @@
 
 @property (nonatomic , strong) BYGlassesAnimateView * guideView;
 
-@property (nonatomic , assign) UIPanGestureRecognizer * currentRecognizer;
-
 @end
 
 @implementation BYGlassLocateDistVC
@@ -60,20 +58,11 @@
     _imageView.center = self.view.center;
     [self.view addSubview:_imageView];
     
-    
-    
-    
-    
     _leftEyeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42*2, 42*2)];
     UIImageView * leye = [[UIImageView alloc]initWithFrame:CGRectMake(21, 21, 42, 42)];
     leye.image = [UIImage imageNamed:@"camera_locateEye"];
     [_leftEyeView addSubview:leye];
     _leftEyeView.center = _faceData.lEye;
-    _leftEyeView.userInteractionEnabled = YES;
-    UIPanGestureRecognizer* panGestureRecognizer1 = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handleAction:)];
-    [_leftEyeView addGestureRecognizer:panGestureRecognizer1];
-    panGestureRecognizer1.minimumNumberOfTouches = 1;
-    panGestureRecognizer1.maximumNumberOfTouches = 1;
     [self.view addSubview:_leftEyeView];
     
     _rightEyeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42*2, 42*2)];
@@ -81,11 +70,6 @@
     reye.image = [UIImage imageNamed:@"camera_locateEye"];
     _rightEyeView.center = _faceData.rEye;
     [_rightEyeView addSubview:reye];
-    UIPanGestureRecognizer* panGestureRecognizer2 = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handleAction:)];
-    [_rightEyeView addGestureRecognizer:panGestureRecognizer2];
-    panGestureRecognizer2.minimumNumberOfTouches = 1;
-    panGestureRecognizer2.maximumNumberOfTouches = 1;
-    _rightEyeView.userInteractionEnabled = YES;
     [self.view addSubview:_rightEyeView];
     
     UIButton* dismissBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
@@ -123,16 +107,90 @@
     
 }
 
-- (void)handleAction:(UIPanGestureRecognizer*) recognizer{
-    
-    if (_currentRecognizer != recognizer && _currentRecognizer) {
+- (void)dismiss{
+    if (![self.navigationController popViewControllerAnimated:YES]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
+}
+
+#pragma mark - touch
+
+static CGFloat touchPreX = 0.0;
+static CGFloat touchPreY = 0.0;
+static CGFloat touchDelX = 0.0;
+static CGFloat touchDelY = 0.0;
+static __weak UIView *touchPreView = nil;
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (touches.count > 1) {//多指不处理
         return;
     }
-    _currentRecognizer = recognizer;
+    
+    UITouch *touch = touches.anyObject;
+    CGPoint p  = [touch locationInView:self.view];
+    
+    touchPreView = nil;
+    touchPreX = p.x;
+    touchPreY = p.y;
+    touchDelX = 0.0;
+    touchDelY = 0.0;
+    
+    if (CGRectContainsPoint(_leftEyeView.frame, p)) {
+        touchPreView = _leftEyeView;
+        [self onRecognizeView:_leftEyeView point:p];
+    }
+    
+    if (CGRectContainsPoint(_rightEyeView.frame, p)) {
+        touchPreView = _rightEyeView;
+        [self onRecognizeView:_rightEyeView point:p];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (touches.count > 1) {//多指不处理
+        return;
+    }
+    
+    if (!touchPreView) {
+        return;
+    }
+    
+    UITouch *touch = touches.anyObject;
+    CGPoint p  = [touch locationInView:self.view];
+    
+    touchDelX = p.x - touchPreX;
+    touchDelY = p.y - touchPreY;
+    touchPreX = p.x;
+    touchPreY = p.y;
+    
+    [self onRecognizeView:touchPreView point:p];
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (touches.count > 1) {//多指不处理
+        return;
+    }
+    
+    if (!touchPreView) {
+        return;
+    }
+    
+    if (touches.count == 1) {
+        [UIView animateWithDuration:1 animations:^{
+            _magnifier.alpha = 0;
+        } completion:^(BOOL finish){
+            
+        }];
+    }
+}
+
+- (void)onRecognizeView:(UIView*)view point:(CGPoint)p{
     _magnifier.alpha = 1;
-    CGPoint translation = [recognizer translationInView:self.view];
-    float locationX = recognizer.view.center.x + translation.x;
-    float locationY = recognizer.view.center.y + translation.y;
+    
+    float locationX = view.center.x + touchDelX;
+    float locationY = view.center.y + touchDelY;
+    
     int dis = (SCREEN_WIDTH/16);//预留1/16宽度
     if (locationX<dis) {
         locationX = dis;
@@ -144,31 +202,16 @@
     }else if (locationY>(SCREEN_HEIGHT-dis)){
         locationY = SCREEN_HEIGHT - dis;
     }
-    recognizer.view.center = CGPointMake(locationX,locationY);
-    _magnifier.location = recognizer.view.center;
-    recognizer.view.center = CGPointMake(locationX,locationY);
-    [recognizer setTranslation:CGPointZero inView:self.view];
-    if (recognizer.view == _leftEyeView) {
-        _faceData.lEye = recognizer.view.center;
+    view.center = CGPointMake(locationX,locationY);
+    _magnifier.location = view.center;
+    if (view == _leftEyeView) {
+        _faceData.lEye = view.center;
     }
-    if (recognizer.view == _rightEyeView) {
-        _faceData.rEye = recognizer.view.center;
-    }
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:1 animations:^{
-            _magnifier.alpha = 0;
-            _currentRecognizer = nil;
-        } completion:^(BOOL finish){
-            
-        }];
+    if (view == _rightEyeView) {
+        _faceData.rEye = view.center;
     }
 }
-
-- (void)dismiss{
-    if (![self.navigationController popViewControllerAnimated:YES]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    };
-}
-
 
 @end
+
+
