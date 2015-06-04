@@ -58,7 +58,7 @@
     [self.view addSubview:self.processImageView];
     
     //-----
-    UIImage* faceImage = [UIImage imageNamed:@"camera_faceframe_withoutcard"];
+    UIImage* faceImage = [UIImage imageNamed:@"bg_figure_frame_withoutcard"];
     
     float suitWidth = .9 * SCREEN_WIDTH;
     float suitheight = faceImage.size.height * (suitWidth / faceImage.size.width);

@@ -50,6 +50,8 @@
 
 @property (nonatomic, strong) UIImageView* guideImv;
 
+@property (nonatomic, strong) UIPageControl *pageControl;
+
 //对焦
 @property (nonatomic, strong) UIImageView *focusImageView;
 
@@ -59,6 +61,7 @@
 @property (nonatomic, strong) BYFaceDataUnit* dataUnit;
 
 @property (nonatomic, assign) enum DetectStatus status;
+
 
 @end
 
@@ -118,15 +121,15 @@
 
 
 - (void)step1{
-    _noticeLabel.text = @"请将卡片贴紧下巴，放在提示区域";
-    _faceFrameView.image = [UIImage imageNamed:@"camera_faceframe_withcard"];
+    _noticeLabel.text = @"提示：使用卡片会使试戴效果更佳。";
+    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withcard"];
     self.switchBtn.hidden = NO;
     self.showGuide.hidden = NO;
 }
 
 - (void)step2{
     _noticeLabel.text = @"请拿掉卡片再拍一张";
-    _faceFrameView.image = [UIImage imageNamed:@"camera_faceframe_withoutcard"];
+    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withoutcard"];
     self.switchBtn.hidden = YES;
     self.showGuide.hidden = YES;
     _status = DetectUnfinished;
@@ -134,7 +137,7 @@
 
 - (void)addFaceFrame{
     
-    UIImage* faceImage = [UIImage imageNamed:@"camera_faceframe_withcard"];
+    UIImage* faceImage = [UIImage imageNamed:@"bg_figure_frame_withcard"];
 
     float suitWidth = .9 * SCREEN_WIDTH;
     float suitheight = faceImage.size.height * (suitWidth / faceImage.size.width);
@@ -208,16 +211,20 @@
         showGuideImageView.image = [UIImage imageNamed:@"icon_guide_info"];
         UILabel*showGuideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 6*SCREEN_PIXELUNIT)];
         [_showGuide addSubview:showGuideLabel];
+        showGuideLabel.adjustsFontSizeToFitWidth = YES;
+        showGuideLabel.textAlignment = NSTextAlignmentCenter;
         showGuideLabel.textColor = BYColorWhite;
         showGuideLabel.text = @"新手引导";
         showGuideLabel.font = Font(12);
         showGuideLabel.textAlignment = NSTextAlignmentCenter;
         showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
+        showGuideLabel.centerX = _showGuide.left + showGuideImageView.width + (_showGuide.width - showGuideImageView.width)/2;
         [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
         [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
         showGuideLabel.centerX = _showGuide.left + showGuideImageView.width + (_showGuide.width - showGuideImageView.width)/2;
         _showGuide.right = _switchBtn.left - 3 * SCREEN_PIXELUNIT;
         _showGuide.centerY = _switchBtn.centerY;
+        
         [_showGuide addTarget:self action:@selector(showGuideView) forControlEvents:UIControlEventTouchUpInside];
         [tView addSubview:_showGuide];
         
@@ -266,6 +273,7 @@
 {
     _guideView = [[UIView alloc]initWithFrame:self.view.frame];
     UIScrollView * guideScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+    guideScroll.delegate = self;
     NSArray * imageArray = [NSArray arrayWithObjects:@"tutorial01",@"tutorial02",@"tutorial03",@"tutorial04",@"tutorial05", nil];
     for (int i = 0 ; i<imageArray.count; i++) {
         UIImageView*imv =[[UIImageView alloc]init];
@@ -280,10 +288,10 @@
             UIButton * useRightNow = [UIButton buttonWithType:UIButtonTypeCustom];
             [useRightNow addTarget:self action:@selector(closeGuideView) forControlEvents:UIControlEventTouchUpInside];
             
-            useRightNow.size = CGSizeMake(imv.size.width * 2 / 9, imv.size.height /10);
+            useRightNow.size = CGSizeMake(imv.size.width * 2 / 9, imv.size.height /7);
             useRightNow.bottom = imv.bottom;
             useRightNow.centerX = imv.centerX;
-            [guideScroll addSubview:useRightNow];
+            [guideScroll addSubview:useRightNow];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         }
     }
     
@@ -328,7 +336,13 @@
     }else{
         _guideView.alpha = 0;
     }
-    
+    _pageControl = [[UIPageControl alloc]initWithFrame:BYRectMake(0, 0, 300, 30)];
+    _pageControl.bottom = guideScroll.bottom + (SCREEN_HEIGHT - 20 - 44 - guideScroll.bottom) /2;
+    _pageControl.centerX = SCREEN_WIDTH / 2;
+    _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0x523669);
+    _pageControl.pageIndicatorTintColor = HEXCOLOR(0xb0a4b9);
+    _pageControl.numberOfPages = imageArray.count;
+    [_guideView addSubview:_pageControl];
 }
 
 -(void)closeGuideView
@@ -370,6 +384,12 @@
         [_guideImv removeFromSuperview];
         
     }];
+}
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView
+{
+    CGFloat pageWidth = SCREEN_WIDTH;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    _pageControl.currentPage = page;
 }
 #pragma mark actions
 //拍照页面，拍照按钮
