@@ -121,7 +121,10 @@
     [detailBtn addSubview:showGuideLabel];
     showGuideLabel.textColor = BYColorWhite;
     showGuideLabel.text = @"镜框尺寸";
+    showGuideLabel.font = Font(12);
+    showGuideLabel.textAlignment = NSTextAlignmentCenter;
     showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
+    showGuideLabel.centerX = detailBtn.left + showGuideImageView.width + (detailBtn.width - showGuideImageView.width)/2;
     [detailBtn setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
     [detailBtn setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
     detailBtn.right = SCREEN_WIDTH - 2 * SCREEN_PIXELUNIT;
@@ -186,6 +189,7 @@
 }
 
 - (void)handleAction:(UIPanGestureRecognizer*) recognizer{
+    
     CGPoint translation = [recognizer translationInView:self.view];
     recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
                                          recognizer.view.center.y + translation.y);

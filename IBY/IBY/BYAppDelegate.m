@@ -45,6 +45,8 @@
     [[BYAppCenter sharedAppCenter] setupConfiguration];
     [[BYAppCenter sharedAppCenter] doUpgradeIfNeeded];
 
+    [BYAnalysis logEvent:@"App通用事件" action:@"启动" desc:nil];
+    
     [self registerShareSdk];
     [WXApi registerApp:@"wxa0286879d34677b0"];
 
@@ -133,6 +135,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication*)application
 {
+    [BYAnalysis logEvent:@"App通用事件" action:@"进入后台" desc:nil];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -146,6 +149,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication*)application
 {
+    [BYAnalysis logEvent:@"App通用事件" action:@"进入前台" desc:nil];
+    
     [[BYAppCenter sharedAppCenter] checkVersionInfo];
     //可以手动设置cookies
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];

@@ -168,6 +168,9 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
+    [BYAnalysis logEvent:@"App通用事件" action:@"url跳转" desc:nil];
+    
     NSString *preUrlString = nil;
     NSString* requestString = [request.URL absoluteString];
     NSArray *urlPiece = [requestString componentsSeparatedByString:@"?"];
