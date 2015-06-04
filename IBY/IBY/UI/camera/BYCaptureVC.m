@@ -329,7 +329,7 @@
     _pageControl.bottom = guideScroll.bottom + (SCREEN_HEIGHT - guideScroll.bottom) /2;
     _pageControl.centerX = SCREEN_WIDTH / 2;
     _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0xffffff);
-    _pageControl.pageIndicatorTintColor = HEXCOLOR(0xaaaaaa);
+    _pageControl.pageIndicatorTintColor = HEXCOLOR(0x666666);
     _pageControl.numberOfPages = imageArray.count;
     [_guideView addSubview:_pageControl];
 }

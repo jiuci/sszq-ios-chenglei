@@ -37,7 +37,6 @@
 - (void)loadRequestWithURL:(NSURL*)url
 {
     self.url = url;
-    NSLog(@"%@",url);
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 

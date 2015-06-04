@@ -157,7 +157,7 @@
 
     }
     
-    [self buildCreateNewFaceWithLeft:.0];
+    [self buildCreateNewFaceWithLeft:9.0];
     _contentView.contentSize = CGSizeMake((_suitWidthForPic + 6 + 18) * (_dataArray.count + 1), _suitHeight );
     
     _contentView.contentOffset = CGPointMake(_orginContentPointX, 0);//恢复位标
