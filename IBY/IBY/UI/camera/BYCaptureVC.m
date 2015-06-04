@@ -326,10 +326,10 @@
         _guideView.alpha = 0;
     }
     _pageControl = [[UIPageControl alloc]initWithFrame:BYRectMake(0, 0, 300, 30)];
-    _pageControl.centerY = guideScroll.bottom + (SCREEN_HEIGHT - guideScroll.bottom) /2;
+    _pageControl.bottom = guideScroll.bottom + (SCREEN_HEIGHT - guideScroll.bottom) /2;
     _pageControl.centerX = SCREEN_WIDTH / 2;
     _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0xffffff);
-    _pageControl.pageIndicatorTintColor = HEXCOLOR(0xeeeeee);
+    _pageControl.pageIndicatorTintColor = HEXCOLOR(0xaaaaaa);
     _pageControl.numberOfPages = imageArray.count;
     [_guideView addSubview:_pageControl];
 }
