@@ -15,8 +15,7 @@
 #import "BYFaceDataUnit.h"
 
 #import "UIImage+Resize.h"
-
-
+#import "BYCustomButton.h"
 
 #import "BYCaptureController.h"
 //对焦
@@ -56,7 +55,7 @@
 @property (nonatomic, strong) UIImageView *focusImageView;
 
 @property (nonatomic, strong)  UIButton* switchBtn;
-@property (nonatomic, strong)  UIButton* showGuide;
+@property (nonatomic, strong)  BYCustomButton* showGuide;
 //数据
 @property (nonatomic, strong) BYFaceDataUnit* dataUnit;
 
@@ -204,24 +203,14 @@
         [dismissBtn addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
         [tView addSubview:dismissBtn];
         
-        _showGuide = [UIButton buttonWithType:UIButtonTypeCustom];
-        _showGuide.frame = CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
-        UIImageView*showGuideImageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_PIXELUNIT*1.5, SCREEN_PIXELUNIT*2, 4*SCREEN_PIXELUNIT, 4*SCREEN_PIXELUNIT)];
-        [_showGuide addSubview:showGuideImageView];
-        showGuideImageView.image = [UIImage imageNamed:@"icon_guide_info"];
-        UILabel*showGuideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 6*SCREEN_PIXELUNIT)];
-        [_showGuide addSubview:showGuideLabel];
-        showGuideLabel.adjustsFontSizeToFitWidth = YES;
-        showGuideLabel.textAlignment = NSTextAlignmentCenter;
-        showGuideLabel.textColor = BYColorWhite;
-        showGuideLabel.text = @"新手引导";
-        showGuideLabel.font = Font(12);
-        showGuideLabel.textAlignment = NSTextAlignmentCenter;
-        showGuideLabel.frame = CGRectMake(SCREEN_PIXELUNIT*6.5, 0,(23-7-1)*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT);
-        showGuideLabel.centerX = _showGuide.left + showGuideImageView.width + (_showGuide.width - showGuideImageView.width)/2;
-        [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateNormal];
-        [_showGuide setBackgroundImage:[[UIImage imageNamed:@"camera_reshoot_btn"] resizableImage] forState:UIControlStateHighlighted];
-        showGuideLabel.centerX = _showGuide.left + showGuideImageView.width + (_showGuide.width - showGuideImageView.width)/2;
+        _showGuide = [BYCustomButton btnWithFrame:CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT)
+                                icon:@"icon_guide_info"
+                               title:@"新手引导"
+                           titleFont:Font(14)
+                          titleColor:BYColorWhite];
+        [_showGuide setNormalBg:@"camera_reshoot_btn"];
+        [_showGuide setHighlightBg:@"camera_reshoot_btn"];
+        
         _showGuide.right = _switchBtn.left - 3 * SCREEN_PIXELUNIT;
         _showGuide.centerY = _switchBtn.centerY;
         
