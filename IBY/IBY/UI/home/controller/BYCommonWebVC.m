@@ -139,12 +139,12 @@
             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"警告" message:@"正在测试环境下运行" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
             [alert show];
             return nil;
-            NSLog(@"%@",serverAddress);
+//            NSLog(@"%@",serverAddress);
         }
         if (![whiteList containsObject:serverAddress]) {//解析地址不在白名单中，给予警告
             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"警告" message:@"检测到你即将访问的地址并非必要官方网站，建议检查您网络提供者的DNS设置" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
             [alert show];
-            NSLog(@"%@",serverAddress);
+//            NSLog(@"%@",serverAddress);
         }
     }
     return nil;
@@ -153,7 +153,7 @@
     host = CFHostCreateWithName(kCFAllocatorDefault, hostName);
     success = CFHostStartInfoResolution(host, kCFHostReachability, &error);
     if (!success) {
-        NSLog(@"CFHostStartInfoResolution 返回错误 (%ld, %d)", error.domain, (int)error.error);
+//        NSLog(@"CFHostStartInfoResolution 返回错误 (%ld, %d)", error.domain, (int)error.error);
         //暂不知到这里会在什么情况下发生
     }else {
         ReachableData = CFHostGetReachability(host, nil);

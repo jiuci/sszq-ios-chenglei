@@ -134,7 +134,6 @@
     CGPoint offset = scrollView.contentOffset;
     CGRect bounds = scrollView.frame;
     [_pageControl setCurrentPage:offset.x / bounds.size.width];
-    //    NSLog(@"%f",offset.x / bounds.size.width);
 
     if (!_autoScrollEnable) {
         return;
