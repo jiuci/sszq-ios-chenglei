@@ -94,7 +94,7 @@
     [self.view addSubview:_contentView];
     
     _pageControl = [[UIPageControl alloc]initWithFrame:BYRectMake(0, 0, 300, 30)];
-    _pageControl.bottom = _contentView.bottom + (SCREEN_HEIGHT - 20 - 44 - _contentView.bottom) /2;
+    _pageControl.bottom = _contentView.bottom + (SCREEN_HEIGHT - _contentView.bottom) /2;
     _pageControl.centerX = SCREEN_WIDTH / 2;
     _pageControl.currentPageIndicatorTintColor = HEXCOLOR(0x523669);
     _pageControl.pageIndicatorTintColor = HEXCOLOR(0xb0a4b9);
