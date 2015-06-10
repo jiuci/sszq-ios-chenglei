@@ -81,8 +81,6 @@
     }
     
     
-    
-    
     CGSize fitSize;
     float width = self.width - 6;
     float height = self.height - 6;
@@ -96,14 +94,10 @@
     _imageView.center = CGPointMake(self.width / 2, self.height / 2);
     [self addSubview:_imageView];
     
-    
     UIButton * tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
     tipButton.frame = self.bounds;
     [tipButton addTarget:self action:@selector(didTipInView) forControlEvents:UIControlEventTouchUpInside];
-    
     [self addSubview:tipButton];
-    
-    
     
     _deleteBtnView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     _deleteBtnView.right = _imageView.right - 6;

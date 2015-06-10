@@ -186,6 +186,7 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
+    NSLog(@"___________");
     NSString* token = [NSString stringWithFormat:@"%@", deviceToken];
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"com.biyao.push.token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
