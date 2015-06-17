@@ -51,13 +51,11 @@
     };
 
     self.pwdTextField.bk_shouldBeginEditingBlock = ^(UITextField* textField) {
-        //        self.bodyView
         [self.bodyView TPKeyboardAvoiding_scrollToActiveTextField];
         return YES;
     };
 
     self.userTextField.bk_shouldBeginEditingBlock = ^(UITextField* textField) {
-//        self.bodyView
         [self.bodyView TPKeyboardAvoiding_scrollToActiveTextField];
         return YES;
     };

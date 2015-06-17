@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BYBaseModel : NSObject
+@interface BYBaseEngine : NSObject
 
 @end

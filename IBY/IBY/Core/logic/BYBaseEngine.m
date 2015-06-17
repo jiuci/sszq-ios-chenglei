@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 com.biyao. All rights reserved.
 //
 
-#import "BYBaseModel.h"
+#import "BYBaseEngine.h"
 
-@implementation BYBaseModel
+@implementation BYBaseEngine
 
 @end
