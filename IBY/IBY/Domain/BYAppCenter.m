@@ -221,6 +221,10 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
     }
     token = [token stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if (!token) {
+        return;
+    }
    
     [_appService uploadToken:token finished:^(BOOL success, BYError* error) {
         if (success) {

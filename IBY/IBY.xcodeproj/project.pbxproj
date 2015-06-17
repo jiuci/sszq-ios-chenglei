@@ -46,6 +46,11 @@
 		F4159D7A19F241DC00126BDF /* BYSQLiteSample.m in Sources */ = {isa = PBXBuildFile; fileRef = F4159D7919F241DC00126BDF /* BYSQLiteSample.m */; };
 		F4159D7D19F247D300126BDF /* appinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4159D7C19F247D300126BDF /* appinfo.plist */; };
 		F415EFD91AFB3B04001F840A /* BYFaceDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = F415EFD81AFB3B04001F840A /* BYFaceDataUnit.m */; };
+		F41664EB1B2A8E8A00D91CA8 /* haarcascade_eye.xml in Resources */ = {isa = PBXBuildFile; fileRef = F41664E61B2A8E8A00D91CA8 /* haarcascade_eye.xml */; };
+		F41664EC1B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml in Resources */ = {isa = PBXBuildFile; fileRef = F41664E71B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml */; };
+		F41664ED1B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml in Resources */ = {isa = PBXBuildFile; fileRef = F41664E81B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml */; };
+		F41664EE1B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml in Resources */ = {isa = PBXBuildFile; fileRef = F41664E91B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml */; };
+		F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */ = {isa = PBXBuildFile; fileRef = F41664EA1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml */; };
 		F417A6E41A304B7200F7CF66 /* BYTools.m in Sources */ = {isa = PBXBuildFile; fileRef = F417A6E31A304B7200F7CF66 /* BYTools.m */; };
 		F41A801519C6C07B0002AEEE /* BYImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A801419C6C07B0002AEEE /* BYImageView.m */; };
 		F41A801919C6F1460002AEEE /* BYBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A801819C6F1460002AEEE /* BYBaseCell.m */; };
@@ -206,32 +211,6 @@
 		F4D1346F1AF8581800B7164D /* BYGlassService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1346E1AF8581800B7164D /* BYGlassService.m */; };
 		F4D134841AF85C3100B7164D /* RtBioRuler.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4D1347E1AF85C3100B7164D /* RtBioRuler.mm */; };
 		F4D134851AF85C3100B7164D /* RtHist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D134801AF85C3100B7164D /* RtHist.cpp */; };
-		F4D134DF1AF89BB600B7164D /* haarcascade_eye.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134AB1AF89BB600B7164D /* haarcascade_eye.xml */; };
-		F4D134E01AF89BB600B7164D /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134AC1AF89BB600B7164D /* haarcascade_eye_tree_eyeglasses.xml */; };
-		F4D134E11AF89BB600B7164D /* haarcascade_frontalface_alt.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134AD1AF89BB600B7164D /* haarcascade_frontalface_alt.xml */; };
-		F4D134E21AF89BB600B7164D /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134AE1AF89BB600B7164D /* haarcascade_frontalface_alt2.xml */; };
-		F4D134E31AF89BB600B7164D /* haarcascade_frontalface_alt_tree.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134AF1AF89BB600B7164D /* haarcascade_frontalface_alt_tree.xml */; };
-		F4D134E41AF89BB600B7164D /* haarcascade_frontalface_default.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B01AF89BB600B7164D /* haarcascade_frontalface_default.xml */; };
-		F4D134E51AF89BB600B7164D /* haarcascade_fullbody.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B11AF89BB600B7164D /* haarcascade_fullbody.xml */; };
-		F4D134E61AF89BB600B7164D /* haarcascade_lefteye_2splits.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B21AF89BB600B7164D /* haarcascade_lefteye_2splits.xml */; };
-		F4D134E71AF89BB600B7164D /* haarcascade_lowerbody.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B31AF89BB600B7164D /* haarcascade_lowerbody.xml */; };
-		F4D134E81AF89BB600B7164D /* haarcascade_mcs_eyepair_big.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B41AF89BB600B7164D /* haarcascade_mcs_eyepair_big.xml */; };
-		F4D134E91AF89BB600B7164D /* haarcascade_mcs_eyepair_small.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B51AF89BB600B7164D /* haarcascade_mcs_eyepair_small.xml */; };
-		F4D134EA1AF89BB600B7164D /* haarcascade_mcs_leftear.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B61AF89BB600B7164D /* haarcascade_mcs_leftear.xml */; };
-		F4D134EB1AF89BB600B7164D /* haarcascade_mcs_lefteye.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B71AF89BB600B7164D /* haarcascade_mcs_lefteye.xml */; };
-		F4D134EC1AF89BB600B7164D /* haarcascade_mcs_mouth.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B81AF89BB600B7164D /* haarcascade_mcs_mouth.xml */; };
-		F4D134ED1AF89BB600B7164D /* haarcascade_mcs_nose.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134B91AF89BB600B7164D /* haarcascade_mcs_nose.xml */; };
-		F4D134EE1AF89BB600B7164D /* haarcascade_mcs_rightear.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134BA1AF89BB600B7164D /* haarcascade_mcs_rightear.xml */; };
-		F4D134EF1AF89BB600B7164D /* haarcascade_mcs_righteye.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134BB1AF89BB600B7164D /* haarcascade_mcs_righteye.xml */; };
-		F4D134F01AF89BB600B7164D /* haarcascade_mcs_upperbody.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134BC1AF89BB600B7164D /* haarcascade_mcs_upperbody.xml */; };
-		F4D134F11AF89BB600B7164D /* haarcascade_profileface.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134BD1AF89BB600B7164D /* haarcascade_profileface.xml */; };
-		F4D134F21AF89BB600B7164D /* haarcascade_righteye_2splits.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134BE1AF89BB600B7164D /* haarcascade_righteye_2splits.xml */; };
-		F4D134F31AF89BB600B7164D /* haarcascade_smile.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134BF1AF89BB600B7164D /* haarcascade_smile.xml */; };
-		F4D134F41AF89BB600B7164D /* haarcascade_upperbody.xml in Resources */ = {isa = PBXBuildFile; fileRef = F4D134C01AF89BB600B7164D /* haarcascade_upperbody.xml */; };
-		F4D134F51AF89BB600B7164D /* opencv_core2410.dll in Resources */ = {isa = PBXBuildFile; fileRef = F4D134C11AF89BB600B7164D /* opencv_core2410.dll */; };
-		F4D134F61AF89BB600B7164D /* opencv_highgui2410.dll in Resources */ = {isa = PBXBuildFile; fileRef = F4D134C21AF89BB600B7164D /* opencv_highgui2410.dll */; };
-		F4D134F71AF89BB600B7164D /* opencv_imgproc2410.dll in Resources */ = {isa = PBXBuildFile; fileRef = F4D134C31AF89BB600B7164D /* opencv_imgproc2410.dll */; };
-		F4D134F81AF89BB600B7164D /* opencv_objdetect2410.dll in Resources */ = {isa = PBXBuildFile; fileRef = F4D134C41AF89BB600B7164D /* opencv_objdetect2410.dll */; };
 		F4D7E1F71A639E5500D56EA0 /* NSDateExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E1F61A639E5500D56EA0 /* NSDateExtend.m */; };
 		F4D7E9C91A2860710003AB33 /* BYWebPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
@@ -369,6 +348,11 @@
 		F4159D7C19F247D300126BDF /* appinfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = appinfo.plist; sourceTree = "<group>"; };
 		F415EFD71AFB3B04001F840A /* BYFaceDataUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYFaceDataUnit.h; sourceTree = "<group>"; };
 		F415EFD81AFB3B04001F840A /* BYFaceDataUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYFaceDataUnit.m; sourceTree = "<group>"; };
+		F41664E61B2A8E8A00D91CA8 /* haarcascade_eye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_eye.xml; sourceTree = "<group>"; };
+		F41664E71B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_default.xml; sourceTree = "<group>"; };
+		F41664E81B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_lefteye.xml; sourceTree = "<group>"; };
+		F41664E91B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_nose.xml; sourceTree = "<group>"; };
+		F41664EA1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_righteye.xml; sourceTree = "<group>"; };
 		F417A6E21A304B7200F7CF66 /* BYTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYTools.h; sourceTree = SOURCE_ROOT; };
 		F417A6E31A304B7200F7CF66 /* BYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTools.m; sourceTree = SOURCE_ROOT; };
 		F41A801319C6C07B0002AEEE /* BYImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYImageView.h; sourceTree = "<group>"; };
@@ -682,32 +666,6 @@
 		F4D134821AF85C3100B7164D /* RtMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtMath.h; sourceTree = "<group>"; };
 		F4D134861AF88A8500B7164D /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		F4D134881AF88A9000B7164D /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		F4D134AB1AF89BB600B7164D /* haarcascade_eye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_eye.xml; sourceTree = "<group>"; };
-		F4D134AC1AF89BB600B7164D /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
-		F4D134AD1AF89BB600B7164D /* haarcascade_frontalface_alt.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt.xml; sourceTree = "<group>"; };
-		F4D134AE1AF89BB600B7164D /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt2.xml; sourceTree = "<group>"; };
-		F4D134AF1AF89BB600B7164D /* haarcascade_frontalface_alt_tree.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt_tree.xml; sourceTree = "<group>"; };
-		F4D134B01AF89BB600B7164D /* haarcascade_frontalface_default.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_default.xml; sourceTree = "<group>"; };
-		F4D134B11AF89BB600B7164D /* haarcascade_fullbody.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_fullbody.xml; sourceTree = "<group>"; };
-		F4D134B21AF89BB600B7164D /* haarcascade_lefteye_2splits.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_lefteye_2splits.xml; sourceTree = "<group>"; };
-		F4D134B31AF89BB600B7164D /* haarcascade_lowerbody.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_lowerbody.xml; sourceTree = "<group>"; };
-		F4D134B41AF89BB600B7164D /* haarcascade_mcs_eyepair_big.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_eyepair_big.xml; sourceTree = "<group>"; };
-		F4D134B51AF89BB600B7164D /* haarcascade_mcs_eyepair_small.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_eyepair_small.xml; sourceTree = "<group>"; };
-		F4D134B61AF89BB600B7164D /* haarcascade_mcs_leftear.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_leftear.xml; sourceTree = "<group>"; };
-		F4D134B71AF89BB600B7164D /* haarcascade_mcs_lefteye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_lefteye.xml; sourceTree = "<group>"; };
-		F4D134B81AF89BB600B7164D /* haarcascade_mcs_mouth.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_mouth.xml; sourceTree = "<group>"; };
-		F4D134B91AF89BB600B7164D /* haarcascade_mcs_nose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_nose.xml; sourceTree = "<group>"; };
-		F4D134BA1AF89BB600B7164D /* haarcascade_mcs_rightear.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_rightear.xml; sourceTree = "<group>"; };
-		F4D134BB1AF89BB600B7164D /* haarcascade_mcs_righteye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_righteye.xml; sourceTree = "<group>"; };
-		F4D134BC1AF89BB600B7164D /* haarcascade_mcs_upperbody.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_mcs_upperbody.xml; sourceTree = "<group>"; };
-		F4D134BD1AF89BB600B7164D /* haarcascade_profileface.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_profileface.xml; sourceTree = "<group>"; };
-		F4D134BE1AF89BB600B7164D /* haarcascade_righteye_2splits.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_righteye_2splits.xml; sourceTree = "<group>"; };
-		F4D134BF1AF89BB600B7164D /* haarcascade_smile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_smile.xml; sourceTree = "<group>"; };
-		F4D134C01AF89BB600B7164D /* haarcascade_upperbody.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_upperbody.xml; sourceTree = "<group>"; };
-		F4D134C11AF89BB600B7164D /* opencv_core2410.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = opencv_core2410.dll; sourceTree = "<group>"; };
-		F4D134C21AF89BB600B7164D /* opencv_highgui2410.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = opencv_highgui2410.dll; sourceTree = "<group>"; };
-		F4D134C31AF89BB600B7164D /* opencv_imgproc2410.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = opencv_imgproc2410.dll; sourceTree = "<group>"; };
-		F4D134C41AF89BB600B7164D /* opencv_objdetect2410.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = opencv_objdetect2410.dll; sourceTree = "<group>"; };
 		F4D7E1F51A639E5500D56EA0 /* NSDateExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDateExtend.h; sourceTree = "<group>"; };
 		F4D7E1F61A639E5500D56EA0 /* NSDateExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateExtend.m; sourceTree = "<group>"; };
 		F4D7E9C61A2860710003AB33 /* BYWebPayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYWebPayVC.h; path = pay/BYWebPayVC.h; sourceTree = "<group>"; };
@@ -1584,32 +1542,11 @@
 		F4D134AA1AF89BB600B7164D /* Release */ = {
 			isa = PBXGroup;
 			children = (
-				F4D134AB1AF89BB600B7164D /* haarcascade_eye.xml */,
-				F4D134AC1AF89BB600B7164D /* haarcascade_eye_tree_eyeglasses.xml */,
-				F4D134AD1AF89BB600B7164D /* haarcascade_frontalface_alt.xml */,
-				F4D134AE1AF89BB600B7164D /* haarcascade_frontalface_alt2.xml */,
-				F4D134AF1AF89BB600B7164D /* haarcascade_frontalface_alt_tree.xml */,
-				F4D134B01AF89BB600B7164D /* haarcascade_frontalface_default.xml */,
-				F4D134B11AF89BB600B7164D /* haarcascade_fullbody.xml */,
-				F4D134B21AF89BB600B7164D /* haarcascade_lefteye_2splits.xml */,
-				F4D134B31AF89BB600B7164D /* haarcascade_lowerbody.xml */,
-				F4D134B41AF89BB600B7164D /* haarcascade_mcs_eyepair_big.xml */,
-				F4D134B51AF89BB600B7164D /* haarcascade_mcs_eyepair_small.xml */,
-				F4D134B61AF89BB600B7164D /* haarcascade_mcs_leftear.xml */,
-				F4D134B71AF89BB600B7164D /* haarcascade_mcs_lefteye.xml */,
-				F4D134B81AF89BB600B7164D /* haarcascade_mcs_mouth.xml */,
-				F4D134B91AF89BB600B7164D /* haarcascade_mcs_nose.xml */,
-				F4D134BA1AF89BB600B7164D /* haarcascade_mcs_rightear.xml */,
-				F4D134BB1AF89BB600B7164D /* haarcascade_mcs_righteye.xml */,
-				F4D134BC1AF89BB600B7164D /* haarcascade_mcs_upperbody.xml */,
-				F4D134BD1AF89BB600B7164D /* haarcascade_profileface.xml */,
-				F4D134BE1AF89BB600B7164D /* haarcascade_righteye_2splits.xml */,
-				F4D134BF1AF89BB600B7164D /* haarcascade_smile.xml */,
-				F4D134C01AF89BB600B7164D /* haarcascade_upperbody.xml */,
-				F4D134C11AF89BB600B7164D /* opencv_core2410.dll */,
-				F4D134C21AF89BB600B7164D /* opencv_highgui2410.dll */,
-				F4D134C31AF89BB600B7164D /* opencv_imgproc2410.dll */,
-				F4D134C41AF89BB600B7164D /* opencv_objdetect2410.dll */,
+				F41664E61B2A8E8A00D91CA8 /* haarcascade_eye.xml */,
+				F41664E71B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml */,
+				F41664E81B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml */,
+				F41664E91B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml */,
+				F41664EA1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml */,
 			);
 			path = Release;
 			sourceTree = "<group>";
@@ -2157,59 +2094,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				F467E1CF1A7733C700A4F1B2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				F4D134E41AF89BB600B7164D /* haarcascade_frontalface_default.xml in Resources */,
-				F4D134EA1AF89BB600B7164D /* haarcascade_mcs_leftear.xml in Resources */,
 				F4E007581B0F07F800438FD5 /* BYRegist1VC.xib in Resources */,
-				F4D134EE1AF89BB600B7164D /* haarcascade_mcs_rightear.xml in Resources */,
 				F4E0075A1B0F07F800438FD5 /* BYRegist2VC.xib in Resources */,
 				F42618001A2C3BEB0076B273 /* BYPaySuccessVC.xib in Resources */,
+				F41664EC1B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml in Resources */,
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
 				F42618051A2C4CBD0076B273 /* BYPayFailVC.xib in Resources */,
 				F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */,
 				F4AE74881A26FA55005ED6A9 /* BYPayVC.xib in Resources */,
-				F4D134F31AF89BB600B7164D /* haarcascade_smile.xml in Resources */,
-				F4D134E91AF89BB600B7164D /* haarcascade_mcs_eyepair_small.xml in Resources */,
 				F43114031A2C20D600FCBE45 /* Images.xcassets in Resources */,
 				F4159D7D19F247D300126BDF /* appinfo.plist in Resources */,
+				F41664EB1B2A8E8A00D91CA8 /* haarcascade_eye.xml in Resources */,
 				F4C4156E1A6818FE00F121B3 /* read_me.txt in Resources */,
 				F4C9AAFE1A7626B900325A38 /* AlipaySDK.bundle in Resources */,
 				F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */,
 				F4C77D101A2DA6F1005EADA0 /* res.xcassets in Resources */,
-				F4D134F21AF89BB600B7164D /* haarcascade_righteye_2splits.xml in Resources */,
-				F4D134F11AF89BB600B7164D /* haarcascade_profileface.xml in Resources */,
-				F4D134E71AF89BB600B7164D /* haarcascade_lowerbody.xml in Resources */,
 				F4E0076B1B0F08E100438FD5 /* BYForgetPasswordVC.xib in Resources */,
+				F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */,
+				F41664EE1B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml in Resources */,
 				F48D0E5B1AE8AA110080DA22 /* BYAboutVC.xib in Resources */,
-				F4D134E61AF89BB600B7164D /* haarcascade_lefteye_2splits.xml in Resources */,
 				F48D728A1A89DBB000870F3F /* MJRefresh.bundle in Resources */,
-				F4D134E21AF89BB600B7164D /* haarcascade_frontalface_alt2.xml in Resources */,
 				F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */,
-				F4D134EF1AF89BB600B7164D /* haarcascade_mcs_righteye.xml in Resources */,
 				FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */,
 				F41B47A81A77841B00A59C84 /* WeiboSDK.bundle in Resources */,
-				F4D134E01AF89BB600B7164D /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
-				F4D134F61AF89BB600B7164D /* opencv_highgui2410.dll in Resources */,
-				F4D134EC1AF89BB600B7164D /* haarcascade_mcs_mouth.xml in Resources */,
 				F4E0074A1B0F075A00438FD5 /* BYLoginMenu.xib in Resources */,
-				F4D134E31AF89BB600B7164D /* haarcascade_frontalface_alt_tree.xml in Resources */,
-				F4D134F01AF89BB600B7164D /* haarcascade_mcs_upperbody.xml in Resources */,
 				F48D0E5D1AE8AA110080DA22 /* BYFeedbackVC.xib in Resources */,
 				F4ED1DE71AF9B7E900639322 /* BYPayUnknowVC.xib in Resources */,
-				F4D134F71AF89BB600B7164D /* opencv_imgproc2410.dll in Resources */,
-				F4D134E81AF89BB600B7164D /* haarcascade_mcs_eyepair_big.xml in Resources */,
-				F4D134F41AF89BB600B7164D /* haarcascade_upperbody.xml in Resources */,
+				F41664ED1B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml in Resources */,
 				F4C9AB041A7629D200325A38 /* WebViewJavascriptBridge.js.txt in Resources */,
-				F4D134E11AF89BB600B7164D /* haarcascade_frontalface_alt.xml in Resources */,
-				F4D134EB1AF89BB600B7164D /* haarcascade_mcs_lefteye.xml in Resources */,
-				F4D134F51AF89BB600B7164D /* opencv_core2410.dll in Resources */,
 				F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */,
 				F4E0075C1B0F07F800438FD5 /* BYRegist3VC.xib in Resources */,
-				F4D134DF1AF89BB600B7164D /* haarcascade_eye.xml in Resources */,
-				F4D134F81AF89BB600B7164D /* opencv_objdetect2410.dll in Resources */,
 				F4888A321A6D114A0056427E /* Readme in Resources */,
-				F4D134E51AF89BB600B7164D /* haarcascade_fullbody.xml in Resources */,
 				F4E0074C1B0F075A00438FD5 /* BYLoginVC.xib in Resources */,
-				F4D134ED1AF89BB600B7164D /* haarcascade_mcs_nose.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2589,7 +2505,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2709,7 +2625,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2744,7 +2660,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

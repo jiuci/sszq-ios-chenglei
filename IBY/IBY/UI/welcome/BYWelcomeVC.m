@@ -96,10 +96,6 @@
 //        [_contentView addSubview:desclabel];
 
         if (i == (_frontImglist.count - 1)) {
-//            CGRect r = CGRectMake(44 + SCREEN_WIDTH * i, SCREEN_HEIGHT - 80, SCREEN_WIDTH - 88, 34);
-//            UIButton* button = [UIButton buttonWithFrame:r title:@"立即体验" titleColor:BYColorWhite bgName:@"btn_welcome" handler:^(id sender) {
-//                
-//            }];
             CGRect r = CGRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 100, SCREEN_WIDTH, 100);
             UIButton* button = [[UIButton alloc] initWithFrame:r];
             button.backgroundColor = [UIColor clearColor];
