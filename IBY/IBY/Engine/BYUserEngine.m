@@ -40,7 +40,18 @@
     
     [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
-            finished(nil,nil);
+            BYUser *user = [[BYUser alloc] init];
+            user.userID = [data[@"userinfo"][@"customer_id"] intValue];
+            user.nickname = data[@"userinfo"][@"nickname"];
+            user.avatar = data[@"userinfo"][@"avater_url"];
+            user.gender = [data[@"userinfo"][@"gender"] intValue];
+            
+            if(user){
+                finished(user,nil);
+            }else{
+                BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.user.update", @"user serialized fail ", nil);
+                finished(nil,err);
+            }
         }else {
             finished(nil,error);
         }
