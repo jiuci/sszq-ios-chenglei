@@ -12,25 +12,11 @@
 #import "BYAppCenter.h"
 #import "BYUser.h"
 
+
 @interface BYNetwork ()
 @property (nonatomic, strong) NSMutableDictionary* managerDict;
 
 @end
-
-BYError* makeNetError()
-{
-    return [BYError errorWithDomain:@"com.biyao.network.fail" code:100 userInfo:nil];
-}
-
-BYError* makeError(NSError* e)
-{
-    return [BYError errorWithDomain:e.domain code:e.code userInfo:e.userInfo];
-}
-
-BYError* makeTransferNetError(NSDictionary* eDict)
-{
-    return [BYError errorWithDomain:@"com.biyao.network.wrongData" code:[eDict[@"code"] integerValue] userInfo:eDict];
-}
 
 NSString* makeFingerprint(NSString* baseUrl, NSString* suffixUrl, NSDictionary* params)
 {
@@ -170,14 +156,15 @@ NSString* baseUrlByMode(BYNetMode mode)
             
             finish(result,nil);
         }else {
-            BYError *error = makeNetError();
+            BYError *netErr = nil;
             if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"error"]) {
-                error = makeTransferNetError(responseObject[@"error"]);
+                netErr = makeTransferNetError(responseObject[@"error"]);
             }
+            BYError *error = makeNetDecodeError(netErr);
             finish(nil,error);
         }
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        finish(nil,makeError(error));
+        finish(nil,makeNetError(error));
     }];
 }
 
@@ -212,16 +199,16 @@ NSString* baseUrlByMode(BYNetMode mode)
                 });
             }
             finish(result,nil);
-            
         }else {
-            BYError *error = makeNetError();
+            BYError *netErr = nil;
             if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"error"]) {
-                error = makeTransferNetError(responseObject[@"error"]);
+                netErr = makeTransferNetError(responseObject[@"error"]);
             }
+            BYError *error = makeNetDecodeError(netErr);
             finish(nil,error);
         }
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        finish(nil,makeNetError());
+        finish(nil,makeNetError(error));
     }];
 }
 
@@ -237,10 +224,15 @@ NSString* baseUrlByMode(BYNetMode mode)
         if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"data"] && [responseObject[@"success"] intValue] == 1 ) {
             finish(responseObject[@"data"],nil);
         }else {
-            finish(nil,makeNetError());
+            BYError *netErr = nil;
+            if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"error"]) {
+                netErr = makeTransferNetError(responseObject[@"error"]);
+            }
+            BYError *error = makeNetDecodeError(netErr);
+            finish(nil,error);
         }
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        finish(nil,makeNetError());
+        finish(nil,makeNetError(error));
     }];
 }
 

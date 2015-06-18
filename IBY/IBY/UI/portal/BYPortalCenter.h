@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BYSingleton.h"
 
 typedef enum {
     BYPortalHome = 0,

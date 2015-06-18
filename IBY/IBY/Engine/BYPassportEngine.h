@@ -11,4 +11,8 @@
 //处理用户的登录、注册、找回密码、重置密码等passport操作
 @interface BYPassportEngine : BYBaseEngine
 
++ (void)loginByUser:(NSString*)user
+                pwd:(NSString*)pwd
+             finish:(void (^)(BYUser* user, BYError* error))finished;
+
 @end

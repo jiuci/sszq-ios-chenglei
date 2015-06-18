@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BYSingleton.h"
 
 @class BYError;
 
 typedef enum {
-
     BYNetModeDev = 0,
     BYNetModeTest = 1,
     BYNetModePreview = 2,
