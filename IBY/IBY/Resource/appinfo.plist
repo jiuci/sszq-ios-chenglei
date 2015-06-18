@@ -5,12 +5,12 @@
 	<key>appName</key>
 	<string>biyao</string>
 	<key>appVersion</key>
-	<string>2.0</string>
+	<string>2.1</string>
 	<key>channel</key>
 	<string>ios_biyao</string>
 	<key>platform</key>
 	<string>iOS</string>
 	<key>numVersion</key>
-	<integer>23</integer>
+	<integer>25</integer>
 </dict>
 </plist>

@@ -136,7 +136,7 @@
 {
     [_appService checkAppNeedUpdate:^(BYVersionInfo* versionInfo, BYError* error) {
         if (error) {
-            if (error.code == BYErrorTypeNotExist) {
+            if (error.code == BYNetErrorNotExist) {
                 [MBProgressHUD topShowTmpMessage:@"已经是最新版本了！"];
             }else{
                 [MBProgressHUD topShowTmpMessage:BYMSG_POOR_NETWORK];

@@ -8,7 +8,7 @@
 
 #import "BYLoginVC.h"
 
-#import "BYUserService.h"
+#import "BYLoginService.h"
 #import "BYRegist1VC.h"
 #import "BYForgetPasswordVC.h"
 
@@ -27,7 +27,7 @@
 @property (nonatomic, strong) BYLoginMenu* loginMenu;
 @property (nonatomic, strong) BYCaptchaView* captchaView;
 
-@property (nonatomic, strong) BYUserService* loginService;
+@property (nonatomic, strong) BYLoginService* loginService;
 
 @property (nonatomic, weak) UIScrollView* bodyView;
 @end
@@ -40,7 +40,7 @@
     [super viewDidLoad];
     _bodyView = (UIScrollView*)self.view;
 
-    _loginService = [[BYUserService alloc] init];
+    _loginService = [[BYLoginService alloc] init];
     [self setupUI];
 
     self.autoHideKeyboard = YES;
@@ -154,14 +154,13 @@
 
     [self.loginService loginByUser:self.userTextField.text pwd:self.pwdTextField.text finish:^(BYUser* user, BYError* error) {
         [MBProgressHUD topHide];
-        if (user && !error) {
+        if (user) {
             [MBProgressHUD showSuccess:@"登录成功!"];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 if (_successBlk) {
                     _successBlk();
                 }
             }];
-            
         }else {
             alertError(error);
             [self updateUI];

@@ -7,7 +7,6 @@
 //
 
 #import "BYMonitorService.h"
-#import "BYSingleton.h"
 #import "BYMonitorView.h"
 
 @interface BYMonitorService () <iConsoleDelegate>

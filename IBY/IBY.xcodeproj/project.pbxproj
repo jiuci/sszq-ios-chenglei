@@ -166,6 +166,7 @@
 		F496C3911B317E7B00E503D8 /* BYUserEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F496C3901B317E7B00E503D8 /* BYUserEngine.m */; };
 		F496C3941B317EB000E503D8 /* BYVerifyCodeEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F496C3931B317EB000E503D8 /* BYVerifyCodeEngine.m */; };
 		F496C3971B317EBF00E503D8 /* BYPassportEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F496C3961B317EBF00E503D8 /* BYPassportEngine.m */; };
+		F496C39A1B318C7E00E503D8 /* BYAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F496C3991B318C7E00E503D8 /* BYAppEngine.m */; };
 		F49F2C621A0784E400C68000 /* BYEditService.m in Sources */ = {isa = PBXBuildFile; fileRef = F49F2C611A0784E400C68000 /* BYEditService.m */; };
 		F4A251071A787B7A00127EB2 /* BYPayCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A251061A787B7A00127EB2 /* BYPayCenter.m */; };
 		F4A278501A48FE6300176292 /* BYAutosizeBgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A2784F1A48FE6300176292 /* BYAutosizeBgButton.m */; };
@@ -300,7 +301,6 @@
 		CC3D2E1519BFF8B1000E0E14 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		CC3D2E2F19C03101000E0E14 /* BYNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYNetwork.h; sourceTree = "<group>"; };
 		CC3D2E3019C03101000E0E14 /* BYNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYNetwork.m; sourceTree = "<group>"; };
-		CC3D2E3219C03110000E0E14 /* BYSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BYSingleton.h; sourceTree = "<group>"; };
 		CC6AD02219D014D5001FB4EA /* BYOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYOrder.h; sourceTree = "<group>"; };
 		CC6AD02319D014D5001FB4EA /* BYOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYOrder.m; sourceTree = "<group>"; };
 		CC6AD02F19D11684001FB4EA /* BYPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPrice.h; sourceTree = "<group>"; };
@@ -579,6 +579,8 @@
 		F496C3931B317EB000E503D8 /* BYVerifyCodeEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYVerifyCodeEngine.m; sourceTree = "<group>"; };
 		F496C3951B317EBF00E503D8 /* BYPassportEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPassportEngine.h; sourceTree = "<group>"; };
 		F496C3961B317EBF00E503D8 /* BYPassportEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPassportEngine.m; sourceTree = "<group>"; };
+		F496C3981B318C7E00E503D8 /* BYAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAppEngine.h; sourceTree = "<group>"; };
+		F496C3991B318C7E00E503D8 /* BYAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAppEngine.m; sourceTree = "<group>"; };
 		F49F2C601A0784E400C68000 /* BYEditService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYEditService.h; path = edit/BYEditService.h; sourceTree = "<group>"; };
 		F49F2C611A0784E400C68000 /* BYEditService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYEditService.m; path = edit/BYEditService.m; sourceTree = "<group>"; };
 		F4A251051A787B7A00127EB2 /* BYPayCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPayCenter.h; sourceTree = "<group>"; };
@@ -1360,6 +1362,8 @@
 				F496C3931B317EB000E503D8 /* BYVerifyCodeEngine.m */,
 				F496C3951B317EBF00E503D8 /* BYPassportEngine.h */,
 				F496C3961B317EBF00E503D8 /* BYPassportEngine.m */,
+				F496C3981B318C7E00E503D8 /* BYAppEngine.h */,
+				F496C3991B318C7E00E503D8 /* BYAppEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -1843,7 +1847,6 @@
 				F4C204C81A2C513A0057C129 /* BYCoreCategory.h */,
 				F41A801619C6CD5E0002AEEE /* BYMacro.h */,
 				F4C204C71A2C50670057C129 /* BYConstant.h */,
-				CC3D2E3219C03110000E0E14 /* BYSingleton.h */,
 				F401EEBC1A5C01A500AA6B04 /* BYProcessView.h */,
 				F401EEBD1A5C01A500AA6B04 /* BYProcessView.m */,
 			);
@@ -2238,6 +2241,7 @@
 				FEC829BD19AC948200D5D70D /* BYBaseService.m in Sources */,
 				CC3D2E1719BFF8B1000E0E14 /* MJIvar.m in Sources */,
 				F417A6E41A304B7200F7CF66 /* BYTools.m in Sources */,
+				F496C39A1B318C7E00E503D8 /* BYAppEngine.m in Sources */,
 				F48CF3F51A52D27500EE4EF4 /* BYOrderCreateInfo.m in Sources */,
 				CC957EA019C2FB45000700DE /* BYHomeVC.m in Sources */,
 				F489E42E19FF6665003C6567 /* BYCartGroup.m in Sources */,

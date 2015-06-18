@@ -47,6 +47,4 @@
     };
 }
 
-//@"model_image_url" : @"model_image_url",
-
 @end
