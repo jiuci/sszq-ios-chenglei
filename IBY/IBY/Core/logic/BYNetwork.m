@@ -141,6 +141,7 @@ NSString* baseUrlByMode(BYNetMode mode)
             return;
         }
     }
+    
     AFHTTPRequestOperationManager* curManager = [[BYNetwork sharedNetwork] currentNetManager];
     [[BYNetwork sharedNetwork] refreshHeader:curManager];
 

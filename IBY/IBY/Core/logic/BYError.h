@@ -19,7 +19,7 @@ typedef enum {
 
 //自定义的错误码
 typedef enum {
-    BYFuErrorCannotUnknow = 0,
+    BYFuErrorUnknow = 0,
     BYFuErrorInvalidParameter = 10000,//发送API请求之前，参数错误
     BYFuErrorCannotDecode = 100001,//解码失败
     BYFuErrorCannotSerialized = 100003,//序列化成对应的数据结构失败，有可能是某个字段不合法

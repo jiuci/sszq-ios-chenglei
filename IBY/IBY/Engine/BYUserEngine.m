@@ -22,7 +22,6 @@
             finished(YES,nil);
         }
     }];
-    
 }
 
 + (void)fetchUserLatestStatus:(void (^)(BYUser* user, BYError* error))finished
@@ -40,11 +39,7 @@
     
     [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
-            BYUser *user = [[BYUser alloc] init];
-            user.userID = [data[@"userinfo"][@"customer_id"] intValue];
-            user.nickname = data[@"userinfo"][@"nickname"];
-            user.avatar = data[@"userinfo"][@"avater_url"];
-            user.gender = [data[@"userinfo"][@"gender"] intValue];
+            BYUser *user = [BYUser userWithUpdateDict:data];
             
             if(user){
                 finished(user,nil);

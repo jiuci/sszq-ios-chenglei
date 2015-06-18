@@ -20,13 +20,8 @@
                               };
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
-            BYUser *user = [[BYUser alloc] init];
-            user.userID = [data[@"userid"] intValue];
-            user.nickname = data[@"userinfo"][@"nickname"];
-            user.avatar = data[@"userinfo"][@"avater_url"];
-            user.token = data[@"token"][@"token"];
-            user.phoneNum = data[@"userinfo"][@"mobile"];
-            user.gender = [data[@"userinfo"][@"gender"] intValue];
+            
+            BYUser *user = [BYUser userWithLoginDict:data];
             
             if(user.isValid){
                 finished(user,nil);
