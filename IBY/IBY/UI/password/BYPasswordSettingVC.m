@@ -38,8 +38,8 @@
 
     NSString* user = _passwordService.phone;
     NSString* pwd = self.firstPwdTextField.text;
-
-    [self.passwordService modifyPasswordWithPassword:pwd phoneNum:user oldPassword:nil needOldPassword:NO finish:^(NSDictionary* data, BYError* error) {
+    
+    [self.passwordService resetPassword:pwd finish:^(NSDictionary* data, BYError* error) {
             if(error){
                 [MBProgressHUD topShowTmpMessage:@"密码设置失败"];
             }else{

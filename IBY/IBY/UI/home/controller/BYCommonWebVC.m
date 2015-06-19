@@ -182,7 +182,7 @@
     }
 
     
-    BYLog(@"%@",preUrlString);
+    NSLog(@"%@",preUrlString);
     
     if (!preUrlString) {
         return NO;
@@ -216,6 +216,7 @@
     }
     
     
+    
     if (_loginCount < 3) {
         _loginCount++;
         [[BYAppCenter sharedAppCenter] updateUidAndToken];
@@ -223,19 +224,19 @@
     }
     
     if ([requestString rangeOfString:@"login"].length > 0){
-        //        __weak BYCommonWebVC * bself = self;   //本地化登录
-        //        BYLoginSuccessBlock blk = ^(){
-        //            NSLog(@"login success");
-        //            [bself dismissViewControllerAnimated:NO completion:nil];
-        //        };
-        //
-        //        BYNavVC * nav = makeLoginnav(blk);
-        //        [self presentViewController:nav animated:YES completion:nil];
-        //        return NO;
+        __weak BYCommonWebVC * bself = self;   //本地化登录
+        BYLoginSuccessBlock blk = ^(){
+                NSLog(@"login success");
+                [bself dismissViewControllerAnimated:NO completion:nil];
+        };
+        
+        BYNavVC * nav = makeLoginnav(blk);
+        [self presentViewController:nav animated:YES completion:nil];
+        return NO;
         _loginCount = 0;
         return YES;
     }
-    
+    NSLog(@"1234");
     self.showTabbar = willShowTabbar;
     
     if (!([requestString rangeOfString:@"/order/pay2"].length > 0) &&[requestString rangeOfString:@"/order/pay"].length > 0 ){

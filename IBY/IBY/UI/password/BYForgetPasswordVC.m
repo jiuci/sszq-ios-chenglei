@@ -15,6 +15,8 @@
 #import "BYRegistService.h"
 #import "BYCaptchaView.h"
 
+#import "BYForgetPasswordService.h"
+
 @interface BYForgetPasswordVC ()
 
 @property (weak, nonatomic) IBOutlet UITextField* phoneNumTextField;
@@ -48,8 +50,8 @@
 
 /**检查流程
  1，手机格式
- 2，手机是否已注册
- 3，验证码是否正确
+ 2，验证码是否正确
+ 3，手机是否已注册
  4，下一步
  */
 - (IBAction)onNextStep
@@ -59,29 +61,27 @@
         [MBProgressHUD showError:@"手机号格式错误"];
         return;
     }
-
-    [self.regitService checkIfRegisted:self.phoneNumTextField.text finish:^(BOOL result, BYError* error) {
-        if (error) {
-            [MBProgressHUD topShowTmpMessage:@"找回密码失败，休息几分钟，再试一次"];
-            return ;
-        }
+    [_captchaView valueCheckWithSuccessBlock:^{
         
-        if (!result) {
-            [MBProgressHUD topShowTmpMessage:@"手机号还未注册"];
-            return;
-        }
-        
-        [_captchaView valueCheckWithSuccessBlock:^{
-            
-            runOnMainQueue(^{
+        runOnMainQueue(^{
+            [self.regitService checkIfRegisted:self.phoneNumTextField.text finish:^(BOOL result, BYError* error) {
+                if (error) {
+                    [MBProgressHUD topShowTmpMessage:@"找回密码失败，休息几分钟，再试一次"];
+                    return ;
+                }
+                
+                if (!result) {
+                    [MBProgressHUD topShowTmpMessage:@"手机号还未注册"];
+                    return;
+                }
                 BYVerifySmsCodeVC *aimVC = [[BYVerifySmsCodeVC alloc]init];
                 aimVC.phone = self.phoneNumTextField.text;
                 [self.navigationController pushViewController:aimVC animated:YES];
-            });
-            
-        }];
-
+            }];
+        });
+        
     }];
+   
 }
 
 @end

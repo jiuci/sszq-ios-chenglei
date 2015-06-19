@@ -7,7 +7,7 @@
 //
 
 #import "BYCaptchaView.h"
-#import "BYPasswordService.h"
+#import "BYVerifyCodeService.h"
 #import "Base64Helper.h"
 
 @interface BYCaptchaView ()
@@ -16,7 +16,7 @@
 
 @implementation BYCaptchaView {
     __weak IBOutlet UITextField* captchaFileld;
-    BYPasswordService* _service;
+    BYVerifyCodeService* _service;
 }
 
 + (instancetype)captchaView
@@ -29,7 +29,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _service = [[BYPasswordService alloc] init];
+    _service = [[BYVerifyCodeService alloc] init];
 }
 
 - (IBAction)onRefreshCaptcha:(id)sender
