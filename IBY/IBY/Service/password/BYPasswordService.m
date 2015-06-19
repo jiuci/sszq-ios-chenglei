@@ -25,7 +25,7 @@
     }];
 }
 
-- (void)checkImageVerifyCode:(NSString*)code finish:(void (^)(NSDictionary* data, BYError* error))finished
+- (void)checksmsVerifyCode:(NSString*)code finish:(void (^)(NSDictionary* data, BYError* error))finished
 {
     NSString* url = @"vcode/validatevcode";
     NSDictionary* param = @{
@@ -71,15 +71,15 @@
     }];
 }
 
-- (void)modifyPasswordWithPassword:(NSString*)password phoneNum:(NSString*)phoneNum oldPassword:(NSString*)oldPassword needOldPassword:(BOOL)needOldWord finish:(void (^)(NSDictionary* data, BYError* error))finished
+- (void)resetPassword:(NSString*)password finish:(void (^)(NSDictionary* data, BYError* error))finished
 {
     NSString* url = @"user/customer/UpdatePassword";
 
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
-    [params safeSetValue:phoneNum forKey:@"username"];
-    [params safeSetValue:oldPassword forKey:@"OldPassword"];
+    [params safeSetValue:@"" forKey:@"username"];
+    [params safeSetValue:@"" forKey:@"OldPassword"];
     [params safeSetValue:password forKey:@"NewPassword"];
-    [params safeSetValue:@(needOldWord) forKey:@"needOldPasswd"];
+    [params safeSetValue:@(0) forKey:@"needOldPasswd"];
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){
             finished(nil,error);

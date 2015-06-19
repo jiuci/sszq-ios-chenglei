@@ -220,6 +220,8 @@
 		F4D7E9C91A2860710003AB33 /* BYWebPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
 		F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */; };
+		F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */; };
+		F4DEC34A1B33C307003B9730 /* BYVerifyCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3491B33C307003B9730 /* BYVerifyCodeService.m */; };
 		F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */; };
 		F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */; };
 		F4E007491B0F075A00438FD5 /* BYLoginMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007421B0F075A00438FD5 /* BYLoginMenu.m */; };
@@ -688,6 +690,10 @@
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
 		F4DD81E91B0B2ACD008D17BF /* BYGlassesMagnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGlassesMagnifier.h; sourceTree = "<group>"; };
 		F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYGlassesMagnifier.m; sourceTree = "<group>"; };
+		F4DEC3451B33C0F2003B9730 /* BYForgetPasswordService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYForgetPasswordService.h; path = password/BYForgetPasswordService.h; sourceTree = "<group>"; };
+		F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYForgetPasswordService.m; path = password/BYForgetPasswordService.m; sourceTree = "<group>"; };
+		F4DEC3481B33C307003B9730 /* BYVerifyCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYVerifyCodeService.h; path = login/BYVerifyCodeService.h; sourceTree = "<group>"; };
+		F4DEC3491B33C307003B9730 /* BYVerifyCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYVerifyCodeService.m; path = login/BYVerifyCodeService.m; sourceTree = "<group>"; };
 		F4E0073E1B0F075A00438FD5 /* BYCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYCaptchaView.h; sourceTree = "<group>"; };
 		F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYCaptchaView.m; sourceTree = "<group>"; };
 		F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYCaptchaView.xib; sourceTree = "<group>"; };
@@ -1233,6 +1239,10 @@
 			children = (
 				F4818CF51A02203C009475FD /* BYPasswordService.h */,
 				F4818CF61A02203C009475FD /* BYPasswordService.m */,
+				F4DEC3451B33C0F2003B9730 /* BYForgetPasswordService.h */,
+				F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */,
+				F4DEC3481B33C307003B9730 /* BYVerifyCodeService.h */,
+				F4DEC3491B33C307003B9730 /* BYVerifyCodeService.m */,
 			);
 			name = password;
 			sourceTree = "<group>";
@@ -2204,6 +2214,8 @@
 				F4E007491B0F075A00438FD5 /* BYLoginMenu.m in Sources */,
 				F4C77D131A2DA969005EADA0 /* UIImageExtend.m in Sources */,
 				F4E6B65C1AAFED3E0022EA66 /* BYAddBookUnit.m in Sources */,
+				F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */,
+				F4DEC34A1B33C307003B9730 /* BYVerifyCodeService.m in Sources */,
 				F4D1345E1AF857F400B7164D /* BYGlassPageVC.m in Sources */,
 				CC771F9119CAE06000E11BAE /* BYRegistService.m in Sources */,
 				F48D728E1A89DBB000870F3F /* MJRefreshHeaderView.m in Sources */,

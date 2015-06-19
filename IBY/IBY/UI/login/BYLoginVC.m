@@ -123,6 +123,7 @@
 
 - (void)onLogin
 {
+    
     [self.view endEditing:YES];
 
     if (self.userTextField.text.length < 1 || self.pwdTextField.text.length < 1) {

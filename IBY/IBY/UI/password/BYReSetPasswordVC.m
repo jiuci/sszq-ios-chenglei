@@ -45,7 +45,7 @@
         }
         else {
             BYPasswordService* pwdService = [[BYPasswordService alloc] init];
-            [pwdService modifyPasswordWithPassword:_newlyPwdTextField.text phoneNum:[BYAppCenter sharedAppCenter].user.phoneNum oldPassword:_oldPwdTextField.text needOldPassword:YES finish:^(NSDictionary* data, BYError* error) {
+            [pwdService resetPassword:_newlyPwdTextField.text finish:^(NSDictionary* data, BYError* error) {
                 if (!error &&data) {
                     [MBProgressHUD topShowTmpMessage:@"密码修改成功"];
                 }else{
