@@ -7,7 +7,7 @@
 //
 
 #import "BYCaptchaView.h"
-#import "BYVerifyCodeService.h"
+#import "BYCaptchaService.h"
 #import "Base64Helper.h"
 
 @interface BYCaptchaView ()
@@ -16,7 +16,7 @@
 
 @implementation BYCaptchaView {
     __weak IBOutlet UITextField* captchaFileld;
-    BYVerifyCodeService* _service;
+    BYCaptchaService* _service;
 }
 
 + (instancetype)captchaView
@@ -29,7 +29,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _service = [[BYVerifyCodeService alloc] init];
+    _service = [[BYCaptchaService alloc] init];
 }
 
 - (IBAction)onRefreshCaptcha:(id)sender
@@ -39,14 +39,13 @@
 
 - (void)refreshCaptchaImage
 {
-    [_service fetchImageVerifyCode:^(NSDictionary* data, BYError* error) {
+    [_service fetchImageVerifyCode:^(UIImage* image, BYError* error) {
         if(error){
             [MBProgressHUD topShowTmpMessage:@"获取验证图片出错。"];
             return ;
         }
-        NSString *stringData = data[@"decodeImage"];
-        UIImage *codeImage = [Base64Helper  string2Image:stringData];
-        self.captchaImgView.image = codeImage;
+
+        self.captchaImgView.image = image;
     }];
 }
 
@@ -57,12 +56,12 @@
         return;
     }
 
-    [_service checkImageVerifyCode:captchaFileld.text finish:^(NSDictionary* data, BYError* error) {
-        if (error) {
+    [_service checkImageVerifyCode:captchaFileld.text finish:^(BOOL success, BYError* error) {
+        if (!success|| error) {
             [MBProgressHUD showError:@"验证码错误"];
             return ;
         }
-        [self refreshCaptchaImage];
+        //[self refreshCaptchaImage];
         if (block) {
             block();
         }

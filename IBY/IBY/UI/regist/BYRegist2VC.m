@@ -7,13 +7,13 @@
 //
 
 #import "BYRegist2VC.h"
-#import "BYPasswordService.h"
+#import "BYRegistService.h"
 #import "BYAutosizeBgButton.h"
 
 #import "BYRegist3VC.h"
 
 @interface BYRegist2VC ()
-@property (strong, nonatomic) BYPasswordService* passwordService;
+@property (strong, nonatomic) BYRegistService* registService;
 
 @property (weak, nonatomic) IBOutlet UILabel* phoneNumLabel;
 @property (weak, nonatomic) IBOutlet UITextField* smsCodeTextField;
@@ -30,17 +30,15 @@
     [super viewDidLoad];
     self.title = _titleFromLastPage ? _titleFromLastPage : @"输入验证码";
 
-    _passwordService = [[BYPasswordService alloc] init];
-    _passwordService.phone = _phone;
+    _registService = [[BYRegistService alloc] init];
+    _registService.phone = _phone;
 
-    self.phoneNumLabel.text = _passwordService.phone;
+    self.phoneNumLabel.text = _registService.phone;
     [self.smsCodeTextField becomeFirstResponder];
 
     self.autoHideKeyboard = YES;
-
-    [self fetchSMSCode];
+    [self beginTimer];
 }
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -91,13 +89,13 @@
 {
     [self.view endEditing:YES];
 
-    self.passwordService.smsVerifyCode = self.smsCodeTextField.text;
-    [self.passwordService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(NSDictionary* data, BYError* error) {
+    self.registService.verifyCode = self.smsCodeTextField.text;
+    [self.registService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(BOOL success, BYError* error) {
         if(error){
-            [MBProgressHUD showError:@"验证码错误"];
+            [MBProgressHUD showError:error.byErrorMsg];
         }else{
             BYRegist3VC *setPwdVC = [[BYRegist3VC alloc] init];
-            setPwdVC.passwordService = self.passwordService;
+            setPwdVC.registService = self.registService;
             [self.navigationController pushViewController:setPwdVC animated:YES];
         }
     }];
@@ -109,10 +107,10 @@
 }
 
 - (void)fetchSMSCode
-{
-    [self.passwordService fetchSMSVerifyCodeWithPhone:_passwordService.phone finish:^(NSDictionary* data, BYError* error) {
+{//这是重发机制，不需要再处理其他类型status
+    [self.registService fetchSMSVerifyCodeWithPhone:_registService.phone finish:^(BYFetchVerifyCodeStatus status, BYError* error) {
         if(error){
-            [MBProgressHUD topShowTmpMessage:@"验证码发送错误"];
+            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
         }else{
             [self beginTimer];
         }

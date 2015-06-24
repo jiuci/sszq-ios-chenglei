@@ -115,7 +115,6 @@
 		F47E6FA81A11FDD300304F46 /* BYMerchantService.m in Sources */ = {isa = PBXBuildFile; fileRef = F47E6FA71A11FDD300304F46 /* BYMerchantService.m */; };
 		F47E6FAC1A12002D00304F46 /* BYBusinessIntroduction.m in Sources */ = {isa = PBXBuildFile; fileRef = F47E6FAB1A12002D00304F46 /* BYBusinessIntroduction.m */; };
 		F480DFCB19FE18B300301542 /* BYAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = F480DFCA19FE18B300301542 /* BYAppService.m */; };
-		F4818CF71A02203C009475FD /* BYPasswordService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4818CF61A02203C009475FD /* BYPasswordService.m */; };
 		F4818DDD1AFC85620023C0A6 /* TMCacheExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = F4818DDC1AFC85620023C0A6 /* TMCacheExtend.m */; };
 		F4818DE71AFC99A20023C0A6 /* BYGlassesAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4818DE31AFC99A20023C0A6 /* BYGlassesAnimateView.m */; };
 		F4818DEF1AFCAB9C0023C0A6 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4818DEC1AFCAB9B0023C0A6 /* UIImage+OpenCV.mm */; };
@@ -221,7 +220,7 @@
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
 		F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */; };
 		F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */; };
-		F4DEC34A1B33C307003B9730 /* BYVerifyCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3491B33C307003B9730 /* BYVerifyCodeService.m */; };
+		F4DEC34D1B340265003B9730 /* BYCaptchaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC34C1B340265003B9730 /* BYCaptchaService.m */; };
 		F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */; };
 		F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */; };
 		F4E007491B0F075A00438FD5 /* BYLoginMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007421B0F075A00438FD5 /* BYLoginMenu.m */; };
@@ -483,8 +482,6 @@
 		F47E6FAB1A12002D00304F46 /* BYBusinessIntroduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBusinessIntroduction.m; sourceTree = "<group>"; };
 		F480DFC919FE18B300301542 /* BYAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAppService.h; sourceTree = "<group>"; };
 		F480DFCA19FE18B300301542 /* BYAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAppService.m; sourceTree = "<group>"; };
-		F4818CF51A02203C009475FD /* BYPasswordService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYPasswordService.h; path = password/BYPasswordService.h; sourceTree = "<group>"; };
-		F4818CF61A02203C009475FD /* BYPasswordService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYPasswordService.m; path = password/BYPasswordService.m; sourceTree = "<group>"; };
 		F4818DDB1AFC85620023C0A6 /* TMCacheExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCacheExtend.h; sourceTree = "<group>"; };
 		F4818DDC1AFC85620023C0A6 /* TMCacheExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMCacheExtend.m; sourceTree = "<group>"; };
 		F4818DE21AFC99A20023C0A6 /* BYGlassesAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGlassesAnimateView.h; sourceTree = "<group>"; };
@@ -692,8 +689,8 @@
 		F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYGlassesMagnifier.m; sourceTree = "<group>"; };
 		F4DEC3451B33C0F2003B9730 /* BYForgetPasswordService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYForgetPasswordService.h; path = password/BYForgetPasswordService.h; sourceTree = "<group>"; };
 		F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYForgetPasswordService.m; path = password/BYForgetPasswordService.m; sourceTree = "<group>"; };
-		F4DEC3481B33C307003B9730 /* BYVerifyCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYVerifyCodeService.h; path = login/BYVerifyCodeService.h; sourceTree = "<group>"; };
-		F4DEC3491B33C307003B9730 /* BYVerifyCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYVerifyCodeService.m; path = login/BYVerifyCodeService.m; sourceTree = "<group>"; };
+		F4DEC34B1B340264003B9730 /* BYCaptchaService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYCaptchaService.h; path = login/BYCaptchaService.h; sourceTree = "<group>"; };
+		F4DEC34C1B340265003B9730 /* BYCaptchaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYCaptchaService.m; path = login/BYCaptchaService.m; sourceTree = "<group>"; };
 		F4E0073E1B0F075A00438FD5 /* BYCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYCaptchaView.h; sourceTree = "<group>"; };
 		F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYCaptchaView.m; sourceTree = "<group>"; };
 		F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYCaptchaView.xib; sourceTree = "<group>"; };
@@ -1234,17 +1231,15 @@
 			path = appinfo;
 			sourceTree = "<group>";
 		};
-		F4818CF41A021FCB009475FD /* password */ = {
+		F4818CF41A021FCB009475FD /* forgetpassword */ = {
 			isa = PBXGroup;
 			children = (
-				F4818CF51A02203C009475FD /* BYPasswordService.h */,
-				F4818CF61A02203C009475FD /* BYPasswordService.m */,
 				F4DEC3451B33C0F2003B9730 /* BYForgetPasswordService.h */,
 				F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */,
-				F4DEC3481B33C307003B9730 /* BYVerifyCodeService.h */,
-				F4DEC3491B33C307003B9730 /* BYVerifyCodeService.m */,
+				F4DEC34B1B340264003B9730 /* BYCaptchaService.h */,
+				F4DEC34C1B340265003B9730 /* BYCaptchaService.m */,
 			);
-			name = password;
+			name = forgetpassword;
 			sourceTree = "<group>";
 		};
 		F4818DE11AFC997D0023C0A6 /* animate */ = {
@@ -1624,7 +1619,7 @@
 			path = regist;
 			sourceTree = "<group>";
 		};
-		F4E0075D1B0F08E100438FD5 /* password */ = {
+		F4E0075D1B0F08E100438FD5 /* forgetpassword */ = {
 			isa = PBXGroup;
 			children = (
 				F4E0075E1B0F08E100438FD5 /* BYForgetPasswordVC.h */,
@@ -1640,6 +1635,7 @@
 				F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */,
 				F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */,
 			);
+			name = forgetpassword;
 			path = password;
 			sourceTree = "<group>";
 		};
@@ -1905,7 +1901,7 @@
 				CC771F6F19CAE06000E11BAE /* address */,
 				F452A4B31A0B4F3D00AB1AAF /* feedback */,
 				F49F2C5F1A07849400C68000 /* edit */,
-				F4818CF41A021FCB009475FD /* password */,
+				F4818CF41A021FCB009475FD /* forgetpassword */,
 				F480DFC819FE189300301542 /* appinfo */,
 				F43B662519F65F14009F7659 /* message */,
 				F4E6858119EE7F3800237412 /* monitor */,
@@ -1944,7 +1940,7 @@
 		FE14D6C219AC333E006B0E48 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F4E0075D1B0F08E100438FD5 /* password */,
+				F4E0075D1B0F08E100438FD5 /* forgetpassword */,
 				F4E0073D1B0F075A00438FD5 /* login */,
 				F4E0074D1B0F07F800438FD5 /* regist */,
 				F4ED1DE21AF9B65200639322 /* glassWearing */,
@@ -2215,7 +2211,6 @@
 				F4C77D131A2DA969005EADA0 /* UIImageExtend.m in Sources */,
 				F4E6B65C1AAFED3E0022EA66 /* BYAddBookUnit.m in Sources */,
 				F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */,
-				F4DEC34A1B33C307003B9730 /* BYVerifyCodeService.m in Sources */,
 				F4D1345E1AF857F400B7164D /* BYGlassPageVC.m in Sources */,
 				CC771F9119CAE06000E11BAE /* BYRegistService.m in Sources */,
 				F48D728E1A89DBB000870F3F /* MJRefreshHeaderView.m in Sources */,
@@ -2228,6 +2223,7 @@
 				CC3D2E1D19BFF8B1000E0E14 /* NSObject+MJKeyValue.m in Sources */,
 				F4D1345D1AF857F400B7164D /* BYGlassLocateDistVC.m in Sources */,
 				F496C3911B317E7B00E503D8 /* BYUserEngine.m in Sources */,
+				F4DEC34D1B340265003B9730 /* BYCaptchaService.m in Sources */,
 				CC3D2E1819BFF8B1000E0E14 /* MJMember.m in Sources */,
 				F481FA911A7A41E600FB1C20 /* NSDataExtend.m in Sources */,
 				F47747FF1A6F5AE6008BF3FC /* BYAppDelegate.m in Sources */,
@@ -2268,7 +2264,6 @@
 				F489E42B19FF41D2003C6567 /* BYPackage.m in Sources */,
 				F48C94F91A174BC6009C10A1 /* NSArrayExtensions.m in Sources */,
 				CC771F8B19CAE06000E11BAE /* BYBannerService.m in Sources */,
-				F4818CF71A02203C009475FD /* BYPasswordService.m in Sources */,
 				F4E0075B1B0F07F800438FD5 /* BYRegist3VC.m in Sources */,
 				F4888A391A6DB5180056427E /* BYShareUnit.m in Sources */,
 				F4D031F21AA07A4500B12739 /* BYWelcomeVC.m in Sources */,

@@ -19,34 +19,7 @@ BYError* makeUsrError()
 
 @implementation BYUserService
 
-- (void)loginByUser:(NSString*)user
-                pwd:(NSString*)pwd
-             finish:(void (^)(BYUser* user, BYError* error))finished
-{
-    NSString* url = @"/user/customer/login";
-    NSDictionary* params = @{ @"username" : user,
-                              @"password" : pwd };
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if (data && !error) {
-            BYUser *user = [[BYUser alloc] init];
-            user.userID = [data[@"userid"] intValue];
-            user.nickname = data[@"userinfo"][@"nickname"];
-            user.avatar = data[@"userinfo"][@"avater_url"];
-            user.token = data[@"token"][@"token"];
-            user.phoneNum = data[@"userinfo"][@"mobile"];
-            [[BYAppCenter sharedAppCenter] didLogin:user];
-            
-            BYCartService *cartService = [[BYCartService alloc] init];
-            [cartService uploadCart:^(NSDictionary *data, BYError *error) {
-                BYLog(@"");
-            }];
-            
-            finished(user,nil);
-        }else {
-            finished(nil,error);
-        }
-    }];
-}
+
 
 - (void)refreshToken:(void (^)(BOOL isSuccess, BYError* error))finished
 {

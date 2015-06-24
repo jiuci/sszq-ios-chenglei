@@ -8,11 +8,11 @@
 
 #import "BYRegist3VC.h"
 #import "BYRegistService.h"
-#import "BYUserService.h"
+#import "BYLoginVC.h"
+#import "BYLoginService.h"
 
 @interface BYRegist3VC ()
 @property (weak, nonatomic) IBOutlet UITextField* firstPwdTextField;
-@property (nonatomic, strong) BYRegistService* registService;
 @end
 
 @implementation BYRegist3VC
@@ -36,26 +36,29 @@
         return;
     }
 
-    NSString* user = _passwordService.phone;
+    NSString* user = _registService.phone;
     NSString* pwd = self.firstPwdTextField.text;
-    NSString* smsCode = _passwordService.smsVerifyCode;
-
-    [self.registService registByUser:user pwd:pwd verycode:smsCode finsh:^(NSDictionary* data, BYError* error) {
+    NSString* smsCode = self.registService.verifyCode;
+    [self.registService registByUser:user pwd:pwd verycode:smsCode finsh:^(BOOL success, BYError* error) {
         if(error){
-            [MBProgressHUD topShowTmpMessage:@"注册失败，休息几分钟，再试一次"];
+            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
         }else{
             [MBProgressHUD topShow:@"恭喜您账户注册成功"];
-            runBlockAfterDelay(3, ^{
+            runBlockAfterDelay(1, ^{
                 [MBProgressHUD topHide];
                 [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
-                
+//                for (UIViewController * controller in self.navigationController.viewControllers) {
+//                    if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
+//                        [self.navigationController popToViewController:controller animated:YES];
+//                        return;
+//                    }
+//                }
                 runOnBackgroundQueue(^{
-                    BYUserService *loginService = [[BYUserService alloc] init];
+                    BYLoginService *loginService = [[BYLoginService alloc] init];
                     [loginService loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
                         //TODO:在后台自动登录，不用处理失败的情况?
                     }];
                 });
-                
             });
         }
     }];

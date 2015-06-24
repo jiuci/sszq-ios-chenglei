@@ -16,7 +16,7 @@
                 pwd:(NSString*)pwd
              finish:(void (^)(BYUser* user, BYError* error))finished {
     [BYPassportEngine loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
-        if (user) {
+        if (user&&!error) {
             [[BYAppCenter sharedAppCenter] didLogin:user];
             finished(user,nil);
             
@@ -25,7 +25,7 @@
             }];
             
         }else{
-            finished(nil,error);
+            finished(user,error);
         }
     }];
 }
