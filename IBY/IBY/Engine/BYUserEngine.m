@@ -22,7 +22,6 @@
             finished(YES,nil);
         }
     }];
-    
 }
 
 + (void)fetchUserLatestStatus:(void (^)(BYUser* user, BYError* error))finished
@@ -40,7 +39,14 @@
     
     [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
-            finished(nil,nil);
+            BYUser *user = [BYUser userWithUpdateDict:data];
+            
+            if(user){
+                finished(user,nil);
+            }else{
+                BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.user.update", @"user serialized fail ", nil);
+                finished(nil,err);
+            }
         }else {
             finished(nil,error);
         }

@@ -10,17 +10,23 @@
 
 @interface BYUser : BYBaseDomain
 
-@property (nonatomic, assign) int userID;
+@property (nonatomic, assign) UInt32 userID;
 @property (nonatomic, copy) NSString* nickname;
 @property (nonatomic, assign) int gender; //性别
 @property (nonatomic, copy) NSString* avatar;
 @property (nonatomic, assign) int role; //角色，用普通用户、商户、设计师几种
 @property (nonatomic, copy) NSString* phoneNum;
 
+@property (nonatomic, copy) NSString* email;
+@property (nonatomic, copy) NSString* cardID;
+
 @property (nonatomic, copy) NSString* token;
 
-- (BOOL)isValid;
++ (instancetype)userWithLoginDict:(NSDictionary*)info;
++ (instancetype)userWithUpdateDict:(NSDictionary*)info;
 
-- (void)updateWithLatestInfo:(NSDictionary*)info;
+- (void)updateWithAnother:(BYUser*)user;
+
+- (BOOL)isValid;
 
 @end

@@ -43,7 +43,7 @@ BYError* makeUsrError()
 
     [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
-            [[BYAppCenter sharedAppCenter].user updateWithLatestInfo:data[@"customer"]];
+//            [[BYAppCenter sharedAppCenter].user updateWithLatestInfo:data[@"customer"]];
             finished(YES,nil);
         }else {
             finished(NO,error);
