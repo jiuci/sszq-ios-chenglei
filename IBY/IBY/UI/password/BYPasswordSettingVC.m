@@ -41,7 +41,7 @@
     NSString* pwd = self.firstPwdTextField.text;
     [self.passwordService resetPassword:pwd finish:^(BOOL success, BYError* error) {
             if(error){
-                [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+                alertError(error);
             }else{
                 [MBProgressHUD topShow:@"恭喜您密码修改成功"];
                 runBlockAfterDelay(1, ^{

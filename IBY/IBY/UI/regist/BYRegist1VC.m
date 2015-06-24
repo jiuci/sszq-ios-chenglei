@@ -83,13 +83,13 @@
 
     [self.registService fetchSMSVerifyCodeWithPhone:self.phoneNumTextField.text finish:^(BYFetchVerifyCodeStatus status, BYError* error) {
         if (status == BYFetchCodeFail) {
-            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+            alertError(error);
             return;
         }else if (status == BYFetchCodeFail &&!error){
             [MBProgressHUD topShowTmpMessage:@"发送失败，请稍后再试"];
             return;
         }else if (status == BYFetchCodeRegisted){
-            //未注册跳转注册
+            //已注册跳转登陆
             __weak BYRegist1VC * bself = self;
             [UIAlertView bk_showAlertViewWithTitle:nil message:@"您的手机号已经被注册，是否去登录？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"去登录"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
                 if (buttonIndex == 1){

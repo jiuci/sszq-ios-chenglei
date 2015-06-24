@@ -69,7 +69,7 @@
         runOnMainQueue(^{
             [self.regitService fetchSMSVerifyCodeForResetPasswordWithPhone:self.phoneNumTextField.text finish:^(BYFetchVerifyCodeStatus status, BYError* error) {
                 if (status == BYFetchCodeFail) {
-                    [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+                    alertError(error);
                     return;
                 }else if (status == BYFetchCodeNeedRegist){
                     //未注册跳转注册

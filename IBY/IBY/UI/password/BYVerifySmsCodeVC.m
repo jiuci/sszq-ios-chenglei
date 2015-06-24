@@ -96,7 +96,7 @@
 
     [self.forgetpasswordService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(BOOL success, BYError* error) {
         if(error){
-            [MBProgressHUD showError:error.byErrorMsg];
+            alertError(error);
         }else{
             BYPasswordSettingVC *setPwdVC = [[BYPasswordSettingVC alloc] init];
             setPwdVC.passwordService = self.forgetpasswordService;
@@ -114,7 +114,7 @@
 {//重发机制不处理其他status
     [self.forgetpasswordService fetchSMSVerifyCodeForResetPasswordWithPhone:self.phone finish:^(BYFetchVerifyCodeStatus status, BYError* error) {
         if (status == BYFetchCodeFail) {
-            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+            alertError(error);
             return;
         }else if (status == BYFetchCodeSuccess){
             [self beginTimer];

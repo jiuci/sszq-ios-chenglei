@@ -55,15 +55,15 @@
 }
 -(void)testuser:(NSString *)user psw:(NSString*)psw md5:(NSString*)md5
 {
-    NSMutableURLRequest*request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.biyao.com/user/customer/UpdatePassword"]];
+    NSMutableURLRequest*request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.biyao.com/user/customer/MobilePreRegist"]];
     request.HTTPMethod=@"POST";
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
 
-    [params safeSetValue:user forKey:@"username"];
-    [params safeSetValue:psw forKey:@"NewPassword"];
-    [params safeSetValue:md5 forKey:@"md5"];
+    [params safeSetValue:@"13810728126" forKey:@"mobile"];
+//    [params safeSetValue:psw forKey:@"NewPassword"];
+//    [params safeSetValue:md5 forKey:@"md5"];
     NSMutableData*postBody = [NSMutableData data];
-    [postBody appendData:[[NSString stringWithFormat:@"username=%@&NewPassword=%@&md5=%@",user,psw,md5] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithFormat:@"Mobile=13810728126"] dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPBody =postBody;
     NSURLConnection*c =[NSURLConnection connectionWithRequest:request delegate:self];
     [c start];
