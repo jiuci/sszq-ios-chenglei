@@ -21,12 +21,12 @@
             return ;
         }
         NSString *stringData = data[@"decodeImage"];
+        UIImage *codeImage = nil;
         if (stringData) {
-            UIImage *codeImage = [Base64Helper  string2Image:stringData];
-            if (codeImage) {
-                finished(codeImage,nil);
-                return;
-            }
+            codeImage = [Base64Helper  string2Image:stringData];
+        }
+        if (codeImage) {
+            finished(codeImage,nil);
         }else{
             BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.verifycode.image", @"image is not valid", nil);
             finished(nil,err);
@@ -61,15 +61,12 @@
             return ;
         }
         NSString* md5 = data[@"md5"];
-        if (md5.length == 32) {
+        if (md5.length > 30) {
             finished(data[@"md5"],nil);
-            return;
         }else{
             BYError*err = [BYError errorWithDomain:@"com.biyao.VerifyCode.checkVerifycode" code:BYNetErrorDomainWrongFormat userInfo:nil];
             finished(nil,err);
         }
-        
-        
     }];
 }
 + (void)fetchSMSVerifyCodeForRegistWithPhone:(NSString*)phoneNum finish:(void (^)(BYFetchVerifyCodeStatus status, BYError* error))finished;
@@ -79,10 +76,13 @@
     
     [BYNetwork post:url params:param finish:^(NSDictionary* data, BYError* error) {
         if(error){
-            finished(NO,error);
-            return ;
+            if (error.code == 208101) {
+                finished(BYFetchCodeRegisted,error);
+                return ;
+            }
+            finished(BYFetchCodeFail,error);
         }
-        finished(YES,nil);
+        finished(BYFetchCodeSuccess,nil);
     }];
 }
 + (void)fetchSMSVerifyCodeForResetPasswordWithPhone:(NSString*)phoneNum finish:(void (^)(BYFetchVerifyCodeStatus status, BYError* error))finished;
@@ -92,10 +92,13 @@
     
     [BYNetwork post:url params:param finish:^(NSDictionary* data, BYError* error) {
         if(error){
-            finished(NO,error);
-            return ;
+            if (error.code == 208101 || 1) {//TODO API不完整，不知道未注册的时候返回什么错误码
+                finished(BYFetchCodeNeedRegist,error);
+                return ;
+            }
+            finished(BYFetchCodeFail,error);
         }
-        finished(YES,nil);
+        finished(BYFetchCodeSuccess,nil);
     }];
 }
 @end
