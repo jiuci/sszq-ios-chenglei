@@ -34,9 +34,90 @@
                 BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.passport.login", @"user is not valid", nil);
                 finished(nil,err);
             }
-        }else {
+        }else if(error.code == 208103){//代表用户未注册
+            BYUser *user = [[BYUser alloc] init];
+            finished(user,error);
+        }else{
             finished(nil,error);
         }
+    }];
+}
+- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response
+{
+    _tempdata =[NSMutableData data];
+}
+- (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
+{
+    [_tempdata appendData:data];
+}
+- (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
+{
+}
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSString*str =[[NSString alloc]initWithData:_tempdata encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",str);
+}
+-(void)testuser:(NSString *)user psw:(NSString*)psw md5:(NSString*)md5
+{
+    NSMutableURLRequest*request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.biyao.com/user/customer/UpdatePassword"]];
+    request.HTTPMethod=@"POST";
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+
+    [params safeSetValue:user forKey:@"username"];
+    [params safeSetValue:psw forKey:@"NewPassword"];
+    [params safeSetValue:md5 forKey:@"md5"];
+    NSMutableData*postBody = [NSMutableData data];
+    [postBody appendData:[[NSString stringWithFormat:@"username=%@&NewPassword=%@&md5=%@",user,psw,md5] dataUsingEncoding:NSUTF8StringEncoding]];
+    request.HTTPBody =postBody;
+    NSURLConnection*c =[NSURLConnection connectionWithRequest:request delegate:self];
+    [c start];
+
+}
++ (void)registByUser:(NSString*)user
+                 pwd:(NSString*)pwd
+            verycode:(NSString*)code
+               finsh:(void (^)(BOOL success, BYError* error))finished
+{
+    NSString* url = @"user/customer/CustomerRegisterServlet";
+    NSDictionary* params = @{ @"username" : user,
+                              @"password" : pwd,
+                              @"verycode" : code,
+                              @"source"   : @"iOS" } ;
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if(error){
+            finished(NO,error);
+            return ;
+        }
+        finished(YES,nil);
+    }];
+}
++ (void)resetPasswordForUser:(NSString*)username
+                 newPassword:(NSString*)password
+             needOldPassword:(BOOL)needOldPassword
+                 oldPassword:(NSString*)oldPassword
+                         md5:(NSString*)md5
+                      finish:(void (^)(BOOL success, BYError* error))finished;
+{
+    NSString* url = @"user/customer/UpdatePassword";
+    
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params safeSetValue:username forKey:@"username"];
+    [params safeSetValue:password forKey:@"NewPassword"];
+    if (needOldPassword) {
+        [params safeSetValue:@"true" forKey:@"needOldPasswd"];
+    }else{
+        [params safeSetValue:@"false" forKey:@"needOldPasswd"];
+    }
+    [params safeSetValue:oldPassword forKey:@"oldPassword"];
+    [params safeSetValue:md5 forKey:@"md5"];
+       [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if(error){
+            finished(NO,error);
+            return ;
+        }
+        finished(YES,nil);
+        
     }];
 }
 

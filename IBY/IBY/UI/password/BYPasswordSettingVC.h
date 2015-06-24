@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BYPasswordService.h"
+#import "BYForgetPasswordService.h"
 
 @interface BYPasswordSettingVC : BYBaseVC
-@property (strong, nonatomic) BYPasswordService* passwordService;
+@property (strong, nonatomic) BYForgetPasswordService* passwordService;
 
 @end

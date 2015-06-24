@@ -7,8 +7,8 @@
 //
 
 #import "BYBaseVC.h"
-#import "BYPasswordService.h"
+#import "BYRegistService.h"
 
 @interface BYRegist3VC : BYBaseVC
-@property (strong, nonatomic) BYPasswordService* passwordService;
+@property (strong, nonatomic) BYRegistService* registService;
 @end

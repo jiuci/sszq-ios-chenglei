@@ -14,12 +14,14 @@
 #import "BYRegist2VC.h"
 #import "BYRegist3VC.h"
 
+#import "BYLoginVC.h"
+
 @interface BYRegist1VC ()
 
 @property (weak, nonatomic) IBOutlet UITextField* phoneNumTextField;
 @property (weak, nonatomic) IBOutlet UIImageView* protocolCheckbox;
 
-@property (nonatomic, strong) BYRegistService* service;
+@property (nonatomic, strong) BYRegistService* registService;
 
 @property (nonatomic, assign) BOOL isProtocolSelected;
 
@@ -32,20 +34,24 @@
     [super viewDidLoad];
     self.title = @"账户注册";
 
-    _service = [[BYRegistService alloc] init];
+    _registService = [[BYRegistService alloc] init];
 
     self.isProtocolSelected = YES;
     self.protocolCheckbox.highlighted = self.isProtocolSelected;
 
     self.autoHideKeyboard = YES;
 
-    [self.phoneNumTextField becomeFirstResponder];
+    
     
     
 
     //TODO: todo psy 还没有验证码
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.phoneNumTextField becomeFirstResponder];
+}
 #pragma mark -
 
 - (IBAction)onTapCheckbox:(id)sender
@@ -75,26 +81,33 @@
         return;
     }
 
-    [self.service checkIfRegisted:self.phoneNumTextField.text finish:^(BOOL isRegisted, BYError* error) {
-        if (error) {
-            [MBProgressHUD topShowTmpMessage:@"注册，休息几分钟，再试一次"];
-            return ;
-        }
-        
-        if (isRegisted) {
-            [UIAlertView bk_showAlertViewWithTitle:nil message:@"该手机号已注册，请直接登录" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObjects:@"直接登录", nil] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
+    [self.registService fetchSMSVerifyCodeWithPhone:self.phoneNumTextField.text finish:^(BYFetchVerifyCodeStatus status, BYError* error) {
+        if (status == BYFetchCodeFail) {
+            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+            return;
+        }else if (status == BYFetchCodeFail &&!error){
+            [MBProgressHUD topShowTmpMessage:@"发送失败，请稍后再试"];
+            return;
+        }else if (status == BYFetchCodeRegisted){
+            //未注册跳转注册
+            __weak BYRegist1VC * bself = self;
+            [UIAlertView bk_showAlertViewWithTitle:nil message:@"您的手机号已经被注册，是否去登录？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"去登录"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
                 if (buttonIndex == 1){
-                    [[BYPortalCenter sharedPortalCenter] portTo:BYPortalLoginFromMineVC];
+                    for (UIViewController * controller in bself.navigationController.viewControllers) {
+                        if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
+                            [self.navigationController popToViewController:controller animated:YES];
+                            return;
+                        }
+                    }
+                    //找不到登陆页没有处理
                 }
             }];
             return;
         }
-        
         BYRegist2VC *aimVC = [[BYRegist2VC alloc]init];
         aimVC.phone = self.phoneNumTextField.text;
-//        aimVC.navigationItem.title = @"找回密码";
         [self.navigationController pushViewController:aimVC animated:YES];
-
+    }];
         //TODO: 正常这里，需要验证是否开启了验证码部分，并且是否输入验证，验证码是否正确
 
         //        [_captchaView valueCheckWithSuccessBlock:^{
@@ -108,7 +121,6 @@
         //
         //        }];
 
-    }];
 }
 
 @end

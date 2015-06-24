@@ -11,10 +11,6 @@
 
 @interface BYUserService : BYBaseService
 
-- (void)loginByUser:(NSString*)user
-                pwd:(NSString*)pwd
-             finish:(void (^)(BYUser* user, BYError* error))finished;
-
 - (void)refreshToken:(void (^)(BOOL isSuccess, BYError* error))finished;
 
 - (void)fetchUserLatestStatus:(void (^)(BOOL isSuccess, BYError* error))finished;

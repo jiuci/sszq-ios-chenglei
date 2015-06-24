@@ -111,6 +111,8 @@
                     [self.captchaView refreshCaptchaImage];
                 }];
             });
+        }else{
+            [self.captchaView refreshCaptchaImage];
         }
     }
     else {
@@ -119,6 +121,13 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_captchaView.hidden == NO) {
+        [_captchaView refreshCaptchaImage];
+    }
+}
 #pragma mark - 按钮处理
 
 - (void)onLogin
@@ -155,11 +164,18 @@
 
     [self.loginService loginByUser:self.userTextField.text pwd:self.pwdTextField.text finish:^(BYUser* user, BYError* error) {
         [MBProgressHUD topHide];
-        if (user) {
+        if (user&&!error) {
             [MBProgressHUD showSuccess:@"登录成功!"];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 if (_successBlk) {
                     _successBlk();
+                }
+            }];
+        }else if (user&&error&&error.code == 208103){//用户未注册
+            __weak BYLoginVC * bself = self;
+            [UIAlertView bk_showAlertViewWithTitle:nil message:@"您的手机号没有注册，是否去注册？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"去注册"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 1){
+                    [bself onRegist];
                 }
             }];
         }else {

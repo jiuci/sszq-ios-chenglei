@@ -17,76 +17,28 @@
 
 // username=18001350673&&password=test123&&verycode=23jkle
 
-- (void)registByUser:(NSString*)user pwd:(NSString*)pwd verycode:(NSString*)code finsh:(void (^)(NSDictionary* data, BYError* error))finished
+- (void)registByUser:(NSString*)user pwd:(NSString*)pwd verycode:(NSString*)code finsh:(void (^)(BOOL success, BYError* error))finished
 {
-    NSString* url = @"user/customer/CustomerRegisterServlet";
-    NSDictionary* params = @{ @"username" : user,
-                              @"password" : pwd,
-                              @"verycode" : @([code intValue]) };
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+    [BYPassportEngine registByUser:user pwd:pwd verycode:code finsh:finished];
+}
+
+- (void)checkVerifyCode:(NSString*)code phone:(NSString*)phone finish:(void (^)(BOOL success, BYError* error))finished
+{
+    [BYVerifyCodeEngine checkVerifyCode:code phone:phone finish:^(NSString* md5, BYError* error) {
         if(error){
-            finished(nil,error);
+            finished(NO,error);
             return ;
         }
-        finished(data,nil);
+        _md5 = md5;
+        finished(YES,nil);
     }];
 }
 
-- (void)fetchVerifyCode:(NSString*)phone finsh:(void (^)(NSDictionary* data, BYError* error))finished
+- (void)fetchSMSVerifyCodeWithPhone:(NSString*)phoneNum finish:(void (^)(BYFetchVerifyCodeStatus status, BYError*))finished
 {
-    NSString* url = @"user/customer/MobilePreRegist";
-    NSDictionary* params = @{ @"mobile" : phone };
-
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if(error){
-            finished(nil,error);
-            return ;
-        }
-        
-        finished(data,nil);
-    }];
+    [BYVerifyCodeEngine fetchSMSVerifyCodeForRegistWithPhone:phoneNum finish:finished];
 }
 
-- (void)verifyCode:(NSString*)code phone:(NSString*)phone finsh:(void (^)(NSDictionary* data, BYError* error))finished
-{
-    NSString* url = @"regist/checkPhoneAndCode";
-    NSDictionary* params = @{ @"mobile" : phone,
-                              @"code" : code };
 
-    [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if(error){
-            finished(nil,error);
-            return ;
-        }
-        
-        finished(data,nil);
-    }];
-}
-
-//验证手机号是否已注册
-- (void)checkIfRegisted:(NSString*)phone finish:(void (^)(BOOL result, BYError* error))finished
-{
-    NSString* url = @"user/customer/getbyemail";
-    NSDictionary* params = @{ @"umail" : phone };
-    //返回success=1         已注册
-    //返回 208103           未注册
-    //返回208102            未知错误
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if (error) {
-            if (error.code == 208103) {
-                finished(NO,nil);//未注册过
-            }else if (error.code == 208102){
-                finished(NO,error);
-            }else{
-                finished(NO,error);
-            }
-
-            
-            return ;
-         }
-        finished(YES,nil);//已经注册过
-
-    }];
-}
 
 @end

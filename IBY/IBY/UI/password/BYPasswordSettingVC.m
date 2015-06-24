@@ -7,7 +7,8 @@
 //
 
 #import "BYPasswordSettingVC.h"
-#import "BYUserService.h"
+#import "BYLoginService.h"
+#import "BYLoginVC.h"
 
 @interface BYPasswordSettingVC ()
 
@@ -38,22 +39,26 @@
 
     NSString* user = _passwordService.phone;
     NSString* pwd = self.firstPwdTextField.text;
-    
-    [self.passwordService resetPassword:pwd finish:^(NSDictionary* data, BYError* error) {
+    [self.passwordService resetPassword:pwd finish:^(BOOL success, BYError* error) {
             if(error){
-                [MBProgressHUD topShowTmpMessage:@"密码设置失败"];
+                [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
             }else{
                 [MBProgressHUD topShow:@"恭喜您密码修改成功"];
-                runBlockAfterDelay(3, ^{
+                runBlockAfterDelay(1, ^{
                     [MBProgressHUD topHide];
-                    
+                    for (UIViewController * controller in self.navigationController.viewControllers) {
+                        if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
+                            [self.navigationController popToViewController:controller animated:YES];
+                            return;
+                        }
+                    }
                     runOnMainQueue(^{
                         [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
                     });
                     
                     
                     runOnBackgroundQueue(^{
-                        BYUserService *loginService = [[BYUserService alloc] init];
+                        BYLoginService *loginService = [[BYLoginService alloc] init];
                         [loginService loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
                             //TODO:在后台自动登录，不用处理失败的情况?
                         }];

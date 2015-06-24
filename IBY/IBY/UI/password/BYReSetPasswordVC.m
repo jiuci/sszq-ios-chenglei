@@ -7,7 +7,7 @@
 //
 
 #import "BYReSetPasswordVC.h"
-#import "BYPasswordService.h"
+#import "BYForgetPasswordService.h"
 @interface BYReSetPasswordVC () <UIGestureRecognizerDelegate>
 
 @end
@@ -44,14 +44,15 @@
             return;
         }
         else {
-            BYPasswordService* pwdService = [[BYPasswordService alloc] init];
-            [pwdService resetPassword:_newlyPwdTextField.text finish:^(NSDictionary* data, BYError* error) {
-                if (!error &&data) {
-                    [MBProgressHUD topShowTmpMessage:@"密码修改成功"];
-                }else{
-                    alertError(error);
-                }
-            }];
+            BYForgetPasswordService * pwdService = [[BYForgetPasswordService alloc] init];
+            //要重写
+//            [pwdService resetPassword:_newlyPwdTextField.text md5:nil finish:<#^(BOOL success, BYError *error)finished#> finish:^(BOOL success, BYError* error) {
+//                if (success) {
+//                    [MBProgressHUD topShowTmpMessage:@"密码修改成功"];
+//                }else{
+//                    [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+//                }
+//            }];
         }
     }
     else {
