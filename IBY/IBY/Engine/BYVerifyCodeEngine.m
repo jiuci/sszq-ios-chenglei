@@ -75,12 +75,14 @@
     NSDictionary* param = @{ @"Mobile" : phoneNum };
     
     [BYNetwork post:url params:param finish:^(NSDictionary* data, BYError* error) {
+        NSLog(@"%@,%@",data,error);
         if(error){
             if (error.code == 208101) {
                 finished(BYFetchCodeRegisted,error);
                 return ;
             }
             finished(BYFetchCodeFail,error);
+            return;
         }
         finished(BYFetchCodeSuccess,nil);
     }];
@@ -97,6 +99,7 @@
                 return ;
             }
             finished(BYFetchCodeFail,error);
+            return;
         }
         finished(BYFetchCodeSuccess,nil);
     }];

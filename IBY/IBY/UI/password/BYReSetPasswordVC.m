@@ -50,7 +50,7 @@
 //                if (success) {
 //                    [MBProgressHUD topShowTmpMessage:@"密码修改成功"];
 //                }else{
-//                    [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+//                    alertError(error);
 //                }
 //            }];
         }

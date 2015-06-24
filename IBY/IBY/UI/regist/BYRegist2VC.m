@@ -92,7 +92,7 @@
     self.registService.verifyCode = self.smsCodeTextField.text;
     [self.registService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(BOOL success, BYError* error) {
         if(error){
-            [MBProgressHUD showError:error.byErrorMsg];
+            alertError(error);
         }else{
             BYRegist3VC *setPwdVC = [[BYRegist3VC alloc] init];
             setPwdVC.registService = self.registService;
@@ -110,7 +110,7 @@
 {//这是重发机制，不需要再处理其他类型status
     [self.registService fetchSMSVerifyCodeWithPhone:_registService.phone finish:^(BYFetchVerifyCodeStatus status, BYError* error) {
         if(error){
-            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+            alertError(error);
         }else{
             [self beginTimer];
         }

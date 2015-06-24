@@ -41,7 +41,7 @@
     NSString* smsCode = self.registService.verifyCode;
     [self.registService registByUser:user pwd:pwd verycode:smsCode finsh:^(BOOL success, BYError* error) {
         if(error){
-            [MBProgressHUD topShowTmpMessage:error.byErrorMsg];
+            alertError(error);
         }else{
             [MBProgressHUD topShow:@"恭喜您账户注册成功"];
             runBlockAfterDelay(1, ^{
