@@ -126,6 +126,7 @@
                  }
              }];
 }
+
 + (void)fetchSMSVerifyCodeForResetPasswordWithPhone:(NSString*)phoneNum finish:(void (^)(BYFetchVerifyCodeStatus status, BYError* error))finished;
 {
     NSString* url = @"user/customer/CustomerAcquireCode";
