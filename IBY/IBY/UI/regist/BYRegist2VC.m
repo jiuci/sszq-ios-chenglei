@@ -37,7 +37,7 @@
     [self.smsCodeTextField becomeFirstResponder];
 
     self.autoHideKeyboard = YES;
-    [self beginTimer];
+    [self beginTimer];//TODO didappear
 }
 - (void)viewWillDisappear:(BOOL)animated
 {

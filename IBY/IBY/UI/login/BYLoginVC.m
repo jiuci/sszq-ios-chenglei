@@ -19,7 +19,8 @@
 
 @interface BYLoginVC () <UITextFieldDelegate>
 
-@property (assign, nonatomic) int countForLoginTimes; //用于标识输入了几次手机号和密码
+@property (assign, nonatomic)
+    int countForLoginTimes; //用于标识输入了几次手机号和密码
 
 @property (weak, nonatomic) IBOutlet UITextField* userTextField;
 @property (weak, nonatomic) IBOutlet UITextField* pwdTextField;
@@ -62,40 +63,49 @@
 }
 - (void)setupUI
 {
-
-    //nav
+    // nav
     self.title = @"账户登录";
 
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem backBarItem:^(id sender) {
-        [self setEditing:NO];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    }];
+    self.navigationItem.leftBarButtonItem =
+        [UIBarButtonItem backBarItem:^(id sender) {
+            [self setEditing:NO];
+            [self.navigationController dismissViewControllerAnimated:YES
+                                                          completion:nil];
+        }];
 
-    //user&pwd
+    // user&pwd
     _userTextField.leftViewMode = UITextFieldViewModeAlways;
-    UIImageView* accountImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_login"]];
+    UIImageView* accountImgView =
+        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_login"]];
     accountImgView.contentMode = UIViewContentModeScaleAspectFit;
     accountImgView.frame = CGRectMake(16, 16, 32, 18);
     _userTextField.leftView = accountImgView;
 
     _pwdTextField.leftViewMode = UITextFieldViewModeAlways;
-    UIImageView* passwordImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_password"]];
+    UIImageView* passwordImgView =
+        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_password"]];
     passwordImgView.contentMode = UIViewContentModeScaleAspectFit;
     passwordImgView.frame = CGRectMake(16, 16, 32, 18);
     _pwdTextField.leftView = passwordImgView;
 
-    //captchaView
+    // captchaView
     _captchaView = [BYCaptchaView captchaView];
     _captchaView.top = self.pwdTextField.bottom;
     _captchaView.hidden = YES;
     [self.view addSubview:_captchaView];
 
-    //loginMenu
+    // loginMenu
     _loginMenu = [BYLoginMenu loginMenu];
     _loginMenu.top = self.pwdTextField.bottom;
-    [_loginMenu.loginBtn addTarget:self action:@selector(onLogin) forControlEvents:UIControlEventTouchUpInside];
-    [_loginMenu.registBtn addTarget:self action:@selector(onRegist) forControlEvents:UIControlEventTouchUpInside];
-    [_loginMenu.forgetPwdBtn addTarget:self action:@selector(onForgotPassword) forControlEvents:UIControlEventTouchUpInside];
+    [_loginMenu.loginBtn addTarget:self
+                            action:@selector(onLogin)
+                  forControlEvents:UIControlEventTouchUpInside];
+    [_loginMenu.registBtn addTarget:self
+                             action:@selector(onRegist)
+                   forControlEvents:UIControlEventTouchUpInside];
+    [_loginMenu.forgetPwdBtn addTarget:self
+                                action:@selector(onForgotPassword)
+                      forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_loginMenu];
 }
 
@@ -104,14 +114,17 @@
     if (_countForLoginTimes > 3) {
         if (self.captchaView.hidden) {
             runOnMainQueue(^{
-                [UIView animateWithDuration:0.3 animations:^{
-                    self.captchaView.hidden = NO;
-                    self.loginMenu.top = self.captchaView.bottom;
-                } completion:^(BOOL finished) {
-                    [self.captchaView refreshCaptchaImage];
-                }];
+                [UIView animateWithDuration:0.3
+                    animations:^{
+                        self.captchaView.hidden = NO;
+                        self.loginMenu.top = self.captchaView.bottom;
+                    }
+                    completion:^(BOOL finished) {
+                        [self.captchaView refreshCaptchaImage];
+                    }];
             });
-        }else{
+        }
+        else {
             [self.captchaView refreshCaptchaImage];
         }
     }
@@ -121,7 +134,7 @@
     }
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     if (_captchaView.hidden == NO) {
@@ -132,7 +145,6 @@
 
 - (void)onLogin
 {
-    
     [self.view endEditing:YES];
 
     if (self.userTextField.text.length < 1 || self.pwdTextField.text.length < 1) {
@@ -141,7 +153,8 @@
     }
 
     if (![self.userTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD topShowTmpMessage:@"手机号格式有误，请重新输入"];
+        [MBProgressHUD topShowTmpMessage:@"手" @"机"
+                       @"号格式有误，请重新输入"];
         return;
     }
 
@@ -157,32 +170,46 @@
 
 - (void)didLogin
 {
-
     self.countForLoginTimes++;
 
     [MBProgressHUD topShow:@"登录中..."];
 
-    [self.loginService loginByUser:self.userTextField.text pwd:self.pwdTextField.text finish:^(BYUser* user, BYError* error) {
-        [MBProgressHUD topHide];
-        if (user&&!error) {
-            [MBProgressHUD showSuccess:@"登录成功!"];
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                if (_successBlk) {
-                    _successBlk();
-                }
-            }];
-        }else if (user&&error&&error.code == 208103){//用户未注册
-            __weak BYLoginVC * bself = self;
-            [UIAlertView bk_showAlertViewWithTitle:nil message:@"您的手机号没有注册，是否去注册？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"去注册"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
-                if (buttonIndex == 1){
-                    [bself onRegist];
-                }
-            }];
-        }else {
-            alertError(error);
-            [self updateUI];
-        }
-    }];
+    [self.loginService
+        loginByUser:self.userTextField.text
+                pwd:self.pwdTextField.text
+             finish:^(BYUser* user, BYError* error) {
+                 [MBProgressHUD topHide];
+                 if (user && !error) {
+                     [MBProgressHUD showSuccess:@"登录成功!"];
+                     [self.navigationController
+                         dismissViewControllerAnimated:YES
+                                            completion:^{
+                                                if (_successBlk) {
+                                                    _successBlk();
+                                                }
+                                            }];
+                 }
+                 else if (user && error && error.code == 208103) { //用户未注册
+                     __weak BYLoginVC* bself = self;
+                     [UIAlertView
+                         bk_showAlertViewWithTitle:
+                             nil message:@"您"
+                                 @"的手机号没有注册，是否去注册？"
+                                 cancelButtonTitle:@"取消"
+                                 otherButtonTitles:[NSArray
+                                                       arrayWithObject:@"去注册"]
+                                           handler:^(UIAlertView* alertView,
+                                                       NSInteger buttonIndex) {
+                                               if (buttonIndex == 1) {
+                                                   [bself onRegist];
+                                               }
+                                           }];
+                 }
+                 else {
+                     alertError(error);
+                     [self updateUI];
+                 }
+             }];
 }
 
 - (void)onRegist
@@ -206,8 +233,9 @@
         NSString* phoneNum = textField.text;
         BOOL isMobileNumber = [phoneNum isMobilePhoneNumber];
 
-        if (!isMobileNumber) {
-            [MBProgressHUD topShowTmpMessage:@"手机号格式有误，请重新输入"];
+        if (!isMobileNumber) {//TODO wenzi geshi
+            [MBProgressHUD topShowTmpMessage:@"手" @"机"
+                           @"号格式有误，请重新输入"];
             return NO;
         }
         else {

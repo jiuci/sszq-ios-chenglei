@@ -29,7 +29,7 @@
             finished(NO,error);
             return ;
         }
-        _md5 = md5;
+        _md5 = md5;//TODO api
         finished(YES,nil);
     }];
 }

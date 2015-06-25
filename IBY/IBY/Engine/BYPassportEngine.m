@@ -78,7 +78,7 @@
     NSDictionary* params = @{ @"username" : user,
                               @"password" : pwd,
                               @"verycode" : code,
-                              @"source"   : @"iOS" } ;
+                              @"source"   : @"iOS" } ;//TODO api
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){
             finished(NO,error);
