@@ -17,9 +17,16 @@
 
 // username=18001350673&&password=test123&&verycode=23jkle
 
-- (void)registByUser:(NSString*)user pwd:(NSString*)pwd verycode:(NSString*)code finsh:(void (^)(BOOL success, BYError* error))finished
+- (void)registByUser:(NSString*)user pwd:(NSString*)pwd finsh:(void (^)(BOOL success, BYError* error))finished
 {
-    [BYPassportEngine registByUser:user pwd:pwd verycode:code finsh:finished];
+    if (_verifyCode) {
+        [BYPassportEngine registByUser:user pwd:pwd verycode:_verifyCode finsh:finished];
+    }else{
+        //这是一个跳页面调用API才会掉进来的错误位置
+        BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.passport.regist", @"verifyCode is not valid", nil);
+        finished(NO,err);
+    }
+    
 }
 
 - (void)checkVerifyCode:(NSString*)code phone:(NSString*)phone finish:(void (^)(BOOL success, BYError* error))finished
@@ -29,7 +36,7 @@
             finished(NO,error);
             return ;
         }
-        _md5 = md5;//TODO api
+        _md5 = md5;
         finished(YES,nil);
     }];
 }

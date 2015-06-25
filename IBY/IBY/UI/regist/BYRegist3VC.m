@@ -24,9 +24,13 @@
 
     _registService = [[BYRegistService alloc] init];
 
+    
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self.firstPwdTextField becomeFirstResponder];
 }
-
 - (IBAction)commitOnclick
 {
     [self.view endEditing:YES];
@@ -38,8 +42,8 @@
 
     NSString* user = _registService.phone;
     NSString* pwd = self.firstPwdTextField.text;
-    NSString* smsCode = self.registService.verifyCode;//TODO service
-    [self.registService registByUser:user pwd:pwd verycode:smsCode finsh:^(BOOL success, BYError* error) {
+//    NSString* smsCode = self.registService.verifyCode;
+    [self.registService registByUser:user pwd:pwd finsh:^(BOOL success, BYError* error) {
         if(error){
             alertError(error);
         }else{

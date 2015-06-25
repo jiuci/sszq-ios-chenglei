@@ -38,7 +38,7 @@
     _captchaView.top = self.phoneNumTextField.bottom;
     [self.view addSubview:_captchaView];
 
-    [self.phoneNumTextField becomeFirstResponder];
+    
     _regitService = [[BYForgetPasswordService alloc] init];
 
     self.autoHideKeyboard = YES;
@@ -48,6 +48,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.phoneNumTextField becomeFirstResponder];
     [_captchaView refreshCaptchaImage];
 }
 #pragma mark -

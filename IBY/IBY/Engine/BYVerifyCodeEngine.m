@@ -63,12 +63,13 @@
     [BYNetwork get:url
             params:params
             finish:^(NSDictionary* data, BYError* error) {
+                NSLog(@"%@,%@",data,error);
                 if (error) {
                     finished(nil, error);
                 }
                 else {
                     NSString* md5 = data[@"md5"];
-                    if (md5.length > 30) {//TODO 30->1
+                    if (md5.length > 1) {
                         finished(data[@"md5"], nil);
                     }
                     else {
@@ -81,7 +82,7 @@
 + (void)fetchSMSVerifyCodeForRegistWithPhone:(NSString*)phoneNum finish:(void (^)(BYFetchVerifyCodeStatus status, BYError* error))finished;
 {
     NSString* url = @"user/customer/MobilePreRegist";
-    NSDictionary* param = @{ @"Mobile" : phoneNum };
+    NSDictionary* param = @{ @"mobile" : phoneNum };
 
     [BYNetwork post:url
              params:param

@@ -34,10 +34,15 @@
     _registService.phone = _phone;
 
     self.phoneNumLabel.text = _registService.phone;
-    [self.smsCodeTextField becomeFirstResponder];
+    
 
     self.autoHideKeyboard = YES;
-    [self beginTimer];//TODO didappear
+    [self beginTimer];
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.smsCodeTextField becomeFirstResponder];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
