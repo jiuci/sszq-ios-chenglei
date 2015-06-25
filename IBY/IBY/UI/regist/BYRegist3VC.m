@@ -38,7 +38,7 @@
 
     NSString* user = _registService.phone;
     NSString* pwd = self.firstPwdTextField.text;
-    NSString* smsCode = self.registService.verifyCode;
+    NSString* smsCode = self.registService.verifyCode;//TODO service
     [self.registService registByUser:user pwd:pwd verycode:smsCode finsh:^(BOOL success, BYError* error) {
         if(error){
             alertError(error);

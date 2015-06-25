@@ -14,8 +14,6 @@
 {
     NSString* url = @"vcode/getvcode";
     NSDictionary* param = @{ @"id" : [BYAppCenter sharedAppCenter].uuid };
-<<<<<<< HEAD
-
     [BYNetwork get:url
             params:param
             finish:^(NSDictionary* data, BYError* error) {
@@ -37,30 +35,6 @@
                     }
                 }
             }];
-=======
-
-    [BYNetwork get:url
-            params:param
-            finish:^(NSDictionary* data, BYError* error) {
-                if (error) {
-                    finished(nil, error);
-                    return;
-                }
-                NSString* stringData = data[@"decodeImage"];
-                UIImage* codeImage = nil;
-                if (stringData) {
-                    codeImage = [Base64Helper string2Image:stringData];
-                }
-                if (codeImage) {
-                    finished(codeImage, nil);
-                }
-                else {
-                    BYError* err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.verifycode.image", @"image is not valid", nil);
-                    finished(nil, err);
-                }
-
-            }];
->>>>>>> merge
 }
 + (void)checkImageVerifyCode:(NSString*)code finish:(void (^)(BOOL success, BYError* error))finished;
 {
@@ -94,7 +68,7 @@
                 }
                 else {
                     NSString* md5 = data[@"md5"];
-                    if (md5.length > 30) {
+                    if (md5.length > 30) {//TODO 30->1
                         finished(data[@"md5"], nil);
                     }
                     else {
