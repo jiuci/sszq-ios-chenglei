@@ -82,9 +82,9 @@
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){
             finished(NO,error);
-            return ;
+        }else{
+            finished(YES,nil);
         }
-        finished(YES,nil);
     }];
 }
 + (void)resetPasswordForUser:(NSString*)username
@@ -109,10 +109,9 @@
        [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){
             finished(NO,error);
-            return ;
+        }else{
+            finished(YES,nil);
         }
-        finished(YES,nil);
-        
     }];
 }
 
