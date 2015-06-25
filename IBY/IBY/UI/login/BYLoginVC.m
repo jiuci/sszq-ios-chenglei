@@ -233,9 +233,8 @@
         NSString* phoneNum = textField.text;
         BOOL isMobileNumber = [phoneNum isMobilePhoneNumber];
 
-        if (!isMobileNumber) {//TODO wenzi geshi
-            [MBProgressHUD topShowTmpMessage:@"手" @"机"
-                           @"号格式有误，请重新输入"];
+        if (!isMobileNumber) {
+            [MBProgressHUD topShowTmpMessage:@"手机号格式有误，请重新输入"];
             return NO;
         }
         else {

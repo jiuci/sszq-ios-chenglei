@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSString* verifyCode;
 @property (nonatomic,strong)NSString* md5;
 
-- (void)registByUser:(NSString*)user pwd:(NSString*)pwd verycode:(NSString*)code finsh:(void (^)(BOOL success, BYError* error))finished;
+- (void)registByUser:(NSString*)user pwd:(NSString*)pwd finsh:(void (^)(BOOL success, BYError* error))finished;
 
 
 // 验证手机验证码

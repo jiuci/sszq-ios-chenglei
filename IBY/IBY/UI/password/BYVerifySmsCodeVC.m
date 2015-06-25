@@ -34,7 +34,7 @@
     _forgetpasswordService.phone = _phone;
 
     self.phoneNumLabel.text = _forgetpasswordService.phone;
-    [self.smsCodeTextField becomeFirstResponder];
+    
 
     self.autoHideKeyboard = YES;
     
@@ -43,7 +43,11 @@
     //但要启动计时器
     [self beginTimer];
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.smsCodeTextField becomeFirstResponder];
+}
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

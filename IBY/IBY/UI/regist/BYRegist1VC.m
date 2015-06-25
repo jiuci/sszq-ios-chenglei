@@ -47,6 +47,7 @@
 
     //TODO: todo psy 还没有验证码
 }
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

@@ -23,11 +23,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.firstPwdTextField becomeFirstResponder];
+    
     self.title = @"设置新密码";
     _showPassword = YES;
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.firstPwdTextField becomeFirstResponder];
+}
 - (IBAction)commitOnclick
 {
     [self.view endEditing:YES];
