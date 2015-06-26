@@ -77,8 +77,8 @@
     NSString* url = @"user/customer/CustomerRegisterServlet";
     NSDictionary* params = @{ @"username" : user,
                               @"password" : pwd,
-                              @"verycode" : code,
-                              @"source"   : @"iOS" } ;//TODO 已经提交API修复申请
+                              @"verycode" : code
+                              } ;
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){
             finished(NO,error);

@@ -22,7 +22,7 @@
     [super viewDidLoad];
     self.title = @"设置密码";
 
-    _registService = [[BYRegistService alloc] init];
+    //_registService = [[BYRegistService alloc] init];
 
     
 }
@@ -37,6 +37,7 @@
 
     if (![self.firstPwdTextField.text isValidPassword]) {
         [MBProgressHUD topShowTmpMessage:@"密码格式有误"];
+        [self.firstPwdTextField becomeFirstResponder];
         return;
     }
 

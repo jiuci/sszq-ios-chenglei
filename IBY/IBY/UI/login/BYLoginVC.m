@@ -55,11 +55,12 @@
         [self.bodyView TPKeyboardAvoiding_scrollToActiveTextField];
         return YES;
     };
-
+    
     self.userTextField.bk_shouldBeginEditingBlock = ^(UITextField* textField) {
         [self.bodyView TPKeyboardAvoiding_scrollToActiveTextField];
         return YES;
     };
+    
 }
 - (void)setupUI
 {
@@ -153,8 +154,7 @@
     }
 
     if (![self.userTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD topShowTmpMessage:@"手" @"机"
-                       @"号格式有误，请重新输入"];
+        [MBProgressHUD topShowTmpMessage:@"手机号格式有误，请重新输入"];
         return;
     }
 
@@ -227,14 +227,15 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField*)textField
 {
+    NSLog(@"return");
     if (textField == self.userTextField) {
         //验证手机号输入是否符合规则
 
         NSString* phoneNum = textField.text;
         BOOL isMobileNumber = [phoneNum isMobilePhoneNumber];
-
         if (!isMobileNumber) {
             [MBProgressHUD topShowTmpMessage:@"手机号格式有误，请重新输入"];
+            [self.userTextField becomeFirstResponder];
             return NO;
         }
         else {
@@ -246,7 +247,24 @@
     }
     return YES;
 }
-
+//-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    
+//    NSUInteger length = range.length+range.location;
+//    NSLog(@"change %d",(int)length);
+//    if (length>31) {
+//        return NO;
+//    }
+//    if (length>=6&&length+string.length<6) {
+//        _loginMenu.loginBtn.enabled = NO;
+//        [_loginMenu.loginBtn setBackgroundImage:[UIImage imageNamed:@"btn_gray"] forState:UIControlStateNormal];
+//    }else if(length<6&&length+string.length>=6){
+//        _loginMenu.loginBtn.enabled = YES;
+//        [_loginMenu.loginBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];
+//    }
+//
+//    return YES;
+//}
 @end
 
 BYNavVC* makeLoginnav(BYLoginSuccessBlock blk)

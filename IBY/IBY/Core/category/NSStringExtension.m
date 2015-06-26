@@ -39,7 +39,18 @@
                                                                                 (CFStringRef) @"!*'\"();:@&=+$,/?%#[]% ",
                                                                                 CFStringConvertNSStringEncodingToEncoding(encoding)));
 }
-
+- (BOOL)isBYcardID
+{
+    NSError* error = nil;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"^[\\d\\*]{,10}$"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSUInteger numberOfMatches = [regex numberOfMatchesInString:self options:0 range:NSMakeRange(0, [self length])];
+    if (1 == numberOfMatches) {
+        return YES;
+    }
+    return NO;
+}
 - (BOOL)isMobilePhoneNumber
 {
     NSError* error = nil;

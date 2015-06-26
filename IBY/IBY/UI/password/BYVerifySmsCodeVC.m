@@ -101,6 +101,7 @@
     [self.forgetpasswordService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(BOOL success, BYError* error) {
         if(error){
             alertError(error);
+            [self.smsCodeTextField becomeFirstResponder];
         }else{
             BYPasswordSettingVC *setPwdVC = [[BYPasswordSettingVC alloc] init];
             setPwdVC.passwordService = self.forgetpasswordService;

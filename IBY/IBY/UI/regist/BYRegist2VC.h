@@ -7,8 +7,9 @@
 //
 
 #import "BYBaseVC.h"
-
+#import "BYRegistService.h"
 @interface BYRegist2VC : BYBaseVC
 @property (strong, nonatomic) NSString* phone;
 @property (nonatomic, copy) NSString* titleFromLastPage;
+@property (strong, nonatomic) BYRegistService* registService;
 @end

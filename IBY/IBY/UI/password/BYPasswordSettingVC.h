@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BYForgetPasswordService.h"
 
-@interface BYPasswordSettingVC : BYBaseVC
+@interface BYPasswordSettingVC : BYBaseVC<UITextFieldDelegate>
 @property (strong, nonatomic) BYForgetPasswordService* passwordService;
 
 @end
