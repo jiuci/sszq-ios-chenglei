@@ -25,6 +25,7 @@
 - (NSString*)BYDESString;
 
 //validator
+- (BOOL)isBYcardID;
 - (BOOL)isMobilePhoneNumber;
 - (BOOL)isZipcode;
 - (BOOL)isValidPassword;

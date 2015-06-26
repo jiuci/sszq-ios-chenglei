@@ -53,12 +53,14 @@
 {
     if (captchaFileld.text.length < 2) {
         [MBProgressHUD topShowTmpMessage:@"请输入图片验证码"];
+        [captchaFileld becomeFirstResponder];
         return;
     }
 
     [_service checkImageVerifyCode:captchaFileld.text finish:^(BOOL success, BYError* error) {
         if (!success|| error) {
             [MBProgressHUD showError:@"验证码错误"];
+            [captchaFileld becomeFirstResponder];
             return ;
         }
         //[self refreshCaptchaImage];

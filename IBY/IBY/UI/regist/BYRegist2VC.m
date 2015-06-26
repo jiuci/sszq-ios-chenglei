@@ -13,7 +13,6 @@
 #import "BYRegist3VC.h"
 
 @interface BYRegist2VC ()
-@property (strong, nonatomic) BYRegistService* registService;
 
 @property (weak, nonatomic) IBOutlet UILabel* phoneNumLabel;
 @property (weak, nonatomic) IBOutlet UITextField* smsCodeTextField;
@@ -95,12 +94,16 @@
     [self.view endEditing:YES];
 
     self.registService.verifyCode = self.smsCodeTextField.text;
+    NSLog(@"%@",self.registService.verifyCode);
     [self.registService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(BOOL success, BYError* error) {
         if(error){
             alertError(error);
+            [self.smsCodeTextField becomeFirstResponder];
         }else{
             BYRegist3VC *setPwdVC = [[BYRegist3VC alloc] init];
             setPwdVC.registService = self.registService;
+            NSLog(@"%@",self.registService.verifyCode);
+            NSLog(@"%@",setPwdVC.registService.verifyCode);
             [self.navigationController pushViewController:setPwdVC animated:YES];
         }
     }];

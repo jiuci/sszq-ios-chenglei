@@ -28,6 +28,9 @@
     user.phoneNum = info[@"userinfo"][@"mobile"];
     user.gender = [info[@"userinfo"][@"gender"] intValue];
     user.email = info[@"userinfo"][@"email"];
+    if (![user.email.class isSubclassOfClass:[NSString class]]) {
+        user.email = @"";
+    }
     user.cardID = info[@"userinfo"][@"idcard"];
     
     return user;

@@ -79,6 +79,7 @@
 
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
         [MBProgressHUD showError:@"手机号格式有误，请重新输入"];
+        [self.phoneNumTextField becomeFirstResponder];
         return;
     }
 
@@ -106,6 +107,8 @@
             return;
         }
         BYRegist2VC *aimVC = [[BYRegist2VC alloc]init];
+        self.registService.phone = self.phoneNumTextField.text;
+        aimVC.registService = self.registService;
         aimVC.phone = self.phoneNumTextField.text;
         [self.navigationController pushViewController:aimVC animated:YES];
     }];

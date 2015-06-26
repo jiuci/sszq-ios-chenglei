@@ -63,6 +63,7 @@
     [self.view endEditing:YES];
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
         [MBProgressHUD showError:@"手机号格式错误"];
+        [self.phoneNumTextField becomeFirstResponder];
         return;
     }
     [_captchaView valueCheckWithSuccessBlock:^{
@@ -83,7 +84,7 @@
                     }];
                     return;
                 }else if (error){
-                    [MBProgressHUD topShowTmpMessage:@"发送失败，请稍后再试"];
+                    alertError(error);
                     return;
                 }
                     
