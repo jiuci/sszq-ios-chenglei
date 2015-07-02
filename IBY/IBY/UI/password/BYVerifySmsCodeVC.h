@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BYVerifySmsCodeVC : BYBaseVC
+@interface BYVerifySmsCodeVC : BYBaseVC<UITextFieldDelegate>
 @property (strong, nonatomic) NSString* phone;
 @property (nonatomic, copy) NSString* titleFromLastPage;
 @end

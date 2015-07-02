@@ -106,7 +106,6 @@
     [self.view endEditing:YES];
 
     self.registService.verifyCode = self.smsCodeTextField.text;
-    NSLog(@"%@", self.registService.verifyCode);
     [self.registService checkVerifyCode:self.smsCodeTextField.text
                                   phone:_registService.phone
                                  finish:^(BOOL success, BYError* error) {
@@ -117,8 +116,6 @@
                                      else {
                                          BYRegist3VC* setPwdVC = [[BYRegist3VC alloc] init];
                                          setPwdVC.registService = self.registService;
-                                         NSLog(@"%@", self.registService.verifyCode);
-                                         NSLog(@"%@", setPwdVC.registService.verifyCode);
                                          [self.navigationController pushViewController:setPwdVC animated:YES];
                                      }
                                  }];

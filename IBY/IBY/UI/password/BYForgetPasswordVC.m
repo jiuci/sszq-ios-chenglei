@@ -8,6 +8,7 @@
 
 #import "BYForgetPasswordVC.h"
 #import "BYVerifySmsCodeVC.h"
+#import "BYAutosizeBgButton.h"
 
 #import "BYPasswordSettingVC.h"
 #import "BYReSetPasswordVC.h"
@@ -21,9 +22,12 @@
 @interface BYForgetPasswordVC ()
 
 @property (weak, nonatomic) IBOutlet UITextField* phoneNumTextField;
+@property (weak, nonatomic) IBOutlet UIImageView* txtLeftView;
+@property (weak, nonatomic) IBOutlet UIImageView* inputBg;
 
 @property (nonatomic, strong) BYForgetPasswordService* regitService;
 @property (strong, nonatomic) BYCaptchaView* captchaView;
+@property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 
 @end
 
@@ -42,8 +46,22 @@
     _regitService = [[BYForgetPasswordService alloc] init];
 
     self.autoHideKeyboard = YES;
+    [self.phoneNumTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
+        self.txtLeftView.highlighted = YES;
+        self.inputBg.highlighted = YES;
+    }];
     
-    
+    [self.phoneNumTextField setBk_didEndEditingBlock:^(UITextField* txtField) {
+        self.txtLeftView.highlighted = NO;
+        self.inputBg.highlighted = NO;
+    }];
+    self.phoneNumTextField.delegate = self;
+    [self.phoneNumTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        self.btnNext.enabled = [realStr isMobilePhoneNumber];
+        return YES;
+    }];
+    self.btnNext.enabled = NO;
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -61,6 +79,12 @@
 - (IBAction)onNextStep
 {
     [self.view endEditing:YES];
+    //测试中
+    BYVerifySmsCodeVC *aimVC = [[BYVerifySmsCodeVC alloc]init];
+    aimVC.phone = self.phoneNumTextField.text;
+    [self.navigationController pushViewController:aimVC animated:YES];
+    return;
+    
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
         [MBProgressHUD showError:@"手机号格式错误"];
         [self.phoneNumTextField becomeFirstResponder];
