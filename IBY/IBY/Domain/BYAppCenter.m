@@ -82,7 +82,7 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
     
     reach.unreachableBlock = ^(Reachability * reachability)
     {
-        _isNetConnected = NO;
+//        _isNetConnected = NO;
     };
     [reach startNotifier];
     
