@@ -10,9 +10,13 @@
 #import "BYRegistService.h"
 #import "BYLoginVC.h"
 #import "BYLoginService.h"
+#import "BYAutosizeBgButton.h"
 
 @interface BYRegist3VC ()
 @property (weak, nonatomic) IBOutlet UITextField* firstPwdTextField;
+@property (weak, nonatomic) IBOutlet UIImageView* bgInput;
+@property (weak, nonatomic) IBOutlet UIImageView* iconInputLeftView;
+@property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 @end
 
 @implementation BYRegist3VC
@@ -23,7 +27,20 @@
     self.title = @"设置密码";
 
     //_registService = [[BYRegistService alloc] init];
-
+    [self.firstPwdTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
+        self.iconInputLeftView.highlighted = YES;
+        self.bgInput.highlighted = YES;
+    }];
+    
+    [self.firstPwdTextField setBk_didEndEditingBlock:^(UITextField* txtField) {
+        self.iconInputLeftView.highlighted = NO;
+        self.bgInput.highlighted = NO;
+    }];
+    [self.firstPwdTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        self.btnNext.enabled = [realStr length]>0;
+        return YES;
+    }];
     
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -73,11 +90,9 @@
 {
     sender.selected = !sender.selected;
     if (sender.selected) {
-        [sender setTitle:@"隐藏密码" forState:UIControlStateNormal];
         [self.firstPwdTextField setSecureTextEntry:NO];
     }
     else {
-        [sender setTitle:@"显示密码" forState:UIControlStateNormal];
         [self.firstPwdTextField setSecureTextEntry:YES];
     }
 

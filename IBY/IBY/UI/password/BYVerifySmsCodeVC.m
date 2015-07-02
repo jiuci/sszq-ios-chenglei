@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel* phoneNumLabel;
 @property (weak, nonatomic) IBOutlet UITextField* smsCodeTextField;
 @property (weak, nonatomic) IBOutlet BYAutosizeBgButton* resendBtn;
-
+@property (weak, nonatomic) IBOutlet UIImageView* bgInput;
+@property (weak, nonatomic) IBOutlet UIImageView* iconInputLeftView;
 @property (nonatomic, assign) int countdownTime;
 @property (nonatomic, strong) NSTimer* smsCountTimer;
 
@@ -33,14 +34,20 @@
     _forgetpasswordService = [[BYForgetPasswordService alloc] init];
     _forgetpasswordService.phone = _phone;
 
-    self.phoneNumLabel.text = _forgetpasswordService.phone;
+    self.phoneNumLabel.text = [_forgetpasswordService.phone chineseMobileFormat];
+    self.smsCodeTextField.delegate = self;
+    [self.smsCodeTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
+        self.iconInputLeftView.highlighted = YES;
+        self.bgInput.highlighted = YES;
+    }];
     
+    [self.smsCodeTextField setBk_didEndEditingBlock:^(UITextField* txtField) {
+        self.iconInputLeftView.highlighted = NO;
+        self.bgInput.highlighted = NO;
+    }];
 
     self.autoHideKeyboard = YES;
     
-    //进入此页面时发一次短信，此处不需要再次发送一次短信了
-    //[self fetchSMSCode];
-    //但要启动计时器
     [self beginTimer];
 }
 -(void)viewDidAppear:(BOOL)animated

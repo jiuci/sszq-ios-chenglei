@@ -9,12 +9,14 @@
 #import "BYPasswordSettingVC.h"
 #import "BYLoginService.h"
 #import "BYLoginVC.h"
+#import "BYAutosizeBgButton.h"
 
 @interface BYPasswordSettingVC ()
 
 @property (weak, nonatomic) IBOutlet UITextField* firstPwdTextField;
-@property (weak, nonatomic) IBOutlet UITextField* secondPwdTextField;
-@property (weak, nonatomic) IBOutlet UIButton* actionButton;
+@property (weak, nonatomic) IBOutlet UIImageView* bgInput;
+@property (weak, nonatomic) IBOutlet UIImageView* iconInputLeftView;
+@property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 @end
 
 @implementation BYPasswordSettingVC {
@@ -27,7 +29,21 @@
     
     self.title = @"设置新密码";
     _showPassword = YES;
-    self.actionButton.enabled = NO;
+    self.btnNext.enabled = NO;
+    [self.firstPwdTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
+        self.iconInputLeftView.highlighted = YES;
+        self.bgInput.highlighted = YES;
+    }];
+    
+    [self.firstPwdTextField setBk_didEndEditingBlock:^(UITextField* txtField) {
+        self.iconInputLeftView.highlighted = NO;
+        self.bgInput.highlighted = NO;
+    }];
+    [self.firstPwdTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        self.btnNext.enabled = [realStr length]>0;
+        return YES;
+    }];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -41,11 +57,6 @@
 
     if (![self.firstPwdTextField.text isValidPassword]) {
         [MBProgressHUD topShowTmpMessage:@"密码格式有误"];
-        [self.firstPwdTextField becomeFirstResponder];
-        return;
-    }
-    if (![self.firstPwdTextField.text isEqualToString:self.secondPwdTextField.text]) {
-        [MBProgressHUD topShowTmpMessage:@"两次输入不一致"];
         [self.firstPwdTextField becomeFirstResponder];
         return;
     }
@@ -88,29 +99,15 @@
     if (_showPassword) {
         [sender setTitle:@"隐藏密码" forState:UIControlStateNormal];
         [self.firstPwdTextField setSecureTextEntry:NO];
-        [self.secondPwdTextField setSecureTextEntry:NO];
     }
     else {
         [sender setTitle:@"显示密码" forState:UIControlStateNormal];
         [self.firstPwdTextField setSecureTextEntry:YES];
-        [self.secondPwdTextField setSecureTextEntry:YES];
     }
     //
 //    [self.firstPwdTextField becomeFirstResponder];
     self.firstPwdTextField.text = self.firstPwdTextField.text;
 }
 
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    NSUInteger length = range.length+range.location;
-    if (length>32) {
-        return NO;
-    }
-    if (length<6) {
-        self.actionButton.enabled = NO;
-    }else if (self.firstPwdTextField.text.length>5&&self.secondPwdTextField.text.length>5){
-        self.actionButton.enabled = YES;
-    }
-    return YES;
-}
+
 @end

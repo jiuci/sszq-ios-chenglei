@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BYForgetPasswordVC : BYBaseVC
+@interface BYForgetPasswordVC : BYBaseVC<UITextFieldDelegate>
 
 @end

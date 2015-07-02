@@ -7,72 +7,104 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BYVerifySmsCodeVC">
             <connections>
+                <outlet property="bgInput" destination="dP6-Rc-5kE" id="Epj-lq-9e3"/>
+                <outlet property="iconInputLeftView" destination="WGa-LO-kht" id="0dn-bd-GTM"/>
                 <outlet property="phoneNumLabel" destination="5u1-Uy-bPz" id="6IJ-MV-hjW"/>
                 <outlet property="resendBtn" destination="H8S-Qy-B6H" id="LjH-UC-iTl"/>
                 <outlet property="smsCodeTextField" destination="m7E-xd-MTt" id="Ue0-vU-IL9"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="8A0-V5-g7P"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="535"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已发送验证码到此手机上" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzZ-5M-TRi">
-                    <rect key="frame" x="12" y="16" width="296" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzZ-5M-TRi">
+                    <rect key="frame" x="0.0" y="28" width="320" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="wDN-J6-BBF"/>
+                        <constraint firstAttribute="height" constant="20" id="wDN-J6-BBF"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <attributedString key="attributedText">
+                        <fragment content="已将">
+                            <attributes>
+                                <color key="NSColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="短信验证码">
+                            <attributes>
+                                <color key="NSColor" red="0.25098039215686274" green="0.14509803921568629" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="发送至手机号码：">
+                            <attributes>
+                                <color key="NSColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="132" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5u1-Uy-bPz">
-                    <rect key="frame" x="12" y="40" width="296" height="21"/>
+                    <rect key="frame" x="0.0" y="60" width="320" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="x2U-hd-Qdc"/>
+                        <constraint firstAttribute="height" constant="20" id="x2U-hd-Qdc"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_inputbox" translatesAutoresizingMaskIntoConstraints="NO" id="dP6-Rc-5kE">
-                    <rect key="frame" x="12" y="81" width="160" height="40"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_inputbox" highlightedImage="bg_inputbox_on" translatesAutoresizingMaskIntoConstraints="NO" id="dP6-Rc-5kE">
+                    <rect key="frame" x="38" y="104" width="244" height="40"/>
                     <rect key="contentStretch" x="0.34999999999999998" y="0.39999999999999997" width="0.44999999999999962" height="0.19999999999999968"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="160" id="SXv-1R-PlR"/>
                         <constraint firstAttribute="height" constant="40" id="doI-BS-Uxt"/>
                     </constraints>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="m7E-xd-MTt">
-                    <rect key="frame" x="21" y="80" width="131" height="40"/>
+                    <rect key="frame" x="82" y="104" width="120" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="exi-gV-okG"/>
-                        <constraint firstAttribute="width" constant="131" id="ybn-ZR-Jzo"/>
                     </constraints>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8S-Qy-B6H" customClass="BYAutosizeBgButton">
-                    <rect key="frame" x="184" y="80" width="124" height="40"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOc-0X-f2O">
+                    <rect key="frame" x="202" y="110" width="1" height="28"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.75294117650000003" blue="0.75294117650000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="124" id="3xJ-AK-DYC"/>
+                        <constraint firstAttribute="height" constant="28" id="iKf-1Y-z3y"/>
+                        <constraint firstAttribute="width" constant="1" id="ur6-4t-YNS"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8S-Qy-B6H" customClass="BYAutosizeBgButton">
+                    <rect key="frame" x="202" y="104" width="80" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="0JC-Vy-QYG"/>
                         <constraint firstAttribute="height" constant="40" id="8zn-sE-71h"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="重新发送（    ）" backgroundImage="btn_gray">
-                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="重发验证码">
+                        <color key="titleColor" red="0.71764705880000002" green="0.4039215686" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="sendCodeAgainClick:" destination="-1" eventType="touchUpInside" id="mqt-zK-SCs"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kex-db-D6n" customClass="BYAutosizeBgButton">
-                    <rect key="frame" x="12" y="141" width="296" height="44"/>
+                    <rect key="frame" x="38" y="168" width="244" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="5Wb-Jx-ofx"/>
+                        <constraint firstAttribute="height" constant="40" id="5Wb-Jx-ofx"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="下一步" backgroundImage="btn_red">
@@ -84,36 +116,49 @@
                         <action selector="nextStepOnclick" destination="-1" eventType="touchUpInside" id="ES0-IB-887"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sms_email" highlightedImage="icon_sms_email_on" translatesAutoresizingMaskIntoConstraints="NO" id="WGa-LO-kht">
+                    <rect key="frame" x="50" y="116" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="MN3-bI-dJi"/>
+                        <constraint firstAttribute="height" constant="16" id="pps-i1-2xB"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.96470588235294119" green="0.94901960784313721" blue="0.89411764705882357" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="H8S-Qy-B6H" secondAttribute="trailing" constant="12" id="3ba-P5-AbA"/>
-                <constraint firstItem="H8S-Qy-B6H" firstAttribute="leading" secondItem="dP6-Rc-5kE" secondAttribute="trailing" constant="12" id="67p-6H-zOd"/>
-                <constraint firstAttribute="trailing" secondItem="5u1-Uy-bPz" secondAttribute="trailing" constant="12" id="6Rw-gJ-gqK"/>
-                <constraint firstItem="m7E-xd-MTt" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="19" id="7f8-4B-Bm3"/>
-                <constraint firstItem="Kex-db-D6n" firstAttribute="top" secondItem="dP6-Rc-5kE" secondAttribute="bottom" constant="20" id="ALp-u1-2tG"/>
-                <constraint firstItem="5u1-Uy-bPz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="KST-a7-s0b"/>
-                <constraint firstItem="dP6-Rc-5kE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="R2M-ik-9xs"/>
-                <constraint firstItem="XzZ-5M-TRi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="W1c-Y2-3Ie"/>
-                <constraint firstItem="dP6-Rc-5kE" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="20" id="cet-kO-0Y5"/>
-                <constraint firstItem="H8S-Qy-B6H" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="19" id="grn-iN-Ys3"/>
-                <constraint firstItem="H8S-Qy-B6H" firstAttribute="leading" secondItem="m7E-xd-MTt" secondAttribute="trailing" constant="32" id="lfK-be-kMZ"/>
-                <constraint firstItem="5u1-Uy-bPz" firstAttribute="top" secondItem="XzZ-5M-TRi" secondAttribute="bottom" constant="3" id="nkf-Sg-n9b"/>
-                <constraint firstAttribute="trailing" secondItem="Kex-db-D6n" secondAttribute="trailing" constant="12" id="qnl-Y2-mxq"/>
-                <constraint firstItem="Kex-db-D6n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="sST-Bd-olt"/>
-                <constraint firstAttribute="trailing" secondItem="XzZ-5M-TRi" secondAttribute="trailing" constant="12" id="veq-Kp-Rje"/>
-                <constraint firstItem="m7E-xd-MTt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="21" id="wVT-iq-iPI"/>
-                <constraint firstItem="XzZ-5M-TRi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="z6o-AW-Ij4"/>
+                <constraint firstAttribute="trailing" secondItem="5u1-Uy-bPz" secondAttribute="trailing" id="6Rw-gJ-gqK"/>
+                <constraint firstItem="Kex-db-D6n" firstAttribute="top" secondItem="dP6-Rc-5kE" secondAttribute="bottom" constant="24" id="ALp-u1-2tG"/>
+                <constraint firstItem="5u1-Uy-bPz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KST-a7-s0b"/>
+                <constraint firstItem="XzZ-5M-TRi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="W1c-Y2-3Ie"/>
+                <constraint firstAttribute="trailing" secondItem="H8S-Qy-B6H" secondAttribute="trailing" constant="38" id="ah4-Rv-EUq"/>
+                <constraint firstItem="JOc-0X-f2O" firstAttribute="leading" secondItem="H8S-Qy-B6H" secondAttribute="leading" id="cYE-Vt-Tmr"/>
+                <constraint firstItem="dP6-Rc-5kE" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="24" id="cet-kO-0Y5"/>
+                <constraint firstItem="dP6-Rc-5kE" firstAttribute="centerY" secondItem="WGa-LO-kht" secondAttribute="centerY" id="dJZ-K0-afC"/>
+                <constraint firstItem="H8S-Qy-B6H" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="24" id="grn-iN-Ys3"/>
+                <constraint firstItem="m7E-xd-MTt" firstAttribute="centerY" secondItem="dP6-Rc-5kE" secondAttribute="centerY" id="hRk-Jy-2LS"/>
+                <constraint firstItem="dP6-Rc-5kE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="jkp-Hi-Clo"/>
+                <constraint firstItem="WGa-LO-kht" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="khb-ij-8ww"/>
+                <constraint firstItem="m7E-xd-MTt" firstAttribute="leading" secondItem="WGa-LO-kht" secondAttribute="trailing" constant="16" id="mbs-rb-Blm"/>
+                <constraint firstItem="JOc-0X-f2O" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="110" id="n2A-VK-wCQ"/>
+                <constraint firstItem="5u1-Uy-bPz" firstAttribute="top" secondItem="XzZ-5M-TRi" secondAttribute="bottom" constant="12" id="nkf-Sg-n9b"/>
+                <constraint firstAttribute="trailing" secondItem="dP6-Rc-5kE" secondAttribute="trailing" constant="38" id="q9X-Fh-1SP"/>
+                <constraint firstAttribute="trailing" secondItem="Kex-db-D6n" secondAttribute="trailing" constant="38" id="qnl-Y2-mxq"/>
+                <constraint firstItem="Kex-db-D6n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="sST-Bd-olt"/>
+                <constraint firstItem="H8S-Qy-B6H" firstAttribute="leading" secondItem="m7E-xd-MTt" secondAttribute="trailing" id="ujg-rz-9QV"/>
+                <constraint firstAttribute="trailing" secondItem="XzZ-5M-TRi" secondAttribute="trailing" id="veq-Kp-Rje"/>
+                <constraint firstItem="XzZ-5M-TRi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z6o-AW-Ij4"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="211" y="292.5"/>
         </view>
     </objects>
     <resources>
         <image name="bg_inputbox" width="12" height="12"/>
-        <image name="btn_gray" width="12" height="12"/>
-        <image name="btn_red" width="5" height="5"/>
-        <image name="btn_red_on" width="5" height="5"/>
+        <image name="bg_inputbox_on" width="12" height="12"/>
+        <image name="btn_red" width="16" height="16"/>
+        <image name="btn_red_on" width="16" height="16"/>
+        <image name="icon_sms_email" width="16" height="16"/>
+        <image name="icon_sms_email_on" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
