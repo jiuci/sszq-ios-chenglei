@@ -11,31 +11,79 @@
 #import "Base64Helper.h"
 
 @interface BYCaptchaView ()
-@property (weak, nonatomic) IBOutlet UIImageView* captchaImgView;
+@property (strong, nonatomic) UIImageView* captchaImgView;
+@property (strong, nonatomic) UITextField* captchaFileld;
+@property (strong, nonatomic) UIImageView* bgInput;
+
 @end
 
 @implementation BYCaptchaView {
-    __weak IBOutlet UITextField* captchaFileld;
     BYCaptchaService* _service;
 }
 
 + (instancetype)captchaView
 {
-    BYCaptchaView* instance = [[[NSBundle mainBundle] loadNibNamed:@"BYCaptchaView" owner:nil options:nil] lastObject];
-    NSLog(@"%@",instance.captchaImgView);
-//    instance = [[BYCaptchaView alloc]init];
-    instance.frame = CGRectMake(0, 0, SCREEN_WIDTH, 59);
-    NSLog(@"%@",instance);
+    BYCaptchaView* instance = [[BYCaptchaView alloc] initWithFrame:BYRectMake(0, 0, SCREEN_WIDTH, 60)];
     return instance;
 }
 
-- (void)awakeFromNib
+- (id)initWithFrame:(CGRect)frame
 {
-    [super awakeFromNib];
-    _service = [[BYCaptchaService alloc] init];
+    self = [super initWithFrame:frame];
+    if (self) {
+        CGFloat captchaWidth = 90;
+        CGFloat refreshWidth = 24;
+        CGFloat top = 12;
+        CGFloat height = self.height - 12;
+        CGFloat leftWidth = self.width - 38 * 2 - captchaWidth - refreshWidth - 12;
+
+        UIImageView* bgInput = [[UIImageView alloc] initWithFrame:BYRectMake(38, top, leftWidth, height)];
+        bgInput.image = [[UIImage imageNamed:@"bg_inputbox"] resizableImage];
+        bgInput.highlightedImage = [[UIImage imageNamed:@"bg_inputbox_on"] resizableImage];
+        [self addSubview:bgInput];
+        _bgInput = bgInput;
+
+        _captchaFileld = [[UITextField alloc] initWithFrame:BYRectMake(50, top, bgInput.width - 12, height)];
+        _captchaFileld.placeholder = @"请输入验证码";
+        _captchaFileld.keyboardType = UIKeyboardTypeNumberPad;
+        _captchaFileld.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _captchaFileld.font = Font(14);
+        [self addSubview:_captchaFileld];
+
+        UIImageView* refreshBgView = [[UIImageView alloc] initWithFrame:BYRectMake(0, top, refreshWidth, height)];
+        refreshBgView.image = [[UIImage imageNamed:@"bg_captcha_refresh"] resizableImage];
+        refreshBgView.right = self.width - 38;
+        [self addSubview:refreshBgView];
+
+        UIImageView* refreshIconView = [[UIImageView alloc] initWithFrame:BYRectMake(0, 0, 16, 16)];
+        refreshIconView.image = [UIImage imageNamed:@"icon_refresh"];
+        refreshIconView.center = CGPointMake(refreshBgView.width / 2, refreshBgView.height / 2);
+        [refreshBgView addSubview:refreshIconView];
+
+        _captchaImgView = [[UIImageView alloc] initWithFrame:BYRectMake(0, top, captchaWidth, height)];
+        _captchaImgView.right = refreshBgView.left;
+        [self addSubview:_captchaImgView];
+
+        UIButton* refreshBtn = [[UIButton alloc] initWithFrame:BYRectMake(0, top, captchaWidth + refreshWidth, height)];
+        refreshBtn.right = refreshBgView.right;
+        [refreshBtn addTarget:self action:@selector(onRefreshCaptcha:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:refreshBtn];
+
+        //--
+        _service = [[BYCaptchaService alloc] init];
+        __weak BYCaptchaView* wself = self;
+        [_captchaFileld setBk_didBeginEditingBlock:^(UITextField* txtField) {
+            wself.bgInput.highlighted = YES;
+        }];
+
+        [_captchaFileld setBk_didEndEditingBlock:^(UITextField* txtField) {
+            wself.bgInput.highlighted = NO;
+        }];
+    }
+    return self;
 }
 
-- (IBAction)onRefreshCaptcha:(id)sender
+- (void)onRefreshCaptcha:(id)sender
 {
     [self refreshCaptchaImage];
 }
@@ -43,9 +91,9 @@
 - (void)refreshCaptchaImage
 {
     [_service fetchImageVerifyCode:^(UIImage* image, BYError* error) {
-        if(error){
-            [MBProgressHUD topShowTmpMessage:@"获取验证图片出错。"];
-            return ;
+        if (error) {
+            [MBProgressHUD topShowTmpMessage:@"获取验证图片出错"];
+            return;
         }
 
         self.captchaImgView.image = image;
@@ -54,23 +102,24 @@
 
 - (void)valueCheckWithSuccessBlock:(void (^)())block
 {
-    if (captchaFileld.text.length < 2) {
+    if (self.captchaFileld.text.length < 2) {
         [MBProgressHUD topShowTmpMessage:@"请输入图片验证码"];
-        [captchaFileld becomeFirstResponder];
+        [self.captchaFileld becomeFirstResponder];
         return;
     }
 
-    [_service checkImageVerifyCode:captchaFileld.text finish:^(BOOL success, BYError* error) {
-        if (!success|| error) {
-            [MBProgressHUD showError:@"验证码错误"];
-            [captchaFileld becomeFirstResponder];
-            return ;
-        }
-        //[self refreshCaptchaImage];
-        if (block) {
-            block();
-        }
-    }];
+    [_service checkImageVerifyCode:self.captchaFileld.text
+                            finish:^(BOOL success, BYError* error) {
+                                if (!success || error) {
+                                    [MBProgressHUD showError:@"验证码错误"];
+                                    [self.captchaFileld becomeFirstResponder];
+                                    return;
+                                }
+                                //[self refreshCaptchaImage];
+                                if (block) {
+                                    block();
+                                }
+                            }];
 }
 
 @end

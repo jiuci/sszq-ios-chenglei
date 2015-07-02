@@ -222,7 +222,6 @@
 		F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */; };
 		F4DEC34D1B340265003B9730 /* BYCaptchaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC34C1B340265003B9730 /* BYCaptchaService.m */; };
 		F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */; };
-		F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */; };
 		F4E0074B1B0F075A00438FD5 /* BYLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007451B0F075A00438FD5 /* BYLoginVC.m */; };
 		F4E007571B0F07F800438FD5 /* BYRegist1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E0074F1B0F07F800438FD5 /* BYRegist1VC.m */; };
 		F4E007581B0F07F800438FD5 /* BYRegist1VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007501B0F07F800438FD5 /* BYRegist1VC.xib */; };
@@ -692,7 +691,6 @@
 		F4DEC34C1B340265003B9730 /* BYCaptchaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYCaptchaService.m; path = login/BYCaptchaService.m; sourceTree = "<group>"; };
 		F4E0073E1B0F075A00438FD5 /* BYCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYCaptchaView.h; sourceTree = "<group>"; };
 		F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYCaptchaView.m; sourceTree = "<group>"; };
-		F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYCaptchaView.xib; sourceTree = "<group>"; };
 		F4E007441B0F075A00438FD5 /* BYLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYLoginVC.h; sourceTree = "<group>"; };
 		F4E007451B0F075A00438FD5 /* BYLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYLoginVC.m; sourceTree = "<group>"; };
 		F4E0074E1B0F07F800438FD5 /* BYRegist1VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYRegist1VC.h; sourceTree = "<group>"; };
@@ -1589,7 +1587,6 @@
 			children = (
 				F4E0073E1B0F075A00438FD5 /* BYCaptchaView.h */,
 				F4E0073F1B0F075A00438FD5 /* BYCaptchaView.m */,
-				F4E007401B0F075A00438FD5 /* BYCaptchaView.xib */,
 				F4E007441B0F075A00438FD5 /* BYLoginVC.h */,
 				F4E007451B0F075A00438FD5 /* BYLoginVC.m */,
 			);
@@ -2129,7 +2126,6 @@
 				F41664EB1B2A8E8A00D91CA8 /* haarcascade_eye.xml in Resources */,
 				F4C4156E1A6818FE00F121B3 /* read_me.txt in Resources */,
 				F4C9AAFE1A7626B900325A38 /* AlipaySDK.bundle in Resources */,
-				F4E007481B0F075A00438FD5 /* BYCaptchaView.xib in Resources */,
 				F4C77D101A2DA6F1005EADA0 /* res.xcassets in Resources */,
 				F4E0076B1B0F08E100438FD5 /* BYForgetPasswordVC.xib in Resources */,
 				F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */,
