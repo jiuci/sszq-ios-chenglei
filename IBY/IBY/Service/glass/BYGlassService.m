@@ -15,69 +15,76 @@
 + (void)fetchTryListByDesignId:(int)designId
                       needShow:(BOOL)needShow
                      faceWidth:(int)faceWidth
-                        finish:(void(^)(NSArray* glassesList, BYError *error))finished{
-    
+                        finish:(void (^)(NSArray* glassesList, BYError* error))finished
+{
+
     NSString* url = @"product/glasses/tryList";
-    NSDictionary* params = @{@"designId":@(designId),
-                             @"needShow":@(needShow),
-                             @"faceWidth":@(faceWidth)};
-    [BYNetwork post:url params:params isCacheValid:YES finish:^(NSDictionary *data, BYError *error) {
-        if (error) {
-            finished(nil,error);
-        } else {
-            finished([BYGlasses mtlObjectsWithKeyValueslist:data[@"tryList"]], nil);
-            
-        }
-    }];
+    NSDictionary* params = @{ @"designId" : @(designId),
+        @"needShow" : @(needShow),
+        @"faceWidth" : @(faceWidth) };
+    [BYNetwork post:url
+              params:params
+        isCacheValid:YES
+              finish:^(NSDictionary* data, BYError* error) {
+                  if (error) {
+                      finished(nil, error);
+                  }
+                  else {
+                      finished([BYGlasses mtlObjectsWithKeyValueslist:data[@"tryList"]], nil);
+                  }
+              }];
 }
 
 static NSString* kNativeFacelist = @"com.biyao.cache.facelist";
-- (NSArray*)nativeFacelist {
+- (NSArray*)nativeFacelist
+{
     NSArray* datas = [self cacheForKey:kNativeFacelist];
     if (!datas || datas.count <= 0) {
         return @[];
     }
-    
+
     NSArray* objs = [BYFaceDataUnit mtlObjectsWithKeyValueslist:datas];
-    NSMutableArray *realObjs = [NSMutableArray array];
-    for (BYFaceDataUnit *unit in objs) {
+    NSMutableArray* realObjs = [NSMutableArray array];
+    for (BYFaceDataUnit* unit in objs) {
         if (unit.isValid) {
             [realObjs addObject:unit];
         }
     }
-    
+
     return [realObjs copy];
 }
-- (void)appendFace:(BYFaceDataUnit*)unit {
+- (void)appendFace:(BYFaceDataUnit*)unit
+{
     if (!unit) {
         return;
     }
-    
+
     if (!unit.isValid) {
         return;
     }
-    NSMutableArray *willFacelist = [[self nativeFacelist] mutableCopy];
+    NSMutableArray* willFacelist = [[self nativeFacelist] mutableCopy];
     [willFacelist insertObject:unit atIndex:0];
-    
+
     if (willFacelist.count > 5) {
         [willFacelist removeLastObject];
     }
-    
+
     NSArray* saveDatalist = [willFacelist bk_map:^id(BYFaceDataUnit* obj) {
         return [obj mtlJsonDict];
     }];
     [self setCache:saveDatalist forKey:kNativeFacelist];
 }
 
-- (void)modifyFace:(BYFaceDataUnit*)unit {
+- (void)modifyFace:(BYFaceDataUnit*)unit
+{
     if (!unit) {
         return;
     }
-    
+
     if (!unit.isValid) {
         return;
     }
-    NSMutableArray *willFacelist = [[self nativeFacelist] mutableCopy];
+    NSMutableArray* willFacelist = [[self nativeFacelist] mutableCopy];
     BYFaceDataUnit* dUnit = [willFacelist bk_match:^BOOL(BYFaceDataUnit* obj) {
         return [obj.imgPath2 isEqualToString:unit.imgPath2];
     }];
@@ -97,25 +104,27 @@ static NSString* kNativeFacelist = @"com.biyao.cache.facelist";
     CGFloat dUnitDistance = sqrt((xDist * xDist) + (yDist * yDist));
     if (unit.distance > 100 && unit.distance < 180) {
         unit.distance = dUnit.distance * dUnitDistance / unitDistance;
-    }else{
+    }
+    else {
         unit.distance = unit.facePixels / unitDistance * 62;
     }
-    
+
     NSUInteger index = [willFacelist indexOfObject:dUnit];
     [willFacelist replaceObjectAtIndex:index withObject:unit];
-    
+
     NSArray* saveDatalist = [willFacelist bk_map:^id(BYFaceDataUnit* obj) {
         return [obj mtlJsonDict];
     }];
     [self setCache:saveDatalist forKey:kNativeFacelist];
 }
 
-- (BOOL)removeFace:(BYFaceDataUnit*)unit {
+- (BOOL)removeFace:(BYFaceDataUnit*)unit
+{
     if (!unit) {
         return NO;
     }
-    
-    NSMutableArray *willFacelist = [[self nativeFacelist] mutableCopy];
+
+    NSMutableArray* willFacelist = [[self nativeFacelist] mutableCopy];
     BYFaceDataUnit* dUnit = [willFacelist bk_match:^BOOL(BYFaceDataUnit* obj) {
         return [obj.imgPath2 isEqualToString:unit.imgPath2];
     }];
@@ -127,7 +136,7 @@ static NSString* kNativeFacelist = @"com.biyao.cache.facelist";
     runOnBackgroundQueue(^{
         [[NSFileManager defaultManager] removeItemAtPath:dUnit.imgPath2 error:nil];
     });
-    
+
     NSArray* saveDatalist = [willFacelist bk_map:^id(BYFaceDataUnit* obj) {
         return [obj mtlJsonDict];
     }];
@@ -135,8 +144,9 @@ static NSString* kNativeFacelist = @"com.biyao.cache.facelist";
     return YES;
 }
 
-- (BOOL)isFaceCacheEmpty {
-    NSArray *facelist = [self nativeFacelist];
+- (BOOL)isFaceCacheEmpty
+{
+    NSArray* facelist = [self nativeFacelist];
     if (facelist && facelist.count > 0) {
         return NO;
     }

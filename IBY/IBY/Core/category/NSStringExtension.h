@@ -40,6 +40,9 @@
 
 - (NSString*)stripHtml;
 
+//convert 185xxxxxxx to  "+86 185 xxx xxxx"
+- (NSString*)chineseMobileFormat;
+
 @end
 
 NSString* IntToString(int a);

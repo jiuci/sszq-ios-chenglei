@@ -26,18 +26,23 @@ void inputCookies()
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
     setCookies(@"fromapp", @"ios|14");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
-    
-//    if (![BYAppCenter sharedAppCenter].isLogin) {
-//        resetCookies();
-//        return;
-//    }
-//    
-//    //加入引号，为了解决cookie读取的问题
-//    NSString* strUid = IntToString([BYAppCenter sharedAppCenter].user.userID);
-//    NSString* token = [NSString stringWithFormat:@"\"%@\"", [BYAppCenter sharedAppCenter].user.token];
-//    
-//    setCookies(@"uid", strUid);
-//    setCookies(@"token", token);
+
+    //    _user.userID = [cookieUid intValue];
+    //    //cookie中做了urlencoding
+    //    _user.token = [cookieToken URLDecodedString];
+
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        resetCookies();
+        return;
+    }
+
+    //加入引号，为了解决cookie读取的问题
+    NSString* strUid = IntToString([BYAppCenter sharedAppCenter].user.userID);
+    NSString* token = [NSString stringWithFormat:@"\"%@\"", [BYAppCenter sharedAppCenter].user.token];
+    token = [token URLEncodedString];
+
+    setCookies(@"uid", strUid);
+    setCookies(@"token", token);
 }
 
 NSHTTPCookie* createCookie(NSString* name, NSString* value)
@@ -47,7 +52,7 @@ NSHTTPCookie* createCookie(NSString* name, NSString* value)
     [cookieProperties setObject:value forKey:NSHTTPCookieValue];
 
     [cookieProperties setObject:@".biyao.com" forKey:NSHTTPCookieDomain];
-//    [cookieProperties setObject:@"192.168.97.69" forKey:NSHTTPCookieDomain];
+    //    [cookieProperties setObject:@"192.168.97.69" forKey:NSHTTPCookieDomain];
 
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];
@@ -57,7 +62,8 @@ NSHTTPCookie* createCookie(NSString* name, NSString* value)
     return cookie;
 }
 
-void setCookies(NSString* name, NSString* value){
+void setCookies(NSString* name, NSString* value)
+{
     if (name && value) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:createCookie(name, value)];
     }
@@ -74,11 +80,12 @@ void resetCookies()
     }
 }
 
-void logCookies() {
+void logCookies()
+{
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
     for (NSHTTPCookie* obj in cookies) {
-        BYLog(@"%@ - %@",obj.name,obj.value);
+        BYLog(@"%@ - %@", obj.name, obj.value);
     }
 }
 
@@ -158,7 +165,7 @@ void runBlockWithRetryTimes(NSUInteger retryTimes, CGFloat delayTime, BOOL (^blo
         BOOL hasDone = block();
         if (!hasDone) {
             runBlockAfterDelay(delayTime, ^{
-                runBlockWithRetryTimes(retryTimes - 1,delayTime,  block);
+                runBlockWithRetryTimes(retryTimes - 1, delayTime, block);
             });
         }
     }

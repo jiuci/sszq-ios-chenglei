@@ -34,10 +34,10 @@
 - (NSString*)urlEncodeUsingEncoding:(NSStringEncoding)encoding
 {
     return (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                                (CFStringRef)self,
-                                                                                NULL,
-                                                                                (CFStringRef) @"!*'\"();:@&=+$,/?%#[]% ",
-                                                                                CFStringConvertNSStringEncodingToEncoding(encoding)));
+        (CFStringRef)self,
+        NULL,
+        (CFStringRef) @"!*'\"();:@&=+$,/?%#[]% ",
+        CFStringConvertNSStringEncodingToEncoding(encoding)));
 }
 - (BOOL)isBYcardID
 {
@@ -62,6 +62,18 @@
         return YES;
     }
     return NO;
+}
+
+- (NSString*)chineseMobileFormat
+{
+    if (![self isMobilePhoneNumber]) {
+        return nil;
+    }
+    NSMutableString* str = [@"+86 " mutableCopy];
+    [str appendString:self];
+    [str insertString:@" " atIndex:7]; //第7个位置插入空格
+    [str insertString:@" " atIndex:12];
+    return [str copy];
 }
 
 - (BOOL)isZipcode
@@ -127,7 +139,8 @@
     return [self boundingRectWithSize:maxSize
                               options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
                            attributes:@{ NSFontAttributeName : font }
-                              context:nil].size;
+                              context:nil]
+        .size;
 }
 
 - (NSString*)append:(NSString*)str

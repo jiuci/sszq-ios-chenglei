@@ -5,23 +5,9 @@
       "scale" : "1x"
     },
     {
-      "resizing" : {
-        "mode" : "9-part",
-        "center" : {
-          "mode" : "fill",
-          "width" : 1,
-          "height" : 1
-        },
-        "capInsets" : {
-          "bottom" : 5,
-          "top" : 5,
-          "right" : 5,
-          "left" : 5
-        }
-      },
       "idiom" : "universal",
-      "filename" : "btn_red_on@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "bg_btn_main_press.9.png"
     },
     {
       "idiom" : "universal",
