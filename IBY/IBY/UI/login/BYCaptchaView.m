@@ -22,7 +22,10 @@
 + (instancetype)captchaView
 {
     BYCaptchaView* instance = [[[NSBundle mainBundle] loadNibNamed:@"BYCaptchaView" owner:nil options:nil] lastObject];
+    NSLog(@"%@",instance.captchaImgView);
+//    instance = [[BYCaptchaView alloc]init];
     instance.frame = CGRectMake(0, 0, SCREEN_WIDTH, 59);
+    NSLog(@"%@",instance);
     return instance;
 }
 
