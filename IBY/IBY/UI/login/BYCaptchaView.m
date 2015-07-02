@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UIImageView* captchaImgView;
 @property (strong, nonatomic) UITextField* captchaFileld;
 @property (strong, nonatomic) UIImageView* bgInput;
+@property (strong, nonatomic) UIActivityIndicatorView* indicatorView;
 
 @end
 
@@ -23,7 +24,7 @@
 
 + (instancetype)captchaView
 {
-    BYCaptchaView* instance = [[BYCaptchaView alloc] initWithFrame:BYRectMake(0, 0, SCREEN_WIDTH, 60)];
+    BYCaptchaView* instance = [[BYCaptchaView alloc] initWithFrame:BYRectMake(0, 0, SCREEN_WIDTH, 52)];
     return instance;
 }
 
@@ -43,7 +44,7 @@
         [self addSubview:bgInput];
         _bgInput = bgInput;
 
-        _captchaFileld = [[UITextField alloc] initWithFrame:BYRectMake(50, top, bgInput.width - 12, height)];
+        _captchaFileld = [[UITextField alloc] initWithFrame:BYRectMake(50, top, bgInput.width - 12 - 12, height)];
         _captchaFileld.placeholder = @"请输入验证码";
         _captchaFileld.keyboardType = UIKeyboardTypeNumberPad;
         _captchaFileld.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -61,8 +62,14 @@
         [refreshBgView addSubview:refreshIconView];
 
         _captchaImgView = [[UIImageView alloc] initWithFrame:BYRectMake(0, top, captchaWidth, height)];
+        _captchaImgView.backgroundColor = [UIColor lightGrayColor];
         _captchaImgView.right = refreshBgView.left;
         [self addSubview:_captchaImgView];
+
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.center = CGPointMake(_captchaImgView.width / 2, _captchaImgView.height / 2);
+        _indicatorView.hidden = YES;
+        [_captchaImgView addSubview:_indicatorView];
 
         UIButton* refreshBtn = [[UIButton alloc] initWithFrame:BYRectMake(0, top, captchaWidth + refreshWidth, height)];
         refreshBtn.right = refreshBgView.right;
@@ -90,7 +97,13 @@
 
 - (void)refreshCaptchaImage
 {
+    _captchaImgView.image = nil;
+    _indicatorView.hidden = NO;
+    [_indicatorView startAnimating];
     [_service fetchImageVerifyCode:^(UIImage* image, BYError* error) {
+        [_indicatorView stopAnimating];
+        _indicatorView.hidden = YES;
+
         if (error) {
             [MBProgressHUD topShowTmpMessage:@"获取验证图片出错"];
             return;
