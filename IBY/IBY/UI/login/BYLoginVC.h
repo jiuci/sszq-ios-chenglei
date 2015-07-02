@@ -12,7 +12,7 @@
 
 typedef void (^BYLoginSuccessBlock)();
 
-@interface BYLoginVC : BYBaseVC
+@interface BYLoginVC : BYBaseVC<UITextFieldDelegate>
 @property (nonatomic, copy) BYLoginSuccessBlock successBlk;
 @end
 
