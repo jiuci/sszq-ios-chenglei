@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BYRegist2VC">
             <connections>
                 <outlet property="bgInput" destination="7aR-b2-qyt" id="rXj-Tp-Xxk"/>
+                <outlet property="btnNext" destination="wjP-8e-gRG" id="J4h-ky-U9y"/>
                 <outlet property="iconInputLeftView" destination="zl3-4l-D3z" id="gYN-8w-Cim"/>
                 <outlet property="phoneNumLabel" destination="KC9-9G-zSr" id="hvf-dr-kZ5"/>
                 <outlet property="resendBtn" destination="tI9-5P-7bP" id="gm2-xt-LiY"/>
@@ -33,10 +34,13 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="3Xc-0a-sHI"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="下一步" backgroundImage="btn_red">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.85098039219999999" green="0.72549019609999998" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <state key="highlighted" backgroundImage="btn_red_on"/>
                     <connections>
@@ -63,7 +67,7 @@
                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
-                        <fragment content="发送至手机号码：">
+                        <fragment content="发送至手机号码">
                             <attributes>
                                 <color key="NSColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <font key="NSFont" size="14" name="STHeitiSC-Light"/>
@@ -83,9 +87,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="填写验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MbM-a8-Tb6">
-                    <rect key="frame" x="82" y="104" width="124" height="40"/>
+                    <rect key="frame" x="82" y="104" width="115" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="124" id="0St-sG-3JQ"/>
                         <constraint firstAttribute="height" constant="40" id="JMN-cd-S5S"/>
                     </constraints>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -124,29 +127,73 @@
                         <action selector="sendCodeAgainClick:" destination="-1" eventType="touchUpInside" id="YUo-dq-yb7"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="640-Is-JbR">
+                    <rect key="frame" x="42" y="220" width="237" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Y1I-NX-o6l"/>
+                        <constraint firstAttribute="width" constant="237" id="pJ6-xc-jRl"/>
+                    </constraints>
+                    <attributedString key="attributedText">
+                        <fragment content="总是收不到验证码短信？">
+                            <attributes>
+                                <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Medium"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="点击这里">
+                            <attributes>
+                                <color key="NSColor" red="0.22352941176470589" green="0.0" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                <integer key="NSUnderline" value="1"/>
+                                <color key="NSUnderlineColor" red="0.22352941176470589" green="0.0" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbd-Au-NiY">
+                    <rect key="frame" x="145" y="220" width="134" height="38"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="g5Z-4X-3be"/>
+                        <constraint firstAttribute="width" constant="134" id="uE3-2i-e9O"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onSMScodeHelper:" destination="-1" eventType="touchUpInside" id="Qhm-rQ-lYJ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="wjP-8e-gRG" firstAttribute="centerX" secondItem="640-Is-JbR" secondAttribute="centerX" id="0gE-89-wgp"/>
+                <constraint firstItem="zbd-Au-NiY" firstAttribute="top" secondItem="640-Is-JbR" secondAttribute="top" id="1Vv-eb-SIl"/>
+                <constraint firstItem="zbd-Au-NiY" firstAttribute="trailing" secondItem="640-Is-JbR" secondAttribute="trailing" id="3Sj-tr-JVc"/>
                 <constraint firstItem="zl3-4l-D3z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="AK7-3K-Vpp"/>
-                <constraint firstItem="wjP-8e-gRG" firstAttribute="top" secondItem="MbM-a8-Tb6" secondAttribute="bottom" constant="24" id="Bt4-c6-tdD"/>
                 <constraint firstItem="7aR-b2-qyt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="FzO-oX-b3s"/>
                 <constraint firstItem="wjP-8e-gRG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="J8l-pQ-K8Y"/>
                 <constraint firstAttribute="trailing" secondItem="KC9-9G-zSr" secondAttribute="trailing" id="KgB-lD-K0W"/>
                 <constraint firstItem="mk0-Xf-vBz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LzH-PX-ehf"/>
                 <constraint firstItem="7aR-b2-qyt" firstAttribute="top" secondItem="KC9-9G-zSr" secondAttribute="bottom" constant="24" id="NWA-qE-YeD"/>
+                <constraint firstItem="tI9-5P-7bP" firstAttribute="leading" secondItem="MbM-a8-Tb6" secondAttribute="trailing" constant="7" id="OUx-FA-yeD"/>
                 <constraint firstAttribute="trailing" secondItem="mk0-Xf-vBz" secondAttribute="trailing" id="RqI-9u-GE9"/>
                 <constraint firstItem="tI9-5P-7bP" firstAttribute="leading" secondItem="wIw-2h-7GW" secondAttribute="trailing" id="Uhf-1w-fcc"/>
                 <constraint firstItem="KC9-9G-zSr" firstAttribute="top" secondItem="mk0-Xf-vBz" secondAttribute="bottom" constant="12" id="VFh-j4-yzK"/>
-                <constraint firstItem="tI9-5P-7bP" firstAttribute="top" secondItem="KC9-9G-zSr" secondAttribute="bottom" constant="24" id="Wu7-nu-Exh"/>
+                <constraint firstItem="MbM-a8-Tb6" firstAttribute="centerY" secondItem="7aR-b2-qyt" secondAttribute="centerY" id="XQz-ap-tcg"/>
+                <constraint firstItem="640-Is-JbR" firstAttribute="top" secondItem="wjP-8e-gRG" secondAttribute="bottom" constant="12" id="a2c-yI-zqR"/>
+                <constraint firstItem="7aR-b2-qyt" firstAttribute="centerY" secondItem="tI9-5P-7bP" secondAttribute="centerY" id="eSb-XW-ImJ"/>
                 <constraint firstItem="MbM-a8-Tb6" firstAttribute="leading" secondItem="zl3-4l-D3z" secondAttribute="trailing" constant="16" id="ksE-XS-WJE"/>
                 <constraint firstItem="wIw-2h-7GW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="110" id="m9y-1h-ynR"/>
                 <constraint firstAttribute="trailing" secondItem="tI9-5P-7bP" secondAttribute="trailing" constant="38" id="mbz-8A-ujo"/>
                 <constraint firstItem="KC9-9G-zSr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qkk-sR-sQ4"/>
+                <constraint firstItem="wjP-8e-gRG" firstAttribute="top" secondItem="7aR-b2-qyt" secondAttribute="bottom" constant="24" id="uQd-af-Slv"/>
                 <constraint firstAttribute="trailing" secondItem="wjP-8e-gRG" secondAttribute="trailing" constant="38" id="vkY-l0-7KQ"/>
                 <constraint firstItem="zl3-4l-D3z" firstAttribute="top" secondItem="KC9-9G-zSr" secondAttribute="bottom" constant="36" id="xcP-lG-ZWy"/>
                 <constraint firstAttribute="trailing" secondItem="7aR-b2-qyt" secondAttribute="trailing" constant="38" id="z7d-Nt-Ty9"/>
                 <constraint firstItem="mk0-Xf-vBz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="zaD-6W-grU"/>
-                <constraint firstItem="MbM-a8-Tb6" firstAttribute="top" secondItem="KC9-9G-zSr" secondAttribute="bottom" constant="24" id="zxR-jq-mvp"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="414" y="233"/>

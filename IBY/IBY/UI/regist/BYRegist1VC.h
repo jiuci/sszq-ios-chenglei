@@ -11,4 +11,5 @@
 typedef void (^BYRegisterSuccessBlock)();
 @interface BYRegist1VC : BYBaseVC
 @property (nonatomic, copy) BYRegisterSuccessBlock successBlk;
+@property (weak, nonatomic) IBOutlet UITextField* phoneNumTextField;
 @end

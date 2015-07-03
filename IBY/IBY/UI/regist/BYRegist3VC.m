@@ -38,10 +38,10 @@
     }];
     [self.firstPwdTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
-        self.btnNext.enabled = [realStr length]>0;
+        self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
-    
+    self.btnNext.enabled = NO;
 }
 -(void)viewDidAppear:(BOOL)animated
 {

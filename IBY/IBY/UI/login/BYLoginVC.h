@@ -14,6 +14,7 @@ typedef void (^BYLoginSuccessBlock)();
 
 @interface BYLoginVC : BYBaseVC<UITextFieldDelegate>
 @property (nonatomic, copy) BYLoginSuccessBlock successBlk;
+@property (strong, nonatomic) UITextField* userTextField;
 @end
 
 //quick creater with successBlk

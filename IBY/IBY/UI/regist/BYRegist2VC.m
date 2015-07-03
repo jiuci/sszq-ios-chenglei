@@ -9,7 +9,7 @@
 #import "BYRegist2VC.h"
 #import "BYRegistService.h"
 #import "BYAutosizeBgButton.h"
-
+#import "BYBaseWebVC.h"
 #import "BYRegist3VC.h"
 
 @interface BYRegist2VC ()
@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView* bgInput;
 @property (weak, nonatomic) IBOutlet UIImageView* iconInputLeftView;
 @property (weak, nonatomic) IBOutlet UITextField* txtSMSInput;
-
+@property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 @property (nonatomic, assign) int countdownTime;
 @property (nonatomic, strong) NSTimer* smsCountTimer;
 @end
@@ -46,7 +46,12 @@
         self.iconInputLeftView.highlighted = NO;
         self.bgInput.highlighted = NO;
     }];
-
+    [self.txtSMSInput setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        self.btnNext.enabled = realStr&&[realStr length]>0;
+        return YES;
+    }];
+    self.btnNext.enabled = NO;
     self.autoHideKeyboard = YES;
     [self beginTimer];
 }
@@ -100,7 +105,12 @@
         _countdownTime--;
     }
 }
-
+- (IBAction)onSMScodeHelper:(id)sender
+{
+    BYBaseWebVC* webVC = [[BYBaseWebVC alloc] initWithURL:[NSURL URLWithString:BYURL_SERVICE_SMSCODEHELPER]];
+    webVC.useWebTitle = YES;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
 - (IBAction)nextStepOnclick
 {
     [self.view endEditing:YES];

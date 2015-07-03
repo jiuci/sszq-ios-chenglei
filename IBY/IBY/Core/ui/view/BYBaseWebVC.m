@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         _url = url;
+        _useWebTitle = NO;
     }
     return self;
 }
@@ -30,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self loadRequestWithURL:_url];
 }
 
@@ -81,6 +82,9 @@
 
 - (void)webViewDidFinishLoad:(UIWebView*)webView
 {
+    if (_useWebTitle) {
+        self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    }
     [self.indicatorView stopAnimating];
 }
 

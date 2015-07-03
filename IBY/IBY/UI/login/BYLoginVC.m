@@ -11,7 +11,7 @@
 #import "BYLoginService.h"
 #import "BYRegist1VC.h"
 #import "BYForgetPasswordVC.h"
-
+#import "BYAutosizeBgButton.h"
 #import "BYCaptchaView.h"
 
 #import <TPKeyboardAvoidingScrollView.h>
@@ -21,10 +21,10 @@
 @property (assign, nonatomic)
     int countForLoginTimes; //用于标识输入了几次手机号和密码
 
-@property (strong, nonatomic) UITextField* userTextField;
+
 @property (strong, nonatomic) UITextField* pwdTextField;
-@property (strong, nonatomic) UIButton* loginButton;
-@property (strong, nonatomic) UIButton* registButton;
+@property (strong, nonatomic) BYAutosizeBgButton* loginButton;
+@property (strong, nonatomic) BYAutosizeBgButton* registButton;
 @property (strong, nonatomic) UIButton* forgetPasswordButton;
 @property (strong, nonatomic) UIButton* hidePassword;
 @property (strong, nonatomic) UIImageView* userBox;
@@ -91,7 +91,7 @@
     biyaoImageView.centerX = SCREEN_WIDTH / 2;
 
     //input background
-    UIImageView* inputBackground = [[UIImageView alloc] initWithFrame:CGRectMake(37, 22 + 90, SCREEN_WIDTH - 37 * 2, 81)];
+    UIImageView* inputBackground = [[UIImageView alloc] initWithFrame:CGRectMake(38, 22 + 90, SCREEN_WIDTH - 38 * 2, 81)];
     [self.view addSubview:inputBackground];
     inputBackground.centerX = SCREEN_WIDTH / 2;
     UIImage* backgroundImage = [UIImage imageNamed:@"bg_inputbox_default.9"];
@@ -103,12 +103,12 @@
     inputline.centerY = inputBackground.size.height / 2;
 
     //box
-    _userBox = [[UIImageView alloc] initWithFrame:CGRectMake(37, 22 + 90, SCREEN_WIDTH - 37 * 2, 41)];
+    _userBox = [[UIImageView alloc] initWithFrame:CGRectMake(38, 22 + 90, SCREEN_WIDTH - 38 * 2, 41)];
     _userBox.centerX = SCREEN_WIDTH / 2;
     [self.view addSubview:_userBox];
     _userBox.hidden = YES;
     _userBox.image = [[UIImage imageNamed:@"bg_inputbox_login_above.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 24 - 5, 24 - 5)];
-    _pwdBox = [[UIImageView alloc] initWithFrame:CGRectMake(37, 22 + 90 + 40, SCREEN_WIDTH - 37 * 2, 41)];
+    _pwdBox = [[UIImageView alloc] initWithFrame:CGRectMake(38, 22 + 90 + 40, SCREEN_WIDTH - 38 * 2, 41)];
     _pwdBox.centerX = SCREEN_WIDTH / 2;
     [self.view addSubview:_pwdBox];
     _pwdBox.hidden = YES;
@@ -121,9 +121,9 @@
     showline.centerY = inputBackground.bottom - 20;
 
     // user&pwd
-    _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.top, SCREEN_WIDTH - 37 * 2, 40)];
+    _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.top, SCREEN_WIDTH - 38 * 2 - 7, 40)];
     _userTextField.leftViewMode = UITextFieldViewModeAlways;
-    _userTextField.keyboardType = UIKeyboardTypeNumberPad;
+    _userTextField.keyboardType = UIKeyboardTypeNamePhonePad;
     _userTextField.placeholder = @"您的账号";
     UIImageView* accountImgView =
         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_username_default"]];
@@ -134,7 +134,7 @@
     _userTextField.delegate = self;
     [self.view addSubview:_userTextField];
 
-    _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.bottom - 40, SCREEN_WIDTH - 37 * 2 - 24 - 16, 40)];
+    _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.bottom - 40, SCREEN_WIDTH - 38 * 2 - 40 - 7, 40)];
     _pwdTextField.leftViewMode = UITextFieldViewModeAlways;
     _pwdTextField.placeholder = @"您的密码";
     UIImageView* passwordImgView =
@@ -157,26 +157,27 @@
     [_hidePassword setBackgroundImage:[UIImage imageNamed:@"icon_eye_password_show"] forState:UIControlStateSelected];
 
     //login
-    _loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _loginButton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
     _loginButton.frame = CGRectMake(inputBackground.left, inputBackground.bottom + 24, inputBackground.size.width, 40);
     [_loginButton addTarget:self action:@selector(onLogin) forControlEvents:UIControlEventTouchUpInside];
-    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 22, 22)] forState:UIControlStateNormal];
-    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 22, 22)] forState:UIControlStateDisabled];
-    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_press.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 22, 22)] forState:UIControlStateHighlighted];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default.9"]resizableImage] forState:UIControlStateNormal];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default.9"]resizableImage] forState:UIControlStateDisabled];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_press.9"]resizableImage] forState:UIControlStateHighlighted];
     _loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
-    [_loginButton setTitleColor:HEXCOLOR(0xd9b9cd) forState:UIControlStateNormal];
+    [_loginButton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+    [_loginButton setTitleColor:HEXCOLOR(0xd9b9cd) forState:UIControlStateDisabled];
     [self.view addSubview:_loginButton];
     _loginButton.enabled = NO;
 
     //regist
-    _registButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _registButton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:_registButton];
     _registButton.frame = CGRectMake(inputBackground.left, _loginButton.bottom + 12, inputBackground.size.width, 40);
     _registButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [_registButton addTarget:self action:@selector(onRegist) forControlEvents:UIControlEventTouchUpInside];
-    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_default.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 22, 22)] forState:UIControlStateNormal];
-    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_press.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 22, 22)] forState:UIControlStateHighlighted];
+    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_default.9"] resizableImage] forState:UIControlStateNormal];
+    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_press.9"] resizableImage] forState:UIControlStateHighlighted];
     [_registButton setTitle:@"还没有账号？快速注册" forState:UIControlStateNormal];
     [_registButton setTitleColor:HEXCOLOR(0xb768a5) forState:UIControlStateNormal];
 
@@ -207,7 +208,7 @@
     if (_countForLoginTimes >= 3) {
         if (self.captchaView.hidden) {
             runOnMainQueue(^{
-                CGFloat height = self.captchaView.size.height + 12;
+                CGFloat height = self.captchaView.size.height;
                 [UIView animateWithDuration:0.3
                     animations:^{
                         _loginButton.top += height;
@@ -247,10 +248,10 @@
         return;
     }
 
-    if (![self.userTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD topShowTmpMessage:@"手机号格式有误，请重新输入"];
-        return;
-    }
+//    if (self.userTextField.text.length < 6) {
+//        [MBProgressHUD topShowTmpMessage:@"账号格式有误，请重新输入"];
+//        return;
+//    }
 
     if (!_captchaView.hidden) {
         [_captchaView valueCheckWithSuccessBlock:^{
@@ -297,6 +298,7 @@
                                                if (buttonIndex == 1) {
                                                    [bself onRegist];
                                                }
+                                               
                                            }];
                  }
                  else {
@@ -310,6 +312,9 @@
 {
     BYRegist1VC* registVc = [[BYRegist1VC alloc] init];
     [self.navigationController pushViewController:registVc animated:YES];
+    if ([self.userTextField.text isMobilePhoneNumber]) {
+        registVc.phoneNumTextField.text = self.userTextField.text;
+    }
 }
 
 - (void)onForgotPassword
@@ -331,30 +336,30 @@
     self.pwdTextField.text = self.pwdTextField.text;
 }
 #pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField*)textField
-{
-    NSLog(@"return");
-    if (textField == self.userTextField) {
-        if (textField.text.length >= 6) {
-            [MBProgressHUD topShowTmpMessage:@"账号格式有误，请重新输入"];
-            [self.userTextField becomeFirstResponder];
-            return NO;
-        }
-        else {
-            [self.pwdTextField becomeFirstResponder];
-        }
-    }
-    else {
-        if (textField.text.length >= 6) {
-            [self onLogin];
-        }
-        else {
-            [MBProgressHUD topShowTmpMessage:@"密码长度有误"];
-            return NO;
-        }
-    }
-    return YES;
-}
+//- (BOOL)textFieldShouldReturn:(UITextField*)textField
+//{
+//    NSLog(@"return");
+//    if (textField == self.userTextField) {
+//        if (textField.text.length <= 6) {
+//            [MBProgressHUD topShowTmpMessage:@"账号格式有误，请重新输入"];
+//            [self.userTextField becomeFirstResponder];
+//            return NO;
+//        }
+//        else {
+//            [self.pwdTextField becomeFirstResponder];
+//        }
+//    }
+//    else {
+//        if (textField.text.length >= 6) {
+//            [self onLogin];
+//        }
+//        else {
+//            [MBProgressHUD topShowTmpMessage:@"密码长度有误"];
+//            return NO;
+//        }
+//    }
+//    return YES;
+//}
 - (BOOL)textFieldShouldBeginEditing:(UITextField*)textField
 {
     if (textField == self.userTextField) {
@@ -390,14 +395,13 @@
     if (length > 32) {
         return NO;
     }
-    if (length < 6) {
+    if (length < 1) {
         _loginButton.enabled = NO;
-        [_loginButton setTitleColor:HEXCOLOR(0xd9b9cd) forState:UIControlStateNormal];
+        
     }
-    else if (length >= 6) {
-        if ((textField == _userTextField && _pwdTextField.text.length >= 6) | (textField == _pwdTextField && _userTextField.text.length >= 6)) {
+    else if (length >= 1) {
+        if ((textField == _userTextField && _pwdTextField.text.length >= 1) | (textField == _pwdTextField && _userTextField.text.length >= 1)) {
             _loginButton.enabled = YES;
-            [_loginButton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
         }
     }
     return YES;

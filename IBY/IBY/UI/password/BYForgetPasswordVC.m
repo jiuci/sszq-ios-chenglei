@@ -79,11 +79,6 @@
 - (IBAction)onNextStep
 {
     [self.view endEditing:YES];
-    //测试中
-    BYVerifySmsCodeVC *aimVC = [[BYVerifySmsCodeVC alloc]init];
-    aimVC.phone = self.phoneNumTextField.text;
-    [self.navigationController pushViewController:aimVC animated:YES];
-    return;
     
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
         [MBProgressHUD showError:@"手机号格式错误"];
@@ -103,7 +98,9 @@
                     [UIAlertView bk_showAlertViewWithTitle:nil message:@"您的手机号没有注册，是否去注册？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"去注册"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
                         if (buttonIndex == 1){
                             BYRegist1VC* registVc = [[BYRegist1VC alloc] init];
+                            
                             [bself.navigationController pushViewController:registVc animated:YES];
+                            registVc.phoneNumTextField.text = self.phoneNumTextField.text;
                         }
                     }];
                     return;
