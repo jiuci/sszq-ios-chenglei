@@ -73,4 +73,11 @@
     return NO;
 }
 
+- (NSString*)cookieUserInfoStr
+{
+    //userinfo 规则: 昵称,头像地址,uid ,手机号    写入Cookie前需要做URLEncoder
+
+    return [NSString stringWithFormat:@"%@,%@,%@,%@", _nickname, _avatar, @(_userID), _phoneNum];
+}
+
 @end

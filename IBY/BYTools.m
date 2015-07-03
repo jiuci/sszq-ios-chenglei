@@ -27,10 +27,6 @@ void inputCookies()
     setCookies(@"fromapp", @"ios|14");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
 
-    //    _user.userID = [cookieUid intValue];
-    //    //cookie中做了urlencoding
-    //    _user.token = [cookieToken URLDecodedString];
-
     if (![BYAppCenter sharedAppCenter].isLogin) {
         resetCookies();
         return;
@@ -40,9 +36,15 @@ void inputCookies()
     NSString* strUid = IntToString([BYAppCenter sharedAppCenter].user.userID);
     NSString* token = [NSString stringWithFormat:@"\"%@\"", [BYAppCenter sharedAppCenter].user.token];
     token = [token URLEncodedString];
+    //userinfo 规则: 昵称,头像地址,uid ,手机号    写入Cookie前需要做URLEncoder
+
+    NSString* uinfoStr = [NSString stringWithFormat:@"\"%@\"", [[BYAppCenter sharedAppCenter].user cookieUserInfoStr]];
+    NSString* userinfo = [uinfoStr URLEncodedString];
 
     setCookies(@"uid", strUid);
     setCookies(@"token", token);
+    setCookies(@"userinfo", userinfo);
+
 }
 
 NSHTTPCookie* createCookie(NSString* name, NSString* value)
@@ -74,7 +76,10 @@ void resetCookies()
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
     for (NSHTTPCookie* obj in cookies) {
-        if (![obj.name isEqual:@"DZVISIT"] && ![obj.name isEqual:@"fromapp"] && ![obj.name isEqual:@"uuid"]) {
+        if (![obj.name isEqual:@"DZVISIT"]
+            && ![obj.name isEqual:@"fromapp"]
+            && ![obj.name isEqual:@"uuid"]
+            && ![obj.name isEqual:@"userinfo"]) {
             [cookieJar deleteCookie:obj];
         }
     }
@@ -85,7 +90,7 @@ void logCookies()
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
     for (NSHTTPCookie* obj in cookies) {
-        BYLog(@"%@ - %@", obj.name, obj.value);
+        NSLog(@"%@ - %@", obj.name, obj.value);
     }
 }
 

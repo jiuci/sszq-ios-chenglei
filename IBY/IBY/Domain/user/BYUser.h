@@ -29,4 +29,6 @@
 
 - (BOOL)isValid;
 
+- (NSString*)cookieUserInfoStr;
+
 @end

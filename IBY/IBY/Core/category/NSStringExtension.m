@@ -183,9 +183,16 @@
 
 - (NSString*)URLEncodedString
 {
-    CFStringRef result = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
-    NSString* tmpResult = CFBridgingRelease(result);
-    return tmpResult;
+
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+
+    //    static CFStringRef charset = CFSTR("!@#$%&*()+'\";:=,/?[] ");
+    //    CFStringRef str = (__bridge CFStringRef)self;
+    //    CFStringEncoding encoding = kCFStringEncodingUTF8;
+    //    return (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, str, NULL, charset, encoding));
+
+    //    NSString *newCountryString =[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //    return newCountryString;
 }
 
 - (NSString*)URLDecodedString

@@ -235,7 +235,6 @@
         [[BYPortalCenter sharedPortalCenter] portTo:BYPortalpay params:parameters];
         return NO;
     }
-
     _currentUrl = requestString;
     return YES;
 }
