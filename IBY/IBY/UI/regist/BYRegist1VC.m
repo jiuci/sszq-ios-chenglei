@@ -19,7 +19,7 @@
 
 @interface BYRegist1VC () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField* phoneNumTextField;
+
 @property (weak, nonatomic) IBOutlet UIImageView* txtLeftView;
 @property (weak, nonatomic) IBOutlet UIImageView* inputBg;
 @property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
@@ -68,7 +68,7 @@
 - (IBAction)onProtocol:(id)sender
 {
     BYBaseWebVC* webVC = [[BYBaseWebVC alloc] initWithURL:[NSURL URLWithString:BYURL_SERVICE_PROTOCOL]];
-    webVC.navigationItem.title = @"必要服务协议";
+    webVC.useWebTitle = YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -93,9 +93,8 @@
                                                      return;
                                                  }
                                                  else if (status == BYFetchCodeRegisted) {
-                                                     //TODO psy
-                                                     //                                                     [self showAlertWhenHasRegisted];
-                                                     //                                                     return;
+                                                     [self showAlertWhenHasRegisted];
+                                                     return;
                                                  }
                                                  BYRegist2VC* aimVC = [[BYRegist2VC alloc] init];
                                                  self.registService.phone = self.phoneNumTextField.text;
@@ -118,6 +117,8 @@
                                            for (UIViewController* controller in bself.navigationController.viewControllers) {
                                                if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
                                                    [self.navigationController popToViewController:controller animated:YES];
+                                                   BYLoginVC* loginVC = (BYLoginVC*)controller;
+                                                   loginVC.userTextField.text = self.phoneNumTextField.text;
                                                }
                                            }
                                            //找不到登陆页没有处理

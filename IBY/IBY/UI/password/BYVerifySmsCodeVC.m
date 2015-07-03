@@ -10,6 +10,7 @@
 #import "BYPasswordSettingVC.h"
 #import "BYForgetPasswordService.h"
 #import "BYAutosizeBgButton.h"
+#import "BYBaseWebVC.h"
 
 @interface BYVerifySmsCodeVC ()
 @property (strong, nonatomic) BYForgetPasswordService* forgetpasswordService;
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet BYAutosizeBgButton* resendBtn;
 @property (weak, nonatomic) IBOutlet UIImageView* bgInput;
 @property (weak, nonatomic) IBOutlet UIImageView* iconInputLeftView;
+@property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 @property (nonatomic, assign) int countdownTime;
 @property (nonatomic, strong) NSTimer* smsCountTimer;
 
@@ -45,7 +47,12 @@
         self.iconInputLeftView.highlighted = NO;
         self.bgInput.highlighted = NO;
     }];
-
+    [self.smsCodeTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        self.btnNext.enabled = realStr&&[realStr length]>0;
+        return YES;
+    }];
+    self.btnNext.enabled = NO;
     self.autoHideKeyboard = YES;
     
     [self beginTimer];
@@ -100,12 +107,18 @@
         [self.resendBtn setTitle:txt forState:UIControlStateDisabled];
     }
 }
+- (IBAction)onSMScodeHelper:(id)sender
+{
+    BYBaseWebVC* webVC = [[BYBaseWebVC alloc] initWithURL:[NSURL URLWithString:BYURL_SERVICE_SMSCODEHELPER]];
+    webVC.useWebTitle = YES;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
 
 - (IBAction)nextStepOnclick
 {
     [self.view endEditing:YES];
 
-    [self.forgetpasswordService checkVerifyCode:self.smsCodeTextField.text phone:self.phoneNumLabel.text finish:^(BOOL success, BYError* error) {
+    [self.forgetpasswordService checkVerifyCode:self.smsCodeTextField.text phone:_forgetpasswordService.phone finish:^(BOOL success, BYError* error) {
         if(error){
             alertError(error);
             [self.smsCodeTextField becomeFirstResponder];

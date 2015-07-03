@@ -24,7 +24,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="RRQ-vP-AYg"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="完成注册" backgroundImage="btn_red">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,7 +51,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请设置密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VPE-Sc-ucO">
-                    <rect key="frame" x="82" y="28" width="146" height="40"/>
+                    <rect key="frame" x="82" y="28" width="155" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="e0T-YT-ksv"/>
                     </constraints>
@@ -96,7 +96,7 @@
                 <constraint firstItem="wZs-dW-rCa" firstAttribute="centerY" secondItem="ebE-vC-B6n" secondAttribute="centerY" id="2CC-vZ-fuu"/>
                 <constraint firstItem="ebE-vC-B6n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="7ue-2t-vax"/>
                 <constraint firstItem="eO4-Nq-2v5" firstAttribute="top" secondItem="kXq-QB-Oxu" secondAttribute="bottom" constant="24" id="9VA-ns-8nv"/>
-                <constraint firstItem="PQN-Xb-MuU" firstAttribute="leading" secondItem="VPE-Sc-ucO" secondAttribute="trailing" constant="16" id="AMQ-VP-ZqB"/>
+                <constraint firstItem="PQN-Xb-MuU" firstAttribute="leading" secondItem="VPE-Sc-ucO" secondAttribute="trailing" constant="7" id="AMQ-VP-ZqB"/>
                 <constraint firstAttribute="trailing" secondItem="kXq-QB-Oxu" secondAttribute="trailing" constant="50" id="B0L-yX-4M8"/>
                 <constraint firstItem="VPE-Sc-ucO" firstAttribute="centerY" secondItem="ebE-vC-B6n" secondAttribute="centerY" id="ExR-x3-KcE"/>
                 <constraint firstItem="PQN-Xb-MuU" firstAttribute="trailing" secondItem="ebE-vC-B6n" secondAttribute="trailing" constant="-2" id="HQg-mL-4v2"/>

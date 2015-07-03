@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UITextField* captchaFileld;
 @property (strong, nonatomic) UIImageView* bgInput;
 @property (strong, nonatomic) UIActivityIndicatorView* indicatorView;
+@property (assign, nonatomic) BOOL hasInput;
 
 @end
 
@@ -44,7 +45,7 @@
         [self addSubview:bgInput];
         _bgInput = bgInput;
 
-        _captchaFileld = [[UITextField alloc] initWithFrame:BYRectMake(50, top, bgInput.width - 12 - 12, height)];
+        _captchaFileld = [[UITextField alloc] initWithFrame:BYRectMake(50, top, bgInput.width - 12 - 7, height)];
         _captchaFileld.placeholder = @"请输入验证码";
         _captchaFileld.keyboardType = UIKeyboardTypeNumberPad;
         _captchaFileld.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -85,6 +86,11 @@
 
         [_captchaFileld setBk_didEndEditingBlock:^(UITextField* txtField) {
             wself.bgInput.highlighted = NO;
+        }];
+        [_captchaFileld setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+            NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+            wself.hasInput  = realStr&&[realStr length]>0;
+            return YES;
         }];
     }
     return self;

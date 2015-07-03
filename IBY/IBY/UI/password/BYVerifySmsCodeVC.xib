@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BYVerifySmsCodeVC">
             <connections>
                 <outlet property="bgInput" destination="dP6-Rc-5kE" id="Epj-lq-9e3"/>
+                <outlet property="btnNext" destination="Kex-db-D6n" id="nRN-nd-Vfv"/>
                 <outlet property="iconInputLeftView" destination="WGa-LO-kht" id="0dn-bd-GTM"/>
                 <outlet property="phoneNumLabel" destination="5u1-Uy-bPz" id="6IJ-MV-hjW"/>
                 <outlet property="resendBtn" destination="H8S-Qy-B6H" id="LjH-UC-iTl"/>
@@ -56,7 +57,7 @@
                         <constraint firstAttribute="height" constant="20" id="x2U-hd-Qdc"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.70588235290000001" green="0.4039215686" blue="0.66274509800000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_inputbox" highlightedImage="bg_inputbox_on" translatesAutoresizingMaskIntoConstraints="NO" id="dP6-Rc-5kE">
@@ -67,7 +68,7 @@
                     </constraints>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="m7E-xd-MTt">
-                    <rect key="frame" x="82" y="104" width="120" height="40"/>
+                    <rect key="frame" x="82" y="104" width="113" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="exi-gV-okG"/>
                     </constraints>
@@ -106,10 +107,13 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="5Wb-Jx-ofx"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="下一步" backgroundImage="btn_red">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.85098039219999999" green="0.72549019609999998" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <state key="highlighted" backgroundImage="btn_red_on"/>
                     <connections>
@@ -123,9 +127,49 @@
                         <constraint firstAttribute="height" constant="16" id="pps-i1-2xB"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfC-cJ-9aG">
+                    <rect key="frame" x="42" y="220" width="237" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="237" id="6th-6G-gnA"/>
+                        <constraint firstAttribute="height" constant="21" id="eZM-Q5-jSS"/>
+                    </constraints>
+                    <attributedString key="attributedText">
+                        <fragment content="总是收不到验证码短信？">
+                            <attributes>
+                                <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Medium"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="点击这里">
+                            <attributes>
+                                <color key="NSColor" red="0.22352941176470589" green="0.0" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                <integer key="NSUnderline" value="1"/>
+                                <color key="NSUnderlineColor" red="0.22352941176470589" green="0.0" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biC-xj-ASr">
+                    <rect key="frame" x="145" y="220" width="134" height="38"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="1um-u3-RYO"/>
+                        <constraint firstAttribute="width" constant="134" id="89l-Vz-5n9"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onSMScodeHelper:" destination="-1" eventType="touchUpInside" id="sr6-uh-Gaz"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="5u1-Uy-bPz" secondAttribute="trailing" id="6Rw-gJ-gqK"/>
+                <constraint firstItem="biC-xj-ASr" firstAttribute="top" secondItem="vfC-cJ-9aG" secondAttribute="top" id="8nR-IP-KMa"/>
                 <constraint firstItem="Kex-db-D6n" firstAttribute="top" secondItem="dP6-Rc-5kE" secondAttribute="bottom" constant="24" id="ALp-u1-2tG"/>
                 <constraint firstItem="5u1-Uy-bPz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KST-a7-s0b"/>
                 <constraint firstItem="XzZ-5M-TRi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="W1c-Y2-3Ie"/>
@@ -133,6 +177,7 @@
                 <constraint firstItem="JOc-0X-f2O" firstAttribute="leading" secondItem="H8S-Qy-B6H" secondAttribute="leading" id="cYE-Vt-Tmr"/>
                 <constraint firstItem="dP6-Rc-5kE" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="24" id="cet-kO-0Y5"/>
                 <constraint firstItem="dP6-Rc-5kE" firstAttribute="centerY" secondItem="WGa-LO-kht" secondAttribute="centerY" id="dJZ-K0-afC"/>
+                <constraint firstItem="biC-xj-ASr" firstAttribute="trailing" secondItem="vfC-cJ-9aG" secondAttribute="trailing" id="fNl-J4-KVl"/>
                 <constraint firstItem="H8S-Qy-B6H" firstAttribute="top" secondItem="5u1-Uy-bPz" secondAttribute="bottom" constant="24" id="grn-iN-Ys3"/>
                 <constraint firstItem="m7E-xd-MTt" firstAttribute="centerY" secondItem="dP6-Rc-5kE" secondAttribute="centerY" id="hRk-Jy-2LS"/>
                 <constraint firstItem="dP6-Rc-5kE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="jkp-Hi-Clo"/>
@@ -143,8 +188,10 @@
                 <constraint firstAttribute="trailing" secondItem="dP6-Rc-5kE" secondAttribute="trailing" constant="38" id="q9X-Fh-1SP"/>
                 <constraint firstAttribute="trailing" secondItem="Kex-db-D6n" secondAttribute="trailing" constant="38" id="qnl-Y2-mxq"/>
                 <constraint firstItem="Kex-db-D6n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="sST-Bd-olt"/>
-                <constraint firstItem="H8S-Qy-B6H" firstAttribute="leading" secondItem="m7E-xd-MTt" secondAttribute="trailing" id="ujg-rz-9QV"/>
+                <constraint firstItem="H8S-Qy-B6H" firstAttribute="leading" secondItem="m7E-xd-MTt" secondAttribute="trailing" constant="7" id="ujg-rz-9QV"/>
                 <constraint firstAttribute="trailing" secondItem="XzZ-5M-TRi" secondAttribute="trailing" id="veq-Kp-Rje"/>
+                <constraint firstItem="vfC-cJ-9aG" firstAttribute="top" secondItem="Kex-db-D6n" secondAttribute="bottom" constant="12" id="w3p-9p-bN7"/>
+                <constraint firstItem="vfC-cJ-9aG" firstAttribute="centerX" secondItem="Kex-db-D6n" secondAttribute="centerX" id="wu3-fX-HDQ"/>
                 <constraint firstItem="XzZ-5M-TRi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z6o-AW-Ij4"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

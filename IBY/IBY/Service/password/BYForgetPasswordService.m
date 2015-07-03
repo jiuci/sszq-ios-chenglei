@@ -19,6 +19,7 @@
 }
 - (void)checkVerifyCode:(NSString*)code phone:(NSString*)phone finish:(void (^)(BOOL success, BYError* error))finished
 {
+    NSLog(@"%@,%@",phone,code);
     [BYVerifyCodeEngine checkVerifyCode:code
                                   phone:phone
                                  finish:^(NSString* md5, BYError* error) {

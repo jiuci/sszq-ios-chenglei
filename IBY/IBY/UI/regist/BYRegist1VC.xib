@@ -41,7 +41,7 @@
                     </constraints>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="你要注册的手机号码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="v32-AZ-z4L">
-                    <rect key="frame" x="80" y="112" width="190" height="40"/>
+                    <rect key="frame" x="80" y="112" width="195" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="rO7-as-fDG"/>
                     </constraints>
@@ -55,6 +55,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Ieo-ka-409"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="下一步" backgroundImage="btn_red">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -116,7 +117,7 @@
                 <constraint firstAttribute="centerX" secondItem="1fX-nR-66x" secondAttribute="centerX" id="M4U-ax-P91"/>
                 <constraint firstItem="UOy-UJ-c7w" firstAttribute="top" secondItem="v32-AZ-z4L" secondAttribute="bottom" constant="24" id="SWV-5k-U9E"/>
                 <constraint firstItem="v32-AZ-z4L" firstAttribute="top" secondItem="8jj-dI-0qz" secondAttribute="bottom" id="Sid-cV-EtU"/>
-                <constraint firstAttribute="trailing" secondItem="v32-AZ-z4L" secondAttribute="trailing" constant="50" id="TXM-mQ-dUW"/>
+                <constraint firstAttribute="trailing" secondItem="v32-AZ-z4L" secondAttribute="trailing" constant="45" id="TXM-mQ-dUW"/>
                 <constraint firstAttribute="trailing" secondItem="RUk-9f-a8H" secondAttribute="trailing" constant="38" id="cLY-RW-7EZ"/>
                 <constraint firstItem="RUk-9f-a8H" firstAttribute="top" secondItem="8jj-dI-0qz" secondAttribute="bottom" id="cdF-Fz-AWi"/>
                 <constraint firstItem="8jj-dI-0qz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="22" id="dhG-GE-vd9"/>

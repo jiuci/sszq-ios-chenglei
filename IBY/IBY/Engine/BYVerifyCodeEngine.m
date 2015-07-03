@@ -104,14 +104,14 @@
 
 + (void)fetchSMSVerifyCodeForResetPasswordWithPhone:(NSString*)phoneNum finish:(void (^)(BYFetchVerifyCodeStatus status, BYError* error))finished;
 {
-    NSString* url = @"user/customer/CustomerAcquireCode";
+    NSString* url = @"user/customer/CustomerAcquireCode4App";
     NSDictionary* param = @{ @"Mobile" : phoneNum };
 
     [BYNetwork post:url
              params:param
              finish:^(NSDictionary* data, BYError* error) {
                  if (error) {
-                     if (error.code == 208101 && 0) { //TODO API不完整，不知道未注册的时候返回什么错误码
+                     if (error.code == 208103) {
                          finished(BYFetchCodeNeedRegist, error);
                      }
                      else {

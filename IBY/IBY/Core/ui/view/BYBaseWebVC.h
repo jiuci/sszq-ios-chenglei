@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSURL* url;
 @property (nonatomic, weak) id /*<MTWebViewControllerDelegate*/ delegate;
 @property (nonatomic, strong) UIActivityIndicatorView* indicatorView;
+@property (nonatomic, assign) BOOL useWebTitle;
 
 - (id)initWithURL:(NSURL*)url;
 - (void)loadRequestWithURL:(NSURL*)url;
