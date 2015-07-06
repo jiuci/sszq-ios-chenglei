@@ -65,6 +65,7 @@
         [blockbody TPKeyboardAvoiding_scrollToActiveTextField];
         return YES;
     };
+    _countForLoginTimes = 0;
 }
 - (void)loadView
 {
@@ -265,7 +266,7 @@
 
 - (void)didLogin
 {
-    self.countForLoginTimes++;
+    
 
     [MBProgressHUD topShow:@"登录中..."];
 
@@ -304,6 +305,7 @@
                  }
                  else {
                      alertError(error);
+                     self.countForLoginTimes++;
                      [self updateUI];
                  }
              }];

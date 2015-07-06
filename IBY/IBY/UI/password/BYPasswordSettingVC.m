@@ -20,7 +20,6 @@
 @end
 
 @implementation BYPasswordSettingVC {
-    BOOL _showPassword;
 }
 
 - (void)viewDidLoad
@@ -28,7 +27,6 @@
     [super viewDidLoad];
     
     self.title = @"设置新密码";
-    _showPassword = YES;
     self.btnNext.enabled = NO;
     
     [self.firstPwdTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
@@ -55,7 +53,11 @@
 - (IBAction)commitOnclick
 {
     [self.view endEditing:YES];
-
+    if (self.firstPwdTextField.text.length<6) {
+        [MBProgressHUD topShowTmpMessage:@"密码不能小于6位字符，请重新输入"];
+        [self.firstPwdTextField becomeFirstResponder];
+        return;
+    }
     if (![self.firstPwdTextField.text isValidPassword]) {
         [MBProgressHUD topShowTmpMessage:@"密码需为字母，数字，符号两种以上组合，请重新输入"];
         [self.firstPwdTextField becomeFirstResponder];
@@ -96,13 +98,11 @@
 
 - (IBAction)refreshClick:(UIButton*)sender
 {
-    _showPassword = !_showPassword;
-    if (_showPassword) {
-        [sender setTitle:@"隐藏密码" forState:UIControlStateNormal];
+    sender.selected = !sender.selected;
+    if (sender.selected) {
         [self.firstPwdTextField setSecureTextEntry:NO];
     }
     else {
-        [sender setTitle:@"显示密码" forState:UIControlStateNormal];
         [self.firstPwdTextField setSecureTextEntry:YES];
     }
     //

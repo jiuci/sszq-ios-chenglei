@@ -58,16 +58,20 @@
     self.phoneNumTextField.delegate = self;
     [self.phoneNumTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
-        self.btnNext.enabled = realStr&&realStr.length>0;
+        self.btnNext.enabled = [realStr isMobilePhoneNumber];
         return YES;
     }];
     self.btnNext.enabled = NO;
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_captchaView refreshCaptchaImage];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.phoneNumTextField becomeFirstResponder];
-    [_captchaView refreshCaptchaImage];
 }
 #pragma mark -
 

@@ -111,7 +111,7 @@
         _indicatorView.hidden = YES;
 
         if (error) {
-            [MBProgressHUD topShowTmpMessage:@"获取验证图片出错"];
+            [MBProgressHUD topShowTmpMessage:@"验证图片加载失败，请重试"];
             return;
         }
 
@@ -131,6 +131,7 @@
                             finish:^(BOOL success, BYError* error) {
                                 if (!success || error) {
                                     [MBProgressHUD showError:@"图片验证码有误，请重新输入"];
+                                    [self refreshCaptchaImage];
                                     [self.captchaFileld becomeFirstResponder];
                                     return;
                                 }

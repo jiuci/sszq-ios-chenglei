@@ -51,7 +51,11 @@
 - (IBAction)commitOnclick
 {
     [self.view endEditing:YES];
-
+    if (self.firstPwdTextField.text.length<6) {
+        [MBProgressHUD topShowTmpMessage:@"密码不能小于6位字符，请重新输入"];
+        [self.firstPwdTextField becomeFirstResponder];
+        return;
+    }
     if (![self.firstPwdTextField.text isValidPassword]) {
         [MBProgressHUD topShowTmpMessage:@"密码需为字母，数字，符号两种以上组合，请重新输入"];
         [self.firstPwdTextField becomeFirstResponder];

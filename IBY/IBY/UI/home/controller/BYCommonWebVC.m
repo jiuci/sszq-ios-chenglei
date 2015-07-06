@@ -181,15 +181,12 @@
             preUrlString = [preUrlString substringToIndex:preUrlString.length - 1];
         }
     }
-
-    NSLog(@"%@", preUrlString);
-
     if (!preUrlString) {
         return NO;
     }
 
     BOOL willShowTabbar = NO;
-
+//    NSLog(@"requestString: %@",preUrlString);
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
         self.showTabbar = willShowTabbar;
@@ -204,20 +201,28 @@
         [self.mutiSwitch setSelectedAtIndex:0];
         willShowTabbar = YES;
     }
-    else if ([requestString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
+    else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
         [self.mutiSwitch setSelectedAtIndex:1];
         willShowTabbar = YES;
     }
-    else if ([requestString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
+    else if ([preUrlString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
 
-    if ([requestString rangeOfString:@"login"].length > 0) {
-        NSLog(@"det login!");
+    if ([preUrlString rangeOfString:@"login"].length > 0) {
+//        NSLog(@"det login!");
         __weak BYCommonWebVC* bself = self; //本地化登录
         BYLoginSuccessBlock blk = ^() {
-            NSLog(@"login success");
+//            NSLog(@"login success");
+//            NSLog(@"%@",bself.webView.request);
+//            NSLog(@"%@",_currentUrl);
+            if (![bself.webView.request.URL.absoluteString containsString:bself.currentUrl]) {
+                [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
+            }else{
+                [bself onAPPLogin];
+            }
+            
 //            [bself dismissViewControllerAnimated:NO completion:nil];
 //            [[BYAppCenter sharedAppCenter] updateUidAndToken];
 //            [[BYAppCenter sharedAppCenter] uploadToken:nil];
@@ -230,13 +235,14 @@
     }
     self.showTabbar = willShowTabbar;
 
-    if (!([requestString rangeOfString:@"/order/pay2"].length > 0) && [requestString rangeOfString:@"/order/pay"].length > 0) {
+    if (!([preUrlString rangeOfString:@"/order/pay2"].length > 0) && [requestString rangeOfString:@"/order/pay"].length > 0) {
         [[BYAppCenter sharedAppCenter] updateUidAndToken];
         NSDictionary* parameters = [[request.URL query] parseURLParams];
         [[BYPortalCenter sharedPortalCenter] portTo:BYPortalpay params:parameters];
         return NO;
     }
     _currentUrl = requestString;
+//    NSLog(@"_currentUrl :%@",_currentUrl);
     return YES;
 }
 
@@ -464,11 +470,37 @@
     [self.navigationController setNavigationBarHidden:NO];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //[self serverResoluton];
     [self.navigationController setNavigationBarHidden:YES];
+    NSString * preUrlString = self.webView.request.URL.absoluteString;
+    BOOL willShowTabbar = NO;
+    
+    //非biyao.com域直接放行
+    if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
+        self.showTabbar = willShowTabbar;
+        return;
+    }
+    
+    //对我们自己的地址进行分类处理
+    if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
+        || [preUrlString isEqualToString:@"http://m.biyao.com"]
+        || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
+        [self.mutiSwitch setSelectedAtIndex:0];
+        willShowTabbar = YES;
+    }
+    else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
+        [self.mutiSwitch setSelectedAtIndex:1];
+        willShowTabbar = YES;
+    }
+    else if ([preUrlString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
+        [self.mutiSwitch setSelectedAtIndex:2];
+        willShowTabbar = YES;
+    }
+    self.showTabbar = willShowTabbar;
+    //[self serverResoluton];
+    
 }
 
 @end
