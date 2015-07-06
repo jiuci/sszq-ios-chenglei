@@ -133,6 +133,7 @@
     _userTextField.delegate = self;
     [self.view addSubview:_userTextField];
 
+    
     _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.bottom - 40, SCREEN_WIDTH - 38 * 2 - 40 - 7, 40)];
     _pwdTextField.leftViewMode = UITextFieldViewModeAlways;
     _pwdTextField.placeholder = @"请输入6-32位密码";
