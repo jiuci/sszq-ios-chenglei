@@ -30,6 +30,7 @@
     self.title = @"设置新密码";
     _showPassword = YES;
     self.btnNext.enabled = NO;
+    
     [self.firstPwdTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
         self.iconInputLeftView.highlighted = YES;
         self.bgInput.highlighted = YES;
@@ -44,7 +45,6 @@
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
-    self.btnNext.enabled = YES;
 }
 -(void)viewDidAppear:(BOOL)animated
 {

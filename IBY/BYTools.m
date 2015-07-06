@@ -45,7 +45,6 @@ void inputCookies()
     setCookies(@"uid", strUid);
     setCookies(@"token", token);
     setCookies(@"userinfo", userinfo);
-    logCookies();
 
 }
 
