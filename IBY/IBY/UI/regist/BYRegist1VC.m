@@ -50,7 +50,7 @@
     self.phoneNumTextField.delegate = self;
     [self.phoneNumTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
-        self.btnNext.enabled = [realStr isMobilePhoneNumber];
+        self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
 

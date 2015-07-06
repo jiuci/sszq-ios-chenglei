@@ -55,7 +55,7 @@ NSHTTPCookie* createCookie(NSString* name, NSString* value)
     [cookieProperties setObject:value forKey:NSHTTPCookieValue];
 
     [cookieProperties setObject:@".biyao.com" forKey:NSHTTPCookieDomain];
-    //    [cookieProperties setObject:@"192.168.97.69" forKey:NSHTTPCookieDomain];
+//    [cookieProperties setObject:@"192.168.97.69" forKey:NSHTTPCookieDomain];
 
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];

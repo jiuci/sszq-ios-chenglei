@@ -72,19 +72,28 @@
             [MBProgressHUD topShow:@"恭喜，注册成功"];
             runBlockAfterDelay(1, ^{
                 [MBProgressHUD topHide];
-                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
-//                for (UIViewController * controller in self.navigationController.viewControllers) {
-//                    if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
-//                        [self.navigationController popToViewController:controller animated:YES];
-//                        return;
-//                    }
-//                }
+        
                 runOnBackgroundQueue(^{
                     BYLoginService *loginService = [[BYLoginService alloc] init];
                     [loginService loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
                         //TODO:在后台自动登录，不用处理失败的情况?
                     }];
                 });
+                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
+//                for (UIViewController * controller in self.navigationController.viewControllers) {
+//                    if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
+//                        BYLoginVC * bylogin = (BYLoginVC*) controller;
+//                        [bylogin.navigationController
+//                         dismissViewControllerAnimated:YES
+//                         completion:^{
+//                             if (bylogin.successBlk) {
+//                                 bylogin.successBlk();
+//                             }
+//                         }];
+//                        
+//                        return;
+//                    }
+//                }
             });
         }
     }];

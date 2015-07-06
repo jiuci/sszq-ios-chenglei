@@ -33,6 +33,8 @@
 #define BYURL_CARTLIST @"http://m.biyao.com/shopcar/list"
 #define BYURL_BOOKLIST @"http://m.biyao.com/booklist"
 #define BYURL_MINE @"http://m.biyao.com/account/mine"
+#define BYURL_TEST_MINE @"http://192.168.97.69:8080/m.biyao.com/account/mine"
+
 
 
 

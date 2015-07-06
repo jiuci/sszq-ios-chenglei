@@ -209,6 +209,9 @@
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
+    else if ([preUrlString rangeOfString:@"http://192.168.97.69:8080/"].length > 0){
+        willShowTabbar = YES;
+    }
 
     if ([preUrlString rangeOfString:@"login"].length > 0) {
 //        NSLog(@"det login!");
@@ -221,6 +224,7 @@
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{
                 [bself onAPPLogin];
+//                NSLog(@"onapplogin");
             }
             
 //            [bself dismissViewControllerAnimated:NO completion:nil];
@@ -235,7 +239,7 @@
     }
     self.showTabbar = willShowTabbar;
 
-    if (!([preUrlString rangeOfString:@"/order/pay2"].length > 0) && [requestString rangeOfString:@"/order/pay"].length > 0) {
+    if (!([preUrlString rangeOfString:@"/order/pay2"].length > 0) && [preUrlString rangeOfString:@"/order/pay"].length > 0) {
         [[BYAppCenter sharedAppCenter] updateUidAndToken];
         NSDictionary* parameters = [[request.URL query] parseURLParams];
         [[BYPortalCenter sharedPortalCenter] portTo:BYPortalpay params:parameters];
@@ -258,6 +262,9 @@
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
+//    if ([self.currentUrl containsString:@"m.biyao.com/product/show"]&&![self.currentUrl containsString:@"192.168.97.69"]) {
+//        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.97.69:8080/m.biyao.com/product/show?designid=63786"]]];
+//    }
 }
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
