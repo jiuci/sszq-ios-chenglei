@@ -209,9 +209,9 @@
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
-    else if ([preUrlString rangeOfString:@"http://192.168.97.69:8080/"].length > 0){
-        willShowTabbar = YES;
-    }
+//    else if ([preUrlString rangeOfString:@"http://192.168.97.69:8080/"].length > 0){
+//        willShowTabbar = YES;
+//    }
 
     if ([preUrlString rangeOfString:@"login"].length > 0) {
 //        NSLog(@"det login!");
