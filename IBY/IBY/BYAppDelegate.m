@@ -38,6 +38,8 @@
 //    _window = [[iConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //支持摇一摇
+    
+    
     application.applicationSupportsShakeToEdit = YES;
 
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -154,7 +156,6 @@
     [[BYAppCenter sharedAppCenter] checkVersionInfo];
     //可以手动设置cookies
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

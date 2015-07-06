@@ -214,6 +214,7 @@
     }
 
     if ([requestString rangeOfString:@"login"].length > 0) {
+        NSLog(@"det login!");
         __weak BYCommonWebVC* bself = self; //本地化登录
         BYLoginSuccessBlock blk = ^() {
             NSLog(@"login success");

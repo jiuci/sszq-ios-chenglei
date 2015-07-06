@@ -58,7 +58,7 @@
     self.phoneNumTextField.delegate = self;
     [self.phoneNumTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
-        self.btnNext.enabled = [realStr isMobilePhoneNumber];
+        self.btnNext.enabled = realStr&&realStr.length>0;
         return YES;
     }];
     self.btnNext.enabled = NO;
@@ -81,7 +81,7 @@
     [self.view endEditing:YES];
     
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD showError:@"手机号格式错误"];
+        [MBProgressHUD showError:@"请输入11位手机号码"];
         [self.phoneNumTextField becomeFirstResponder];
         return;
     }
@@ -95,7 +95,7 @@
                 }else if (status == BYFetchCodeNeedRegist){
                     //未注册跳转注册
                     __weak BYForgetPasswordVC * bself = self;
-                    [UIAlertView bk_showAlertViewWithTitle:nil message:@"您的手机号没有注册，是否去注册？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"去注册"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
+                    [UIAlertView bk_showAlertViewWithTitle:nil message:@"您输入的手机号未注册，是否直接去注册？" cancelButtonTitle:@"取消" otherButtonTitles:[NSArray arrayWithObject:@"确定"] handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
                         if (buttonIndex == 1){
                             BYRegist1VC* registVc = [[BYRegist1VC alloc] init];
                             

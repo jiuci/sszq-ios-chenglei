@@ -123,8 +123,7 @@
     // user&pwd
     _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.top, SCREEN_WIDTH - 38 * 2 - 7, 40)];
     _userTextField.leftViewMode = UITextFieldViewModeAlways;
-    _userTextField.keyboardType = UIKeyboardTypeNamePhonePad;
-    _userTextField.placeholder = @"您的账号";
+    _userTextField.placeholder = @"请输入账号/手机号";
     UIImageView* accountImgView =
         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_username_default"]];
     accountImgView.contentMode = UIViewContentModeCenter;
@@ -136,7 +135,7 @@
 
     _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(inputBackground.left, inputBackground.bottom - 40, SCREEN_WIDTH - 38 * 2 - 40 - 7, 40)];
     _pwdTextField.leftViewMode = UITextFieldViewModeAlways;
-    _pwdTextField.placeholder = @"您的密码";
+    _pwdTextField.placeholder = @"请输入6-32位密码";
     UIImageView* passwordImgView =
         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_password_default"]];
     passwordImgView.contentMode = UIViewContentModeCenter;
@@ -288,15 +287,16 @@
                      __weak BYLoginVC* bself = self;
                      [UIAlertView
                          bk_showAlertViewWithTitle:
-                             nil message:@"您"
-                                 @"的手机号没有注册，是否去注册？"
+                             nil message:@"您输入的手机号未注册，是否直接去注册？"
                                  cancelButtonTitle:@"取消"
                                  otherButtonTitles:[NSArray
-                                                       arrayWithObject:@"去注册"]
+                                                       arrayWithObject:@"确定"]
                                            handler:^(UIAlertView* alertView,
                                                        NSInteger buttonIndex) {
                                                if (buttonIndex == 1) {
-                                                   [bself onRegist];
+                                                   if ([self.userTextField.text isMobilePhoneNumber]) {
+                                                       [bself onRegist];
+                                                   }
                                                }
                                                
                                            }];

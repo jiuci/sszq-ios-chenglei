@@ -145,7 +145,7 @@
             [self beginTimer];
             return;
         }
-        [MBProgressHUD topShowTmpMessage:@"发送失败，请稍后再试"];
+        [MBProgressHUD topShowTmpMessage:@"发送失败，请重试"];
     }];
 }
 

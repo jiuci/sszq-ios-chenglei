@@ -23,27 +23,29 @@ void clearCookies()
 
 void inputCookies()
 {
+    
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
     setCookies(@"fromapp", @"ios|14");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
 
     if (![BYAppCenter sharedAppCenter].isLogin) {
         resetCookies();
+        
         return;
     }
 
-    //加入引号，为了解决cookie读取的问题
     NSString* strUid = IntToString([BYAppCenter sharedAppCenter].user.userID);
-    NSString* token = [NSString stringWithFormat:@"\"%@\"", [BYAppCenter sharedAppCenter].user.token];
+    NSString* token = [BYAppCenter sharedAppCenter].user.token;
     token = [token URLEncodedString];
     //userinfo 规则: 昵称,头像地址,uid ,手机号    写入Cookie前需要做URLEncoder
 
-    NSString* uinfoStr = [NSString stringWithFormat:@"\"%@\"", [[BYAppCenter sharedAppCenter].user cookieUserInfoStr]];
-    NSString* userinfo = [uinfoStr URLEncodedString];
-
+    NSString* uinfoStr = [NSString stringWithFormat:@"%@", [[BYAppCenter sharedAppCenter].user cookieUserInfoStr]];
+    NSString* userinfo = [uinfoStr URLEncodedStringForMweb];
+    
     setCookies(@"uid", strUid);
     setCookies(@"token", token);
     setCookies(@"userinfo", userinfo);
+    logCookies();
 
 }
 

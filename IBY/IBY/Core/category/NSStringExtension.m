@@ -186,15 +186,17 @@
 
     return [self stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
 
-    //    static CFStringRef charset = CFSTR("!@#$%&*()+'\";:=,/?[] ");
-    //    CFStringRef str = (__bridge CFStringRef)self;
-    //    CFStringEncoding encoding = kCFStringEncodingUTF8;
-    //    return (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, str, NULL, charset, encoding));
-
-    //    NSString *newCountryString =[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //    return newCountryString;
+    
 }
-
+- (NSString*)URLEncodedStringForMweb
+{
+    static CFStringRef charset = CFSTR("!@#$%&*()+'\";:=,/?[] ");
+    CFStringRef str = (__bridge CFStringRef)self;
+    CFStringEncoding encoding = kCFStringEncodingUTF8;
+    NSMutableString *newCountryString = [(NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, str, NULL, charset, encoding)) mutableCopy];
+   // [newCountryString replaceOccurrencesOfString:@"%20" withString:@"+" options:1 range:NSMakeRange(0, newCountryString.length)];
+    return [newCountryString copy];
+}
 - (NSString*)URLDecodedString
 {
     CFStringRef result = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""), kCFStringEncodingUTF8);

@@ -130,7 +130,7 @@
     [_service checkImageVerifyCode:self.captchaFileld.text
                             finish:^(BOOL success, BYError* error) {
                                 if (!success || error) {
-                                    [MBProgressHUD showError:@"验证码错误"];
+                                    [MBProgressHUD showError:@"图片验证码有误，请重新输入"];
                                     [self.captchaFileld becomeFirstResponder];
                                     return;
                                 }

@@ -77,7 +77,7 @@
     [self.view endEditing:YES];
 
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD showError:@"手机号格式有误，请重新输入"];
+        [MBProgressHUD showError:@"请输入11位手机号码"];
         [self.phoneNumTextField becomeFirstResponder];
         return;
     }
@@ -89,7 +89,7 @@
                                                      return;
                                                  }
                                                  else if (status == BYFetchCodeFail && !error) {
-                                                     [MBProgressHUD topShowTmpMessage:@"发送失败，请稍后再试"];
+                                                     [MBProgressHUD topShowTmpMessage:@"发送失败，请重试"];
                                                      return;
                                                  }
                                                  else if (status == BYFetchCodeRegisted) {
@@ -109,9 +109,9 @@
     //已注册跳转登陆
     __weak BYRegist1VC* bself = self;
     [UIAlertView bk_showAlertViewWithTitle:nil
-                                   message:@"您的手机号已经被注册，是否去登录？"
+                                   message:@"该手机号已经注册，请直接登录"
                          cancelButtonTitle:@"取消"
-                         otherButtonTitles:[NSArray arrayWithObject:@"去登录"]
+                         otherButtonTitles:[NSArray arrayWithObject:@"直接登录"]
                                    handler:^(UIAlertView* alertView, NSInteger buttonIndex) {
                                        if (buttonIndex == 1) {
                                            for (UIViewController* controller in bself.navigationController.viewControllers) {

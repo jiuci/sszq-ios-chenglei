@@ -57,7 +57,7 @@
     [self.view endEditing:YES];
 
     if (![self.firstPwdTextField.text isValidPassword]) {
-        [MBProgressHUD topShowTmpMessage:@"密码格式有误"];
+        [MBProgressHUD topShowTmpMessage:@"密码需为字母，数字，符号两种以上组合，请重新输入"];
         [self.firstPwdTextField becomeFirstResponder];
         return;
     }
@@ -67,7 +67,7 @@
             if(error){
                 alertError(error);
             }else{
-                [MBProgressHUD topShow:@"恭喜您密码修改成功"];
+                [MBProgressHUD topShow:@"恭喜！密码修改成功，请重新登录"];
                 runBlockAfterDelay(1, ^{
                     [MBProgressHUD topHide];
                     for (UIViewController * controller in self.navigationController.viewControllers) {

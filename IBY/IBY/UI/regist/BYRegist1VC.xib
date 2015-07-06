@@ -40,7 +40,7 @@
                         <constraint firstAttribute="width" constant="16" id="SGS-l9-4cL"/>
                     </constraints>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="你要注册的手机号码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="v32-AZ-z4L">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="v32-AZ-z4L">
                     <rect key="frame" x="80" y="112" width="195" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="rO7-as-fDG"/>

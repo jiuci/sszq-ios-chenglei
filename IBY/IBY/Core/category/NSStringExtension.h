@@ -16,6 +16,7 @@
 //encoding & decoding
 - (NSString*)urlEncodeUsingEncoding:(NSStringEncoding)encoding;
 - (NSString*)URLEncodedString;
+- (NSString*)URLEncodedStringForMweb;
 - (NSString*)URLDecodedString;
 
 // url params
