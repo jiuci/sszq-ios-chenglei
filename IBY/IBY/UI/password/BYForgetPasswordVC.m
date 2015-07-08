@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"找回密码";
+    self.title = @"重置登陆密码";
 
     _captchaView = [BYCaptchaView captchaView];
     _captchaView.top = self.phoneNumTextField.bottom;
@@ -58,9 +58,17 @@
     self.phoneNumTextField.delegate = self;
     [self.phoneNumTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (realStr.length > 32) {
+            return NO;
+        }
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
+    [self.phoneNumTextField setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        self.btnNext.enabled = NO;
+        return YES;
+    }];
+    
     self.btnNext.enabled = NO;
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -85,7 +93,7 @@
     [self.view endEditing:YES];
     
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD showError:@"请输入11位手机号码"];
+        [MBProgressHUD showError:@"手机号格式有误，请重新输入"];
         [self.phoneNumTextField becomeFirstResponder];
         return;
     }
@@ -104,7 +112,7 @@
                             BYRegist1VC* registVc = [[BYRegist1VC alloc] init];
                             
                             [bself.navigationController pushViewController:registVc animated:YES];
-                            registVc.phoneNumTextField.text = self.phoneNumTextField.text;
+                            registVc.phone = self.phoneNumTextField.text;
                         }
                     }];
                     return;

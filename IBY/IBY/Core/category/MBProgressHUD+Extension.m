@@ -117,7 +117,7 @@ static MBProgressHUD* keyWindowHUD = nil;
     hud.mode = MBProgressHUDModeText;
     hud.removeFromSuperViewOnHide = YES;
     //    hud.dimBackground = YES;
-    [hud hide:YES afterDelay:1.0];
+    [hud hide:YES afterDelay:2.0];
 }
 
 

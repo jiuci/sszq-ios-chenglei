@@ -51,6 +51,11 @@
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
+    [self.txtSMSInput setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        self.btnNext.enabled = NO;
+        return YES;
+    }];
+    
     self.btnNext.enabled = NO;
     self.autoHideKeyboard = YES;
     [self beginTimer];

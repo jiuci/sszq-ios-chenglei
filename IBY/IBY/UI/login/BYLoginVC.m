@@ -13,6 +13,7 @@
 #import "BYForgetPasswordVC.h"
 #import "BYAutosizeBgButton.h"
 #import "BYCaptchaView.h"
+#import "BYRegistService.h"
 
 #import <TPKeyboardAvoidingScrollView.h>
 
@@ -234,6 +235,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    _pwdTextField.text = @"";
     if (_captchaView.hidden == NO) {
         [_captchaView refreshCaptchaImage];
     }
@@ -314,9 +316,13 @@
 - (void)onRegist
 {
     BYRegist1VC* registVc = [[BYRegist1VC alloc] init];
+    
+    
+    
     [self.navigationController pushViewController:registVc animated:YES];
     if ([self.userTextField.text isMobilePhoneNumber]) {
-        registVc.phoneNumTextField.text = self.userTextField.text;
+        registVc.phone = self.userTextField.text;
+        NSLog(@"%@",registVc.phone);
     }
 }
 
@@ -334,9 +340,9 @@
     else {
         [self.pwdTextField setSecureTextEntry:YES];
     }
-
-    [self.pwdTextField becomeFirstResponder];
-    self.pwdTextField.text = self.pwdTextField.text;
+    [self.view endEditing:YES];
+    //[self.pwdTextField becomeFirstResponder];
+    //self.pwdTextField.text = self.pwdTextField.text;
 }
 #pragma mark - UITextFieldDelegate
 //- (BOOL)textFieldShouldReturn:(UITextField*)textField
@@ -407,6 +413,11 @@
             _loginButton.enabled = YES;
         }
     }
+    return YES;
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    _loginButton.enabled = NO;
     return YES;
 }
 @end

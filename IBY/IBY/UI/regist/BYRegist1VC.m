@@ -9,7 +9,6 @@
 #import "BYRegist1VC.h"
 #import "BYAutosizeBgButton.h"
 
-#import "BYRegistService.h"
 
 #import "BYBaseWebVC.h"
 #import "BYRegist2VC.h"
@@ -24,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView* inputBg;
 @property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 
-@property (nonatomic, strong) BYRegistService* registService;
+
 
 @end
 
@@ -36,7 +35,7 @@
     self.title = @"快速注册";
 
     _registService = [[BYRegistService alloc] init];
-
+    
     [self.phoneNumTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
         self.txtLeftView.highlighted = YES;
         self.inputBg.highlighted = YES;
@@ -53,14 +52,24 @@
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
-
+    [self.phoneNumTextField setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        self.btnNext.enabled = NO;
+        return YES;
+    }];
+    
     self.btnNext.enabled = NO;
     self.autoHideKeyboard = YES;
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.phoneNumTextField.text = _phone;
+    self.btnNext.enabled = _phone&&[_phone length]>0;
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     [self.phoneNumTextField becomeFirstResponder];
 }
 #pragma mark -
@@ -77,7 +86,7 @@
     [self.view endEditing:YES];
 
     if (![self.phoneNumTextField.text isMobilePhoneNumber]) {
-        [MBProgressHUD showError:@"请输入11位手机号码"];
+        [MBProgressHUD showError:@"手机号格式有误，请重新输入"];
         [self.phoneNumTextField becomeFirstResponder];
         return;
     }

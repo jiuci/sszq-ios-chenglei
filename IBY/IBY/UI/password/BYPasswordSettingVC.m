@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"设置新密码";
+    self.title = @"重置登陆密码";
     self.btnNext.enabled = NO;
     
     [self.firstPwdTextField setBk_didBeginEditingBlock:^(UITextField* txtField) {
@@ -40,9 +40,17 @@
     }];
     [self.firstPwdTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (realStr.length > 32) {
+            return NO;
+        }
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
+    [self.firstPwdTextField setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        self.btnNext.enabled = NO;
+        return YES;
+    }];
+    self.autoHideKeyboard = YES;
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -69,12 +77,13 @@
             if(error){
                 alertError(error);
             }else{
-                [MBProgressHUD topShow:@"恭喜！密码修改成功，请重新登录"];
-                runBlockAfterDelay(1, ^{
-                    [MBProgressHUD topHide];
+                [MBProgressHUD topShowTmpMessage:@"恭喜！密码修改成功，请重新登录"];
+                runBlockAfterDelay(2, ^{
                     for (UIViewController * controller in self.navigationController.viewControllers) {
                         if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
                             [self.navigationController popToViewController:controller animated:YES];
+                            BYLoginVC * loginVC = (BYLoginVC*)controller;
+                            loginVC.userTextField.text = self.passwordService.phone;
                             return;
                         }
                     }
@@ -105,9 +114,9 @@
     else {
         [self.firstPwdTextField setSecureTextEntry:YES];
     }
-    //
+    [self.view endEditing:YES];
 //    [self.firstPwdTextField becomeFirstResponder];
-    self.firstPwdTextField.text = self.firstPwdTextField.text;
+//    self.firstPwdTextField.text = self.firstPwdTextField.text;
 }
 
 

@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 @property (nonatomic, assign) int countdownTime;
 @property (nonatomic, strong) NSTimer* smsCountTimer;
-
+@property (nonatomic, assign) BOOL enterSMSHelper;
 @end
 
 @implementation BYVerifySmsCodeVC
@@ -31,8 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = _titleFromLastPage ? _titleFromLastPage : @"输入验证码";
-
+    self.title = _titleFromLastPage ? _titleFromLastPage : @"重置登陆密码";
+    
     _forgetpasswordService = [[BYForgetPasswordService alloc] init];
     _forgetpasswordService.phone = _phone;
 
@@ -52,20 +52,29 @@
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
+    [self.smsCodeTextField setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        self.btnNext.enabled = NO;
+        return YES;
+    }];
+    
     self.btnNext.enabled = NO;
     self.autoHideKeyboard = YES;
     
+    _enterSMSHelper = NO;
     [self beginTimer];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.smsCodeTextField becomeFirstResponder];
+    _enterSMSHelper = NO;
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
+    if (_enterSMSHelper) {
+        return;
+    }
     if (_smsCountTimer) {
         [_smsCountTimer invalidate];
         _smsCountTimer = nil;
@@ -111,6 +120,7 @@
 {
     BYBaseWebVC* webVC = [[BYBaseWebVC alloc] initWithURL:[NSURL URLWithString:BYURL_SERVICE_SMSCODEHELPER]];
     webVC.useWebTitle = YES;
+    _enterSMSHelper = YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 

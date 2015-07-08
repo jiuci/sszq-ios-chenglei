@@ -41,7 +41,7 @@
                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
-                        <fragment content="发送至手机号码：">
+                        <fragment content="发送至手机号码">
                             <attributes>
                                 <color key="NSColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="14" name="STHeitiSC-Light"/>

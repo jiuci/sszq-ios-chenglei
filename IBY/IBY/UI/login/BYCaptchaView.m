@@ -47,7 +47,6 @@
 
         _captchaFileld = [[UITextField alloc] initWithFrame:BYRectMake(50, top, bgInput.width - 12 - 7, height)];
         _captchaFileld.placeholder = @"请输入验证码";
-        _captchaFileld.keyboardType = UIKeyboardTypeNumberPad;
         _captchaFileld.clearButtonMode = UITextFieldViewModeWhileEditing;
         _captchaFileld.font = Font(14);
         [self addSubview:_captchaFileld];
@@ -63,7 +62,7 @@
         [refreshBgView addSubview:refreshIconView];
 
         _captchaImgView = [[UIImageView alloc] initWithFrame:BYRectMake(0, top, captchaWidth, height)];
-        _captchaImgView.backgroundColor = [UIColor lightGrayColor];
+        _captchaImgView.backgroundColor = [UIColor whiteColor];
         _captchaImgView.right = refreshBgView.left;
         [self addSubview:_captchaImgView];
 
@@ -122,7 +121,7 @@
 - (void)valueCheckWithSuccessBlock:(void (^)())block
 {
     if (self.captchaFileld.text.length < 2) {
-        [MBProgressHUD topShowTmpMessage:@"请输入图片验证码"];
+        [MBProgressHUD topShowTmpMessage:@"请输入验证码"];
         [self.captchaFileld becomeFirstResponder];
         return;
     }

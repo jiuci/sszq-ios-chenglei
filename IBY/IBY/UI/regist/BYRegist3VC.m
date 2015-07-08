@@ -38,9 +38,17 @@
     }];
     [self.firstPwdTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (realStr.length > 32) {
+            return NO;
+        }
         self.btnNext.enabled = realStr&&[realStr length]>0;
         return YES;
     }];
+    [self.firstPwdTextField setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        self.btnNext.enabled = NO;
+        return YES;
+    }];
+    self.autoHideKeyboard = YES;
     self.btnNext.enabled = NO;
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -65,35 +73,35 @@
     NSString* user = _registService.phone;
     NSString* pwd = self.firstPwdTextField.text;
 //    NSString* smsCode = self.registService.verifyCode;
+    [MBProgressHUD topShow:@"注册中..."];
     [self.registService registByUser:user pwd:pwd finsh:^(BOOL success, BYError* error) {
+        [MBProgressHUD topHide];
         if(error){
             alertError(error);
         }else{
-            [MBProgressHUD topShow:@"恭喜，注册成功"];
-            runBlockAfterDelay(1, ^{
-                [MBProgressHUD topHide];
-        
+            [MBProgressHUD topShowTmpMessage:@"恭喜，注册成功"];
+            runBlockAfterDelay(2, ^{
                 runOnBackgroundQueue(^{
                     BYLoginService *loginService = [[BYLoginService alloc] init];
                     [loginService loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
                         //TODO:在后台自动登录，不用处理失败的情况?
                     }];
                 });
-                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
-//                for (UIViewController * controller in self.navigationController.viewControllers) {
-//                    if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
-//                        BYLoginVC * bylogin = (BYLoginVC*) controller;
-//                        [bylogin.navigationController
-//                         dismissViewControllerAnimated:YES
-//                         completion:^{
-//                             if (bylogin.successBlk) {
-//                                 bylogin.successBlk();
-//                             }
-//                         }];
-//                        
-//                        return;
-//                    }
-//                }
+//                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
+                for (UIViewController * controller in self.navigationController.viewControllers) {
+                    if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
+                        BYLoginVC * bylogin = (BYLoginVC*) controller;
+                        [bylogin.navigationController
+                         dismissViewControllerAnimated:YES
+                         completion:^{
+                             if (bylogin.successBlk) {
+                                 bylogin.successBlk();
+                             }
+                         }];
+                        
+                        return;
+                    }
+                }
             });
         }
     }];
@@ -108,9 +116,9 @@
     else {
         [self.firstPwdTextField setSecureTextEntry:YES];
     }
-
-    [self.firstPwdTextField becomeFirstResponder];
-    self.firstPwdTextField.text = self.firstPwdTextField.text;
+    [self.view endEditing:YES];
+//    [self.firstPwdTextField becomeFirstResponder];
+//    self.firstPwdTextField.text = self.firstPwdTextField.text;
 }
 
 @end

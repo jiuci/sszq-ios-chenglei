@@ -163,6 +163,7 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
 {
     _user = nil;
     resetCookies();
+    inputCookies();
     [[NSNotificationCenter defaultCenter] postNotificationName:BYAppLogoutNotification object:nil];
 
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"user"];

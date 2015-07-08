@@ -82,7 +82,7 @@
                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
-                        <fragment content="《必要用户协议》">
+                        <fragment content="《必要服务协议》">
                             <attributes>
                                 <color key="NSColor" red="0.32156862745098042" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <font key="NSFont" size="12" name="STHeitiSC-Light"/>
