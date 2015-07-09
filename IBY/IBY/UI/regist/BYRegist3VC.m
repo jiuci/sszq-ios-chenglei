@@ -65,11 +65,10 @@
         return;
     }
     if (![self.firstPwdTextField.text isValidPassword]) {
-        [MBProgressHUD topShowTmpMessage:@"密码需为字母，数字，符号两种以上组合，请重新输入"];
+        [MBProgressHUD topShowTmpMessage:@"密码需为字母、数字、符号两种以上组合，请重新输入"];
         [self.firstPwdTextField becomeFirstResponder];
         return;
     }
-
     NSString* user = _registService.phone;
     NSString* pwd = self.firstPwdTextField.text;
 //    NSString* smsCode = self.registService.verifyCode;

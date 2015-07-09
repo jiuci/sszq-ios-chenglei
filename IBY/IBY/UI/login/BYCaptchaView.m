@@ -120,7 +120,7 @@
 
 - (void)valueCheckWithSuccessBlock:(void (^)())block
 {
-    if (self.captchaFileld.text.length < 2) {
+    if (self.captchaFileld.text.length < 1) {
         [MBProgressHUD topShowTmpMessage:@"请输入验证码"];
         [self.captchaFileld becomeFirstResponder];
         return;

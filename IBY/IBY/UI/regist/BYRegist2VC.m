@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet BYAutosizeBgButton* btnNext;
 @property (nonatomic, assign) int countdownTime;
 @property (nonatomic, strong) NSTimer* smsCountTimer;
+@property (nonatomic, assign) BOOL enterSMSHelper;
 @end
 
 @implementation BYRegist2VC
@@ -57,18 +58,22 @@
     }];
     
     self.btnNext.enabled = NO;
+    _enterSMSHelper = NO;
     self.autoHideKeyboard = YES;
     [self beginTimer];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    _enterSMSHelper = NO;
     [self.smsCodeTextField becomeFirstResponder];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
+    if (_enterSMSHelper) {
+        return;
+    }
     if (_smsCountTimer) {
         [_smsCountTimer invalidate];
         _smsCountTimer = nil;
@@ -114,6 +119,7 @@
 {
     BYBaseWebVC* webVC = [[BYBaseWebVC alloc] initWithURL:[NSURL URLWithString:BYURL_SERVICE_SMSCODEHELPER]];
     webVC.useWebTitle = YES;
+    _enterSMSHelper = YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 - (IBAction)nextStepOnclick
