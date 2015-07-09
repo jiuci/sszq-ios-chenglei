@@ -63,7 +63,6 @@
     [BYNetwork get:url
             params:params
             finish:^(NSDictionary* data, BYError* error) {
-                NSLog(@"%@,%@",data,error);
                 if (error) {
                     finished(nil, error);
                 }
@@ -87,7 +86,6 @@
     [BYNetwork post:url
              params:param
              finish:^(NSDictionary* data, BYError* error) {
-                 NSLog(@"%@,%@", data, error);
                  if (error) {
                      if (error.code == 208101) {
                          finished(BYFetchCodeRegisted, error);

@@ -301,6 +301,10 @@
                                                    if ([self.userTextField.text isMobilePhoneNumber]) {
                                                        [bself onRegist];
                                                    }
+                                               }else{
+                                                   if (!_captchaView.hidden) {
+                                                       [_captchaView refreshCaptchaImage];
+                                                   }
                                                }
                                                
                                            }];
@@ -322,7 +326,6 @@
     [self.navigationController pushViewController:registVc animated:YES];
     if ([self.userTextField.text isMobilePhoneNumber]) {
         registVc.phone = self.userTextField.text;
-        NSLog(@"%@",registVc.phone);
     }
 }
 

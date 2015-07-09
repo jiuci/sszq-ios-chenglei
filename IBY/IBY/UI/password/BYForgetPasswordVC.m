@@ -113,6 +113,10 @@
                             
                             [bself.navigationController pushViewController:registVc animated:YES];
                             registVc.phone = self.phoneNumTextField.text;
+                        }else{
+                            if (!_captchaView.hidden) {
+                                [_captchaView refreshCaptchaImage];
+                            }
                         }
                     }];
                     return;

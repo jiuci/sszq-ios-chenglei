@@ -96,13 +96,10 @@
     NSDictionary* params = @{
                              @"uid" : @([BYAppCenter sharedAppCenter].user.userID)
                              };
-    NSLog(@"同步%@",params);
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (error) {
-            NSLog(@"同步失败");
             finished(NO,error);
         }else{
-            NSLog(@"同步完成");
             finished(YES,nil);
         }
     }];

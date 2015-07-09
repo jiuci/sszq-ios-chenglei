@@ -51,7 +51,6 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSString*str =[[NSString alloc]initWithData:_tempdata encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",str);
 }
 -(void)testuser:(NSString *)user psw:(NSString*)psw md5:(NSString*)md5
 {
