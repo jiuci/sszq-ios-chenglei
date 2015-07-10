@@ -11,11 +11,13 @@
 #import "BYBaseVC.h"
 
 typedef void (^BYLoginSuccessBlock)();
+typedef void (^BYLoginCancelBlock)();
 
 @interface BYLoginVC : BYBaseVC<UITextFieldDelegate>
 @property (nonatomic, copy) BYLoginSuccessBlock successBlk;
+@property (nonatomic, copy) BYLoginCancelBlock cancelBlk;
 @property (strong, nonatomic) UITextField* userTextField;
 @end
 
 //quick creater with successBlk
-BYNavVC* makeLoginnav(BYLoginSuccessBlock blk);
+BYNavVC* makeLoginnav(BYLoginSuccessBlock blk,BYLoginCancelBlock cblk);

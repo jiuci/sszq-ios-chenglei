@@ -186,7 +186,6 @@
     }
 
     BOOL willShowTabbar = NO;
-//    NSLog(@"requestString: %@",preUrlString);
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
         self.showTabbar = willShowTabbar;
@@ -226,8 +225,13 @@
                 [bself onAPPLogin];
             }
         };
-
-        BYNavVC* nav = makeLoginnav(blk);
+        BYLoginCancelBlock cblk = ^(){
+            if (bself.webView.request.URL.absoluteString.length == 0) {
+                NSURL* url = [NSURL URLWithString:BYURL_HOME];
+                [bself.webView loadRequest:[NSURLRequest requestWithURL:url]];
+            }
+        };
+        BYNavVC* nav = makeLoginnav(blk,cblk);
         [self presentViewController:nav animated:YES completion:nil];
         return NO;
     }
@@ -421,9 +425,6 @@
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_CARTLIST];
-                                   if (![BYAppCenter sharedAppCenter].isNetConnected) {
-                                       url = [NSURL URLWithString:BYURL_HOME];
-                                   }
                                    [wself.webView loadRequest:[NSURLRequest requestWithURL:url]];
                                }];
 
@@ -431,9 +432,6 @@
         [_mutiSwitch addButtonWithBtn:btn3
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_MINE];
-                                   if (![BYAppCenter sharedAppCenter].isNetConnected) {
-                                       url = [NSURL URLWithString:BYURL_HOME];
-                                   }
                                    [wself.webView loadRequest:[NSURLRequest requestWithURL:url]];
                                }];
 
@@ -446,10 +444,8 @@
 {
 
     CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-
     if (!_showTabbar && showTabbar) {
         self.mutiSwitch.hidden = NO;
-
         [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.centerX.equalTo(self.view);
             make.width.equalTo(self.view);
@@ -483,7 +479,9 @@
     [self.navigationController setNavigationBarHidden:YES];
     NSString * preUrlString = self.webView.request.URL.absoluteString;
     BOOL willShowTabbar = NO;
-    
+    if (preUrlString.length == 0) {
+        willShowTabbar = YES;
+    }
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
         self.showTabbar = willShowTabbar;

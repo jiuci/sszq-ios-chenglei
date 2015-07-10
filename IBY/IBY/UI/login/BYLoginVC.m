@@ -81,6 +81,9 @@
     self.title = @"登录";
     self.navigationItem.leftBarButtonItem =
         [UIBarButtonItem backBarItem:^(id sender) {
+            if (_cancelBlk) {
+                _cancelBlk();
+            }
             [self setEditing:NO];
             [self.navigationController dismissViewControllerAnimated:YES
                                                           completion:nil];
@@ -425,11 +428,11 @@
 }
 @end
 
-BYNavVC* makeLoginnav(BYLoginSuccessBlock blk)
+BYNavVC* makeLoginnav(BYLoginSuccessBlock blk,BYLoginCancelBlock cblk)
 {
     BYLoginVC* vc = [[BYLoginVC alloc] init];
     vc.successBlk = blk;
-
+    vc.cancelBlk = cblk;
     BYNavVC* nav = [BYNavVC nav:vc title:@"登录"];
 
     return nav;
