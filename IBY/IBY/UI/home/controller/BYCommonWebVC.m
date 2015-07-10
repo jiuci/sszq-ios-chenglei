@@ -224,13 +224,7 @@
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{
                 [bself onAPPLogin];
-//                NSLog(@"onapplogin");
             }
-            
-//            [bself dismissViewControllerAnimated:NO completion:nil];
-//            [[BYAppCenter sharedAppCenter] updateUidAndToken];
-//            [[BYAppCenter sharedAppCenter] uploadToken:nil];
-            //TODO 发送消息给服务器已经登录
         };
 
         BYNavVC* nav = makeLoginnav(blk);
@@ -427,6 +421,9 @@
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_CARTLIST];
+                                   if (![BYAppCenter sharedAppCenter].isNetConnected) {
+                                       url = [NSURL URLWithString:BYURL_HOME];
+                                   }
                                    [wself.webView loadRequest:[NSURLRequest requestWithURL:url]];
                                }];
 
@@ -434,6 +431,9 @@
         [_mutiSwitch addButtonWithBtn:btn3
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_MINE];
+                                   if (![BYAppCenter sharedAppCenter].isNetConnected) {
+                                       url = [NSURL URLWithString:BYURL_HOME];
+                                   }
                                    [wself.webView loadRequest:[NSURLRequest requestWithURL:url]];
                                }];
 
