@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #import "BYUser.h"
-//#import "BYLoginVC.h"
 
 extern NSString* const BYAppLoginNotification;
 extern NSString* const BYAppLogoutNotification;

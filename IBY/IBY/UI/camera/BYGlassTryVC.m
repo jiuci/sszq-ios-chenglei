@@ -86,8 +86,8 @@
         [MBProgressHUD topShowTmpMessage:@"网络连接异常，请调整后重试"];
         _reconnectButton.hidden = NO;
         _glassContentScrollView.hidden = YES;
-        [_buyBtn setBackgroundImage:[[UIImage imageNamed:@"bg_main_btn_undo.9"] resizableImage] forState:UIControlStateNormal];
-        [_buyBtn setBackgroundImage:[[UIImage imageNamed:@"bg_main_btn_undo.9"] resizableImage] forState:UIControlStateHighlighted];
+        [_buyBtn setBackgroundImage:[[UIImage imageNamed:@"bg_main_btn_undo"] resizableImage] forState:UIControlStateNormal];
+        [_buyBtn setBackgroundImage:[[UIImage imageNamed:@"bg_main_btn_undo"] resizableImage] forState:UIControlStateHighlighted];
     }
 }
 #pragma mark -

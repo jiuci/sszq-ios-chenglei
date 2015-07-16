@@ -32,8 +32,11 @@
 @property (strong, nonatomic) UIButton* hidePassword;
 @property (strong, nonatomic) UIImageView* userBox;
 @property (strong, nonatomic) UIImageView* pwdBox;
-
+@property (strong, nonatomic) UIView * thirdLine;
+@property (strong, nonatomic) UILabel * thirdPartyLoginlabel;
 @property (nonatomic, strong) BYCaptchaView* captchaView;
+@property (nonatomic, strong) BYAutosizeBgButton * WXbutton;
+@property (nonatomic, strong) BYAutosizeBgButton * QQbutton;
 
 @property (nonatomic, strong) BYLoginService* loginService;
 
@@ -51,6 +54,17 @@
         instance = [[self alloc] init];
     });
     return instance;
+}
+- (void)clearData
+{
+    for (UIView*view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
+    [self setupUI];
+    return;
+    _pwdTextField.text = @"";
+    _userTextField.text = @"";
+    
 }
 - (void)viewDidLoad
 {
@@ -111,10 +125,10 @@
     UIImageView* inputBackground = [[UIImageView alloc] initWithFrame:CGRectMake(38, 22 + 90, SCREEN_WIDTH - 38 * 2, 81)];
     [self.view addSubview:inputBackground];
     inputBackground.centerX = SCREEN_WIDTH / 2;
-    UIImage* backgroundImage = [UIImage imageNamed:@"bg_inputbox_default.9"];
+    UIImage* backgroundImage = [UIImage imageNamed:@"bg_inputbox_default"];
     inputBackground.image = [backgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 24 - 5, 24 - 5)];
     UIImageView* inputline = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, inputBackground.width - 16, 1)];
-    inputline.image = [UIImage imageNamed:@"line_login_bbb.9"];
+    inputline.image = [UIImage imageNamed:@"line_login_bbb"];
     [inputBackground addSubview:inputline];
     inputline.centerX = inputBackground.size.width / 2;
     inputline.centerY = inputBackground.size.height / 2;
@@ -124,16 +138,16 @@
     _userBox.centerX = SCREEN_WIDTH / 2;
     [self.view addSubview:_userBox];
     _userBox.hidden = YES;
-    _userBox.image = [[UIImage imageNamed:@"bg_inputbox_login_above.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 24 - 5, 24 - 5)];
+    _userBox.image = [[UIImage imageNamed:@"bg_inputbox_login_above"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 24 - 5, 24 - 5)];
     _pwdBox = [[UIImageView alloc] initWithFrame:CGRectMake(38, 22 + 90 + 40, SCREEN_WIDTH - 38 * 2, 41)];
     _pwdBox.centerX = SCREEN_WIDTH / 2;
     [self.view addSubview:_pwdBox];
     _pwdBox.hidden = YES;
-    _pwdBox.image = [[UIImage imageNamed:@"bg_inputbox_login_below.9"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 24 - 5, 24 - 5)];
+    _pwdBox.image = [[UIImage imageNamed:@"bg_inputbox_login_below"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 24 - 5, 24 - 5)];
 
     UIImageView* showline = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 29)];
     [self.view addSubview:showline];
-    showline.image = [UIImage imageNamed:@"line_login_bbb.9"];
+    showline.image = [UIImage imageNamed:@"line_login_bbb"];
     showline.centerX = inputBackground.right - 40;
     showline.centerY = inputBackground.bottom - 20;
 
@@ -177,9 +191,9 @@
     _loginButton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
     _loginButton.frame = CGRectMake(inputBackground.left, inputBackground.bottom + 24, inputBackground.size.width, 40);
     [_loginButton addTarget:self action:@selector(onLogin) forControlEvents:UIControlEventTouchUpInside];
-    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default.9"]resizableImage] forState:UIControlStateNormal];
-    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default.9"]resizableImage] forState:UIControlStateDisabled];
-    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_press.9"]resizableImage] forState:UIControlStateHighlighted];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default"]resizableImage] forState:UIControlStateNormal];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default"]resizableImage] forState:UIControlStateDisabled];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_press"]resizableImage] forState:UIControlStateHighlighted];
     _loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [_loginButton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
@@ -193,8 +207,8 @@
     _registButton.frame = CGRectMake(inputBackground.left, _loginButton.bottom + 12, inputBackground.size.width, 40);
     _registButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [_registButton addTarget:self action:@selector(onRegist) forControlEvents:UIControlEventTouchUpInside];
-    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_default.9"] resizableImage] forState:UIControlStateNormal];
-    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_press.9"] resizableImage] forState:UIControlStateHighlighted];
+    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_default"] resizableImage] forState:UIControlStateNormal];
+    [_registButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_minor_press"] resizableImage] forState:UIControlStateHighlighted];
     [_registButton setTitle:@"还没有账号？快速注册" forState:UIControlStateNormal];
     [_registButton setTitleColor:HEXCOLOR(0xb768a5) forState:UIControlStateNormal];
 
@@ -220,69 +234,78 @@
     _captchaView.hidden = YES;
     
     
+    //为了i4
+    UIScrollView* scroll = (UIScrollView*)self.view;
+    float thirdtop = scroll.height - 20 - 36 - 16 - 12;
+    float forgetbottom = _forgetPasswordButton.bottom;
+    float overset = forgetbottom + 16 - thirdtop;
+    overset = overset>0?overset:0;
+    scroll.contentSize = CGSizeMake(scroll.width, scroll.height + overset);
+    scroll.showsHorizontalScrollIndicator = NO;
+    scroll.showsVerticalScrollIndicator = NO;
+    
     //thirdparty login
     BOOL showQQ = [_loginService canUseQQlogin];
     BOOL showWX = [_loginService canUseWXlogin];
 //    showWX = false;
 //    showQQ = false;
     if (showQQ | showWX) {
-        UIView * thirdLine = [[UIView alloc]initWithFrame:CGRectMake(38+10, 0, SCREEN_WIDTH - 38*2 -20, 1)];
-        thirdLine.backgroundColor = HEXCOLOR(0x666666);
-        [self.view addSubview:thirdLine];
+        _thirdLine = [[UIView alloc]initWithFrame:CGRectMake(38 + 10, 0, SCREEN_WIDTH - 38 * 2 - 20, 1)];
+        _thirdLine.backgroundColor = HEXCOLOR(0x999999);
+        [self.view addSubview:_thirdLine];
         
-        UILabel * thirdPartyLoginlabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 80)];
-        thirdPartyLoginlabel.text = @"使用第三方登录";
-        thirdPartyLoginlabel.font = [UIFont systemFontOfSize:12];
-        [thirdPartyLoginlabel sizeToFit];
-        thirdPartyLoginlabel.bottom = self.view.height - 20 - 36 - 16;
-        thirdPartyLoginlabel.width = thirdPartyLoginlabel.width + 14;
-        thirdPartyLoginlabel.centerX = SCREEN_WIDTH/2;
-        thirdPartyLoginlabel.backgroundColor = self.view.backgroundColor;
-        thirdPartyLoginlabel.textColor = HEXCOLOR(0x666666);
+        _thirdPartyLoginlabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 80)];
+        _thirdPartyLoginlabel.text = @"使用第三方账号登录";
+        _thirdPartyLoginlabel.font = [UIFont systemFontOfSize:12];
+        [_thirdPartyLoginlabel sizeToFit];
+        _thirdPartyLoginlabel.bottom = scroll.contentSize.height - 20 - 36 - 16;
+        _thirdPartyLoginlabel.width = _thirdPartyLoginlabel.width + 14;
+        _thirdPartyLoginlabel.centerX = SCREEN_WIDTH/2;
+        _thirdPartyLoginlabel.backgroundColor = self.view.backgroundColor;
+        _thirdPartyLoginlabel.textColor = HEXCOLOR(0x666666);
         
-        thirdPartyLoginlabel.textAlignment = NSTextAlignmentCenter;
-        thirdLine.centerY = thirdPartyLoginlabel.centerY;
-        [self.view addSubview:thirdPartyLoginlabel];
-        BYAutosizeBgButton * WXbutton;
-        BYAutosizeBgButton * QQbutton;
+        _thirdPartyLoginlabel.textAlignment = NSTextAlignmentCenter;
+        _thirdLine.centerY = _thirdPartyLoginlabel.centerY;
+        [self.view addSubview:_thirdPartyLoginlabel];
+        
         if (showWX) {
-            WXbutton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
-            [WXbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_wechat_default"] resizableImage] forState:UIControlStateNormal];
-            [WXbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_wechat_highlight"] resizableImage] forState:UIControlStateHighlighted];
-            WXbutton.frame = CGRectMake(38, thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
-            [WXbutton setTitle:@"微信登录" forState:UIControlStateNormal];
-            [WXbutton setImage:[UIImage imageNamed:@"icon_logo_wechat"] forState:UIControlStateNormal];
-            [WXbutton setImage:[UIImage imageNamed:@"icon_logo_wechat"] forState:UIControlStateHighlighted];
-            WXbutton.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
-            WXbutton.titleLabel.font = [UIFont systemFontOfSize:14];
-            [WXbutton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-            [self.view addSubview:WXbutton];
-            [WXbutton addTarget:self action:@selector(WXlogin) forControlEvents:UIControlEventTouchUpInside];
+            _WXbutton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
+            [_WXbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_wechat_default"] resizableImage] forState:UIControlStateNormal];
+            [_WXbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_wechat_highlight"] resizableImage] forState:UIControlStateHighlighted];
+            _WXbutton.frame = CGRectMake(38, _thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
+            [_WXbutton setTitle:@"微信登录" forState:UIControlStateNormal];
+            [_WXbutton setImage:[UIImage imageNamed:@"icon_logo_wechat"] forState:UIControlStateNormal];
+            [_WXbutton setImage:[UIImage imageNamed:@"icon_logo_wechat"] forState:UIControlStateHighlighted];
+            _WXbutton.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
+            _WXbutton.titleLabel.font = [UIFont systemFontOfSize:14];
+            [_WXbutton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+            [self.view addSubview:_WXbutton];
+            [_WXbutton addTarget:self action:@selector(WXlogin) forControlEvents:UIControlEventTouchUpInside];
         }
         if (showQQ) {
-            QQbutton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
-            [QQbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_qq_default"] resizableImage] forState:UIControlStateNormal];
-            [QQbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_qq_highlight"] resizableImage] forState:UIControlStateHighlighted];
-            QQbutton.frame = CGRectMake(38, thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
-            QQbutton.right = SCREEN_WIDTH - 38;
-            [QQbutton setTitle:@"QQ登录" forState:UIControlStateNormal];
-            [QQbutton setImage:[UIImage imageNamed:@"icon_logo_qq"] forState:UIControlStateNormal];
-            [QQbutton setImage:[UIImage imageNamed:@"icon_logo_qq"] forState:UIControlStateHighlighted];
-            QQbutton.imageEdgeInsets = UIEdgeInsetsMake(0, -9, 0, 0);
-            QQbutton.titleLabel.font = [UIFont systemFontOfSize:14];
-            [QQbutton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-            [self.view addSubview:QQbutton];
-            [QQbutton addTarget:self action:@selector(QQlogin) forControlEvents:UIControlEventTouchUpInside];
+            _QQbutton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
+            [_QQbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_qq_default"] resizableImage] forState:UIControlStateNormal];
+            [_QQbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_qq_highlight"] resizableImage] forState:UIControlStateHighlighted];
+            _QQbutton.frame = CGRectMake(38, _thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
+            _QQbutton.right = SCREEN_WIDTH - 38;
+            [_QQbutton setTitle:@"QQ登录" forState:UIControlStateNormal];
+            [_QQbutton setImage:[UIImage imageNamed:@"icon_logo_qq"] forState:UIControlStateNormal];
+            [_QQbutton setImage:[UIImage imageNamed:@"icon_logo_qq"] forState:UIControlStateHighlighted];
+            _QQbutton.imageEdgeInsets = UIEdgeInsetsMake(0, -9, 0, 0);
+            _QQbutton.titleLabel.font = [UIFont systemFontOfSize:14];
+            [_QQbutton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+            [self.view addSubview:_QQbutton];
+            [_QQbutton addTarget:self action:@selector(QQlogin) forControlEvents:UIControlEventTouchUpInside];
         }
         if (!showWX) {
-            WXbutton.hidden = YES;
-            QQbutton.width = SCREEN_WIDTH - 38 - 38;
-            QQbutton.centerX = SCREEN_WIDTH/2;
+            _WXbutton.hidden = YES;
+            _QQbutton.width = SCREEN_WIDTH - 38 - 38;
+            _QQbutton.centerX = SCREEN_WIDTH/2;
         }
         if (!showQQ) {
-            QQbutton.hidden = YES;
-            WXbutton.width = SCREEN_WIDTH - 38 - 38;
-            WXbutton.centerX = SCREEN_WIDTH/2;
+            _QQbutton.hidden = YES;
+            _WXbutton.width = SCREEN_WIDTH - 38 - 38;
+            _WXbutton.centerX = SCREEN_WIDTH/2;
         }
     }
     
@@ -301,6 +324,17 @@
                         _loginButton.top += height;
                         _registButton.top += height;
                         _forgetPasswordButton.top += height;
+                        UIScrollView* scroll = (UIScrollView*)self.view;
+                        if (scroll.contentSize.height > scroll.height) {
+                            _thirdLine.top += height;
+                            _thirdPartyLoginlabel.top += height;
+                            _WXbutton.top += height;
+                            _QQbutton.top += height;
+                            
+                            scroll.contentSize = CGSizeMake(scroll.width, scroll.contentSize.height + height);
+                            [scroll setContentOffset:CGPointMake(0, scroll.contentSize.height - scroll.height) animated:YES];
+                        }
+                        
                     }
                     completion:^(BOOL finished) {
                         self.captchaView.hidden = NO;
@@ -316,7 +350,37 @@
         _captchaView.hidden = YES;
     }
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    BOOL showQQ = [_loginService canUseQQlogin];
+    BOOL showWX = [_loginService canUseWXlogin];
+    if (showQQ | showWX) {
+        _thirdPartyLoginlabel.hidden = NO;
+        _thirdLine.hidden = NO;
+        _WXbutton.hidden = NO;
+        _QQbutton.hidden = NO;
+        _WXbutton.frame = CGRectMake(38, _thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
+        _QQbutton.frame = CGRectMake(38, _thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
+        _QQbutton.right = SCREEN_WIDTH - 38;
+        if (!showWX) {
+            _WXbutton.hidden = YES;
+            _QQbutton.width = SCREEN_WIDTH - 38 - 38;
+            _QQbutton.centerX = SCREEN_WIDTH/2;
+        }
+        if (!showQQ) {
+            _QQbutton.hidden = YES;
+            _WXbutton.width = SCREEN_WIDTH - 38 - 38;
+            _WXbutton.centerX = SCREEN_WIDTH/2;
+        }
+    }else{
+        _thirdPartyLoginlabel.hidden = YES;
+        _thirdLine.hidden = YES;
+        _WXbutton.hidden = YES;
+        _QQbutton.hidden = YES;
+    }
 
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -324,6 +388,7 @@
     if (_captchaView.hidden == NO) {
         [_captchaView refreshCaptchaImage];
     }
+    
 }
 #pragma mark - 按钮处理
 

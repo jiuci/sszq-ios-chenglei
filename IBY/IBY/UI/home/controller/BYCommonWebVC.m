@@ -215,6 +215,7 @@
 //        logCookies();
         __weak BYCommonWebVC* bself = self; //本地化登录
         BYLoginSuccessBlock blk = ^() {
+            [[BYLoginVC sharedLoginVC] clearData];
 //            NSLog(@"login success");
 //            NSLog(@"%@",bself.webView.request);
 //            NSLog(@"%@",_currentUrl);
@@ -230,6 +231,7 @@
                 NSURL* url = [NSURL URLWithString:BYURL_HOME];
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:url]];
             }
+            [[BYLoginVC sharedLoginVC] clearData];
         };
         BYNavVC* nav = makeLoginnav(blk,cblk);
         [self presentViewController:nav animated:YES completion:nil];

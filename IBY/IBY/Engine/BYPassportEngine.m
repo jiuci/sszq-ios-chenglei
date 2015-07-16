@@ -130,9 +130,11 @@
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params safeSetValue:code forKey:@"code"];
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+//        NSLog(@"%@,%@",error,data);
         if (data && !error) {
             
             BYUser *user = [BYUser userWithLoginDict:data];
+//            NSLog(@"%@",user);
             user.userType = @"5";
             if(user.isValid){
                 finished(user,nil);

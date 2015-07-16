@@ -37,17 +37,13 @@
 - (void)QQgrantAuthorization{
     
     NSArray* permissions = [NSArray arrayWithObjects:
-                            kOPEN_PERMISSION_GET_INFO,
                             kOPEN_PERMISSION_GET_USER_INFO,
                             kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];
     BYShareConfig * config = [[BYShareConfig alloc]init];
     _oAuth = [[TencentOAuth alloc] initWithAppId:config.qqClientKey andDelegate:self];
     [_oAuth authorize:permissions inSafari:NO];
 }
-- (void)loginWithQQaccess:(NSString*)access_token openID:(NSString *)openID finish:(void (^)(BYUser* user, BYError* error))finished;
-{
-    
-}
+
 - (void)WXlogin;
 {
     [self WXgrantAuthorization];
@@ -64,7 +60,7 @@
 
 - (void)loginWithWXcode:(NSString*)code finish:(void (^)(BYUser* user, BYError* error))finished
 {
-//    NSLog( @"wx授权完成");
+//    NSLog( @"wx授权完成 %@",code);
     [BYPassportEngine loginWithWXcode:code finish:^(BYUser *user, BYError *error) {
         if (user&&!error) {
             [[BYAppCenter sharedAppCenter] didLogin:user];
@@ -73,6 +69,8 @@
             [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                 //无论结果如何，不处理，不显示
             }];
+        }else{
+            finished(user,error);
         }
     }];
 
@@ -119,6 +117,7 @@
         // 记录登录用户的OpenID、Token以及过期时间
 //        NSLog(@"%@", _oAuth.accessToken);
 //        NSLog(@"%@",_oAuth.openId);
+        __weak BYLoginVC * loginVC = [BYLoginVC sharedLoginVC];
         [BYPassportEngine loginWithQQaccess:_oAuth.accessToken openID:_oAuth.openId finish:^(BYUser* user, BYError* error) {
             [MBProgressHUD topHide];
 //            NSLog(@"%@,%@",error,user);
@@ -130,7 +129,7 @@
                     //无论结果如何，不处理，不显示
                 }];
 
-                BYLoginVC * loginVC = [BYLoginVC sharedLoginVC];
+                
                 [loginVC.navigationController
                  dismissViewControllerAnimated:YES
                  completion:^{

@@ -20,7 +20,6 @@
 - (void)WXlogin;
 - (void)QQlogin;
 - (void)loginWithWXcode:(NSString*)code finish:(void (^)(BYUser* user, BYError* error))finished;
-//- (void)loginWithQQaccess:(NSString*)access_token openID:(NSString *)openID finish:(void (^)(BYUser* user, BYError* error))finished;
 - (BOOL)canUseWXlogin;
 - (BOOL)canUseQQlogin;
 @end

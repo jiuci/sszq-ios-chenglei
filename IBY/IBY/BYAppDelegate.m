@@ -91,7 +91,10 @@
     }
     [BYMonitorService startMonitoring];
     CLLocationManager* location = [CLLocationManager new];
-    [location requestAlwaysAuthorization];
+    if ([location respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+         [location requestAlwaysAuthorization];
+    }
+   
     return YES;
 }
 
@@ -302,6 +305,7 @@
     }else if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (resp.errCode==0) {
             SendAuthResp *rp = (SendAuthResp *)resp;
+            __weak BYLoginVC * loginVC = [BYLoginVC sharedLoginVC];
             if ([rp.state isEqualToString: [BYAppCenter sharedAppCenter].WXloginState]) {
                 //授权第三方登录
                 if (rp.code) {
@@ -311,7 +315,8 @@
                         if (!error) {
 //                            NSLog(@"%@",user);
                             [MBProgressHUD showSuccess:@"登录成功!"];
-                            BYLoginVC * loginVC = [BYLoginVC sharedLoginVC];
+                            
+            
                             [loginVC.navigationController
                              dismissViewControllerAnimated:YES
                              completion:^{

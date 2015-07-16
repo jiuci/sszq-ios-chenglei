@@ -16,5 +16,4 @@
 @property (strong, nonatomic) UIWindow* window;
 @property (strong, nonatomic) BYNavVC* homeNav;
 @property (strong, nonatomic) BYHomeVC* homeVC;
-
 @end

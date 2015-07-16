@@ -10,6 +10,8 @@
 #import "BYNavVC.h"
 #import "BYBaseVC.h"
 
+@class BYAppDelegate;
+
 typedef void (^BYLoginSuccessBlock)();
 typedef void (^BYLoginCancelBlock)();
 
@@ -17,7 +19,9 @@ typedef void (^BYLoginCancelBlock)();
 @property (nonatomic, copy) BYLoginSuccessBlock successBlk;
 @property (nonatomic, copy) BYLoginCancelBlock cancelBlk;
 @property (strong, nonatomic) UITextField* userTextField;
+@property (assign, nonatomic) BYAppDelegate* appDelegate;
 + (instancetype)sharedLoginVC;
+- (void)clearData;
 @end
 
 //quick creater with successBlk
