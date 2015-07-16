@@ -23,20 +23,19 @@ void clearCookies()
 
 void inputCookies()
 {
-    
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
-    setCookies(@"fromapp", @"ios|15");
+    setCookies(@"fromapp", @"ios|16");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
 
     if (![BYAppCenter sharedAppCenter].isLogin) {
         resetCookies();
-        
         return;
     }
 
     NSString* strUid = IntToString([BYAppCenter sharedAppCenter].user.userID);
     NSString* token = [BYAppCenter sharedAppCenter].user.token;
-    token = [token URLEncodedString];
+//    token = [token URLEncodedString];
+    token = [token URLEncodedStringForMweb];
     //userinfo 规则: 昵称,头像地址,uid ,手机号    写入Cookie前需要做URLEncoder
 
     NSString* uinfoStr = [NSString stringWithFormat:@"%@", [[BYAppCenter sharedAppCenter].user cookieUserInfoStr]];
@@ -45,7 +44,7 @@ void inputCookies()
     setCookies(@"uid", strUid);
     setCookies(@"token", token);
     setCookies(@"userinfo", userinfo);
-
+//    logCookies();
 }
 
 NSHTTPCookie* createCookie(NSString* name, NSString* value)
@@ -56,6 +55,7 @@ NSHTTPCookie* createCookie(NSString* name, NSString* value)
 
     [cookieProperties setObject:@".biyao.com" forKey:NSHTTPCookieDomain];
 //    [cookieProperties setObject:@"192.168.97.69" forKey:NSHTTPCookieDomain];
+//    [cookieProperties setObject:@"192.168.97.135" forKey:NSHTTPCookieDomain];
 
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];

@@ -7,7 +7,6 @@
 //
 
 #import "BYBaseEngine.h"
-
 //处理用户的登录、注册、找回密码、重置密码等passport操作
 @interface BYPassportEngine : BYBaseEngine
 @property (nonatomic,strong)NSMutableData*tempdata;
@@ -25,6 +24,6 @@
                  pwd:(NSString*)pwd
             verycode:(NSString*)code
                finsh:(void (^)(BOOL success, BYError* error))finished;
-
--(void)testuser:(NSString *)user psw:(NSString*)psw md5:(NSString*)md5;
++ (void)loginWithQQaccess:(NSString*)access_token openID:(NSString *)openID finish:(void (^)(BYUser* user, BYError* error))finished;
++ (void)loginWithWXcode:(NSString*)code finish:(void (^)(BYUser* user, BYError* error))finished;
 @end

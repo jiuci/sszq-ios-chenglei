@@ -14,10 +14,12 @@
 #import "BYAutosizeBgButton.h"
 #import "BYCaptchaView.h"
 #import "BYRegistService.h"
-
+#import "BYAppDelegate.h"
 #import <TPKeyboardAvoidingScrollView.h>
 
-@interface BYLoginVC () <UITextFieldDelegate>
+#import "WXApi.h"
+
+@interface BYLoginVC () <UITextFieldDelegate,WXApiDelegate>
 
 @property (assign, nonatomic)
     int countForLoginTimes; //用于标识输入了几次手机号和密码
@@ -41,13 +43,22 @@
 @implementation BYLoginVC
 
 #pragma mark - viewDidLoad
++ (instancetype)sharedLoginVC
+{
+    static BYLoginVC* instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     _loginService = [[BYLoginService alloc] init];
     [self setupUI];
-
+    self.view.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     self.autoHideKeyboard = YES;
 
     _bodyView = (UIScrollView*)self.view;
@@ -67,10 +78,11 @@
         return YES;
     };
     _countForLoginTimes = 0;
+    
 }
 - (void)loadView
 {
-    UIScrollView* scroll = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIScrollView* scroll = [[UIScrollView alloc] init ];//WithFrame:[UIScreen mainScreen].bounds];
     scroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     scroll.directionalLockEnabled = YES;
     self.view = scroll;
@@ -88,7 +100,7 @@
             [self.navigationController dismissViewControllerAnimated:YES
                                                           completion:nil];
         }];
-
+    self.view.height = SCREEN_HEIGHT - self.navigationController.navigationBar.height -20;
     //logo
     UIImageView* biyaoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 144, 90)];
     [self.view addSubview:biyaoImageView];
@@ -206,8 +218,78 @@
     _captchaView.top = self.pwdTextField.bottom;
     [self.view addSubview:_captchaView];
     _captchaView.hidden = YES;
+    
+    
+    //thirdparty login
+    BOOL showQQ = [_loginService canUseQQlogin];
+    BOOL showWX = [_loginService canUseWXlogin];
+//    showWX = false;
+//    showQQ = false;
+    if (showQQ | showWX) {
+        UIView * thirdLine = [[UIView alloc]initWithFrame:CGRectMake(38+10, 0, SCREEN_WIDTH - 38*2 -20, 1)];
+        thirdLine.backgroundColor = HEXCOLOR(0x666666);
+        [self.view addSubview:thirdLine];
+        
+        UILabel * thirdPartyLoginlabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 80)];
+        thirdPartyLoginlabel.text = @"使用第三方登录";
+        thirdPartyLoginlabel.font = [UIFont systemFontOfSize:12];
+        [thirdPartyLoginlabel sizeToFit];
+        thirdPartyLoginlabel.bottom = self.view.height - 20 - 36 - 16;
+        thirdPartyLoginlabel.width = thirdPartyLoginlabel.width + 14;
+        thirdPartyLoginlabel.centerX = SCREEN_WIDTH/2;
+        thirdPartyLoginlabel.backgroundColor = self.view.backgroundColor;
+        thirdPartyLoginlabel.textColor = HEXCOLOR(0x666666);
+        
+        thirdPartyLoginlabel.textAlignment = NSTextAlignmentCenter;
+        thirdLine.centerY = thirdPartyLoginlabel.centerY;
+        [self.view addSubview:thirdPartyLoginlabel];
+        BYAutosizeBgButton * WXbutton;
+        BYAutosizeBgButton * QQbutton;
+        if (showWX) {
+            WXbutton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
+            [WXbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_wechat_default"] resizableImage] forState:UIControlStateNormal];
+            [WXbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_wechat_highlight"] resizableImage] forState:UIControlStateHighlighted];
+            WXbutton.frame = CGRectMake(38, thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
+            [WXbutton setTitle:@"微信登录" forState:UIControlStateNormal];
+            [WXbutton setImage:[UIImage imageNamed:@"icon_logo_wechat"] forState:UIControlStateNormal];
+            [WXbutton setImage:[UIImage imageNamed:@"icon_logo_wechat"] forState:UIControlStateHighlighted];
+            WXbutton.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
+            WXbutton.titleLabel.font = [UIFont systemFontOfSize:14];
+            [WXbutton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+            [self.view addSubview:WXbutton];
+            [WXbutton addTarget:self action:@selector(WXlogin) forControlEvents:UIControlEventTouchUpInside];
+        }
+        if (showQQ) {
+            QQbutton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
+            [QQbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_qq_default"] resizableImage] forState:UIControlStateNormal];
+            [QQbutton setBackgroundImage:[[UIImage imageNamed:@"icon_btn_login_qq_highlight"] resizableImage] forState:UIControlStateHighlighted];
+            QQbutton.frame = CGRectMake(38, thirdPartyLoginlabel.bottom + 16, (SCREEN_WIDTH - 38 - 38 - 14)/2 , 36);
+            QQbutton.right = SCREEN_WIDTH - 38;
+            [QQbutton setTitle:@"QQ登录" forState:UIControlStateNormal];
+            [QQbutton setImage:[UIImage imageNamed:@"icon_logo_qq"] forState:UIControlStateNormal];
+            [QQbutton setImage:[UIImage imageNamed:@"icon_logo_qq"] forState:UIControlStateHighlighted];
+            QQbutton.imageEdgeInsets = UIEdgeInsetsMake(0, -9, 0, 0);
+            QQbutton.titleLabel.font = [UIFont systemFontOfSize:14];
+            [QQbutton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+            [self.view addSubview:QQbutton];
+            [QQbutton addTarget:self action:@selector(QQlogin) forControlEvents:UIControlEventTouchUpInside];
+        }
+        if (!showWX) {
+            WXbutton.hidden = YES;
+            QQbutton.width = SCREEN_WIDTH - 38 - 38;
+            QQbutton.centerX = SCREEN_WIDTH/2;
+        }
+        if (!showQQ) {
+            QQbutton.hidden = YES;
+            WXbutton.width = SCREEN_WIDTH - 38 - 38;
+            WXbutton.centerX = SCREEN_WIDTH/2;
+        }
+    }
+    
+   
+    
+    
 }
-
 - (void)updateUI
 {
     if (_countForLoginTimes >= 3) {
@@ -281,6 +363,7 @@
              finish:^(BYUser* user, BYError* error) {
                  [MBProgressHUD topHide];
                  if (user && !error) {
+//                     NSLog(@"%@",user);
                      [MBProgressHUD showSuccess:@"登录成功!"];
                      [self.navigationController
                          dismissViewControllerAnimated:YES
@@ -323,9 +406,6 @@
 - (void)onRegist
 {
     BYRegist1VC* registVc = [[BYRegist1VC alloc] init];
-    
-    
-    
     [self.navigationController pushViewController:registVc animated:YES];
     if ([self.userTextField.text isMobilePhoneNumber]) {
         registVc.phone = self.userTextField.text;
@@ -349,6 +429,16 @@
     [self.view endEditing:YES];
     //[self.pwdTextField becomeFirstResponder];
     //self.pwdTextField.text = self.pwdTextField.text;
+}
+#pragma mark - 第三方登录
+- (void)WXlogin
+{
+    [self.loginService WXlogin];
+}
+
+- (void)QQlogin
+{
+    [self.loginService QQlogin];
 }
 #pragma mark - UITextFieldDelegate
 //- (BOOL)textFieldShouldReturn:(UITextField*)textField
@@ -430,7 +520,7 @@
 
 BYNavVC* makeLoginnav(BYLoginSuccessBlock blk,BYLoginCancelBlock cblk)
 {
-    BYLoginVC* vc = [[BYLoginVC alloc] init];
+    BYLoginVC* vc = [BYLoginVC sharedLoginVC];
     vc.successBlk = blk;
     vc.cancelBlk = cblk;
     BYNavVC* nav = [BYNavVC nav:vc title:@"登录"];

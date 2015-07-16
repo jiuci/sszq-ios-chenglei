@@ -39,6 +39,7 @@ extern NSString* const BYAppSessionInvalidNotification;
 @property (nonatomic, assign) BOOL isLogin;
 @property (nonatomic, assign) BOOL isNetConnected;
 @property (nonatomic, copy) NSString* pushId;//用来统计push的参数
+@property (nonatomic, copy) NSString* WXloginState;//用来统计push的参数
 
 + (instancetype)sharedAppCenter;
 

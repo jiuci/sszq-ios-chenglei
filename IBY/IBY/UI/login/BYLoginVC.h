@@ -17,6 +17,7 @@ typedef void (^BYLoginCancelBlock)();
 @property (nonatomic, copy) BYLoginSuccessBlock successBlk;
 @property (nonatomic, copy) BYLoginCancelBlock cancelBlk;
 @property (strong, nonatomic) UITextField* userTextField;
++ (instancetype)sharedLoginVC;
 @end
 
 //quick creater with successBlk

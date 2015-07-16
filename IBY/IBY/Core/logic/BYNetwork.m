@@ -64,7 +64,7 @@ NSString* baseUrlByMode(BYNetMode mode)
     if (self) {
         _currentMode = BYNetModeOnline;
 //        _currentMode = BYNetModePreview;
-        //        _currentMode = BYNetModeDev;
+//        _currentMode = BYNetModeDev;
     }
     return self;
 }

@@ -24,8 +24,12 @@
 #import "BYWelcomeVC.h"
 #import "BYNavVC.h"
 #import "BYHomeVC.h"
+#import "BYLoginVC.h"
+#import "BYLoginService.h"
 
-@interface BYAppDelegate () <WXApiDelegate, WeiboSDKDelegate>
+#import <CoreLocation/CoreLocation.h>
+
+@interface BYAppDelegate () <WXApiDelegate, WeiboSDKDelegate,TencentSessionDelegate>
 
 @property (nonatomic, strong) BYWelcomeVC* welcomeVC;
 
@@ -86,6 +90,8 @@
                                                (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
     }
     [BYMonitorService startMonitoring];
+    CLLocationManager* location = [CLLocationManager new];
+    [location requestAlwaysAuthorization];
     return YES;
 }
 
@@ -260,7 +266,14 @@
     //    if ([sourceApplication isEqualToString:@"com.sina.weibo"]) {
     //        [WeiboSDK handleOpenURL:url delegate:self];
     //    }
-
+    
+    //腾讯登录
+    if (YES == [TencentOAuth CanHandleOpenURL:url])
+    {
+        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Where from" message:url.description delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+        //[alertView show];
+        return [TencentOAuth HandleOpenURL:url];
+    }
     return NO;
 }
 
@@ -289,7 +302,29 @@
     }else if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (resp.errCode==0) {
             SendAuthResp *rp = (SendAuthResp *)resp;
-            if (rp.code) {
+            if ([rp.state isEqualToString: [BYAppCenter sharedAppCenter].WXloginState]) {
+                //授权第三方登录
+                if (rp.code) {
+                    BYLoginService * loginService = [[BYLoginService alloc]init];
+                    [loginService loginWithWXcode:rp.code finish:^(BYUser* user, BYError* error) {
+                        [MBProgressHUD topHide];
+                        if (!error) {
+//                            NSLog(@"%@",user);
+                            [MBProgressHUD showSuccess:@"登录成功!"];
+                            BYLoginVC * loginVC = [BYLoginVC sharedLoginVC];
+                            [loginVC.navigationController
+                             dismissViewControllerAnimated:YES
+                             completion:^{
+                                 if (loginVC.successBlk) {
+                                     loginVC.successBlk();
+                                 }
+                             }];
+                        }else{
+                            alertError(error);
+                        }
+                    }];
+                }
+                else if (rp.code) {
                 [self.homeVC onWeixinAuth:rp.code];
             }
             
@@ -299,9 +334,20 @@
             
         }else if (resp.errCode==-2){
             BYLog(@"用户取消");
-            
+            }
         }
     }
+}
+- (BOOL)onTencentReq:(TencentApiReq *)req
+{
+//    NSLog(@"req %@",req);
+    
+    return YES;
+}
+- (BOOL)onTencentResp:(TencentApiResp *)resp
+{
+//    NSLog(@"resp %@",resp);
+    return YES;
 }
 
 @end

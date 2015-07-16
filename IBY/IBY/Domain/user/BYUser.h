@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString* cardID;
 
 @property (nonatomic, copy) NSString* token;
+@property (nonatomic, copy) NSString* userType;
 
 + (instancetype)userWithLoginDict:(NSDictionary*)info;
 + (instancetype)userWithUpdateDict:(NSDictionary*)info;

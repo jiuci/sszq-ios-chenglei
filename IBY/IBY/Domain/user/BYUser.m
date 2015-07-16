@@ -67,7 +67,7 @@
 
 - (BOOL)isValid
 {
-    if (_phoneNum && _cardID && _token && _token.length > 3) {
+    if ( _userID && _token && _token.length > 3) {
         return YES;
     }
     return NO;
@@ -76,8 +76,7 @@
 - (NSString*)cookieUserInfoStr
 {
     //userinfo 规则: 昵称,头像地址,uid ,手机号    写入Cookie前需要做URLEncoder
-
-    return [NSString stringWithFormat:@"%@,%@,%@,%@", _nickname, _avatar, @(_userID), _phoneNum];
+    return [NSString stringWithFormat:@"%@,%@,%@,%@,%@", _nickname, _avatar, @(_userID), _phoneNum,_userType];
 }
 
 @end

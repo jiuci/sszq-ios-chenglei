@@ -112,8 +112,8 @@ static MBProgressHUD* keyWindowHUD = nil;
     [self topHide];
 
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-//    hud.labelText = message;
-    hud.detailsLabelText = message;
+    hud.labelText = message;
+//    hud.detailsLabelText = message;
     hud.mode = MBProgressHUDModeText;
     hud.removeFromSuperViewOnHide = YES;
     //    hud.dimBackground = YES;

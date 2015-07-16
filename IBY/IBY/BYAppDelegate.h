@@ -10,6 +10,7 @@
 @class BYTabBarVC;
 @class BYNavVC;
 @class BYHomeVC;
+@class BYLoginVC;
 @interface BYAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow* window;

@@ -184,7 +184,8 @@
     if (!preUrlString) {
         return NO;
     }
-
+//    NSLog(@"%@",preUrlString);
+//    logCookies();
     BOOL willShowTabbar = NO;
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
@@ -208,17 +209,16 @@
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
-//    else if ([preUrlString rangeOfString:@"http://192.168.97.69:8080/"].length > 0){
-//        willShowTabbar = YES;
-//    }
-
+    
     if ([preUrlString rangeOfString:@"account/login"].length > 0) {
 //        NSLog(@"det login!");
+//        logCookies();
         __weak BYCommonWebVC* bself = self; //本地化登录
         BYLoginSuccessBlock blk = ^() {
 //            NSLog(@"login success");
 //            NSLog(@"%@",bself.webView.request);
 //            NSLog(@"%@",_currentUrl);
+            
             if (![bself.webView.request.URL.absoluteString containsString:bself.currentUrl]) {
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{

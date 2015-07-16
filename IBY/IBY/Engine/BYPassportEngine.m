@@ -9,6 +9,7 @@
 #import "BYPassportEngine.h"
 #import "BYUser.h"
 
+
 @implementation BYPassportEngine
 
 + (void)loginByUser:(NSString*)user
@@ -22,7 +23,7 @@
         if (data && !error) {
             
             BYUser *user = [BYUser userWithLoginDict:data];
-            
+            user.userType = @"0";
             if(user.isValid){
                 finished(user,nil);
             }else{
@@ -52,22 +53,7 @@
 {
     NSString*str =[[NSString alloc]initWithData:_tempdata encoding:NSUTF8StringEncoding];
 }
--(void)testuser:(NSString *)user psw:(NSString*)psw md5:(NSString*)md5
-{
-    NSMutableURLRequest*request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.biyao.com/user/customer/MobilePreRegist"]];
-    request.HTTPMethod=@"POST";
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
 
-    [params safeSetValue:@"13810728126" forKey:@"mobile"];
-//    [params safeSetValue:psw forKey:@"NewPassword"];
-//    [params safeSetValue:md5 forKey:@"md5"];
-    NSMutableData*postBody = [NSMutableData data];
-    [postBody appendData:[[NSString stringWithFormat:@"Mobile=13810728126"] dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPBody =postBody;
-    NSURLConnection*c =[NSURLConnection connectionWithRequest:request delegate:self];
-    [c start];
-
-}
 + (void)registByUser:(NSString*)user
                  pwd:(NSString*)pwd
             verycode:(NSString*)code
@@ -111,6 +97,53 @@
         }else{
             finished(YES,nil);
         }
+    }];
+}
++ (void)loginWithQQaccess:(NSString*)access_token openID:(NSString *)openID finish:(void (^)(BYUser* user, BYError* error))finished;
+{
+    NSString* url = @"user/customer/qqlogin";
+    
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params safeSetValue:access_token forKey:@"access_token"];
+    [params safeSetValue:openID forKey:@"openid"];
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if (data && !error) {
+            
+            BYUser *user = [BYUser userWithLoginDict:data];
+            user.userType = @"6";//TODO api中获取
+            if(user.isValid){
+                finished(user,nil);
+            }else{
+                BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.passport.login", @"user is not valid", nil);
+                finished(nil,err);
+            }
+        }else{
+            finished(nil,error);
+        }
+        
+    }];
+}
++ (void)loginWithWXcode:(NSString*)code finish:(void (^)(BYUser* user, BYError* error))finished
+{
+    NSString* url = @"user/customer/wxlogin";
+    
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params safeSetValue:code forKey:@"code"];
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if (data && !error) {
+            
+            BYUser *user = [BYUser userWithLoginDict:data];
+            user.userType = @"5";
+            if(user.isValid){
+                finished(user,nil);
+            }else{
+                BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.passport.login", @"user is not valid", nil);
+                finished(nil,err);
+            }
+        }else{
+            finished(nil,error);
+        }
+
     }];
 }
 
