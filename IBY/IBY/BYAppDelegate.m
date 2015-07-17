@@ -91,8 +91,8 @@
     }
     [BYMonitorService startMonitoring];
     CLLocationManager* location = [CLLocationManager new];
-    if ([location respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-         [location requestAlwaysAuthorization];
+    if ([location respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [location requestWhenInUseAuthorization];
     }
    
     return YES;

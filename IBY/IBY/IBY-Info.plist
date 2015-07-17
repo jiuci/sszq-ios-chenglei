@@ -4,32 +4,18 @@
 <dict>
 	<key></key>
 	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string>com.biyao.fu</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright @2014 必要科技 All rights reserved</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 	<key>CFBundleVersion</key>
-	<string>2.1.2</string>
+	<string>2.1.3</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>CFBundleShortVersionString</key>
-	<string>2.1.2</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -40,6 +26,20 @@
 			<false/>
 		</dict>
 	</dict>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.1.3</string>
+	<key>NSAppTransportSecurity</key>
+	<string>NSAllowsArbitraryLoads</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -94,15 +94,17 @@
 			<string>Editor</string>
 		</dict>
 	</array>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.biyao.fu</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright @2014 必要科技 All rights reserved</string>
-	<key>CFBundleName</key>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>

@@ -159,6 +159,7 @@
 		F48D728F1A89DBB000870F3F /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F48D72851A89DBB000870F3F /* UIScrollView+MJExtension.m */; };
 		F48D72901A89DBB000870F3F /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F48D72871A89DBB000870F3F /* UIScrollView+MJRefresh.m */; };
 		F48D72911A89DBB000870F3F /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F48D72891A89DBB000870F3F /* UIView+MJExtension.m */; };
+		F490100F1B589D930062D102 /* BYBDmapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F490100E1B589D930062D102 /* BYBDmapVC.m */; };
 		F490E3B41B06F7FD00752223 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F490E3B21B06F7FD00752223 /* libjpeg.a */; };
 		F490E3B51B06F7FD00752223 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F490E3B31B06F7FD00752223 /* opencv2.framework */; };
 		F496C3881B317B9F00E503D8 /* BYLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = F496C3871B317B9F00E503D8 /* BYLoginService.m */; };
@@ -217,6 +218,10 @@
 		F4D134851AF85C3100B7164D /* RtHist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D134801AF85C3100B7164D /* RtHist.cpp */; };
 		F4D7E1F71A639E5500D56EA0 /* NSDateExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E1F61A639E5500D56EA0 /* NSDateExtend.m */; };
 		F4D7E9C91A2860710003AB33 /* BYWebPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */; };
+		F4D910AE1B57D16800A5BEB9 /* BaiduMapAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910AD1B57D16800A5BEB9 /* BaiduMapAPI.framework */; };
+		F4D910B01B57D1A000A5BEB9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910AF1B57D1A000A5BEB9 /* CoreLocation.framework */; };
+		F4D910B21B57D1B900A5BEB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */; };
+		F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
 		F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */; };
 		F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */; };
@@ -566,6 +571,8 @@
 		F48D72871A89DBB000870F3F /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		F48D72881A89DBB000870F3F /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		F48D72891A89DBB000870F3F /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		F490100D1B589D930062D102 /* BYBDmapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYBDmapVC.h; sourceTree = "<group>"; };
+		F490100E1B589D930062D102 /* BYBDmapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBDmapVC.m; sourceTree = "<group>"; };
 		F490E3B21B06F7FD00752223 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
 		F490E3B31B06F7FD00752223 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		F496C3861B317B9F00E503D8 /* BYLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYLoginService.h; sourceTree = "<group>"; };
@@ -681,6 +688,10 @@
 		F4D7E1F61A639E5500D56EA0 /* NSDateExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateExtend.m; sourceTree = "<group>"; };
 		F4D7E9C61A2860710003AB33 /* BYWebPayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYWebPayVC.h; path = pay/BYWebPayVC.h; sourceTree = "<group>"; };
 		F4D7E9C71A2860710003AB33 /* BYWebPayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYWebPayVC.m; path = pay/BYWebPayVC.m; sourceTree = "<group>"; };
+		F4D910AD1B57D16800A5BEB9 /* BaiduMapAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI.framework; path = IBY/ThirdParty/BaiduMap/BaiduMapAPI.framework; sourceTree = "<group>"; };
+		F4D910AF1B57D1A000A5BEB9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = IBY/ThirdParty/BaiduMap/BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		F4D9325C1A59131F000E4C02 /* BYPoolNetworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPoolNetworkView.h; sourceTree = "<group>"; };
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
 		F4DD81E91B0B2ACD008D17BF /* BYGlassesMagnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGlassesMagnifier.h; sourceTree = "<group>"; };
@@ -783,6 +794,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F464EAD21A1C467300E2033D /* Security.framework in Frameworks */,
+				FE14D68519AC2289006B0E48 /* CoreGraphics.framework in Frameworks */,
+				F464EAC81A1C460200E2033D /* SystemConfiguration.framework in Frameworks */,
+				F4D910B21B57D1B900A5BEB9 /* OpenGLES.framework in Frameworks */,
+				F4D910B01B57D1A000A5BEB9 /* CoreLocation.framework in Frameworks */,
+				F4D910AE1B57D16800A5BEB9 /* BaiduMapAPI.framework in Frameworks */,
 				F464EAD41A1C470B00E2033D /* libstdc++.dylib in Frameworks */,
 				F4D1343A1AF8578900B7164D /* libjpeg.a in Frameworks */,
 				F4D134381AF856CC00B7164D /* opencv2.framework in Frameworks */,
@@ -799,15 +816,12 @@
 				F47747FA1A6DF0F1008BF3FC /* TencentOpenAPI.framework in Frameworks */,
 				F4C9AAFF1A7626B900325A38 /* AlipaySDK.framework in Frameworks */,
 				F4C4155F1A6817DA00F121B3 /* libz.dylib in Frameworks */,
-				F464EAD21A1C467300E2033D /* Security.framework in Frameworks */,
 				F464EAD01A1C466000E2033D /* libz.1.2.5.dylib in Frameworks */,
 				F464EACE1A1C464B00E2033D /* libicucore.dylib in Frameworks */,
 				F464EACC1A1C462A00E2033D /* CoreTelephony.framework in Frameworks */,
 				F41B47A71A77841B00A59C84 /* libWeiboSDK.a in Frameworks */,
 				F464EACA1A1C461700E2033D /* QuartzCore.framework in Frameworks */,
-				F464EAC81A1C460200E2033D /* SystemConfiguration.framework in Frameworks */,
 				CC771FA819CB3B7D00E11BAE /* libsqlite3.dylib in Frameworks */,
-				FE14D68519AC2289006B0E48 /* CoreGraphics.framework in Frameworks */,
 				FE14D68719AC2289006B0E48 /* UIKit.framework in Frameworks */,
 				FE14D68319AC2289006B0E48 /* Foundation.framework in Frameworks */,
 				13FF256F69C9434CAC7AE441 /* libPods.a in Frameworks */,
@@ -1050,6 +1064,8 @@
 				CC957E9F19C2FB45000700DE /* BYHomeVC.m */,
 				F4A7FCD81AC97BBC000CDEB4 /* BYCommonWebVC.h */,
 				F4A7FCD91AC97BBC000CDEB4 /* BYCommonWebVC.m */,
+				F490100D1B589D930062D102 /* BYBDmapVC.h */,
+				F490100E1B589D930062D102 /* BYBDmapVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1731,6 +1747,7 @@
 		FE14D67619AC2289006B0E48 = {
 			isa = PBXGroup;
 			children = (
+				F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */,
 				F467E1CE1A7733C700A4F1B2 /* TencentOpenApi_IOS_Bundle.bundle */,
 				F4C77D0F1A2DA6F1005EADA0 /* res.xcassets */,
 				F43114021A2C20D600FCBE45 /* Images.xcassets */,
@@ -1753,6 +1770,9 @@
 		FE14D68119AC2289006B0E48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */,
+				F4D910AF1B57D1A000A5BEB9 /* CoreLocation.framework */,
+				F4D910AD1B57D16800A5BEB9 /* BaiduMapAPI.framework */,
 				F4D134881AF88A9000B7164D /* libstdc++.6.dylib */,
 				F4D134861AF88A8500B7164D /* libstdc++.6.0.9.dylib */,
 				F4D134391AF8578900B7164D /* libjpeg.a */,
@@ -2085,6 +2105,11 @@
 				TargetAttributes = {
 					FE14D67E19AC2289006B0E48 = {
 						DevelopmentTeam = 8A7VED9NUX;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -2142,6 +2167,7 @@
 				F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */,
 				F4E0075C1B0F07F800438FD5 /* BYRegist3VC.xib in Resources */,
 				F4888A321A6D114A0056427E /* Readme in Resources */,
+				F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2235,6 +2261,7 @@
 				FEC829BD19AC948200D5D70D /* BYBaseService.m in Sources */,
 				CC3D2E1719BFF8B1000E0E14 /* MJIvar.m in Sources */,
 				F417A6E41A304B7200F7CF66 /* BYTools.m in Sources */,
+				F490100F1B589D930062D102 /* BYBDmapVC.m in Sources */,
 				F496C39A1B318C7E00E503D8 /* BYAppEngine.m in Sources */,
 				F48CF3F51A52D27500EE4EF4 /* BYOrderCreateInfo.m in Sources */,
 				CC957EA019C2FB45000700DE /* BYHomeVC.m in Sources */,
@@ -2465,6 +2492,7 @@
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/BaiduMap",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2537,6 +2565,7 @@
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/BaiduMap",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2660,6 +2689,7 @@
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/BaiduMap",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2699,6 +2729,7 @@
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/BaiduMap",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

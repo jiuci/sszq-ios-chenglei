@@ -25,11 +25,15 @@
 #import <netdb.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
+
+#import "BYBDmapVC.h"
+
 @interface BYCommonWebVC () <UIWebViewDelegate>
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic, strong) BYPoolNetworkView* poolNetworkView;
 @property (nonatomic, assign) int loginCount;
 @property (nonatomic, copy) NSString* currentUrl;
+@property (nonatomic, strong) BYNavVC* mapNV;
 @end
 
 @implementation BYCommonWebVC
@@ -170,6 +174,7 @@
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
 
+
     [BYAnalysis logEvent:@"App通用事件" action:@"url跳转" desc:nil];
 
     NSString* preUrlString = nil;
@@ -209,7 +214,15 @@
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
-    
+    //地图搜索-附近的验光点
+    if ([preUrlString rangeOfString:@"/bdmap"].length > 0) {
+        if (!_mapNV) {
+            _mapNV = makeMapnav();
+        }
+     
+        [self presentViewController:_mapNV animated:YES completion:nil];
+        return NO;
+    }
     if ([preUrlString rangeOfString:@"account/login"].length > 0) {
 //        NSLog(@"det login!");
 //        logCookies();
