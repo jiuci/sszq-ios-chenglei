@@ -34,6 +34,7 @@
 @property (nonatomic, assign) int loginCount;
 @property (nonatomic, copy) NSString* currentUrl;
 @property (nonatomic, strong) BYNavVC* mapNV;
+@property (nonatomic, assign) BOOL loadingCaches;
 @end
 
 @implementation BYCommonWebVC
@@ -191,6 +192,12 @@
     }
 //    NSLog(@"%@",preUrlString);
 //    logCookies();
+    if (_loadingCaches) {
+        [self.mutiSwitch setSelectedAtIndex:0];
+        self.showTabbar = YES;
+        _loadingCaches = NO;
+        return YES;
+    }
     BOOL willShowTabbar = NO;
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
@@ -203,6 +210,7 @@
     if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
         || [preUrlString isEqualToString:@"http://m.biyao.com"]
         || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
+        [self caches:preUrlString];
         [self.mutiSwitch setSelectedAtIndex:0];
         willShowTabbar = YES;
     }
@@ -259,8 +267,53 @@
         return NO;
     }
     _currentUrl = requestString;
+   
 //    NSLog(@"_currentUrl :%@",_currentUrl);
     return YES;
+}
+-(void)loadcaches
+{
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *resourcePath = [paths objectAtIndex:0];
+    NSString * path=[resourcePath stringByAppendingString:[NSString stringWithFormat:@"/Caches/%@.html",[BYURL_HOME generateMD5]]];
+    NSError * error;
+    NSString * htmlResponseStr = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+//    NSLog(@"%@",htmlResponseStr);
+    _loadingCaches = YES;
+    NSString *baseURL = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Caches"];
+    [self.webView loadHTMLString:htmlResponseStr baseURL:[NSURL URLWithString:baseURL]];
+    
+}
+-(void)caches:(NSString*)urlStr
+{
+    urlStr = BYURL_HOME;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *resourcePath = [paths objectAtIndex:0];
+    NSString * path=[resourcePath stringByAppendingString:[NSString stringWithFormat:@"/Caches/%@.html",[urlStr generateMD5]]];
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSError* error;
+    NSDictionary * filedetail = [fileManager attributesOfItemAtPath:path error:&error];
+    NSDate *cDate = filedetail[@"NSFileCreationDate"];
+    if ([cDate respondsToSelector:@selector(timeIntervalSinceDate:)]) {
+        NSDate *date = [NSDate date];
+        float time = [cDate timeIntervalSinceDate:date];
+//        NSLog(@"%f",time);
+        if (time > - 60 * 60) {
+            return;
+        }
+    }
+    [fileManager createDirectoryAtPath:[resourcePath stringByAppendingString:@"/Caches"] withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    NSString * htmlResponseStr=[NSString stringWithContentsOfURL:[NSURL URLWithString:urlStr] encoding:NSUTF8StringEncoding error:Nil];
+    
+    [htmlResponseStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    NSString * creationDateString = [filedetail[@"NSFileCreationDate"] description];
+    
+    
+    
+    
 }
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
@@ -332,6 +385,8 @@
     self = [super init];
     if (self) {
         [self setupUI];
+        
+        [self loadcaches];
     }
     return self;
 }
@@ -340,7 +395,6 @@
 {
     [super viewDidLoad];
     [self setupUI];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogin) name:BYAppLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogout) name:BYAppLogoutNotification object:nil];
 }
@@ -353,17 +407,18 @@
 - (void)setupUI
 {
     if (!_webView) {
+        
         CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+        [_webView removeFromSuperview];
+        _webView = [[BYWebView alloc] initWithFrame:BYRectMake(0, 0, self.view.width, self.view.height)];
+        _webView.parentVC = self;
+        _webView.scrollView.showsVerticalScrollIndicator = NO;
+        _webView.scalesPageToFit = YES;
+        _webView.backgroundColor = BYColorClear;
+        _webView.delegate = self;
+        [self.view addSubview:_webView];
 
-        BYWebView* webView = [[BYWebView alloc] initWithFrame:BYRectMake(0, 0, self.view.width, self.view.height)];
-        webView.parentVC = self;
-        webView.scrollView.showsVerticalScrollIndicator = NO;
-        webView.scalesPageToFit = YES;
-        webView.backgroundColor = BYColorClear;
-        webView.delegate = self;
-        [self.view addSubview:webView];
-
-        _bridge = [WebViewJavascriptBridge bridgeForWebView:webView
+        _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView
                                             webViewDelegate:self
                                                     handler:^(id data, WVJBResponseCallback responseCallback) {
 
@@ -378,7 +433,7 @@
                                                         }
 
                                                     }];
-
+        [_poolNetworkView removeFromSuperview];
         _poolNetworkView = [BYPoolNetworkView poolNetworkView];
         [self.view addSubview:_poolNetworkView];
         UIButton* btn = [[UIButton alloc] initWithFrame:_poolNetworkView.frame];
@@ -387,7 +442,7 @@
         [_poolNetworkView addSubview:btn];
         _poolNetworkView.hidden = YES;
         _poolNetworkView.backgroundColor = BYColorBG;
-
+        
         [self.view addSubview:self.mutiSwitch];
 
         [self.mutiSwitch mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -396,8 +451,7 @@
             make.height.equalTo(@46);
             make.bottom.equalTo(self.view);
         }];
-
-        [webView mas_makeConstraints:^(MASConstraintMaker* make) {
+        [_webView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.centerX.equalTo(self.view);
             make.width.equalTo(self.view);
             make.top.equalTo(self.view.mas_top).with.offset(statusBarHeight);
@@ -406,7 +460,7 @@
 
         _showTabbar = YES;
 
-        _webView = webView;
+//        _webView = webView;
 
         //        UIButton *btn1 = [UIButton redButton];
         //        btn1.frame = BYRectMake(0, 200, 40, 40);
@@ -417,7 +471,9 @@
         //
         //        } forControlEvents:UIControlEventTouchUpInside];
         //        [self.view addSubview:btn1];
+        
     }
+    
     _loginCount = 10;
 }
 

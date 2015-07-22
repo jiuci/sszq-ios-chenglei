@@ -91,7 +91,7 @@
         [blockbody TPKeyboardAvoiding_scrollToActiveTextField];
         return YES;
     };
-    _countForLoginTimes = 0;
+    
     
 }
 - (void)loadView
@@ -103,6 +103,8 @@
 }
 - (void)setupUI
 {
+    _countForLoginTimes = 0;
+    
     // nav
     self.title = @"登录";
     self.navigationItem.leftBarButtonItem =

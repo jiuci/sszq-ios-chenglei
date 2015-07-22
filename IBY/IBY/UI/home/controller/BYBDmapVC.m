@@ -56,7 +56,6 @@
     _mapView.showsUserLocation = NO;
     _mapView.userTrackingMode = BMKUserTrackingModeFollow;
     _mapView.showsUserLocation = YES;
-    
    
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -206,6 +205,7 @@
 }
 -(void)didFailToLocateUserWithError:(NSError *)error
 {
+//    NSLog(@"%@",error);
     UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"定位失败" message:@"请在设置-隐私下开启定位权限"];
     __weak BYBDmapVC * bself = self;
     [alert bk_addButtonWithTitle:@"确定" handler:^{
@@ -214,6 +214,7 @@
     }];
     [alert show];
 }
+
 -(void)didStopLocatingUser
 {
 }

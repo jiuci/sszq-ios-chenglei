@@ -29,6 +29,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+#import <BaiduMapAPI/BMapKit.h>
+
 @interface BYAppDelegate () <WXApiDelegate, WeiboSDKDelegate,TencentSessionDelegate>
 
 @property (nonatomic, strong) BYWelcomeVC* welcomeVC;
@@ -61,7 +63,7 @@
     NSURL* url = [NSURL URLWithString:BYURL_HOME];
     [_homeVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
     
-    
+//    NSLog(@"%@",_homeVC.webView);
     _homeNav = [BYNavVC nav:_homeVC title:@""];
     _window.rootViewController = _homeNav;
     [_window makeKeyAndVisible];
@@ -139,6 +141,7 @@
 
 - (void)applicationWillResignActive:(UIApplication*)application
 {
+    [BMKMapView willBackGround];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) ¬or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -146,6 +149,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication*)application
 {
+    
     [BYAnalysis logEvent:@"App通用事件" action:@"进入后台" desc:nil];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -154,7 +158,7 @@
 - (void)applicationWillEnterForeground:(UIApplication*)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-
+    
     [[BYAppCenter sharedAppCenter] didActive];
 }
 
@@ -163,6 +167,7 @@
     [BYAnalysis logEvent:@"App通用事件" action:@"进入前台" desc:nil];
     
     [[BYAppCenter sharedAppCenter] checkVersionInfo];
+    [BMKMapView didForeGround];
     //可以手动设置cookies
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
