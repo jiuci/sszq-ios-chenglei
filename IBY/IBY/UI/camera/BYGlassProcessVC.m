@@ -58,7 +58,7 @@
     [self.view addSubview:self.processImageView];
     
     //-----
-    UIImage* faceImage = [UIImage imageNamed:@"bg_figure_frame_withoutcard"];
+    UIImage* faceImage = [UIImage imageNamed:@"bg_figure_frame"];
     
     float suitWidth = .9 * SCREEN_WIDTH;
     float suitheight = faceImage.size.height * (suitWidth / faceImage.size.width);
@@ -70,6 +70,12 @@
     _faceFrameView.image = faceImage;
     [self.view addSubview:_faceFrameView];
     
+    UIImage* eyeImage = [UIImage imageNamed:@"bg_eyesarea"];
+    UIImageView * eyeImv = [[UIImageView alloc]init];
+    eyeImv.image = eyeImage;
+    eyeImv.frame = CGRectMake(0, 0, SCREEN_WIDTH, eyeImage.size.height * SCREEN_WIDTH / eyeImage.size.width * 1.3);
+    [self.view addSubview:eyeImv];
+    eyeImv.centerY = _faceFrameView.centerY;
 //    UIImageView *dashLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 2)];
 //    [self.view addSubview:dashLine];
 //    
@@ -138,21 +144,23 @@
     [MBProgressHUD topHide];
     if (detectCompele) {
             
-        BYGlassLocateDistVC* locateEyeVC = [[BYGlassLocateDistVC alloc] initWithData:_faceData backGroundImg:self.processImage];
-        [self.navigationController pushViewController:locateEyeVC animated:YES];
-//        [iConsole log:@"脸宽%.1fmm",_faceData.distance];
-//        [iConsole log:@"脸占像素%d/屏幕宽像素%.0f",_faceData.facePixels,_faceData.image1.size.width];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [_faceData setImg2:_processImage];
-            _faceData.step2Finishied = YES;
-                
-            [self setUserDefault];
-        });
+        
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"哦喔，没有成功\n亲，请调整背景或姿势再试一次" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [alert show];
-        [self dismiss];
+//        _faceData.lEye = CGPointMake(2/5*SCREEN_WIDTH, 2/5*SCREEN_HEIGHT);
+//        _faceData.rEye = CGPointMake(3/5*SCREEN_WIDTH, 2/5*SCREEN_HEIGHT);
+//        _faceData.facePixels = facePixels;
+
     }
+    BYGlassLocateDistVC* locateEyeVC = [[BYGlassLocateDistVC alloc] initWithData:_faceData backGroundImg:self.processImage];
+    [self.navigationController pushViewController:locateEyeVC animated:YES];
+    //        [iConsole log:@"脸宽%.1fmm",_faceData.distance];
+    //        [iConsole log:@"脸占像素%d/屏幕宽像素%.0f",_faceData.facePixels,_faceData.image1.size.width];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [_faceData setImg2:_processImage];
+        //            _faceData.step2Finishied = YES;
+        
+        [self setUserDefault];
+    });
 }
 
 - (void)setUserDefault{

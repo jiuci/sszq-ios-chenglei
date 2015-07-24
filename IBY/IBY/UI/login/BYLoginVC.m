@@ -423,19 +423,20 @@
     
 
     [MBProgressHUD topShow:@"登录中..."];
-
+    
     [self.loginService
         loginByUser:self.userTextField.text
                 pwd:self.pwdTextField.text
              finish:^(BYUser* user, BYError* error) {
-                 [MBProgressHUD topHide];
+//                 [MBProgressHUD topHide];
                  if (user && !error) {
 //                     NSLog(@"%@",user);
                      if (_successBlk) {
+//                         [MBProgressHUD topShow:@"登录成功!"];
                          _successBlk();
-                         [MBProgressHUD topShow:@"登录成功!"];
+                         
                      }else{
-                     
+//                         [MBProgressHUD showSuccess:@"登录成功!"];
                          [self.navigationController
                           dismissViewControllerAnimated:YES
                                                 completion:^{
@@ -444,6 +445,7 @@
                      }
                  }
                  else if (user && error && error.code == 208103) { //用户未注册
+                     [MBProgressHUD topHide];
                      __weak BYLoginVC* bself = self;
                      [UIAlertView
                          bk_showAlertViewWithTitle:
@@ -466,6 +468,7 @@
                                            }];
                  }
                  else {
+                     [MBProgressHUD topHide];
                      alertError(error);
                      self.countForLoginTimes++;
                      [self updateUI];

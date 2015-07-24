@@ -118,21 +118,22 @@
 //        NSLog(@"%@", _oAuth.accessToken);
 //        NSLog(@"%@",_oAuth.openId);
         __weak BYLoginVC * loginVC = [BYLoginVC sharedLoginVC];
+        [MBProgressHUD topShow:@"登录中..."];
         [BYPassportEngine loginWithQQaccess:_oAuth.accessToken openID:_oAuth.openId finish:^(BYUser* user, BYError* error) {
             [MBProgressHUD topHide];
 //            NSLog(@"%@,%@",error,user);
             if (!error) {
 //                NSLog(@"%@",user);
-                [MBProgressHUD showSuccess:@"登录成功!"];
                 [[BYAppCenter sharedAppCenter] didLogin:user];
                 [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                     //无论结果如何，不处理，不显示
                 }];
                 if (loginVC.successBlk) {
+//                    [MBProgressHUD topShow:@"登录成功!"];
                     loginVC.successBlk();
-                    [MBProgressHUD topShow:@"登录成功!"];
+                    
                 }else{
-                    [MBProgressHUD showSuccess:@"登录成功!"];
+//                    [MBProgressHUD showSuccess:@"登录成功!"];
                     
                     
                     [loginVC.navigationController

@@ -120,8 +120,8 @@
 }
 - (void)step
 {
-    _noticeLabel.text = @"";
-    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withoutcard"];
+    _noticeLabel.text = @"拍照前请摘掉眼镜";
+    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame"];
     self.switchBtn.hidden = NO;
 //    self.showGuide.hidden = NO;
 }
@@ -143,7 +143,7 @@
 
 - (void)addFaceFrame{
     
-    UIImage* faceImage = [UIImage imageNamed:@"bg_figure_frame_withcard"];
+    UIImage* faceImage = [UIImage imageNamed:@"bg_figure_frame"];
 
     float suitWidth = .9 * SCREEN_WIDTH;
     float suitheight = faceImage.size.height * (suitWidth / faceImage.size.width);
@@ -155,6 +155,21 @@
     _faceFrameView.image = faceImage;
     [self.view addSubview:_faceFrameView];
     
+    UIImage* eyeImage = [UIImage imageNamed:@"bg_eyesarea"];
+    UIImageView * eyeImv = [[UIImageView alloc]init];
+    eyeImv.image = eyeImage;
+    eyeImv.frame = CGRectMake(0, 0, SCREEN_WIDTH, eyeImage.size.height * SCREEN_WIDTH / eyeImage.size.width * 1.3);
+    [self.view addSubview:eyeImv];
+    eyeImv.centerY = _faceFrameView.centerY;
+    
+    UILabel * eyeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [self.view addSubview:eyeLabel];
+    eyeLabel.textAlignment = NSTextAlignmentCenter;
+    eyeLabel.text = @"眼睛区域";
+    eyeLabel.textColor = HEXCOLOR(0xffffff);
+    eyeLabel.font = [UIFont systemFontOfSize:12];
+    eyeLabel.size = eyeImv.size;
+    eyeLabel.centerY = eyeImv.centerY;
 //    UIImageView *dashLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 2)];
 //    [self.view addSubview:dashLine];
 //    
@@ -238,8 +253,8 @@
     [self.view addSubview:shootBtn];
     
     _noticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
-    _noticeLabel.text = @"请把脸放在虚线框中";
-    _noticeLabel.bottom = shootBtn.centerY - 43;
+//    _noticeLabel.text = @"请把脸放在虚线框中";
+    _noticeLabel.centerY = (shootBtn.top + _faceFrameView.bottom) /2;
     [_noticeLabel setFont:[UIFont systemFontOfSize:16]];
     [_noticeLabel setTextColor:BYColorWhite];
     _noticeLabel.textAlignment = NSTextAlignmentCenter;

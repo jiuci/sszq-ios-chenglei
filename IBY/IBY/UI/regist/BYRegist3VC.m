@@ -91,10 +91,11 @@
                     if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
                         BYLoginVC * bylogin = (BYLoginVC*) controller;
                         if (bylogin.successBlk) {
+//                            [MBProgressHUD topShow:@"登录成功!"];
                             bylogin.successBlk();
-                            [MBProgressHUD topShow:@"登录成功!"];
+                            
                         }else{
-                            [MBProgressHUD showSuccess:@"登录成功!"];
+//                            [MBProgressHUD showSuccess:@"登录成功!"];
                             
                             
                             [bylogin.navigationController

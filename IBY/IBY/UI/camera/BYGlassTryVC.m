@@ -33,9 +33,9 @@
 
 @property (nonatomic , strong) UIWebView * web;//test
 
-@property (nonatomic, assign) float glassScale;
-@property (nonatomic, assign) CGPoint glassCenter;
-@property (nonatomic, assign) float glassRotation;
+@property (nonatomic, assign) float maxScale;
+@property (nonatomic, assign) BOOL firstLoad;
+@property (nonatomic, assign) float minScale;
 @property (nonatomic, assign) CGSize glassSize;
 
 @end
@@ -144,7 +144,6 @@
     _glassContentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 70)];
     _glassContentScrollView.backgroundColor = BYColorClear;
     [self.view addSubview:_glassContentScrollView];
-    BYLog(@"%.0f",SCREEN_HEIGHT);
     _glassContentScrollView.bottom = _buyBtn.top - 10;
     
     _reconnectButton = [UIButton buttonWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) title:@"网络连接异常，请调整后重试" titleColor:[UIColor whiteColor] bgName:nil handler:^(id sender){
@@ -158,6 +157,7 @@
     [self.view addSubview:_reconnectButton];
     _reconnectButton.hidden = YES;
     
+    _firstLoad = YES;
     _glassImgView = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
     _glassImgView.alpha = 0;
     _glassImgView.backgroundColor = BYColorClear;
@@ -182,10 +182,41 @@
     closeDetail.top = 0;
     closeDetail.image = [UIImage imageNamed:@"photolist_delete"];
     [_detailView addSubview:closeDetail];
-    _glassScale = 1.0;
-    _glassRotation = 1.0;
+    
+    //guide
+    NSString* kHasShowGuide = @"com.biyao.glassesTryGestureRecognizerGuide";
+    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] objectForKey:kHasShowGuide];
+    if (!dict) {
+        dict = [NSDictionary dictionary];
+    }
+    BOOL hasShow = [dict[[BYAppCenter sharedAppCenter].appVersion] boolValue];
+    if (!hasShow) {
+        hasShow = YES;
+        NSMutableDictionary* mdict = [NSMutableDictionary dictionaryWithDictionary:dict];
+        mdict[[BYAppCenter sharedAppCenter].appVersion] = @(YES);
+        [[NSUserDefaults standardUserDefaults] setObject:mdict forKey:kHasShowGuide];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self addGuide];
+    }else{
+//        [self addGuide];
+    }
 }
-
+-(void)addGuide
+{
+    UIView * guideView = [[UIImageView alloc]initWithFrame:self.view.frame];
+    UIImageView * guideImv = [[UIImageView alloc]initWithFrame:guideView.frame];
+    [guideView addSubview:guideImv];
+    [self.view addSubview:guideView];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:guideView action:@selector(removeFromSuperview)];
+    [guideView addGestureRecognizer:tap];
+    guideView.userInteractionEnabled = YES;
+    guideImv.image = [UIImage imageNamed:@"tutorial"];
+    guideImv.width = SCREEN_WIDTH;
+    guideImv.height = guideImv.image.size.height / guideImv.image.size.width * SCREEN_WIDTH;
+    guideImv.centerY = SCREEN_HEIGHT / 2;
+    guideView.backgroundColor = [UIColor blackColor];
+    guideView.alpha = .6;
+}
 - (void)handleAction:(UIPanGestureRecognizer*) recognizer{
     
     CGPoint translation = [recognizer translationInView:self.view];
@@ -196,41 +227,52 @@
     x = x < SCREEN_WIDTH ? x : SCREEN_WIDTH;
     y = y < SCREEN_HEIGHT ? y : SCREEN_HEIGHT;
     recognizer.view.center = CGPointMake(x,y);
-    _glassCenter = recognizer.view.center;
+//    _glassCenter = recognizer.view.center;
     [recognizer setTranslation:CGPointZero inView:self.view];
 }
 - (void)handlePinch:(UIPinchGestureRecognizer*) recognizer{
-    float scale = (recognizer.scale - 1) + 1;
-    scale = scale * _glassScale;
-    if (_glassImgView.width * scale < SCREEN_WIDTH && scale > .5) {
-        float width = _glassImgView.width;
-        _glassImgView.width = _glassSize.width *scale;
-        _glassImgView.height = _glassSize.height *scale;
-        _glassImgView.center = _glassCenter;
-        if (recognizer.state == 4||recognizer.state == 3) {
-            _glassScale = scale;
-        }
-    }else if (scale <= .5){
-        _glassScale = .5;
-        _glassImgView.width = _glassSize.width *_glassScale;
-        _glassImgView.height = _glassSize.height *_glassScale;
-        _glassImgView.center = _glassCenter;
-
-    }else if (_glassImgView.width * scale >= SCREEN_WIDTH){
-        _glassScale = SCREEN_WIDTH / _glassSize.width;
-        _glassImgView.width = _glassSize.width *_glassScale;
-        _glassImgView.height = _glassSize.height *_glassScale;
-        _glassImgView.center = _glassCenter;
+    _maxScale = SCREEN_WIDTH / _glassImgView.size.width;
+    _minScale = SCREEN_WIDTH / 2 / _glassImgView.size.width;
+    recognizer.scale = recognizer.scale > _minScale ? recognizer.scale : _minScale;
+    recognizer.scale = recognizer.scale < _maxScale ? recognizer.scale : _maxScale;
+    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
+        _glassImgView.transform = CGAffineTransformScale(_glassImgView.transform, recognizer.scale, recognizer.scale);
+        recognizer.scale = 1;
     }
-    
+    return;
+//    float scale = (recognizer.scale - 1) + 1;
+//    scale = scale * _glassScale;
+//    if (_glassImgView.width * scale < SCREEN_WIDTH && scale > .5) {
+//        float width = _glassImgView.width;
+//        _glassImgView.width = _glassSize.width *scale;
+//        _glassImgView.height = _glassSize.height *scale;
+//        _glassImgView.center = _glassCenter;
+//        if (recognizer.state == 4||recognizer.state == 3) {
+//            _glassScale = scale;
+//        }
+//    }else if (scale <= .5){
+//        _glassScale = .5;
+//        _glassImgView.width = _glassSize.width *_glassScale;
+//        _glassImgView.height = _glassSize.height *_glassScale;
+//        _glassImgView.center = _glassCenter;
+//
+//    }else if (_glassImgView.width * scale >= SCREEN_WIDTH){
+//        _glassScale = SCREEN_WIDTH / _glassSize.width;
+//        _glassImgView.width = _glassSize.width *_glassScale;
+//        _glassImgView.height = _glassSize.height *_glassScale;
+//        _glassImgView.center = _glassCenter;
+//    }
+//    
 }
 - (void)handleRotation:(UIRotationGestureRecognizer*) recognizer
 {
-    NSLog(@"%f",recognizer.rotation);
-    _glassImgView.transform = CGAffineTransformMakeRotation(recognizer.rotation + _glassRotation);
-    if (recognizer.state == 3 || recognizer.state == 4) {
-        _glassRotation = recognizer.rotation;
+    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {//    _glassImgView.transform = CGAffineTransformMakeRotation(_glassRotation + recognizer.rotation);
+        _glassImgView.transform = CGAffineTransformRotate(_glassImgView.transform, recognizer.rotation);
+        [recognizer setRotation:0];
     }
+//    if (recognizer.state == 3 || recognizer.state == 4) {
+//        _glassRotation = recognizer.rotation;
+//    }
 }
 - (void)refreshGlass:(NSArray*)glassesArray
 {
@@ -280,8 +322,13 @@
 - (void)resizeGlassesImg:(UIImage*)image
 {
     if (image && image.size.width>0 ) {
+        CGPoint center = _glassImgView.center;
+        CGAffineTransform transform = _glassImgView.transform;
+        
         int width=0;
         width = (_faceData.facePixels / _faceData.distance * (_activeGlasses.glassesUnit.faceWidth) * 40 / 37.0);//边框大小修正
+        _maxScale = SCREEN_WIDTH / width;
+        _minScale = SCREEN_WIDTH / 2 / width;
         _glassImgView.transform = CGAffineTransformIdentity;
         _glassImgView.frame = CGRectMake(0, 0, width, (_glassImgView.image.size.height/_glassImgView.image.size.width*width));
         float deflection = .1;                                                                              //向下的旋转偏移修正
@@ -289,8 +336,15 @@
         _glassImgView.centerX = _faceData.lEye.x/2 + _faceData.rEye.x/2 + (_faceData.rEye.y - _faceData.lEye.y) * deflection;
         float rotation = (_faceData.rEye.y-_faceData.lEye.y)/(float)(_faceData.rEye.x-_faceData.lEye.x);
         _glassImgView.transform = CGAffineTransformMakeRotation(rotation);
-        _glassCenter = _glassImgView.center;
-        _glassSize = _glassImgView.size;
+//        _glassCenter = _glassImgView.center;
+//        _glassSize = _glassImgView.size;
+        
+        if (_firstLoad) {
+            _firstLoad = NO;
+        }else{
+            _glassImgView.center = center;
+            _glassImgView.transform = transform;
+        }
     }else{
         [MBProgressHUD topShowTmpMessage:@"网络连接异常，请调整后重试"];
     }

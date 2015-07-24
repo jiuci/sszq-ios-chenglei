@@ -314,6 +314,7 @@
             if ([rp.state isEqualToString: [BYAppCenter sharedAppCenter].WXloginState]) {
                 //授权第三方登录
                 if (rp.code) {
+                    [MBProgressHUD topShow:@"登录中..."];
                     BYLoginService * loginService = [[BYLoginService alloc]init];
                     [loginService loginWithWXcode:rp.code finish:^(BYUser* user, BYError* error) {
                         [MBProgressHUD topHide];
@@ -321,11 +322,8 @@
 //                            NSLog(@"%@",user);
                             if (loginVC.successBlk) {
                                 loginVC.successBlk();
-                                [MBProgressHUD topShow:@"登录成功!"];
+                                
                             }else{
-                                [MBProgressHUD showSuccess:@"登录成功!"];
-                            
-            
                                 [loginVC.navigationController
                                  dismissViewControllerAnimated:YES
                                  completion:^{
