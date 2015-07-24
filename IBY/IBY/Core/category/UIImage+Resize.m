@@ -18,6 +18,20 @@
     CGImageRelease(imageRef);
     return croppedImage;
 }
+-(UIImage *)getImageFromImageRect:(CGRect)myImageRect
+{
+    //大图bigImage
+    //定义myImageRect，截图的区域
+    CGImageRef imageRef = self.CGImage;
+    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, myImageRect);
+    CGSize size = myImageRect.size;
+    UIGraphicsBeginImageContext(size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawImage(context, myImageRect, subImageRef);
+    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
+    UIGraphicsEndImageContext();
+    return smallImage;
+}
 - (UIImage *)getSubImage:(CGRect)rect
 {
     CGImageRef subImageRef = CGImageCreateWithImageInRect(self.CGImage, rect);

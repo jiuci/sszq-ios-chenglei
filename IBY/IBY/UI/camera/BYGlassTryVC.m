@@ -33,6 +33,10 @@
 
 @property (nonatomic , strong) UIWebView * web;//test
 
+@property (nonatomic, assign) float glassScale;
+@property (nonatomic, assign) CGPoint glassCenter;
+@property (nonatomic, assign) float glassRotation;
+@property (nonatomic, assign) CGSize glassSize;
 
 @end
 
@@ -159,6 +163,10 @@
     _glassImgView.backgroundColor = BYColorClear;
     UIPanGestureRecognizer* panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handleAction:)];
     [_glassImgView addGestureRecognizer:panGestureRecognizer];
+    UIPinchGestureRecognizer* pinGestureRecognizer = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handlePinch:)];
+    [_glassImgView addGestureRecognizer:pinGestureRecognizer];
+    UIRotationGestureRecognizer* rotationGestureRecongnizer = [[UIRotationGestureRecognizer alloc]initWithTarget:self action:@selector(handleRotation:)];
+    [_glassImgView addGestureRecognizer:rotationGestureRecongnizer];
     _glassImgView.userInteractionEnabled = YES;
     [self.view addSubview:_glassImgView];
     
@@ -174,16 +182,56 @@
     closeDetail.top = 0;
     closeDetail.image = [UIImage imageNamed:@"photolist_delete"];
     [_detailView addSubview:closeDetail];
+    _glassScale = 1.0;
+    _glassRotation = 1.0;
 }
 
 - (void)handleAction:(UIPanGestureRecognizer*) recognizer{
     
     CGPoint translation = [recognizer translationInView:self.view];
-    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-                                         recognizer.view.center.y + translation.y);
+    float x = recognizer.view.center.x + translation.x;
+    float y = recognizer.view.center.y + translation.y;
+    x = x > 0 ? x : 0;
+    y = y > 0 ? y : 0;
+    x = x < SCREEN_WIDTH ? x : SCREEN_WIDTH;
+    y = y < SCREEN_HEIGHT ? y : SCREEN_HEIGHT;
+    recognizer.view.center = CGPointMake(x,y);
+    _glassCenter = recognizer.view.center;
     [recognizer setTranslation:CGPointZero inView:self.view];
 }
+- (void)handlePinch:(UIPinchGestureRecognizer*) recognizer{
+    float scale = (recognizer.scale - 1) + 1;
+    scale = scale * _glassScale;
+    if (_glassImgView.width * scale < SCREEN_WIDTH && scale > .5) {
+        float width = _glassImgView.width;
+        _glassImgView.width = _glassSize.width *scale;
+        _glassImgView.height = _glassSize.height *scale;
+        _glassImgView.center = _glassCenter;
+        if (recognizer.state == 4||recognizer.state == 3) {
+            _glassScale = scale;
+        }
+    }else if (scale <= .5){
+        _glassScale = .5;
+        _glassImgView.width = _glassSize.width *_glassScale;
+        _glassImgView.height = _glassSize.height *_glassScale;
+        _glassImgView.center = _glassCenter;
 
+    }else if (_glassImgView.width * scale >= SCREEN_WIDTH){
+        _glassScale = SCREEN_WIDTH / _glassSize.width;
+        _glassImgView.width = _glassSize.width *_glassScale;
+        _glassImgView.height = _glassSize.height *_glassScale;
+        _glassImgView.center = _glassCenter;
+    }
+    
+}
+- (void)handleRotation:(UIRotationGestureRecognizer*) recognizer
+{
+    NSLog(@"%f",recognizer.rotation);
+    _glassImgView.transform = CGAffineTransformMakeRotation(recognizer.rotation + _glassRotation);
+    if (recognizer.state == 3 || recognizer.state == 4) {
+        _glassRotation = recognizer.rotation;
+    }
+}
 - (void)refreshGlass:(NSArray*)glassesArray
 {
     if (!glassesArray) {
@@ -241,6 +289,8 @@
         _glassImgView.centerX = _faceData.lEye.x/2 + _faceData.rEye.x/2 + (_faceData.rEye.y - _faceData.lEye.y) * deflection;
         float rotation = (_faceData.rEye.y-_faceData.lEye.y)/(float)(_faceData.rEye.x-_faceData.lEye.x);
         _glassImgView.transform = CGAffineTransformMakeRotation(rotation);
+        _glassCenter = _glassImgView.center;
+        _glassSize = _glassImgView.size;
     }else{
         [MBProgressHUD topShowTmpMessage:@"网络连接异常，请调整后重试"];
     }

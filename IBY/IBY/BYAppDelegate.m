@@ -319,16 +319,19 @@
                         [MBProgressHUD topHide];
                         if (!error) {
 //                            NSLog(@"%@",user);
-                            [MBProgressHUD showSuccess:@"登录成功!"];
+                            if (loginVC.successBlk) {
+                                loginVC.successBlk();
+                                [MBProgressHUD topShow:@"登录成功!"];
+                            }else{
+                                [MBProgressHUD showSuccess:@"登录成功!"];
                             
             
-                            [loginVC.navigationController
-                             dismissViewControllerAnimated:YES
-                             completion:^{
-                                 if (loginVC.successBlk) {
-                                     loginVC.successBlk();
-                                 }
+                                [loginVC.navigationController
+                                 dismissViewControllerAnimated:YES
+                                 completion:^{
+                                 
                              }];
+                            }
                         }else{
                             alertError(error);
                         }

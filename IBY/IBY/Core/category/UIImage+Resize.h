@@ -19,6 +19,8 @@
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality;
 
+-(UIImage *)getImageFromImageRect:(CGRect)myImageRect;
+
 - (UIImage *)resizedImage:(CGSize)newSize
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose

@@ -128,15 +128,19 @@
                 [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                     //无论结果如何，不处理，不显示
                 }];
-
-                
-                [loginVC.navigationController
-                 dismissViewControllerAnimated:YES
-                 completion:^{
-                     if (loginVC.successBlk) {
-                         loginVC.successBlk();
-                     }
-                 }];
+                if (loginVC.successBlk) {
+                    loginVC.successBlk();
+                    [MBProgressHUD topShow:@"登录成功!"];
+                }else{
+                    [MBProgressHUD showSuccess:@"登录成功!"];
+                    
+                    
+                    [loginVC.navigationController
+                     dismissViewControllerAnimated:YES
+                     completion:^{
+                         
+                     }];
+                }
             }else{
                 alertError(error);
             }

@@ -106,33 +106,40 @@
     [self addTopView];
     [self addFocusView];
     [self addBottomView];
-    [self addGuideView];
+//    [self addGuideView];
     
-    [self step1];
+//    [self step1];
+    [self step];
     
     [_captureManager.session startRunning];
     
-    //缩放被屏蔽掉啦屏蔽掉啦！！！
+    //缩放被屏蔽掉啦
 //    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:manager action:@selector(pinchCameraView:)];
 //    [self.view addGestureRecognizer:pinch];
     
 }
-
-
-- (void)step1{
-    _noticeLabel.text = @"提示：使用卡片会使试戴效果更佳";
-    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withcard"];
-    self.switchBtn.hidden = NO;
-    self.showGuide.hidden = NO;
-}
-
-- (void)step2{
-    _noticeLabel.text = @"请拿掉卡片再拍一张";
+- (void)step
+{
+    _noticeLabel.text = @"";
     _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withoutcard"];
-    self.switchBtn.hidden = YES;
-    self.showGuide.hidden = YES;
-    _status = DetectUnfinished;
+    self.switchBtn.hidden = NO;
+//    self.showGuide.hidden = NO;
 }
+
+//- (void)step1{
+//    _noticeLabel.text = @"提示：使用卡片会使试戴效果更佳";
+//    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withcard"];
+//    self.switchBtn.hidden = NO;
+//    self.showGuide.hidden = NO;
+//}
+//
+//- (void)step2{
+//    _noticeLabel.text = @"请拿掉卡片再拍一张";
+//    _faceFrameView.image = [UIImage imageNamed:@"bg_figure_frame_withoutcard"];
+//    self.switchBtn.hidden = YES;
+//    self.showGuide.hidden = YES;
+//    _status = DetectUnfinished;
+//}
 
 - (void)addFaceFrame{
     
@@ -203,20 +210,20 @@
         [dismissBtn addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
         [tView addSubview:dismissBtn];
         
-        _showGuide = [BYCustomButton btnWithFrame:CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT)
-                                icon:@"icon_guide_info"
-                               title:@"新手引导"
-                           titleFont:Font(14)
-                          titleColor:BYColorWhite];
-        [_showGuide setNormalBg:@"camera_reshoot_btn"];
-        [_showGuide setHighlightBg:@"camera_reshoot_btn"];
-        
-        _showGuide.right = _switchBtn.left - 3 * SCREEN_PIXELUNIT;
-        _showGuide.centerY = _switchBtn.centerY;
-        
-        [_showGuide addTarget:self action:@selector(showGuideView) forControlEvents:UIControlEventTouchUpInside];
-        [tView addSubview:_showGuide];
-        
+//        _showGuide = [BYCustomButton btnWithFrame:CGRectMake(0, 0, 23*SCREEN_PIXELUNIT, 8*SCREEN_PIXELUNIT)
+//                                icon:@"icon_guide_info"
+//                               title:@"新手引导"
+//                           titleFont:Font(14)
+//                          titleColor:BYColorWhite];
+//        [_showGuide setNormalBg:@"camera_reshoot_btn"];
+//        [_showGuide setHighlightBg:@"camera_reshoot_btn"];
+//        
+//        _showGuide.right = _switchBtn.left - 3 * SCREEN_PIXELUNIT;
+//        _showGuide.centerY = _switchBtn.centerY;
+//        
+//        [_showGuide addTarget:self action:@selector(showGuideView) forControlEvents:UIControlEventTouchUpInside];
+//        [tView addSubview:_showGuide];
+//        
         
     }
 }
@@ -257,7 +264,7 @@
 #endif
 }
 
-
+/*
 -(void)addGuideView
 {
     _guideView = [[UIView alloc]initWithFrame:self.view.frame];
@@ -333,7 +340,7 @@
     _pageControl.numberOfPages = imageArray.count;
     [_guideView addSubview:_pageControl];
 }
-
+*/
 -(void)closeGuideView
 {
 
@@ -452,48 +459,49 @@
             //[weakSelf_SC showCdiameraCover:NO];
         });
         
-        if(!_dataUnit.step1Finishied){
-            _dataUnit.image1 = rightImage;
-            _dataUnit.step1Finishied = YES;
-            UIImageView* imageView = [[UIImageView alloc] init ];//WithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-            
-            imageView.image = rightImage;
-            imageView.size = rightImage.size;
-            imageView.center = self.view.center;
-            [self.view addSubview:imageView];
-            [UIView animateWithDuration:0.3 animations:^{
-                self.view.alpha = 0;
-            } completion:^(BOOL finished) {
-            }];
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                self.view.alpha = 1;
-            } completion:^(BOOL finished) {
-            }];
-            
-            [UIView animateWithDuration:0.6 delay:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                imageView.frame = CGRectMake((SCREEN_WIDTH - 10) / 2, (SCREEN_HEIGHT - 10) / 2, 10, 10);
-            } completion:^(BOOL finished) {
-            }];
-            
-            [UIView animateWithDuration:0.6 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                imageView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT, 2, 2);
-            } completion:^(BOOL finished) {
-                imageView.hidden = YES;
-            }];
-            
-            [MBProgressHUD topShow:@"识别中"];
-            BYCaptureController* BYcapC = [BYCaptureController sharedGlassesController];
-            float faceWidth = [BYcapC RtBioRulerDetect:_dataUnit.image1];
-            _dataUnit.distance = faceWidth;
-            [MBProgressHUD topHide];
-            [weakself step2];
-        }else{
+//        if(!_dataUnit.step1Finishied){
+//            _dataUnit.image1 = rightImage;
+//            _dataUnit.step1Finishied = YES;
+//            UIImageView* imageView = [[UIImageView alloc] init ];//WithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//            
+//            imageView.image = rightImage;
+//            imageView.size = rightImage.size;
+//            imageView.center = self.view.center;
+//            [self.view addSubview:imageView];
+//            [UIView animateWithDuration:0.3 animations:^{
+//                self.view.alpha = 0;
+//            } completion:^(BOOL finished) {
+//            }];
+//            
+//            [UIView animateWithDuration:0.3 animations:^{
+//                self.view.alpha = 1;
+//            } completion:^(BOOL finished) {
+//            }];
+//            
+//            [UIView animateWithDuration:0.6 delay:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                imageView.frame = CGRectMake((SCREEN_WIDTH - 10) / 2, (SCREEN_HEIGHT - 10) / 2, 10, 10);
+//            } completion:^(BOOL finished) {
+//            }];
+//            
+//            [UIView animateWithDuration:0.6 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                imageView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT, 2, 2);
+//            } completion:^(BOOL finished) {
+//                imageView.hidden = YES;
+//            }];
+//            
+//            [MBProgressHUD topShow:@"识别中"];
+//            BYCaptureController* BYcapC = [BYCaptureController sharedGlassesController];
+//            float faceWidth = [BYcapC RtBioRulerDetect:_dataUnit.image1];
+//            _dataUnit.distance = faceWidth;
+//            [MBProgressHUD topHide];
+//            [weakself step2];
+//        }else{
             BYGlassProcessVC* glassProcessVC = [[BYGlassProcessVC alloc] initWithImage:rightImage faceData:_dataUnit];
 
             glassProcessVC.reshootPhotoBlok = ^(){
                 
-                [weakself step1];
+//                [weakself step1];
+                [weakself step];
                 _dataUnit.imgPath1 = nil;
                 _dataUnit.imgPath2 = nil;
                 _dataUnit.step1Finishied = NO;
@@ -501,7 +509,7 @@
             };
             
             [weakself.navigationController pushViewController:glassProcessVC animated:YES];
-        }
+//        }
         
     }];
 }

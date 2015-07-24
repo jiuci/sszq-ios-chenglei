@@ -90,13 +90,19 @@
                 for (UIViewController * controller in self.navigationController.viewControllers) {
                     if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {
                         BYLoginVC * bylogin = (BYLoginVC*) controller;
-                        [bylogin.navigationController
-                         dismissViewControllerAnimated:YES
-                         completion:^{
-                             if (bylogin.successBlk) {
-                                 bylogin.successBlk();
-                             }
-                         }];
+                        if (bylogin.successBlk) {
+                            bylogin.successBlk();
+                            [MBProgressHUD topShow:@"登录成功!"];
+                        }else{
+                            [MBProgressHUD showSuccess:@"登录成功!"];
+                            
+                            
+                            [bylogin.navigationController
+                             dismissViewControllerAnimated:YES
+                             completion:^{
+                                 
+                             }];
+                        }
                         
                         return;
                     }

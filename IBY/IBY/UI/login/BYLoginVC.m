@@ -431,14 +431,17 @@
                  [MBProgressHUD topHide];
                  if (user && !error) {
 //                     NSLog(@"%@",user);
-                     [MBProgressHUD showSuccess:@"登录成功!"];
-                     [self.navigationController
-                         dismissViewControllerAnimated:YES
-                                            completion:^{
-                                                if (_successBlk) {
-                                                    _successBlk();
-                                                }
-                                            }];
+                     if (_successBlk) {
+                         _successBlk();
+                         [MBProgressHUD topShow:@"登录成功!"];
+                     }else{
+                     
+                         [self.navigationController
+                          dismissViewControllerAnimated:YES
+                                                completion:^{
+                                               
+                                                }];
+                     }
                  }
                  else if (user && error && error.code == 208103) { //用户未注册
                      __weak BYLoginVC* bself = self;

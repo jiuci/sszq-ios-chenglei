@@ -242,6 +242,7 @@
 		F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007661B0F08E100438FD5 /* BYReSetPasswordVC.xib */; };
 		F4E007701B0F08E100438FD5 /* BYVerifySmsCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */; };
 		F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */; };
+		F4E4CD3D1B5F413C00AA1FC3 /* red_2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4E4CD3C1B5F413C00AA1FC3 /* red_2.png */; };
 		F4E6858419EE7F4900237412 /* BYMonitorService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858319EE7F4900237412 /* BYMonitorService.m */; };
 		F4E6858719EE818400237412 /* BYMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858619EE818400237412 /* BYMonitorView.m */; };
 		F4E6858B19EE8F1200237412 /* iConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858A19EE8F1200237412 /* iConsole.m */; };
@@ -725,6 +726,7 @@
 		F4E007671B0F08E100438FD5 /* BYVerifySmsCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYVerifySmsCodeVC.h; sourceTree = "<group>"; };
 		F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYVerifySmsCodeVC.m; sourceTree = "<group>"; };
 		F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYVerifySmsCodeVC.xib; sourceTree = "<group>"; };
+		F4E4CD3C1B5F413C00AA1FC3 /* red_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_2.png; sourceTree = "<group>"; };
 		F4E6858219EE7F4900237412 /* BYMonitorService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorService.h; sourceTree = "<group>"; };
 		F4E6858319EE7F4900237412 /* BYMonitorService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMonitorService.m; sourceTree = "<group>"; };
 		F4E6858519EE818400237412 /* BYMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorView.h; sourceTree = "<group>"; };
@@ -1086,6 +1088,7 @@
 		F4159D7B19F2478700126BDF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				F4E4CD3C1B5F413C00AA1FC3 /* red_2.png */,
 				F4159D7C19F247D300126BDF /* appinfo.plist */,
 			);
 			path = Resource;
@@ -2145,6 +2148,7 @@
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
 				F42618051A2C4CBD0076B273 /* BYPayFailVC.xib in Resources */,
 				F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */,
+				F4E4CD3D1B5F413C00AA1FC3 /* red_2.png in Resources */,
 				F4AE74881A26FA55005ED6A9 /* BYPayVC.xib in Resources */,
 				F43114031A2C20D600FCBE45 /* Images.xcassets in Resources */,
 				F4159D7D19F247D300126BDF /* appinfo.plist in Resources */,

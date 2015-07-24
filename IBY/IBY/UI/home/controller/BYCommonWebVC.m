@@ -35,6 +35,7 @@
 @property (nonatomic, copy) NSString* currentUrl;
 @property (nonatomic, strong) BYNavVC* mapNV;
 @property (nonatomic, assign) BOOL loadingCaches;
+@property (nonatomic, assign) BOOL loginSuccessLoading;
 @end
 
 @implementation BYCommonWebVC
@@ -193,9 +194,12 @@
 //    NSLog(@"%@",preUrlString);
 //    logCookies();
     if (_loadingCaches) {
+        if (![preUrlString isEqualToString:@"about:blank"]) {
+            return NO;
+        }
         [self.mutiSwitch setSelectedAtIndex:0];
         self.showTabbar = YES;
-        _loadingCaches = NO;
+//        NSLog(@"loadcache");
         return YES;
     }
     BOOL willShowTabbar = NO;
@@ -235,15 +239,18 @@
 //        NSLog(@"det login!");
 //        logCookies();
         __weak BYCommonWebVC* bself = self; //本地化登录
+        
         BYLoginSuccessBlock blk = ^() {
             [[BYLoginVC sharedLoginVC] clearData];
+            
 //            NSLog(@"login success");
 //            NSLog(@"%@",bself.webView.request);
 //            NSLog(@"%@",_currentUrl);
-            
-            if (![bself.webView.request.URL.absoluteString containsString:bself.currentUrl]) {
+            if (![bself.webView.request.URL.absoluteString rangeOfString:bself.currentUrl].length > 0) {
+                bself.loginSuccessLoading = YES;
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{
+                [MBProgressHUD topHide];
                 [bself onAPPLogin];
             }
         };
@@ -283,7 +290,6 @@
     _loadingCaches = YES;
     NSString *baseURL = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Caches"];
     [self.webView loadHTMLString:htmlResponseStr baseURL:[NSURL URLWithString:baseURL]];
-    
 }
 -(void)caches:(NSString*)urlStr
 {
@@ -311,13 +317,12 @@
     
     NSString * creationDateString = [filedetail[@"NSFileCreationDate"] description];
     
-    
-    
-    
 }
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
+    
+    
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
@@ -325,8 +330,20 @@
 
 - (void)webViewDidFinishLoad:(UIWebView*)webView
 {
+//    [MBProgressHUD topHide];
+    if (_loginSuccessLoading) {
+        _loginSuccessLoading = NO;
+        [MBProgressHUD topHide];
+        BYLoginVC* vc = [BYLoginVC sharedLoginVC];
+        [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
+    }
+    if (_loadingCaches) {
+        _loadingCaches = NO;
+        NSURL* url = [NSURL URLWithString:BYURL_HOME];
+        [webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
 //    if ([self.currentUrl containsString:@"m.biyao.com/product/show"]&&![self.currentUrl containsString:@"192.168.97.69"]) {
 //        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.97.69:8080/m.biyao.com/product/show?designid=63786"]]];
@@ -337,6 +354,11 @@
 {
     if (![BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = NO;
+    }
+    if (_loadingCaches) {
+        _loadingCaches = NO;
+        NSURL* url = [NSURL URLWithString:BYURL_HOME];
+        [webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
 }
 
@@ -473,7 +495,7 @@
         //        [self.view addSubview:btn1];
         
     }
-    
+    _loginSuccessLoading = NO;
     _loginCount = 10;
 }
 
