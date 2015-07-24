@@ -55,7 +55,7 @@
 @property (nonatomic, strong) UIImageView *focusImageView;
 
 @property (nonatomic, strong)  UIButton* switchBtn;
-@property (nonatomic, strong)  BYCustomButton* showGuide;
+//@property (nonatomic, strong)  BYCustomButton* showGuide;
 //数据
 @property (nonatomic, strong) BYFaceDataUnit* dataUnit;
 
@@ -356,46 +356,46 @@
     [_guideView addSubview:_pageControl];
 }
 */
--(void)closeGuideView
-{
-
-    UIGraphicsBeginImageContext(_guideView.bounds.size);
-    [_guideView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    _guideImv.image = viewImage;
-    _guideImv.frame = self.view.frame;
-    [self.view addSubview:_guideImv];
-    _guideView.alpha = 0;
-    _guideImv.alpha = 1;
-    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _guideImv.frame = CGRectMake(_showGuide.centerX, _showGuide.centerY, 0, 0);
-        _guideImv.alpha = 0;
-    } completion:^(BOOL finished){
-        [_guideImv removeFromSuperview];
-        _showGuide.enabled = YES;
-    }];
-}
--(void)showGuideView
-{
-//    if (_guideView.alpha > 0||_guideImv.superview) {
-//        return;
-//    }
-    _showGuide.enabled = NO;
-    _guideImv.frame = CGRectMake(_showGuide.centerX, _showGuide.centerY, 0, 0);
-    _guideImv.alpha = 0;
-    [self.view addSubview:_guideImv];
-    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        _guideImv.alpha = 1;
-        _guideImv.frame = self.view.frame;
-    } completion:^(BOOL finished){
-        _guideView.frame = self.view.frame;
-        _guideView.alpha = 1;
-        [_guideImv removeFromSuperview];
-        
-    }];
-}
+//-(void)closeGuideView
+//{
+//
+//    UIGraphicsBeginImageContext(_guideView.bounds.size);
+//    [_guideView.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    _guideImv.image = viewImage;
+//    _guideImv.frame = self.view.frame;
+//    [self.view addSubview:_guideImv];
+//    _guideView.alpha = 0;
+//    _guideImv.alpha = 1;
+//    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//        _guideImv.frame = CGRectMake(_showGuide.centerX, _showGuide.centerY, 0, 0);
+//        _guideImv.alpha = 0;
+//    } completion:^(BOOL finished){
+//        [_guideImv removeFromSuperview];
+//        _showGuide.enabled = YES;
+//    }];
+//}
+//-(void)showGuideView
+//{
+////    if (_guideView.alpha > 0||_guideImv.superview) {
+////        return;
+////    }
+//    _showGuide.enabled = NO;
+//    _guideImv.frame = CGRectMake(_showGuide.centerX, _showGuide.centerY, 0, 0);
+//    _guideImv.alpha = 0;
+//    [self.view addSubview:_guideImv];
+//    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        _guideImv.alpha = 1;
+//        _guideImv.frame = self.view.frame;
+//    } completion:^(BOOL finished){
+//        _guideView.frame = self.view.frame;
+//        _guideView.alpha = 1;
+//        [_guideImv removeFromSuperview];
+//        
+//    }];
+//}
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView
 {
     CGFloat pageWidth = SCREEN_WIDTH;
@@ -558,9 +558,9 @@
 #pragma mark  default touch to focus
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (!_showGuide.enabled) {//引导按钮不可交互时，不显示聚焦
-        return;
-    }
+//    if (!_showGuide.enabled) {//引导按钮不可交互时，不显示聚焦
+//        return;
+//    }
     alphaTimes = -1;
     
     UITouch *touch = [touches anyObject];

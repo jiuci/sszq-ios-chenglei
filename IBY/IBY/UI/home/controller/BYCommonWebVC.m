@@ -252,6 +252,9 @@
             }else{
                 [MBProgressHUD topHide];
                 [bself onAPPLogin];
+                BYLoginVC* vc = [BYLoginVC sharedLoginVC];
+                [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
+
             }
         };
         BYLoginCancelBlock cblk = ^(){
