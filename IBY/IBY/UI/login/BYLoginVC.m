@@ -387,6 +387,7 @@
 {
     [super viewDidAppear:animated];
     _pwdTextField.text = @"";
+    _loginButton.enabled = NO;
     if (_captchaView.hidden == NO) {
         [_captchaView refreshCaptchaImage];
     }

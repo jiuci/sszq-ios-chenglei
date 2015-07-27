@@ -72,7 +72,7 @@
     [super viewDidLoad];
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [MBProgressHUD topShowTmpMessage:@"该设备不支持拍照功能~~！T_T"];
+        [MBProgressHUD topShowTmpMessage:@"该设备不支持拍照功能~~！"];
 
         [self dismissView];
         return;

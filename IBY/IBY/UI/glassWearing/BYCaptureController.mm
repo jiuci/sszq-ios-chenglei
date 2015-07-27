@@ -57,17 +57,19 @@
     cvReleaseImage( &calculationImage );
     dataUnit.lEye = CGPointMake(lEye.x/1.0, lEye.y/1.0);
     dataUnit.rEye = CGPointMake(rEye.x/1.0, rEye.y/1.0);
-    //无法识别，默认瞳孔位置
-    if (dataUnit.lEye.x == 0||dataUnit.lEye.y == 0) {
-        dataUnit.lEye = CGPointMake(image.size.width * .3, image.size.height * .4);
-    }
-    if (dataUnit.rEye.x == 0||dataUnit.rEye.y == 0) {
-        dataUnit.rEye = CGPointMake(image.size.width * .7, image.size.height * .4);
-    }
     dataUnit.facePixels = facePixels;
-    if (dataUnit.facePixels == 0) {
+    
+    //无法识别，默认瞳孔位置
+    
+    if (!detectCompele) {
+        dataUnit.lEye = CGPointMake(image.size.width * .3, image.size.height * .4);
+        dataUnit.rEye = CGPointMake(image.size.width * .7, image.size.height * .4);
         dataUnit.facePixels = image.size.width * .8;
+        dataUnit.distance = 62/.45;
     }
+//    NSLog(@"%@,%@",NSStringFromCGSize(image.size),NSStringFromCGPoint(dataUnit.rEye));
+    
+  
     return detectCompele;
 }
 

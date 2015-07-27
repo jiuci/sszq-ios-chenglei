@@ -24,6 +24,12 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = BYColorBG;
+    if ([[UIDevice currentDevice].systemVersion intValue] < 8) {
+        self.extendedLayoutIncludesOpaqueBars = NO;
+        
+        self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
+    }
+    
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 

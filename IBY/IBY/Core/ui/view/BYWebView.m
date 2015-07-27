@@ -96,12 +96,12 @@
         }break;
         case BYH5TypeGoWeixinAuth:{
             if (![WXApi isWXAppInstalled]) {
-                [MBProgressHUD topShowTmpMessage:@"此功能需要微信授权,请先安装微信"];
+                [MBProgressHUD topShowTmpMessage:@"需要微信授权,请先安装微信"];
             }else{
                 //构造SendAuthReq结构体
                 SendAuthReq* req =[[SendAuthReq alloc ] init ];
                 req.scope = @"snsapi_base,snsapi_userinfo" ;
-                req.state = @"123" ;
+                req.state = @"com.biyao.fu" ;
                 //第三方向微信终端发送一个SendAuthReq消息结构
                 [WXApi sendReq:req];
             }

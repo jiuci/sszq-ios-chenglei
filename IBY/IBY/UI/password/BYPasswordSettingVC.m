@@ -62,12 +62,12 @@
 {
     [self.view endEditing:YES];
     if (self.firstPwdTextField.text.length<6) {
-        [MBProgressHUD topShowTmpMessage:@"密码不能小于6位字符，请重新输入"];
+        [MBProgressHUD topShowTmpMessage:@"密码不能小于6位字符"];
         [self.firstPwdTextField becomeFirstResponder];
         return;
     }
     if (![self.firstPwdTextField.text isValidPassword]) {
-        [MBProgressHUD topShowTmpMessage:@"密码需为字母、数字、符号两种以上组合，请重新输入"];
+        [MBProgressHUD topShowTmpMessage:@"密码格式错误，请重新输入"];
         [self.firstPwdTextField becomeFirstResponder];
         return;
     }
@@ -77,7 +77,7 @@
             if(error){
                 alertError(error);
             }else{
-                [MBProgressHUD topShowTmpMessage:@"恭喜！密码修改成功，请重新登录"];
+                [MBProgressHUD topShowTmpMessage:@"恭喜！修改成功，请重新登录"];
                 runBlockAfterDelay(2, ^{
                     for (UIViewController * controller in self.navigationController.viewControllers) {
                         if ([controller.class isSubclassOfClass:[BYLoginVC class]]) {

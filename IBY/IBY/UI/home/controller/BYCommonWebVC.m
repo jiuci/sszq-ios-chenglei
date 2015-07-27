@@ -241,6 +241,7 @@
         __weak BYCommonWebVC* bself = self; //本地化登录
         
         BYLoginSuccessBlock blk = ^() {
+            runOnMainQueue(^{
             [[BYLoginVC sharedLoginVC] clearData];
             
 //            NSLog(@"login success");
@@ -248,6 +249,7 @@
 //            NSLog(@"%@",_currentUrl);
             if (![bself.webView.request.URL.absoluteString rangeOfString:bself.currentUrl].length > 0) {
                 bself.loginSuccessLoading = YES;
+//                NSLog(@"l1 %@",bself.currentUrl);
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{
                 [MBProgressHUD topHide];
@@ -256,6 +258,7 @@
                 [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
 
             }
+            });
         };
         BYLoginCancelBlock cblk = ^(){
             if (bself.webView.request.URL.absoluteString.length == 0) {
@@ -266,6 +269,7 @@
         };
         BYNavVC* nav = makeLoginnav(blk,cblk);
         [self presentViewController:nav animated:YES completion:nil];
+//        NSLog(@"no?");
         return NO;
     }
     self.showTabbar = willShowTabbar;
@@ -325,7 +329,7 @@
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
     
-    
+//    NSLog(@"start");
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
@@ -334,6 +338,7 @@
 - (void)webViewDidFinishLoad:(UIWebView*)webView
 {
 //    [MBProgressHUD topHide];
+//    NSLog(@"islogin %d",_loginSuccessLoading);
     if (_loginSuccessLoading) {
         _loginSuccessLoading = NO;
         [MBProgressHUD topHide];
@@ -355,6 +360,7 @@
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
 {
+//    NSLog(@"fail %@",error);
     if (![BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = NO;
     }

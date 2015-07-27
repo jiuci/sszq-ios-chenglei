@@ -233,12 +233,14 @@
 - (void)handlePinch:(UIPinchGestureRecognizer*) recognizer{
     _maxScale = SCREEN_WIDTH / _glassImgView.size.width;
     _minScale = SCREEN_WIDTH / 2 / _glassImgView.size.width;
+    
     recognizer.scale = recognizer.scale > _minScale ? recognizer.scale : _minScale;
     recognizer.scale = recognizer.scale < _maxScale ? recognizer.scale : _maxScale;
     if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
         _glassImgView.transform = CGAffineTransformScale(_glassImgView.transform, recognizer.scale, recognizer.scale);
         recognizer.scale = 1;
     }
+//    NSLog(@"%@",NSStringFromCGSize(CGSizeApplyAffineTransform(_glassSize, _glassImgView.transform)));
     return;
 //    float scale = (recognizer.scale - 1) + 1;
 //    scale = scale * _glassScale;
@@ -327,6 +329,8 @@
         
         int width=0;
         width = (_faceData.facePixels / _faceData.distance * (_activeGlasses.glassesUnit.faceWidth) * 40 / 37.0);//边框大小修正
+        
+//        NSLog(@"%f",_faceData.distance);
         _maxScale = SCREEN_WIDTH / width;
         _minScale = SCREEN_WIDTH / 2 / width;
         _glassImgView.transform = CGAffineTransformIdentity;
@@ -338,7 +342,7 @@
         _glassImgView.transform = CGAffineTransformMakeRotation(rotation);
 //        _glassCenter = _glassImgView.center;
 //        _glassSize = _glassImgView.size;
-        
+        _glassSize = _glassImgView.size;
         if (_firstLoad) {
             _firstLoad = NO;
         }else{
