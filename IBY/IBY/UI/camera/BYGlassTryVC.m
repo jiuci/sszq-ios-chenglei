@@ -37,6 +37,7 @@
 @property (nonatomic, assign) BOOL firstLoad;
 @property (nonatomic, assign) float minScale;
 @property (nonatomic, assign) CGSize glassSize;
+@property (nonatomic, assign) int number;
 
 @end
 
@@ -61,7 +62,7 @@
     [super viewDidLoad];
     [self setupUI];
     [self updateData];
-    
+    _number = 0;
     
 }
 - (void)updateData{
@@ -323,6 +324,12 @@
 }
 - (void)resizeGlassesImg:(UIImage*)image
 {
+//    NSArray*array =[NSArray arrayWithObjects:@"0.2",@"0.3",@"0.4",@"0.5", nil];
+//    
+//    _glassImgView.image = [UIImage imageNamed:array[_number++]];
+//    if (_number>=array.count) {
+//        _number = 0;
+//    }
     if (image && image.size.width>0 ) {
         CGPoint center = _glassImgView.center;
         CGAffineTransform transform = _glassImgView.transform;

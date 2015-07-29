@@ -34,7 +34,7 @@
 #define BYColorb768 HEXCOLOR(0xb768a5)
 #define BYColorf49f26 HEXCOLOR(0xf49f26)
 #define BYColor4DA6FF HEXCOLOR(0x4DA6FF)
-
+#define BYColorNav HEXCOLOR(0x523669)
 #define BYColorBG HEXCOLOR(0xeeeeee)
 #define BYColorClear [UIColor clearColor]
 #define BYColorWhite [UIColor whiteColor]

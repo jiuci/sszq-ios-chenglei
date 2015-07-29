@@ -96,7 +96,6 @@
     if ([location respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [location requestWhenInUseAuthorization];
     }
-   
     return YES;
 }
 

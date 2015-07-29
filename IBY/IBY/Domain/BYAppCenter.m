@@ -258,16 +258,20 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
     }
     return NO;
 }
-
-//- (void)runAfterLoginFromVC:(UIViewController*)vc withBlk:(BYLoginSuccessBlock)blk
-//{
-//    if (self.isLogin) {
-//        blk();
-//    }
-//    else {
-//        [vc.navigationController presentViewController:makeLoginnav(blk) animated:YES completion:nil];
-//    }
-//}
+- (void)runAfterLoginFromVC:(UIViewController*)vc withBlk:(BYLoginSuccessBlock)blk
+{
+    BYLoginCancelBlock cblk = ^{};
+    [self runAfterLoginFromVC:vc withSuccessBlk:blk cancelBlk:cblk];
+}
+- (void)runAfterLoginFromVC:(UIViewController*)vc withSuccessBlk:(BYLoginSuccessBlock)blk cancelBlk:(BYLoginCancelBlock)cblk
+{
+    if (self.isLogin) {
+        blk();
+    }
+    else {
+        [vc.navigationController presentViewController:makeLoginnav(blk, cblk) animated:YES completion:nil];
+    }
+}
 
 #pragma mark - push
 

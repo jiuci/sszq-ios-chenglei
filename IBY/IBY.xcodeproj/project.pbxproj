@@ -223,6 +223,16 @@
 		F4D910B21B57D1B900A5BEB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */; };
 		F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
+		F4DAECB71B676E2D00F4A890 /* img_7.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECB61B676E2D00F4A890 /* img_7.png */; };
+		F4DAECB91B676EBC00F4A890 /* img_6 (2).png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECB81B676EBC00F4A890 /* img_6 (2).png */; };
+		F4DAECBB1B67714700F4A890 /* 0.4.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECBA1B67714700F4A890 /* 0.4.png */; };
+		F4DAECBD1B67714E00F4A890 /* 0.2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECBC1B67714E00F4A890 /* 0.2.png */; };
+		F4DAECBF1B67715200F4A890 /* 0.3.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECBE1B67715200F4A890 /* 0.3.png */; };
+		F4DAECC11B67715800F4A890 /* 0.5.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECC01B67715800F4A890 /* 0.5.png */; };
+		F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB83381B6605910083F9B4 /* BYMineVC.m */; };
+		F4DB83401B6605910083F9B4 /* BYMineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB833B1B6605910083F9B4 /* BYMineCell.m */; };
+		F4DB83411B6605910083F9B4 /* BYMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB833D1B6605910083F9B4 /* BYMineHeaderView.m */; };
+		F4DB83421B6605910083F9B4 /* BYMineHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4DB833E1B6605910083F9B4 /* BYMineHeaderView.xib */; };
 		F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */; };
 		F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC3461B33C0F2003B9730 /* BYForgetPasswordService.m */; };
 		F4DEC34D1B340265003B9730 /* BYCaptchaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DEC34C1B340265003B9730 /* BYCaptchaService.m */; };
@@ -242,7 +252,6 @@
 		F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007661B0F08E100438FD5 /* BYReSetPasswordVC.xib */; };
 		F4E007701B0F08E100438FD5 /* BYVerifySmsCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */; };
 		F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */; };
-		F4E4CD3D1B5F413C00AA1FC3 /* red_2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4E4CD3C1B5F413C00AA1FC3 /* red_2.png */; };
 		F4E6858419EE7F4900237412 /* BYMonitorService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858319EE7F4900237412 /* BYMonitorService.m */; };
 		F4E6858719EE818400237412 /* BYMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858619EE818400237412 /* BYMonitorView.m */; };
 		F4E6858B19EE8F1200237412 /* iConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858A19EE8F1200237412 /* iConsole.m */; };
@@ -695,6 +704,19 @@
 		F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = IBY/ThirdParty/BaiduMap/BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		F4D9325C1A59131F000E4C02 /* BYPoolNetworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPoolNetworkView.h; sourceTree = "<group>"; };
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
+		F4DAECB61B676E2D00F4A890 /* img_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_7.png; sourceTree = "<group>"; };
+		F4DAECB81B676EBC00F4A890 /* img_6 (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_6 (2).png"; sourceTree = "<group>"; };
+		F4DAECBA1B67714700F4A890 /* 0.4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.4.png; sourceTree = "<group>"; };
+		F4DAECBC1B67714E00F4A890 /* 0.2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.2.png; sourceTree = "<group>"; };
+		F4DAECBE1B67715200F4A890 /* 0.3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.3.png; sourceTree = "<group>"; };
+		F4DAECC01B67715800F4A890 /* 0.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.5.png; sourceTree = "<group>"; };
+		F4DB83371B6605910083F9B4 /* BYMineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineVC.h; sourceTree = "<group>"; };
+		F4DB83381B6605910083F9B4 /* BYMineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMineVC.m; sourceTree = "<group>"; };
+		F4DB833A1B6605910083F9B4 /* BYMineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineCell.h; sourceTree = "<group>"; };
+		F4DB833B1B6605910083F9B4 /* BYMineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMineCell.m; sourceTree = "<group>"; };
+		F4DB833C1B6605910083F9B4 /* BYMineHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineHeaderView.h; sourceTree = "<group>"; };
+		F4DB833D1B6605910083F9B4 /* BYMineHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMineHeaderView.m; sourceTree = "<group>"; };
+		F4DB833E1B6605910083F9B4 /* BYMineHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYMineHeaderView.xib; sourceTree = "<group>"; };
 		F4DD81E91B0B2ACD008D17BF /* BYGlassesMagnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGlassesMagnifier.h; sourceTree = "<group>"; };
 		F4DD81EA1B0B2ACD008D17BF /* BYGlassesMagnifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYGlassesMagnifier.m; sourceTree = "<group>"; };
 		F4DEC3451B33C0F2003B9730 /* BYForgetPasswordService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYForgetPasswordService.h; path = password/BYForgetPasswordService.h; sourceTree = "<group>"; };
@@ -726,7 +748,6 @@
 		F4E007671B0F08E100438FD5 /* BYVerifySmsCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYVerifySmsCodeVC.h; sourceTree = "<group>"; };
 		F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYVerifySmsCodeVC.m; sourceTree = "<group>"; };
 		F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYVerifySmsCodeVC.xib; sourceTree = "<group>"; };
-		F4E4CD3C1B5F413C00AA1FC3 /* red_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_2.png; sourceTree = "<group>"; };
 		F4E6858219EE7F4900237412 /* BYMonitorService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorService.h; sourceTree = "<group>"; };
 		F4E6858319EE7F4900237412 /* BYMonitorService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMonitorService.m; sourceTree = "<group>"; };
 		F4E6858519EE818400237412 /* BYMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorView.h; sourceTree = "<group>"; };
@@ -1088,7 +1109,12 @@
 		F4159D7B19F2478700126BDF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				F4E4CD3C1B5F413C00AA1FC3 /* red_2.png */,
+				F4DAECBC1B67714E00F4A890 /* 0.2.png */,
+				F4DAECBE1B67715200F4A890 /* 0.3.png */,
+				F4DAECC01B67715800F4A890 /* 0.5.png */,
+				F4DAECBA1B67714700F4A890 /* 0.4.png */,
+				F4DAECB81B676EBC00F4A890 /* img_6 (2).png */,
+				F4DAECB61B676E2D00F4A890 /* img_7.png */,
 				F4159D7C19F247D300126BDF /* appinfo.plist */,
 			);
 			path = Resource;
@@ -1601,6 +1627,36 @@
 			path = Release;
 			sourceTree = "<group>";
 		};
+		F4DB83351B6605910083F9B4 /* mine */ = {
+			isa = PBXGroup;
+			children = (
+				F4DB83361B6605910083F9B4 /* controller */,
+				F4DB83391B6605910083F9B4 /* view */,
+			);
+			path = mine;
+			sourceTree = "<group>";
+		};
+		F4DB83361B6605910083F9B4 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				F4DB83371B6605910083F9B4 /* BYMineVC.h */,
+				F4DB83381B6605910083F9B4 /* BYMineVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		F4DB83391B6605910083F9B4 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				F4DB833A1B6605910083F9B4 /* BYMineCell.h */,
+				F4DB833B1B6605910083F9B4 /* BYMineCell.m */,
+				F4DB833C1B6605910083F9B4 /* BYMineHeaderView.h */,
+				F4DB833D1B6605910083F9B4 /* BYMineHeaderView.m */,
+				F4DB833E1B6605910083F9B4 /* BYMineHeaderView.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		F4E0073D1B0F075A00438FD5 /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1953,6 +2009,7 @@
 		FE14D6C219AC333E006B0E48 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F4DB83351B6605910083F9B4 /* mine */,
 				F4E0075D1B0F08E100438FD5 /* forgetpassword */,
 				F4E0073D1B0F075A00438FD5 /* login */,
 				F4E0074D1B0F07F800438FD5 /* regist */,
@@ -2146,11 +2203,13 @@
 				F42618001A2C3BEB0076B273 /* BYPaySuccessVC.xib in Resources */,
 				F41664EC1B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml in Resources */,
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
+				F4DAECBF1B67715200F4A890 /* 0.3.png in Resources */,
 				F42618051A2C4CBD0076B273 /* BYPayFailVC.xib in Resources */,
 				F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */,
-				F4E4CD3D1B5F413C00AA1FC3 /* red_2.png in Resources */,
+				F4DAECC11B67715800F4A890 /* 0.5.png in Resources */,
 				F4AE74881A26FA55005ED6A9 /* BYPayVC.xib in Resources */,
 				F43114031A2C20D600FCBE45 /* Images.xcassets in Resources */,
+				F4DAECBB1B67714700F4A890 /* 0.4.png in Resources */,
 				F4159D7D19F247D300126BDF /* appinfo.plist in Resources */,
 				F41664EB1B2A8E8A00D91CA8 /* haarcascade_eye.xml in Resources */,
 				F4C4156E1A6818FE00F121B3 /* read_me.txt in Resources */,
@@ -2158,17 +2217,21 @@
 				F4C77D101A2DA6F1005EADA0 /* res.xcassets in Resources */,
 				F4E0076B1B0F08E100438FD5 /* BYForgetPasswordVC.xib in Resources */,
 				F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */,
+				F4DAECBD1B67714E00F4A890 /* 0.2.png in Resources */,
 				F41664EE1B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml in Resources */,
 				F48D0E5B1AE8AA110080DA22 /* BYAboutVC.xib in Resources */,
 				F48D728A1A89DBB000870F3F /* MJRefresh.bundle in Resources */,
 				F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */,
+				F4DAECB71B676E2D00F4A890 /* img_7.png in Resources */,
 				FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */,
 				F41B47A81A77841B00A59C84 /* WeiboSDK.bundle in Resources */,
 				F48D0E5D1AE8AA110080DA22 /* BYFeedbackVC.xib in Resources */,
+				F4DAECB91B676EBC00F4A890 /* img_6 (2).png in Resources */,
 				F4ED1DE71AF9B7E900639322 /* BYPayUnknowVC.xib in Resources */,
 				F41664ED1B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml in Resources */,
 				F4C9AB041A7629D200325A38 /* WebViewJavascriptBridge.js.txt in Resources */,
 				F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */,
+				F4DB83421B6605910083F9B4 /* BYMineHeaderView.xib in Resources */,
 				F4E0075C1B0F07F800438FD5 /* BYRegist3VC.xib in Resources */,
 				F4888A321A6D114A0056427E /* Readme in Resources */,
 				F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */,
@@ -2218,6 +2281,7 @@
 				F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */,
 				CC3D2E1919BFF8B1000E0E14 /* MJMethod.m in Sources */,
 				F4FCC8F21A51E43500C89C1F /* BYDelivery.m in Sources */,
+				F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */,
 				F4E6858F19EE8F6B00237412 /* GTMStackTrace.m in Sources */,
 				CC771FA219CB3AC900E11BAE /* FMDatabase.m in Sources */,
 				F4E6B6631AB061C70022EA66 /* BYBookTurnInfo.m in Sources */,
@@ -2282,6 +2346,7 @@
 				F48C94F91A174BC6009C10A1 /* NSArrayExtensions.m in Sources */,
 				CC771F8B19CAE06000E11BAE /* BYBannerService.m in Sources */,
 				F4E0075B1B0F07F800438FD5 /* BYRegist3VC.m in Sources */,
+				F4DB83411B6605910083F9B4 /* BYMineHeaderView.m in Sources */,
 				F4888A391A6DB5180056427E /* BYShareUnit.m in Sources */,
 				F4D031F21AA07A4500B12739 /* BYWelcomeVC.m in Sources */,
 				F489E43119FF6F83003C6567 /* NSNumberAdditions.m in Sources */,
@@ -2413,6 +2478,7 @@
 				F4E6858719EE818400237412 /* BYMonitorView.m in Sources */,
 				F4D1345C1AF857F400B7164D /* BYCaptureVC.m in Sources */,
 				F4888A2F1A6D114A0056427E /* SAKShareConfig.m in Sources */,
+				F4DB83401B6605910083F9B4 /* BYMineCell.m in Sources */,
 				F426180E1A2C59E30076B273 /* CommonFunc.m in Sources */,
 				F4C575921A22DCD3005D4848 /* BYBarButtonItem.m in Sources */,
 				FEC829A519AC8FC800D5D70D /* BYUser.m in Sources */,

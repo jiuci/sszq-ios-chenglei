@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "BYUser.h"
+#import "BYLoginVC.h"
 
 extern NSString* const BYAppLoginNotification;
 extern NSString* const BYAppLogoutNotification;
@@ -59,6 +60,7 @@ extern NSString* const BYAppSessionInvalidNotification;
 - (void)uploadToken:(NSString*)token;
 - (void)receivedPushInActive:(int)isactive;
 
-//- (void)runAfterLoginFromVC:(UIViewController*)vc withBlk:(BYLoginSuccessBlock)blk;
+- (void)runAfterLoginFromVC:(UIViewController*)vc withSuccessBlk:(BYLoginSuccessBlock)blk cancelBlk:(BYLoginCancelBlock)cblk;
+- (void)runAfterLoginFromVC:(UIViewController*)vc withBlk:(BYLoginSuccessBlock)blk;
 
 @end

@@ -86,12 +86,42 @@ void resetCookies()
     }
 }
 
+void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomain)
+{
+    NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
+    NSString * objvalue = @"/index";
+    for (NSHTTPCookie* obj in cookies) {
+        if ([obj.name isEqualToString:inCookieName]&&[obj.domain isEqualToString:inCookieDomain]) {
+//            NSLog(@"%@",obj.value);
+            objvalue = [obj.value URLDecodedString];
+         
+        }
+    }
+    NSString* value = [NSString stringWithFormat:@"%@~%@",objvalue,uriStr];
+    value = [value URLEncodedStringForMweb];
+    NSMutableDictionary* cookieProperties = [NSMutableDictionary dictionary];
+    [cookieProperties setObject:inCookieName forKey:NSHTTPCookieName];
+    [cookieProperties setObject:value forKey:NSHTTPCookieValue];
+    
+    [cookieProperties setObject:inCookieDomain forKey:NSHTTPCookieDomain];
+    
+    [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
+    [cookieProperties setObject:@(0) forKey:NSHTTPCookieVersion];
+    [cookieProperties setObject:[[NSDate date] dateByAddingTimeInterval:360000] forKey:NSHTTPCookieExpires];
+    
+    NSHTTPCookie* cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+  
+}
+
 void logCookies()
 {
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
     for (NSHTTPCookie* obj in cookies) {
         NSLog(@"%@ - %@", obj.name, obj.value);
+//        NSLog(@"%@ - %@ - %@ - %@", obj.name, obj.value, obj.domain, obj.path);
     }
 }
 

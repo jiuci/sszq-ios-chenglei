@@ -17,6 +17,7 @@
 #import "BYCommonWebVC.h"
 #import "BYNavVC.h"
 #import "BYHomeVC.h"
+#import "BYMineVC.h"
 
 @implementation BYPortalCenter
 
@@ -84,7 +85,18 @@
             BYLog(@"error ,can not go to payvc");
         }
     }break;
-
+    case BYPortalMine: {
+//        BYNavVC* navVC = (BYNavVC*)tabbarVC.selectedViewController;
+//        [navVC popToRootViewControllerAnimated:NO];
+//        
+//        if ([navVC presentedViewController]) {
+//            [navVC dismissViewControllerAnimated:NO completion:nil];
+//        }
+//            
+//        tabbarVC.selectedIndex = portalPage;
+        [nav presentViewController:[BYMineVC sharedMineVC] animated:NO completion:nil];
+        
+    } break;
     default:
         break;
     }

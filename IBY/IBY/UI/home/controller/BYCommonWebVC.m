@@ -19,6 +19,7 @@
 #import "BYCaptureController.h"
 
 #import "BYLoginVC.h"
+#import "BYMineVC.h"
 
 #import <CFNetwork/CFHost.h>
 #import <netinet/in.h>
@@ -36,6 +37,8 @@
 @property (nonatomic, strong) BYNavVC* mapNV;
 @property (nonatomic, assign) BOOL loadingCaches;
 @property (nonatomic, assign) BOOL loginSuccessLoading;
+@property (nonatomic, assign) BOOL isMineExit;
+@property (nonatomic, strong) UIView * navBackview;
 @end
 
 @implementation BYCommonWebVC
@@ -176,7 +179,6 @@
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
 
-
     [BYAnalysis logEvent:@"App通用事件" action:@"url跳转" desc:nil];
 
     NSString* preUrlString = nil;
@@ -191,7 +193,7 @@
     if (!preUrlString) {
         return NO;
     }
-//    NSLog(@"%@",preUrlString);
+    NSLog(@"%@",preUrlString);
 //    logCookies();
     if (_loadingCaches) {
         if (![preUrlString isEqualToString:@"about:blank"]) {
@@ -235,28 +237,59 @@
         [self presentViewController:_mapNV animated:YES completion:nil];
         return NO;
     }
+    
+    if ([preUrlString rangeOfString:@"account/mine"].length > 0) {
+        addCookies(preUrlString, @"gobackuri", @"m.biyao.com");
+        if ([BYAppCenter sharedAppCenter].isLogin) {
+            __weak BYCommonWebVC * wself = self;
+            BYMineExitBlock blk = ^(NSString* exitUrlString){
+                _isMineExit = YES;
+                [wself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
+            };
+            BYNavVC* nav = makeMinenav(blk);
+            [self presentViewController:nav animated:NO completion:nil];
+        }else{
+            __weak BYCommonWebVC* bself = self;
+            
+            BYLoginSuccessBlock blk = ^() {
+                runOnMainQueue(^{
+                    [[BYLoginVC sharedLoginVC] clearData];
+                    BYMineExitBlock blk = ^(NSString* exitUrlString){
+                        _isMineExit = YES;
+                        [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
+                    };
+                    BYNavVC* nav = makeMinenav(blk);
+                    [[BYLoginVC sharedLoginVC].navigationController dismissViewControllerAnimated:YES completion:^{
+                    }];
+                    [bself presentViewController:nav animated:NO completion:^{
+                        [MBProgressHUD topHide];
+                    }];
+                    
+                });
+            };
+            BYLoginCancelBlock cblk = ^(){
+                [[BYLoginVC sharedLoginVC] clearData];
+                [[BYLoginVC sharedLoginVC] dismissViewControllerAnimated:YES completion:nil];
+            };
+            BYNavVC* nav = makeLoginnav(blk,cblk);
+            [self presentViewController:nav animated:YES completion:nil];
+        }
+        return NO;
+    }
     if ([preUrlString rangeOfString:@"account/login"].length > 0) {
-//        NSLog(@"det login!");
-//        logCookies();
         __weak BYCommonWebVC* bself = self; //本地化登录
         
         BYLoginSuccessBlock blk = ^() {
             runOnMainQueue(^{
             [[BYLoginVC sharedLoginVC] clearData];
-            
-//            NSLog(@"login success");
-//            NSLog(@"%@",bself.webView.request);
-//            NSLog(@"%@",_currentUrl);
             if (![bself.webView.request.URL.absoluteString rangeOfString:bself.currentUrl].length > 0) {
                 bself.loginSuccessLoading = YES;
-//                NSLog(@"l1 %@",bself.currentUrl);
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{
                 [MBProgressHUD topHide];
                 [bself onAPPLogin];
                 BYLoginVC* vc = [BYLoginVC sharedLoginVC];
                 [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
-
             }
             });
         };
@@ -269,7 +302,6 @@
         };
         BYNavVC* nav = makeLoginnav(blk,cblk);
         [self presentViewController:nav animated:YES completion:nil];
-//        NSLog(@"no?");
         return NO;
     }
     self.showTabbar = willShowTabbar;
@@ -345,6 +377,12 @@
         BYLoginVC* vc = [BYLoginVC sharedLoginVC];
         [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
+    if (_isMineExit) {
+        _isMineExit = NO;
+        BYMineVC* vc = [BYMineVC sharedMineVC];
+        [vc.navigationController dismissViewControllerAnimated:NO completion:nil];
+        
+    }
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
@@ -361,6 +399,17 @@
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
 {
 //    NSLog(@"fail %@",error);
+    if (_loginSuccessLoading) {
+        _loginSuccessLoading = NO;
+        [MBProgressHUD topHide];
+        BYLoginVC* vc = [BYLoginVC sharedLoginVC];
+        [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+    if (_isMineExit) {
+        _isMineExit = NO;
+        BYMineVC* vc = [BYMineVC sharedMineVC];
+        [vc.navigationController dismissViewControllerAnimated:NO completion:nil];
+    }
     if (![BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = NO;
     }
@@ -425,7 +474,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupUI];
+//    [self setupUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogin) name:BYAppLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogout) name:BYAppLogoutNotification object:nil];
 }
@@ -437,9 +486,14 @@
 
 - (void)setupUI
 {
+//    _navBackview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height/2)];
+//    [self.view addSubview:_navBackview];
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//    _navBackview.backgroundColor = BYColorNav;
     if (!_webView) {
         
         CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+        statusBarHeight = 0;
         [_webView removeFromSuperview];
         _webView = [[BYWebView alloc] initWithFrame:BYRectMake(0, 0, self.view.width, self.view.height)];
         _webView.parentVC = self;
@@ -502,8 +556,10 @@
         //
         //        } forControlEvents:UIControlEventTouchUpInside];
         //        [self.view addSubview:btn1];
-        
+        self.view.backgroundColor = BYColorBG;
+        _webView.clipsToBounds=NO;
     }
+    _isMineExit = NO;
     _loginSuccessLoading = NO;
     _loginCount = 10;
 }
@@ -546,8 +602,11 @@
 {
 
     CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    statusBarHeight = 0;
     if (!_showTabbar && showTabbar) {
         self.mutiSwitch.hidden = NO;
+//        _navBackview.backgroundColor = BYColorNav;
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.centerX.equalTo(self.view);
             make.width.equalTo(self.view);
@@ -557,21 +616,32 @@
     }
     else if (_showTabbar && !showTabbar) {
         self.mutiSwitch.hidden = YES;
-
+//        _navBackview.backgroundColor = BYColorBG;
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+        _webView.backgroundColor = [UIColor clearColor];
         [self.webView mas_updateConstraints:^(MASConstraintMaker* make) {
             make.centerX.equalTo(self.view);
             make.width.equalTo(self.view);
             make.top.equalTo(self.view.mas_top).with.offset(statusBarHeight);
             make.bottom.equalTo(self.view);
         }];
+        
     }
-
     _showTabbar = showTabbar;
+    [self.view setNeedsDisplayInRect:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
 }
-
-- (void)viewWillDisappear:(BOOL)animated
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    if (_showTabbar) {
+//        return UIStatusBarStyleLightContent;
+//    }else{
+//        return UIStatusBarStyleDefault;
+//    }
+//    
+//}
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO];
 }
 
