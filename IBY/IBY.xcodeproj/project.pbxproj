@@ -223,12 +223,6 @@
 		F4D910B21B57D1B900A5BEB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */; };
 		F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
-		F4DAECB71B676E2D00F4A890 /* img_7.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECB61B676E2D00F4A890 /* img_7.png */; };
-		F4DAECB91B676EBC00F4A890 /* img_6 (2).png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECB81B676EBC00F4A890 /* img_6 (2).png */; };
-		F4DAECBB1B67714700F4A890 /* 0.4.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECBA1B67714700F4A890 /* 0.4.png */; };
-		F4DAECBD1B67714E00F4A890 /* 0.2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECBC1B67714E00F4A890 /* 0.2.png */; };
-		F4DAECBF1B67715200F4A890 /* 0.3.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECBE1B67715200F4A890 /* 0.3.png */; };
-		F4DAECC11B67715800F4A890 /* 0.5.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DAECC01B67715800F4A890 /* 0.5.png */; };
 		F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB83381B6605910083F9B4 /* BYMineVC.m */; };
 		F4DB83401B6605910083F9B4 /* BYMineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB833B1B6605910083F9B4 /* BYMineCell.m */; };
 		F4DB83411B6605910083F9B4 /* BYMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB833D1B6605910083F9B4 /* BYMineHeaderView.m */; };
@@ -704,12 +698,6 @@
 		F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = IBY/ThirdParty/BaiduMap/BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		F4D9325C1A59131F000E4C02 /* BYPoolNetworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPoolNetworkView.h; sourceTree = "<group>"; };
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
-		F4DAECB61B676E2D00F4A890 /* img_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_7.png; sourceTree = "<group>"; };
-		F4DAECB81B676EBC00F4A890 /* img_6 (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_6 (2).png"; sourceTree = "<group>"; };
-		F4DAECBA1B67714700F4A890 /* 0.4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.4.png; sourceTree = "<group>"; };
-		F4DAECBC1B67714E00F4A890 /* 0.2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.2.png; sourceTree = "<group>"; };
-		F4DAECBE1B67715200F4A890 /* 0.3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.3.png; sourceTree = "<group>"; };
-		F4DAECC01B67715800F4A890 /* 0.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.5.png; sourceTree = "<group>"; };
 		F4DB83371B6605910083F9B4 /* BYMineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineVC.h; sourceTree = "<group>"; };
 		F4DB83381B6605910083F9B4 /* BYMineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMineVC.m; sourceTree = "<group>"; };
 		F4DB833A1B6605910083F9B4 /* BYMineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineCell.h; sourceTree = "<group>"; };
@@ -1109,12 +1097,6 @@
 		F4159D7B19F2478700126BDF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				F4DAECBC1B67714E00F4A890 /* 0.2.png */,
-				F4DAECBE1B67715200F4A890 /* 0.3.png */,
-				F4DAECC01B67715800F4A890 /* 0.5.png */,
-				F4DAECBA1B67714700F4A890 /* 0.4.png */,
-				F4DAECB81B676EBC00F4A890 /* img_6 (2).png */,
-				F4DAECB61B676E2D00F4A890 /* img_7.png */,
 				F4159D7C19F247D300126BDF /* appinfo.plist */,
 			);
 			path = Resource;
@@ -2203,13 +2185,10 @@
 				F42618001A2C3BEB0076B273 /* BYPaySuccessVC.xib in Resources */,
 				F41664EC1B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml in Resources */,
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
-				F4DAECBF1B67715200F4A890 /* 0.3.png in Resources */,
 				F42618051A2C4CBD0076B273 /* BYPayFailVC.xib in Resources */,
 				F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */,
-				F4DAECC11B67715800F4A890 /* 0.5.png in Resources */,
 				F4AE74881A26FA55005ED6A9 /* BYPayVC.xib in Resources */,
 				F43114031A2C20D600FCBE45 /* Images.xcassets in Resources */,
-				F4DAECBB1B67714700F4A890 /* 0.4.png in Resources */,
 				F4159D7D19F247D300126BDF /* appinfo.plist in Resources */,
 				F41664EB1B2A8E8A00D91CA8 /* haarcascade_eye.xml in Resources */,
 				F4C4156E1A6818FE00F121B3 /* read_me.txt in Resources */,
@@ -2217,16 +2196,13 @@
 				F4C77D101A2DA6F1005EADA0 /* res.xcassets in Resources */,
 				F4E0076B1B0F08E100438FD5 /* BYForgetPasswordVC.xib in Resources */,
 				F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */,
-				F4DAECBD1B67714E00F4A890 /* 0.2.png in Resources */,
 				F41664EE1B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml in Resources */,
 				F48D0E5B1AE8AA110080DA22 /* BYAboutVC.xib in Resources */,
 				F48D728A1A89DBB000870F3F /* MJRefresh.bundle in Resources */,
 				F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */,
-				F4DAECB71B676E2D00F4A890 /* img_7.png in Resources */,
 				FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */,
 				F41B47A81A77841B00A59C84 /* WeiboSDK.bundle in Resources */,
 				F48D0E5D1AE8AA110080DA22 /* BYFeedbackVC.xib in Resources */,
-				F4DAECB91B676EBC00F4A890 /* img_6 (2).png in Resources */,
 				F4ED1DE71AF9B7E900639322 /* BYPayUnknowVC.xib in Resources */,
 				F41664ED1B2A8E8A00D91CA8 /* haarcascade_mcs_lefteye.xml in Resources */,
 				F4C9AB041A7629D200325A38 /* WebViewJavascriptBridge.js.txt in Resources */,
