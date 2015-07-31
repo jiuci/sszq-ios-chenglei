@@ -104,7 +104,7 @@
 - (void)setupUI
 {
     _countForLoginTimes = 0;
-    
+    _showThirdPartyLogin = YES;
     // nav
     self.title = @"登录";
     self.navigationItem.leftBarButtonItem =
@@ -357,6 +357,10 @@
     [super viewWillAppear:animated];
     BOOL showQQ = [_loginService canUseQQlogin];
     BOOL showWX = [_loginService canUseWXlogin];
+    if (_showThirdPartyLogin == false) {
+        showQQ = NO;
+        showWX = NO;
+    }
     if (showQQ | showWX) {
         _thirdPartyLoginlabel.hidden = NO;
         _thirdLine.hidden = NO;

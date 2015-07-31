@@ -51,14 +51,14 @@
     UIImage* bgImage = [UIImage imageNamed:@"bg_userscreen_login"];
     bgImagview.image = [bgImage stretchableImageWithLeftCapWidth:bgImage.size.width / 2 topCapHeight:0.];
     [_loginView addSubview:bgImagview];
+    _mineVC = [BYMineVC sharedMineVC];
+    _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, _loginView.height)];
+    [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [_loginButton setTitleColor:BYColorb768 forState:UIControlStateNormal];
+    _loginButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    [_loginButton addTarget:_mineVC action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
+    [_loginView addSubview:_loginButton];
 
-//    _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, _loginView.height)];
-//    [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
-//    [_loginButton setTitleColor:BYColorb768 forState:UIControlStateNormal];
-//    _loginButton.titleLabel.font = [UIFont systemFontOfSize:11];
-//    [_loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
-//    [_loginView addSubview:_loginButton];
-//
 //    UIImageView* loginSepLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 15)];
 //    loginSepLineView.left = _loginButton.right;
 //    loginSepLineView.center = CGPointMake(_loginView.width / 2, _loginView.height / 2);
@@ -110,7 +110,11 @@
     _notReceivedOrderBtn.left = orderSepLineView2.right;
     [_notReceivedOrderBtn addTarget:_mineVC action:@selector(onToDeliverConfirmOrders) forControlEvents:UIControlEventTouchUpInside];
     [_orderStatusView addSubview:_notReceivedOrderBtn];
+    
+    [_userIcon addTapAction:@selector(onAvatar) target:_mineVC];
 }
+
+
 
 - (void)updateUI
 {
@@ -132,6 +136,7 @@
 
         _loginView.hidden = NO;
     }
+    
 }
 
 - (void)resetNickname
@@ -145,7 +150,7 @@
 //{
 //    [self.mineVC.navigationController presentViewController:makeLoginnav(nil,nil) animated:YES completion:nil];
 //}
-//
+
 //- (void)registAction
 //{
 //    BYRegist1VC* registerVC = [[BYRegist1VC alloc] init];

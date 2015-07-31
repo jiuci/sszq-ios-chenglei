@@ -240,40 +240,41 @@
     
     if ([preUrlString rangeOfString:@"account/mine"].length > 0) {
         addCookies(preUrlString, @"gobackuri", @"m.biyao.com");
-        if ([BYAppCenter sharedAppCenter].isLogin) {
-            __weak BYCommonWebVC * wself = self;
-            BYMineExitBlock blk = ^(NSString* exitUrlString){
-                _isMineExit = YES;
-                [wself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
-            };
-            BYNavVC* nav = makeMinenav(blk);
-            [self presentViewController:nav animated:NO completion:nil];
-        }else{
-            __weak BYCommonWebVC* bself = self;
-            
-            BYLoginSuccessBlock blk = ^() {
-                runOnMainQueue(^{
-                    [[BYLoginVC sharedLoginVC] clearData];
-                    BYMineExitBlock blk = ^(NSString* exitUrlString){
-                        _isMineExit = YES;
-                        [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
-                    };
-                    BYNavVC* nav = makeMinenav(blk);
-                    [[BYLoginVC sharedLoginVC].navigationController dismissViewControllerAnimated:YES completion:^{
-                    }];
-                    [bself presentViewController:nav animated:NO completion:^{
-                        [MBProgressHUD topHide];
-                    }];
-                    
-                });
-            };
-            BYLoginCancelBlock cblk = ^(){
-                [[BYLoginVC sharedLoginVC] clearData];
-                [[BYLoginVC sharedLoginVC] dismissViewControllerAnimated:YES completion:nil];
-            };
-            BYNavVC* nav = makeLoginnav(blk,cblk);
-            [self presentViewController:nav animated:YES completion:nil];
-        }
+//        if ([BYAppCenter sharedAppCenter].isLogin) {
+        __weak BYCommonWebVC * wself = self;
+        BYMineExitBlock blk = ^(NSString* exitUrlString){
+            _isMineExit = YES;
+            [wself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
+        };
+        BYNavVC* nav = makeMinenav(blk);
+        
+        [self presentViewController:nav animated:NO completion:nil];
+//        }else{
+//            __weak BYCommonWebVC* bself = self;
+//            
+//            BYLoginSuccessBlock blk = ^() {
+//                runOnMainQueue(^{
+//                    [[BYLoginVC sharedLoginVC] clearData];
+//                    BYMineExitBlock blk = ^(NSString* exitUrlString){
+//                        _isMineExit = YES;
+//                        [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
+//                    };
+//                    BYNavVC* nav = makeMinenav(blk);
+//                    [[BYLoginVC sharedLoginVC].navigationController dismissViewControllerAnimated:YES completion:^{
+//                    }];
+//                    [bself presentViewController:nav animated:NO completion:^{
+//                        [MBProgressHUD topHide];
+//                    }];
+//                    
+//                });
+//            };
+//            BYLoginCancelBlock cblk = ^(){
+//                [[BYLoginVC sharedLoginVC] clearData];
+//                [[BYLoginVC sharedLoginVC] dismissViewControllerAnimated:YES completion:nil];
+//            };
+//            BYNavVC* nav = makeLoginnav(blk,cblk);
+//            [self presentViewController:nav animated:YES completion:nil];
+//        }
         return NO;
     }
     if ([preUrlString rangeOfString:@"account/login"].length > 0) {
@@ -301,6 +302,11 @@
             [[BYLoginVC sharedLoginVC] clearData];
         };
         BYNavVC* nav = makeLoginnav(blk,cblk);
+        if ([preUrlString rangeOfString:@"home.biyao.com"].length > 0) {
+            [BYLoginVC sharedLoginVC].showThirdPartyLogin = NO;
+        }else{
+            [BYLoginVC sharedLoginVC].showThirdPartyLogin = YES;
+        }
         [self presentViewController:nav animated:YES completion:nil];
         return NO;
     }
@@ -600,13 +606,12 @@
 
 - (void)setShowTabbar:(BOOL)showTabbar
 {
-
     CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
     statusBarHeight = 0;
     if (!_showTabbar && showTabbar) {
         self.mutiSwitch.hidden = NO;
 //        _navBackview.backgroundColor = BYColorNav;
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.centerX.equalTo(self.view);
             make.width.equalTo(self.view);
@@ -617,8 +622,8 @@
     else if (_showTabbar && !showTabbar) {
         self.mutiSwitch.hidden = YES;
 //        _navBackview.backgroundColor = BYColorBG;
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-        _webView.backgroundColor = [UIColor clearColor];
+//        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+//        _webView.backgroundColor = [UIColor clearColor];
         [self.webView mas_updateConstraints:^(MASConstraintMaker* make) {
             make.centerX.equalTo(self.view);
             make.width.equalTo(self.view);
@@ -663,7 +668,8 @@
     //对我们自己的地址进行分类处理
     if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
         || [preUrlString isEqualToString:@"http://m.biyao.com"]
-        || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
+        || [preUrlString isEqualToString:@"http://m.biyao.com/index"]
+        || [preUrlString isEqualToString:@"http://m.biyao.com/index/?f=ios&it=biyao"]) {
         [self.mutiSwitch setSelectedAtIndex:0];
         willShowTabbar = YES;
     }

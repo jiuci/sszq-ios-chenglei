@@ -21,7 +21,7 @@
 //#import "BYMessageVC.h"
 #import "BYAboutVC.h"
 //#import "BYMyDesignsVC.h"
-//#import "BYAddressManagelistVC.h"
+#import "BYAddressManagelistVC.h"
 #import "BYUserService.h"
 //#import "BYOrder.h"
 
@@ -30,6 +30,8 @@
 
 #import "BYBarButtonItem.h"
 #import "BYCommonWebVC.h"
+
+#import "BYAvatarSettingVC.h"
 //#import "BYtest.h"
 
 @interface BYMineVC ()
@@ -67,16 +69,19 @@
 
 - (void)updateData
 {
+    if ([BYAppCenter sharedAppCenter].isLogin) {
         [_service fetchUserLatestStatus:^(BOOL isSuccess, BYError* error) {
             if (isSuccess) {
                 [self updateUI];
             }
         }];
+    }
 }
 
 - (void)updateUI
 {
     [self.headerView updateUI];
+    [MBProgressHUD topHide];
 }
 
 - (void)setupUI
@@ -223,15 +228,23 @@
 //        BYMyDesignsVC *vc = [[BYMyDesignsVC alloc] init];
 //        [self.navigationController pushViewController:vc animated:YES];
 //    }];
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
     _exitBlk(@"http://m.biyao.com/account/myworks");
 }
 
 - (void)onAdress
 {
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-//        BYAddressManagelistVC *vc = [[BYAddressManagelistVC alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }];
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
+        BYAddressManagelistVC *vc = [[BYAddressManagelistVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
 }
 
 - (void)onOrders
@@ -242,6 +255,10 @@
 //        vc.title = @"订单查询";
 //        [self.navigationController pushViewController:vc animated:YES];
 //    }];
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
     _exitBlk(@"http://m.biyao.com/order/orderlist");
 }
 
@@ -254,6 +271,10 @@
 //        vc.titleString = @"待付款订单";
 //        [self.navigationController pushViewController:vc animated:YES];
 //    }];
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
     _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=1");
 
     
@@ -268,6 +289,10 @@
 //        vc.titleString = @"生产中订单";
 //        [self.navigationController pushViewController:vc animated:YES];
 //    }];
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
     _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=3");
 }
 
@@ -280,7 +305,11 @@
 //        vc.titleString = @"待收货订单";
 //        [self.navigationController pushViewController:vc animated:YES];
 //    }];
-    _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=2");
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=4");
 }
 
 - (void)onService
@@ -289,11 +318,24 @@
     
 }
 
+- (void)loginAction
+{
+    [self.navigationController presentViewController:makeLoginnav(nil,nil) animated:YES completion:nil];
+}
+
 - (void)onSetting
 {
     BYSettingVC* vc = [[BYSettingVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+//- (void)onAvatar
+//{
+//    BYAvatarSettingVC* vc = [[BYAvatarSettingVC alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//    
+//}
+
 BYNavVC* makeMinenav(BYMineExitBlock blk)
 {
     BYMineVC* vc = [BYMineVC sharedMineVC];

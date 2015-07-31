@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BYAddressCell"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BYAddressCell" rowHeight="90" id="KGk-i7-Jjw" customClass="BYAddressCell">
+            <rect key="frame" x="0.0" y="0.0" width="318" height="87"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBU-dH-Z1p">
+                        <rect key="frame" x="12" y="12" width="296" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="Bir-WY-nXv"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="阿斯顿发生的发顺丰的撒旦法撒旦飞洒地方阿斯顿发生的发顺丰的撒旦法撒旦飞洒地方阿斯顿发生的发顺丰的撒旦法撒旦飞洒地方" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="264" translatesAutoresizingMaskIntoConstraints="NO" id="Ot9-cM-7mr" customClass="TTTAttributedLabel">
+                        <rect key="frame" x="12" y="41" width="264" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dBU-dH-Z1p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="2LH-7X-hgl"/>
+                    <constraint firstItem="Ot9-cM-7mr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="TcZ-r5-N3q"/>
+                    <constraint firstItem="Ot9-cM-7mr" firstAttribute="top" secondItem="dBU-dH-Z1p" secondAttribute="bottom" constant="12" id="V1c-Ta-e7L"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ot9-cM-7mr" secondAttribute="bottom" constant="3" id="b87-pP-usJ"/>
+                    <constraint firstItem="dBU-dH-Z1p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="mB6-sZ-wtf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ot9-cM-7mr" secondAttribute="trailing" constant="34" id="r2c-9O-Wv4"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dBU-dH-Z1p" secondAttribute="trailing" constant="2" id="skz-yO-kfo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="addressLabel" destination="Ot9-cM-7mr" id="mex-EW-h0d"/>
+                <outlet property="receiverLabel" destination="dBU-dH-Z1p" id="EV7-F3-oQa"/>
+            </connections>
+            <point key="canvasLocation" x="504" y="280"/>
+        </tableViewCell>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

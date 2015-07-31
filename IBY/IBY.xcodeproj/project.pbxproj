@@ -223,6 +223,18 @@
 		F4D910B21B57D1B900A5BEB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */; };
 		F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
+		F4DB02B91B68AA65009DAB6F /* BYAddressManagelistVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02B71B68AA65009DAB6F /* BYAddressManagelistVC.m */; };
+		F4DB02BA1B68AA65009DAB6F /* BYAddressManagelistVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4DB02B81B68AA65009DAB6F /* BYAddressManagelistVC.xib */; };
+		F4DB02BE1B68AB8A009DAB6F /* BYAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02BC1B68AB8A009DAB6F /* BYAddressCell.m */; };
+		F4DB02BF1B68AB8A009DAB6F /* BYAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4DB02BD1B68AB8A009DAB6F /* BYAddressCell.xib */; };
+		F4DB02C31B68ABFD009DAB6F /* BYAddressDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02C11B68ABFD009DAB6F /* BYAddressDetailVC.m */; };
+		F4DB02C41B68ABFD009DAB6F /* BYAddressDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4DB02C21B68ABFD009DAB6F /* BYAddressDetailVC.xib */; };
+		F4DB02C71B68AC6A009DAB6F /* BYAddressEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02C61B68AC6A009DAB6F /* BYAddressEditCell.m */; };
+		F4DB02CA1B68AC78009DAB6F /* BYAddressDetailVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02C91B68AC78009DAB6F /* BYAddressDetailVC2.m */; };
+		F4DB02D31B68AE3F009DAB6F /* BYAddressSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02D21B68AE3F009DAB6F /* BYAddressSelectionView.m */; };
+		F4DB02D61B68AE7F009DAB6F /* BYAddressAreaSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02D51B68AE7F009DAB6F /* BYAddressAreaSelectView.m */; };
+		F4DB02D91B68AEB1009DAB6F /* BYAddressSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02D81B68AEB1009DAB6F /* BYAddressSelectCell.m */; };
+		F4DB02DF1B68BE0D009DAB6F /* BYAvatarSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02DE1B68BE0D009DAB6F /* BYAvatarSettingVC.m */; };
 		F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB83381B6605910083F9B4 /* BYMineVC.m */; };
 		F4DB83401B6605910083F9B4 /* BYMineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB833B1B6605910083F9B4 /* BYMineCell.m */; };
 		F4DB83411B6605910083F9B4 /* BYMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB833D1B6605910083F9B4 /* BYMineHeaderView.m */; };
@@ -698,6 +710,27 @@
 		F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = IBY/ThirdParty/BaiduMap/BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		F4D9325C1A59131F000E4C02 /* BYPoolNetworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPoolNetworkView.h; sourceTree = "<group>"; };
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
+		F4DB02B61B68AA65009DAB6F /* BYAddressManagelistVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressManagelistVC.h; sourceTree = "<group>"; };
+		F4DB02B71B68AA65009DAB6F /* BYAddressManagelistVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressManagelistVC.m; sourceTree = "<group>"; };
+		F4DB02B81B68AA65009DAB6F /* BYAddressManagelistVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYAddressManagelistVC.xib; sourceTree = "<group>"; };
+		F4DB02BB1B68AB8A009DAB6F /* BYAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressCell.h; sourceTree = "<group>"; };
+		F4DB02BC1B68AB8A009DAB6F /* BYAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressCell.m; sourceTree = "<group>"; };
+		F4DB02BD1B68AB8A009DAB6F /* BYAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYAddressCell.xib; sourceTree = "<group>"; };
+		F4DB02C01B68ABFD009DAB6F /* BYAddressDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressDetailVC.h; sourceTree = "<group>"; };
+		F4DB02C11B68ABFD009DAB6F /* BYAddressDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressDetailVC.m; sourceTree = "<group>"; };
+		F4DB02C21B68ABFD009DAB6F /* BYAddressDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYAddressDetailVC.xib; sourceTree = "<group>"; };
+		F4DB02C51B68AC6A009DAB6F /* BYAddressEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressEditCell.h; sourceTree = "<group>"; };
+		F4DB02C61B68AC6A009DAB6F /* BYAddressEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressEditCell.m; sourceTree = "<group>"; };
+		F4DB02C81B68AC78009DAB6F /* BYAddressDetailVC2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressDetailVC2.h; sourceTree = "<group>"; };
+		F4DB02C91B68AC78009DAB6F /* BYAddressDetailVC2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressDetailVC2.m; sourceTree = "<group>"; };
+		F4DB02D11B68AE3F009DAB6F /* BYAddressSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressSelectionView.h; sourceTree = "<group>"; };
+		F4DB02D21B68AE3F009DAB6F /* BYAddressSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressSelectionView.m; sourceTree = "<group>"; };
+		F4DB02D41B68AE7F009DAB6F /* BYAddressAreaSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressAreaSelectView.h; sourceTree = "<group>"; };
+		F4DB02D51B68AE7F009DAB6F /* BYAddressAreaSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressAreaSelectView.m; sourceTree = "<group>"; };
+		F4DB02D71B68AEB1009DAB6F /* BYAddressSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressSelectCell.h; sourceTree = "<group>"; };
+		F4DB02D81B68AEB1009DAB6F /* BYAddressSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressSelectCell.m; sourceTree = "<group>"; };
+		F4DB02DD1B68BE0D009DAB6F /* BYAvatarSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAvatarSettingVC.h; sourceTree = "<group>"; };
+		F4DB02DE1B68BE0D009DAB6F /* BYAvatarSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAvatarSettingVC.m; sourceTree = "<group>"; };
 		F4DB83371B6605910083F9B4 /* BYMineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineVC.h; sourceTree = "<group>"; };
 		F4DB83381B6605910083F9B4 /* BYMineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMineVC.m; sourceTree = "<group>"; };
 		F4DB833A1B6605910083F9B4 /* BYMineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMineCell.h; sourceTree = "<group>"; };
@@ -1621,8 +1654,18 @@
 		F4DB83361B6605910083F9B4 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				F4DB02C81B68AC78009DAB6F /* BYAddressDetailVC2.h */,
+				F4DB02C91B68AC78009DAB6F /* BYAddressDetailVC2.m */,
+				F4DB02C01B68ABFD009DAB6F /* BYAddressDetailVC.h */,
+				F4DB02C11B68ABFD009DAB6F /* BYAddressDetailVC.m */,
+				F4DB02C21B68ABFD009DAB6F /* BYAddressDetailVC.xib */,
+				F4DB02B61B68AA65009DAB6F /* BYAddressManagelistVC.h */,
+				F4DB02B71B68AA65009DAB6F /* BYAddressManagelistVC.m */,
+				F4DB02B81B68AA65009DAB6F /* BYAddressManagelistVC.xib */,
 				F4DB83371B6605910083F9B4 /* BYMineVC.h */,
 				F4DB83381B6605910083F9B4 /* BYMineVC.m */,
+				F4DB02DD1B68BE0D009DAB6F /* BYAvatarSettingVC.h */,
+				F4DB02DE1B68BE0D009DAB6F /* BYAvatarSettingVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1630,6 +1673,17 @@
 		F4DB83391B6605910083F9B4 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F4DB02D71B68AEB1009DAB6F /* BYAddressSelectCell.h */,
+				F4DB02D81B68AEB1009DAB6F /* BYAddressSelectCell.m */,
+				F4DB02D41B68AE7F009DAB6F /* BYAddressAreaSelectView.h */,
+				F4DB02D51B68AE7F009DAB6F /* BYAddressAreaSelectView.m */,
+				F4DB02D11B68AE3F009DAB6F /* BYAddressSelectionView.h */,
+				F4DB02D21B68AE3F009DAB6F /* BYAddressSelectionView.m */,
+				F4DB02C51B68AC6A009DAB6F /* BYAddressEditCell.h */,
+				F4DB02C61B68AC6A009DAB6F /* BYAddressEditCell.m */,
+				F4DB02BB1B68AB8A009DAB6F /* BYAddressCell.h */,
+				F4DB02BC1B68AB8A009DAB6F /* BYAddressCell.m */,
+				F4DB02BD1B68AB8A009DAB6F /* BYAddressCell.xib */,
 				F4DB833A1B6605910083F9B4 /* BYMineCell.h */,
 				F4DB833B1B6605910083F9B4 /* BYMineCell.m */,
 				F4DB833C1B6605910083F9B4 /* BYMineHeaderView.h */,
@@ -2185,9 +2239,11 @@
 				F42618001A2C3BEB0076B273 /* BYPaySuccessVC.xib in Resources */,
 				F41664EC1B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml in Resources */,
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
+				F4DB02C41B68ABFD009DAB6F /* BYAddressDetailVC.xib in Resources */,
 				F42618051A2C4CBD0076B273 /* BYPayFailVC.xib in Resources */,
 				F4E0076D1B0F08E100438FD5 /* BYPasswordSettingVC.xib in Resources */,
 				F4AE74881A26FA55005ED6A9 /* BYPayVC.xib in Resources */,
+				F4DB02BF1B68AB8A009DAB6F /* BYAddressCell.xib in Resources */,
 				F43114031A2C20D600FCBE45 /* Images.xcassets in Resources */,
 				F4159D7D19F247D300126BDF /* appinfo.plist in Resources */,
 				F41664EB1B2A8E8A00D91CA8 /* haarcascade_eye.xml in Resources */,
@@ -2209,6 +2265,7 @@
 				F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */,
 				F4DB83421B6605910083F9B4 /* BYMineHeaderView.xib in Resources */,
 				F4E0075C1B0F07F800438FD5 /* BYRegist3VC.xib in Resources */,
+				F4DB02BA1B68AA65009DAB6F /* BYAddressManagelistVC.xib in Resources */,
 				F4888A321A6D114A0056427E /* Readme in Resources */,
 				F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */,
 			);
@@ -2259,6 +2316,7 @@
 				F4FCC8F21A51E43500C89C1F /* BYDelivery.m in Sources */,
 				F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */,
 				F4E6858F19EE8F6B00237412 /* GTMStackTrace.m in Sources */,
+				F4DB02D91B68AEB1009DAB6F /* BYAddressSelectCell.m in Sources */,
 				CC771FA219CB3AC900E11BAE /* FMDatabase.m in Sources */,
 				F4E6B6631AB061C70022EA66 /* BYBookTurnInfo.m in Sources */,
 				F4D7E1F71A639E5500D56EA0 /* NSDateExtend.m in Sources */,
@@ -2273,6 +2331,7 @@
 				CC6AD03119D11684001FB4EA /* BYPrice.m in Sources */,
 				CC957E3F19C16FAA000700DE /* BYNavVC.m in Sources */,
 				F4E007571B0F07F800438FD5 /* BYRegist1VC.m in Sources */,
+				F4DB02B91B68AA65009DAB6F /* BYAddressManagelistVC.m in Sources */,
 				F4ED1DE61AF9B7E900639322 /* BYPayUnknowVC.m in Sources */,
 				FE14D68F19AC2289006B0E48 /* main.m in Sources */,
 				CC771F8E19CAE06000E11BAE /* BYUserService.m in Sources */,
@@ -2325,6 +2384,7 @@
 				F4DB83411B6605910083F9B4 /* BYMineHeaderView.m in Sources */,
 				F4888A391A6DB5180056427E /* BYShareUnit.m in Sources */,
 				F4D031F21AA07A4500B12739 /* BYWelcomeVC.m in Sources */,
+				F4DB02C71B68AC6A009DAB6F /* BYAddressEditCell.m in Sources */,
 				F489E43119FF6F83003C6567 /* NSNumberAdditions.m in Sources */,
 				CC771F8D19CAE06000E11BAE /* BYDesignService.m in Sources */,
 				F48C94F61A174BBA009C10A1 /* NSDictionaryExtensions.m in Sources */,
@@ -2358,8 +2418,10 @@
 				F43D4CCE1AA4037B007A8D4C /* BYWebView.m in Sources */,
 				F48D728F1A89DBB000870F3F /* UIScrollView+MJExtension.m in Sources */,
 				F4505E5D19F1181D00A12AD2 /* BYOrderProduct.m in Sources */,
+				F4DB02DF1B68BE0D009DAB6F /* BYAvatarSettingVC.m in Sources */,
 				F4733BC519C0576D001A8DBF /* BYError.m in Sources */,
 				F471CCC319F89D78000A85A2 /* BYBaseWebVC.m in Sources */,
+				F4DB02BE1B68AB8A009DAB6F /* BYAddressCell.m in Sources */,
 				F4CE62631A75B5F70072B866 /* ZLPanGestureRecognizer.m in Sources */,
 				FEC829BA19AC948200D5D70D /* BYBaseDAO.m in Sources */,
 				F467DAA81A36F39200355515 /* BYCollectionViewCell.m in Sources */,
@@ -2391,6 +2453,8 @@
 				F496C3971B317EBF00E503D8 /* BYPassportEngine.m in Sources */,
 				CC3D2E3119C03101000E0E14 /* BYNetwork.m in Sources */,
 				CC6AD05119D16AF8001FB4EA /* MBProgressHUD+Extension.m in Sources */,
+				F4DB02C31B68ABFD009DAB6F /* BYAddressDetailVC.m in Sources */,
+				F4DB02D61B68AE7F009DAB6F /* BYAddressAreaSelectView.m in Sources */,
 				F4888A3C1A6DB58F0056427E /* BYShareCenter.m in Sources */,
 				F4FD2E0E19F75F20002D5A3C /* BYMessage.m in Sources */,
 				F45A8EFF1A91E4D400D478A8 /* Reachability.m in Sources */,
@@ -2400,6 +2464,7 @@
 				F4DD81EB1B0B2ACD008D17BF /* BYGlassesMagnifier.m in Sources */,
 				F4505E4C19F0F66C00A12AD2 /* BYCartParams.m in Sources */,
 				F44EC76A1A71EA8E00C2AFF6 /* BYAnalysisConfig.m in Sources */,
+				F4DB02D31B68AE3F009DAB6F /* BYAddressSelectionView.m in Sources */,
 				CC771F8A19CAE06000E11BAE /* BYAddressService.m in Sources */,
 				F4888A2B1A6D114A0056427E /* SAKPipeSinaWeibo.m in Sources */,
 				F47E6FA81A11FDD300304F46 /* BYMerchantService.m in Sources */,
@@ -2430,6 +2495,7 @@
 				F4818DE71AFC99A20023C0A6 /* BYGlassesAnimateView.m in Sources */,
 				F47747FD1A6E3C13008BF3FC /* BYInvoice.m in Sources */,
 				F4C77D161A2DA996005EADA0 /* UIViewExtend.m in Sources */,
+				F4DB02CA1B68AC78009DAB6F /* BYAddressDetailVC2.m in Sources */,
 				F458D1371A0A02E700353180 /* BYEditingData.m in Sources */,
 				CC957E6A19C19368000700DE /* BYBanner.m in Sources */,
 				F4D7E9C91A2860710003AB33 /* BYWebPayVC.m in Sources */,

@@ -25,6 +25,8 @@
                 //无论结果如何，不处理，不显示
             }];
             
+            [[BYAppCenter sharedAppCenter] uploadToken:nil];
+            
         }else{
             finished(user,error);
         }
@@ -69,6 +71,8 @@
             [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                 //无论结果如何，不处理，不显示
             }];
+            
+            [[BYAppCenter sharedAppCenter] uploadToken:nil];
         }else{
             finished(user,error);
         }
@@ -128,6 +132,9 @@
                 [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                     //无论结果如何，不处理，不显示
                 }];
+                
+                [[BYAppCenter sharedAppCenter] uploadToken:nil];
+                
                 if (loginVC.successBlk) {
 //                    [MBProgressHUD topShow:@"登录成功!"];
                     loginVC.successBlk();

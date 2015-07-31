@@ -20,6 +20,9 @@ typedef void (^BYMineExitBlock)(NSString* jumpUrlString);
 - (void)onInProcessOrders;
 
 - (void)onToDeliverConfirmOrders;
+
+- (void)onAvatar;
+
 @end
 
 BYNavVC* makeMinenav(BYMineExitBlock blk);

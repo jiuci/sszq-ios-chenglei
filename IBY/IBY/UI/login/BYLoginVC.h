@@ -20,6 +20,7 @@ typedef void (^BYLoginCancelBlock)();
 @property (nonatomic, copy) BYLoginCancelBlock cancelBlk;
 @property (strong, nonatomic) UITextField* userTextField;
 @property (assign, nonatomic) BYAppDelegate* appDelegate;
+@property (assign, nonatomic) BOOL showThirdPartyLogin;
 + (instancetype)sharedLoginVC;
 - (void)clearData;
 @end

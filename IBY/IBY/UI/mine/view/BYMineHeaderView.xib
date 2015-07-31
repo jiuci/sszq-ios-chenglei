@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,13 +19,6 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="68" id="hvS-lb-P52"/>
                         <constraint firstAttribute="width" constant="68" id="yqg-92-q2B"/>
-                    </constraints>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user_default" translatesAutoresizingMaskIntoConstraints="NO" id="1IK-8a-q13" customClass="BYImageView">
-                    <rect key="frame" x="130" y="15" width="60" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="AST-Kf-kUY"/>
-                        <constraint firstAttribute="width" constant="60" id="Keu-9g-sbE"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vk1-LJ-QMj" userLabel="login——View">
@@ -62,6 +55,13 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_user_default" translatesAutoresizingMaskIntoConstraints="NO" id="1IK-8a-q13" customClass="BYImageView">
+                    <rect key="frame" x="130" y="16" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="AST-Kf-kUY"/>
+                        <constraint firstAttribute="width" constant="60" id="Keu-9g-sbE"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.97254901960784312" green="0.95686274509803926" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -89,7 +89,7 @@
                 <outlet property="userIcon" destination="1IK-8a-q13" id="K6p-Y1-ov1"/>
                 <outlet property="userName" destination="ShA-0U-MVt" id="7vC-9o-R3d"/>
             </connections>
-            <point key="canvasLocation" x="631" y="456"/>
+            <point key="canvasLocation" x="281" y="303"/>
         </view>
     </objects>
     <resources>

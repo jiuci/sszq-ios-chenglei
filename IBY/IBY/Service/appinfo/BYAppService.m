@@ -27,7 +27,7 @@
 
 - (void)uploadToken:(NSString*)token finished:(void (^)(BOOL success, BYError* error))finished
 {
-    NSString* url = @"/apppush/token/put";
+    NSString* url = @"/apppush/token/put";  
     NSDictionary* params = @{
         @"pushtoken" : token,
         @"enable" : @(1)
