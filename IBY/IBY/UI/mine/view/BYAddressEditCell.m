@@ -94,9 +94,12 @@ BYTextField* addressEditTxtfield(NSString* placeholder, id<UITextFieldDelegate> 
     return txtFeild;
 }
 
+
+
 UILabel* addressEditLabel(NSString* initString)
 {
     UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, 230, 40) font:Font(14) andTextColor:BYColor333];
+    label.numberOfLines = 0;
     label.textAlignment = NSTextAlignmentLeft;
     label.text = initString;
     return label;

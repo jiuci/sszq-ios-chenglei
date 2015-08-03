@@ -25,11 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITextField* receiverTextField;
 @property (weak, nonatomic) IBOutlet UITextField* phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField* detailaddressTextFiled;
-@property (weak, nonatomic) IBOutlet UITextField* zipcodeTextField;
 
 @property (weak, nonatomic) IBOutlet UITextField* provinceTextField;
-@property (weak, nonatomic) IBOutlet UITextField* cityTextField;
-@property (weak, nonatomic) IBOutlet UITextField* areaTextField;
 @property (weak, nonatomic) IBOutlet UIButton* isdefaultButton;
 @property (weak, nonatomic) IBOutlet UIImageView* defaultImageView;
 
@@ -38,8 +35,8 @@
 - (id)initWithData:(BYAddress*)data;
 
 - (IBAction)selectProvince:(id)sender;
-- (IBAction)selectCity:(id)sender;
-- (IBAction)selectArea:(id)sender;
+//- (IBAction)selectCity:(id)sender;
+//- (IBAction)selectArea:(id)sender;
 - (IBAction)changeClick:(id)sender;
 - (IBAction)isdefaultClick:(id)sender;
 

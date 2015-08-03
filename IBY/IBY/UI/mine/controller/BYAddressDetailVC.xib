@@ -8,8 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BYAddressDetailVC">
             <connections>
                 <outlet property="addressView" destination="3gD-CA-Lmu" id="piz-ZJ-g1d"/>
-                <outlet property="areaTextField" destination="ujb-Uj-W5n" id="Cii-cu-pTM"/>
-                <outlet property="cityTextField" destination="ao5-DB-jwe" id="vfw-WP-JIQ"/>
                 <outlet property="defaultImageView" destination="jIq-Ye-K2v" id="eqG-Th-H26"/>
                 <outlet property="detailaddressTextFiled" destination="swi-fw-vlj" id="lvS-PN-93L"/>
                 <outlet property="isdefaultButton" destination="eny-62-Av4" id="KL9-6z-j7R"/>
@@ -17,7 +15,6 @@
                 <outlet property="provinceTextField" destination="ZbM-K5-8hJ" id="mu9-Ha-RrA"/>
                 <outlet property="receiverTextField" destination="a15-gG-2ba" id="9gv-SA-05y"/>
                 <outlet property="view" destination="OQk-QU-0vm" id="fgp-J0-9xJ"/>
-                <outlet property="zipcodeTextField" destination="wNT-4z-M1Q" id="HcR-aD-YxY"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gD-CA-Lmu" userLabel="detailView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gD-CA-Lmu" userLabel="detailView">
                     <rect key="frame" x="0.0" y="16" width="320" height="287"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="收货人：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UcJ-Wd-SUP">
@@ -41,13 +38,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="详细地址：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeS-bF-LWi">
-                            <rect key="frame" x="12" y="216" width="82" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="邮政编码：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6re-Dt-d3A">
-                            <rect key="frame" x="12" y="260" width="82" height="18"/>
+                            <rect key="frame" x="12" y="131" width="82" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -64,19 +55,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="swi-fw-vlj" userLabel="addressTextField">
-                            <rect key="frame" x="100" y="212" width="208" height="30"/>
-                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wNT-4z-M1Q" userLabel="zipcodeTextField">
-                            <rect key="frame" x="100" y="253" width="208" height="30"/>
-                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="省份 ：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPh-XO-kSU">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="所在地区：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPh-XO-kSU">
                             <rect key="frame" x="12" y="94" width="82" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -88,48 +67,6 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="城市：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GO6-NI-MMS">
-                            <rect key="frame" x="12" y="134" width="82" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="请选择" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ao5-DB-jwe" userLabel="City Text Field - ——">
-                            <rect key="frame" x="100" y="128" width="208" height="30"/>
-                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ttK-E7-85d" userLabel="cityButton">
-                            <rect key="frame" x="100" y="128" width="208" height="30"/>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="selectCity:" destination="-1" eventType="touchUpInside" id="LwF-rk-e7a"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="区县：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auc-fv-Hur">
-                            <rect key="frame" x="12" y="175" width="82" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="请选择" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ujb-Uj-W5n" userLabel="Area Text Field - ——">
-                            <rect key="frame" x="100" y="169" width="208" height="30"/>
-                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Muh-CS-Z8o" userLabel="areaButton">
-                            <rect key="frame" x="100" y="169" width="208" height="30"/>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="selectArea:" destination="-1" eventType="touchUpInside" id="hXT-Zl-d0u"/>
-                            </connections>
-                        </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line_common" translatesAutoresizingMaskIntoConstraints="NO" id="NnL-af-Zy0" userLabel="Image View1">
                             <rect key="frame" x="0.0" y="40" width="320" height="1"/>
                         </imageView>
@@ -139,17 +76,8 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line_common" translatesAutoresizingMaskIntoConstraints="NO" id="g9S-ob-6BN" userLabel="Image View3">
                             <rect key="frame" x="0.0" y="122" width="320" height="1"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line_common" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-J3-XzM" userLabel="Image View4">
-                            <rect key="frame" x="0.0" y="163" width="320" height="1"/>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line_common" translatesAutoresizingMaskIntoConstraints="NO" id="nYS-oH-2CG" userLabel="Image View5">
-                            <rect key="frame" x="0.0" y="204" width="320" height="1"/>
-                        </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line_common" translatesAutoresizingMaskIntoConstraints="NO" id="hMB-EF-4hm" userLabel="Image View6">
-                            <rect key="frame" x="0.0" y="245" width="320" height="1"/>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line_common" translatesAutoresizingMaskIntoConstraints="NO" id="lW2-su-mtQ" userLabel="Image View7">
-                            <rect key="frame" x="0.0" y="286" width="320" height="1"/>
+                            <rect key="frame" x="0.0" y="160" width="320" height="1"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cg2-gY-A5X" userLabel="provinceButton">
                             <rect key="frame" x="100" y="87" width="208" height="30"/>
@@ -160,17 +88,50 @@
                                 <action selector="selectProvince:" destination="-1" eventType="touchUpInside" id="INr-ec-M9f"/>
                             </connections>
                         </button>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="swi-fw-vlj" userLabel="addressTextField">
+                            <rect key="frame" x="100" y="129" width="208" height="30"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="287" id="4CN-IV-5Lq"/>
-                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obu-o2-dm8" userLabel="bottonView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obu-o2-dm8" userLabel="bottonView">
                     <rect key="frame" x="0.0" y="428" width="320" height="52"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ig-Tz-kid" userLabel="bottonView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eny-62-Av4">
+                            <rect key="frame" x="40" y="16" width="100" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="设为默认地址">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="isdefaultClick:" destination="-1" eventType="touchUpInside" id="Aab-Qi-Rzz"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_checkbox" highlightedImage="icon_checkbox_on" translatesAutoresizingMaskIntoConstraints="NO" id="jIq-Ye-K2v">
+                            <rect key="frame" x="12" y="18" width="16" height="16"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_btn_default.9" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-ay-1pJ">
+                            <rect key="frame" x="228" y="4" width="80" height="44"/>
+                            <rect key="contentStretch" x="0.20000000000000001" y="0.20000000000000001" width="0.59999999999999964" height="0.59999999999999964"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l98-Rd-V42">
+                            <rect key="frame" x="228" y="4" width="80" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <rect key="contentStretch" x="0.15000000000000002" y="0.20000000000000001" width="0.64999999999999969" height="0.59999999999999964"/>
+                            <state key="normal" title="确认">
+                                <color key="titleColor" red="0.96078437569999997" green="0.96078437569999997" blue="0.96078437569999997" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="changeClick:" destination="-1" eventType="touchUpInside" id="yBg-Im-H8q"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ig-Tz-kid" userLabel="bottonView">
+                            <rect key="frame" x="0.0" y="-428" width="0.0" height="52"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cad-jn-YpM">
                                     <rect key="frame" x="40" y="16" width="100" height="20"/>
@@ -204,56 +165,12 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.95751596719999998" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="52" id="tsH-vh-FXf"/>
-                            </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eny-62-Av4">
-                            <rect key="frame" x="40" y="16" width="100" height="20"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <state key="normal" title="设为默认地址">
-                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="isdefaultClick:" destination="-1" eventType="touchUpInside" id="Aab-Qi-Rzz"/>
-                            </connections>
-                        </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_checkbox" highlightedImage="icon_checkbox_on" translatesAutoresizingMaskIntoConstraints="NO" id="jIq-Ye-K2v">
-                            <rect key="frame" x="12" y="18" width="16" height="16"/>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_btn_default.9" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-ay-1pJ">
-                            <rect key="frame" x="228" y="4" width="80" height="44"/>
-                            <rect key="contentStretch" x="0.20000000000000001" y="0.20000000000000001" width="0.59999999999999964" height="0.59999999999999964"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l98-Rd-V42">
-                            <rect key="frame" x="228" y="4" width="80" height="44"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <rect key="contentStretch" x="0.15000000000000002" y="0.20000000000000001" width="0.64999999999999969" height="0.59999999999999964"/>
-                            <state key="normal" title="确认">
-                                <color key="titleColor" red="0.96078437569999997" green="0.96078437569999997" blue="0.96078437569999997" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="changeClick:" destination="-1" eventType="touchUpInside" id="yBg-Im-H8q"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.9575159671532848" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="52" id="C4L-Fh-6Hy"/>
-                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="3gD-CA-Lmu" secondAttribute="trailing" id="26m-ho-pXW"/>
-                <constraint firstItem="3gD-CA-Lmu" firstAttribute="leading" secondItem="OQk-QU-0vm" secondAttribute="leading" id="WXP-gp-VHs"/>
-                <constraint firstAttribute="bottom" secondItem="Obu-o2-dm8" secondAttribute="bottom" id="fKn-xs-BGb"/>
-                <constraint firstAttribute="trailing" secondItem="Obu-o2-dm8" secondAttribute="trailing" id="fx3-8L-NoG"/>
-                <constraint firstItem="3gD-CA-Lmu" firstAttribute="top" secondItem="OQk-QU-0vm" secondAttribute="top" constant="16" id="iPU-gH-V82"/>
-                <constraint firstItem="Obu-o2-dm8" firstAttribute="leading" secondItem="OQk-QU-0vm" secondAttribute="leading" id="x3g-gb-vfo"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="427" y="283"/>

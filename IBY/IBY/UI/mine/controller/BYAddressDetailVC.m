@@ -120,37 +120,37 @@
     }
 }
 
-- (IBAction)selectArea:(id)sender
-{
-    [self.view endEditing:YES];
-    NSLog(@"%@", _provinceTextField.text);
-    if ([_provinceTextField.text isEqualToString:@"请选择"] || [_cityTextField.text isEqualToString:@"请选择"]) {
-        [MBProgressHUD topShowTmpMessage:@"请先选择省和城市"];
-        return;
-    }
-
-    if (_selectedCity) {
-        [self.addressService fetchAreaListByCityId:[_selectedCity.cityId intValue] finish:^(NSArray* areaList, BYError* error) {
-            if(error){
-                alertError(error);
-            }else{
-                if(!areaList || areaList.count == 0){
-                    [MBProgressHUD topShowTmpMessage:@"获取区域信息时出现问题"];
-                }else{
-                    [self.showList removeAllObjects];
-                    [self.showList addObjectsFromArray:areaList];
-                    [self.selectionView updateData:self.showList];
-                    [self.view endEditing:YES];
-                    [self.selectionView showInView:self.view];
-                    //[self.pickerView reloadAllComponents];
-                }
-                
-            }
-        }];
-    }
-    else {
-    }
-}
+//- (IBAction)selectArea:(id)sender
+//{
+//    [self.view endEditing:YES];
+//    NSLog(@"%@", _provinceTextField.text);
+//    if ([_provinceTextField.text isEqualToString:@"请选择"] || [_cityTextField.text isEqualToString:@"请选择"]) {
+//        [MBProgressHUD topShowTmpMessage:@"请先选择省和城市"];
+//        return;
+//    }
+//
+//    if (_selectedCity) {
+//        [self.addressService fetchAreaListByCityId:[_selectedCity.cityId intValue] finish:^(NSArray* areaList, BYError* error) {
+//            if(error){
+//                alertError(error);
+//            }else{
+//                if(!areaList || areaList.count == 0){
+//                    [MBProgressHUD topShowTmpMessage:@"获取区域信息时出现问题"];
+//                }else{
+//                    [self.showList removeAllObjects];
+//                    [self.showList addObjectsFromArray:areaList];
+//                    [self.selectionView updateData:self.showList];
+//                    [self.view endEditing:YES];
+//                    [self.selectionView showInView:self.view];
+//                    //[self.pickerView reloadAllComponents];
+//                }
+//                
+//            }
+//        }];
+//    }
+//    else {
+//    }
+//}
 
 - (IBAction)changeClick:(id)sender
 {
@@ -167,7 +167,7 @@
                                                  receiver:self.receiverTextField.text
                                                     phone:self.phoneTextField.text
                                                 isdefault:self.isdefault
-                                                  zipcode:self.zipcodeTextField.text
+                                                  zipcode:nil
                                                    finish:^(BYError* error) {
                  if(error){
                      [MBProgressHUD hideHUD];
@@ -180,7 +180,7 @@
                                                    }];
         }
         else {
-            [self.addressService addAddressByAddress:self.detailaddressTextFiled.text areaId:self.selectedArea.areaId receiver:self.receiverTextField.text phone:self.phoneTextField.text isdefault:self.isdefault zipcode:self.zipcodeTextField.text finish:^(NSNumber* addressId, BYError* error) {
+            [self.addressService addAddressByAddress:self.detailaddressTextFiled.text areaId:self.selectedArea.areaId receiver:self.receiverTextField.text phone:self.phoneTextField.text isdefault:self.isdefault zipcode:nil finish:^(NSNumber* addressId, BYError* error) {
                 if(error){
                     [MBProgressHUD topShowTmpMessage:@"新建地址失败"];
                 }else{
@@ -237,11 +237,7 @@
         [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
         return NO;
     }
-    else if ([self.zipcodeTextField.text isEqual:@""]) {
-        [MBProgressHUD topShowTmpMessage:@"请填写邮政编码"];
-        return NO;
-    }
-    else if ([self.provinceTextField.text isEqual:@""] || [self.cityTextField.text isEqual:@""] || [self.areaTextField.text isEqual:@""]) {
+    else if ([self.provinceTextField.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请选择省，市或者地区"];
         return NO;
     }
@@ -279,7 +275,6 @@
 - (void)update:(BYAddress*)data
 {
     self.phoneTextField.delegate = self;
-    self.zipcodeTextField.delegate = self;
     [self.defaultImageView addTapAction:@selector(defaultTap) target:self];
 
     if (data) {
@@ -287,13 +282,12 @@
         self.receiverTextField.text = data.receiver;
         self.phoneTextField.text = data.phone;
         self.detailaddressTextFiled.text = data.address;
-        self.zipcodeTextField.text = data.zipcode;
         self.selectedProvince = data.province;
         self.selectedCity = data.city;
         self.selectedArea = data.area;
         self.provinceTextField.text = self.selectedProvince.provinceName;
-        self.cityTextField.text = self.selectedCity.cityName;
-        self.areaTextField.text = self.selectedArea.areaName;
+//        self.cityTextField.text = self.selectedCity.cityName;
+//        self.areaTextField.text = self.selectedArea.areaName;
         if (self.isdefault == 1) {
             self.isdefaultButton.alpha = 0.35;
             self.defaultImageView.image = [UIImage imageNamed:@"icon_checkbox_on"];
@@ -348,16 +342,10 @@
 - (void)textFieldDidEndEditing:(UITextField*)textField
 {
     NSLog(@"have ended editing!");
-    if (textField == self.phoneTextField) {
-        if (![self isMobilePhoneNumber:self.phoneTextField.text]) {
-            [MBProgressHUD topShowTmpMessage:@"请输入11位手机号"];
-        }
+    if (![self isMobilePhoneNumber:self.phoneTextField.text]) {
+        [MBProgressHUD topShowTmpMessage:@"请输入11位手机号"];
     }
-    else if (textField == self.zipcodeTextField) {
-        if (![self isZipcode:self.zipcodeTextField.text]) {
-            [MBProgressHUD topShowTmpMessage:@"请填写6位邮政编码"];
-        }
-    }
+    
 }
 - (void)didSelect:(id)selectedData
 {
@@ -366,20 +354,20 @@
         _selectedCity = nil;
         _selectedArea = nil;
         self.provinceTextField.text = _selectedProvince.provinceName;
-        self.cityTextField.text = @"";
-        self.areaTextField.text = @"";
+//        self.cityTextField.text = @"";
+//        self.areaTextField.text = @"";
         [self.selectionView hide];
     }
     else if ([selectedData isKindOfClass:[BYCity class]]) {
         _selectedCity = selectedData;
         _selectedArea = nil;
-        self.cityTextField.text = _selectedCity.cityName;
-        self.areaTextField.text = @"";
+//        self.cityTextField.text = _selectedCity.cityName;
+//        self.areaTextField.text = @"";
         [self.selectionView hide];
     }
     else {
         _selectedArea = selectedData;
-        self.areaTextField.text = _selectedArea.areaName;
+//        self.areaTextField.text = _selectedArea.areaName;
         [self.selectionView hide];
     }
 }

@@ -21,8 +21,8 @@ static NSString* cellId = @"BYAddressSelectCell";
 @property (nonatomic, strong) UIView* mainView;
 @property (nonatomic, strong) UITableView* selectTableView;
 @property (nonatomic, strong) BYAddressService* addressService;
-@property (nonatomic, strong) UIButton* lastButton;
-@property (nonatomic, strong) UIButton* nextButton;
+//@property (nonatomic, strong) UIButton* lastButton;
+//@property (nonatomic, strong) UIButton* nextButton;
 
 @property (nonatomic, strong) NSMutableArray* showList;
 @property (nonatomic, assign) int selectedProvinceId;
@@ -68,10 +68,10 @@ static NSString* cellId = @"BYAddressSelectCell";
 {
 
     _mainView = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 270, 290)];
-    _mainView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    _mainView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - (SCREEN_HEIGHT - self.height) / 2);
     _mainView.size = CGSizeMake(270, 290);
     [self addSubview:_mainView];
-
+    
     UIImageView* backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _mainView.width, _mainView.height)];
     backImageView.image = [[UIImage imageNamed:@"icon_address_background"] resizableImage];
     [_mainView addSubview:backImageView];
@@ -105,34 +105,34 @@ static NSString* cellId = @"BYAddressSelectCell";
     [_mainView addSubview:cancelButton];
 
     // 上一步和下一步按钮
-    _lastButton = [[UIButton alloc] initWithFrame:CGRectMake(15, _selectTableView.bottom + 9, 112, 44)];
-    [_lastButton setBackgroundImage:[[UIImage imageNamed:@"bg_frame_size_default"] resizableImage] forState:UIControlStateNormal];
-    [_lastButton setTitle:@"上一步" forState:UIControlStateNormal];
-    _lastButton.titleLabel.font = Font(16);
-    [_lastButton setTitleColor:BYColor999 forState:UIControlStateNormal];
-    [_lastButton addTarget:self action:@selector(lastStepClick) forControlEvents:UIControlEventTouchUpInside];
-    [_mainView addSubview:_lastButton];
-
-    _nextButton = [[UIButton alloc] initWithFrame:CGRectMake(_lastButton.right + 16, _selectTableView.bottom + 9, 112, 44)];
-    [_nextButton setBackgroundImage:[[UIImage imageNamed:@"btn_red"] resizableImage] forState:UIControlStateNormal];
-    [_nextButton setTitle:@"下一步" forState:UIControlStateNormal];
-    _nextButton.titleLabel.font = Font(16);
-    [_nextButton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-    [_nextButton addTarget:self action:@selector(nextStepClick) forControlEvents:UIControlEventTouchUpInside];
-    [_mainView addSubview:_nextButton];
+//    _lastButton = [[UIButton alloc] initWithFrame:CGRectMake(15, _selectTableView.bottom + 9, 112, 44)];
+//    [_lastButton setBackgroundImage:[[UIImage imageNamed:@"bg_frame_size_default"] resizableImage] forState:UIControlStateNormal];
+//    [_lastButton setTitle:@"上一步" forState:UIControlStateNormal];
+//    _lastButton.titleLabel.font = Font(16);
+//    [_lastButton setTitleColor:BYColor999 forState:UIControlStateNormal];
+//    [_lastButton addTarget:self action:@selector(lastStepClick) forControlEvents:UIControlEventTouchUpInside];
+//    [_mainView addSubview:_lastButton];
+//
+//    _nextButton = [[UIButton alloc] initWithFrame:CGRectMake(_lastButton.right + 16, _selectTableView.bottom + 9, 112, 44)];
+//    [_nextButton setBackgroundImage:[[UIImage imageNamed:@"btn_red"] resizableImage] forState:UIControlStateNormal];
+//    [_nextButton setTitle:@"下一步" forState:UIControlStateNormal];
+//    _nextButton.titleLabel.font = Font(16);
+//    [_nextButton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+//    [_nextButton addTarget:self action:@selector(nextStepClick) forControlEvents:UIControlEventTouchUpInside];
+//    [_mainView addSubview:_nextButton];
 }
 
 - (void)buttonMatch
 {
-    if (_marker == BYAddressTypeProvince) {
-        _nextButton.frame = CGRectMake(15, _selectTableView.bottom + 9, 240, 44);
-    }
-    else {
-        _nextButton.frame = CGRectMake(_lastButton.right + 16, _selectTableView.bottom + 9, 112, 44);
-    }
+//    if (_marker == BYAddressTypeProvince) {
+//        _nextButton.frame = CGRectMake(15, _selectTableView.bottom + 9, 240, 44);
+//    }
+//    else {
+//        _nextButton.frame = CGRectMake(_lastButton.right + 16, _selectTableView.bottom + 9, 112, 44);
+//    }
 }
 
-#pragma 按钮相应方法
+#pragma mark 按钮相应方法
 
 - (void)dismissClick
 {
@@ -166,8 +166,8 @@ static NSString* cellId = @"BYAddressSelectCell";
 
     switch (mark) {
     case BYAddressTypeProvince: {
-        _nextButton.userInteractionEnabled = NO;
-        _lastButton.userInteractionEnabled = NO;
+//        _nextButton.userInteractionEnabled = NO;
+//        _lastButton.userInteractionEnabled = NO;
         [self.addressService fetchProvinceList:^(NSArray* provinceList, BYError* error) {
             if(error){
                 alertError(error);
@@ -177,9 +177,9 @@ static NSString* cellId = @"BYAddressSelectCell";
                 }else{
                     [self.showList removeAllObjects];
                     [self.showList addObjectsFromArray:provinceList];
-                    if (!_selectedProvince) {
-                        _selectedProvince = _showList[0];
-                    }
+//                    if (!_selectedProvince) {
+//                        _selectedProvince = _showList[0];
+//                    }
                     [_selectTableView reloadData];
                     runBlockAfterDelay(0.3, ^{
                         for (int i = 0; i < _showList.count; i++) {
@@ -191,8 +191,8 @@ static NSString* cellId = @"BYAddressSelectCell";
                                 continue;
                             }
                         }
-                        _nextButton.userInteractionEnabled = YES;
-                        _lastButton.userInteractionEnabled = YES;
+//                        _nextButton.userInteractionEnabled = YES;
+//                        _lastButton.userInteractionEnabled = YES;
                     });
                 }
             }
@@ -202,8 +202,8 @@ static NSString* cellId = @"BYAddressSelectCell";
 
     break;
     case BYAddressTypeCity: {
-        _nextButton.userInteractionEnabled = NO;
-        _lastButton.userInteractionEnabled = NO;
+//        _nextButton.userInteractionEnabled = NO;
+//        _lastButton.userInteractionEnabled = NO;
         [self.addressService fetchCityListByProvinceId:[_selectedProvince.provinceId intValue] finish:^(NSArray* cityList, BYError* error) {
                 if(error){
                     alertError(error);
@@ -227,8 +227,8 @@ static NSString* cellId = @"BYAddressSelectCell";
                                     continue;
                                 }
                             }
-                            _nextButton.userInteractionEnabled = YES;
-                            _lastButton.userInteractionEnabled = YES;
+//                            _nextButton.userInteractionEnabled = YES;
+//                            _lastButton.userInteractionEnabled = YES;
                         }) ;
                         
                         
@@ -241,8 +241,8 @@ static NSString* cellId = @"BYAddressSelectCell";
     } break;
 
     case BYAddressTypeArea: {
-        _nextButton.userInteractionEnabled = NO;
-        _lastButton.userInteractionEnabled = NO;
+//        _nextButton.userInteractionEnabled = NO;
+//        _lastButton.userInteractionEnabled = NO;
         [self.addressService fetchAreaListByCityId:[_selectedCity.cityId intValue] finish:^(NSArray* areaList, BYError* error) {
                 if(error){
                     alertError(error);
@@ -267,8 +267,8 @@ static NSString* cellId = @"BYAddressSelectCell";
                                     continue;
                                 }
                             }
-                            _nextButton.userInteractionEnabled = YES;
-                            _lastButton.userInteractionEnabled = YES;
+//                            _nextButton.userInteractionEnabled = YES;
+//                            _lastButton.userInteractionEnabled = YES;
                         });
                         
                         
@@ -282,7 +282,7 @@ static NSString* cellId = @"BYAddressSelectCell";
     }
 }
 
-#pragma 默认方法
+#pragma mark 默认方法
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
@@ -378,6 +378,7 @@ static NSString* cellId = @"BYAddressSelectCell";
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     //[tableView reloadData];
+    [self nextStepClick];
 }
 
 @end

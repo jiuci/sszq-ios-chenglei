@@ -21,10 +21,10 @@
 @property (nonatomic, strong) BYTextField* receiverTxtfield;
 @property (nonatomic, strong) BYTextField* phoneTxtfield;
 @property (nonatomic, strong) BYTextField* addressDetailTxtfield;
-@property (nonatomic, strong) BYTextField* zipcodeTxtfield;
+//@property (nonatomic, strong) BYTextField* zipcodeTxtfield;
 @property (nonatomic, strong) UILabel* provinceLabel;
-@property (nonatomic, strong) UILabel* cityLabel;
-@property (nonatomic, strong) UILabel* areaLabel;
+//@property (nonatomic, strong) UILabel* cityLabel;
+//@property (nonatomic, strong) UILabel* areaLabel;
 @property (nonatomic, strong) BYAddressEditFooter* footer;
 
 @property (nonatomic, strong) BYAddressService* service;
@@ -105,14 +105,14 @@
         [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
         return NO;
     }
-    if ([self.zipcodeTxtfield.text isEqual:@""]) {
-        [MBProgressHUD topShowTmpMessage:@"请填写邮政编码"];
-        return NO;
-    }
-    if (![self.zipcodeTxtfield.text isZipcode]) {
-        [MBProgressHUD topShowTmpMessage:@"请填写6位邮政编码"];
-        return NO;
-    }
+//    if ([self.zipcodeTxtfield.text isEqual:@""]) {
+//        [MBProgressHUD topShowTmpMessage:@"请填写邮政编码"];
+//        return NO;
+//    }
+//    if (![self.zipcodeTxtfield.text isZipcode]) {
+//        [MBProgressHUD topShowTmpMessage:@"请填写6位邮政编码"];
+//        return NO;
+//    }
 
     if (!_address.province || !_address.city || !_address.area) {
         [MBProgressHUD topShowTmpMessage:@"请选择省，市或者地区"];
@@ -131,7 +131,7 @@
     _address.receiver = self.receiverTxtfield.text;
     _address.phone = self.phoneTxtfield.text;
     _address.address = self.addressDetailTxtfield.text;
-    _address.zipcode = self.zipcodeTxtfield.text;
+//    _address.zipcode = self.zipcodeTxtfield.text;
 
     __weak BYAddressDetailVC2* wself = self;
 
@@ -195,7 +195,7 @@
         [MBProgressHUD topShowTmpMessage:@"请先选择省份"];
         return;
     }
-    NSLog(@"djahd = %@", _provinceLabel.text);
+//    NSLog(@"djahd = %@", _provinceLabel.text);
     [_selectView showInfoByMark:BYAddressTypeCity];
     [_selectView showInView:self.view];
 }
@@ -203,21 +203,21 @@
 - (void)onArea
 {
 
-    if ([_provinceLabel.text isEqualToString:@"请选择"]) {
-        [MBProgressHUD topShowTmpMessage:@"请先选择省份"];
-        return;
-    }
-    if ([_cityLabel.text isEqualToString:@"请选择"]) {
-        [MBProgressHUD topShowTmpMessage:@"请先选择城市"];
-        return;
-    }
-    [_selectView showInfoByMark:BYAddressTypeArea];
-    [_selectView showInView:self.view];
+//    if ([_provinceLabel.text isEqualToString:@"请选择"]) {
+//        [MBProgressHUD topShowTmpMessage:@"请先选择省份"];
+//        return;
+//    }
+//    if ([_cityLabel.text isEqualToString:@"请选择"]) {
+//        [MBProgressHUD topShowTmpMessage:@"请先选择城市"];
+//        return;
+//    }
+//    [_selectView showInfoByMark:BYAddressTypeArea];
+//    [_selectView showInView:self.view];
 }
 
 - (void)didSelect:(id)selectedData
 {
-    if ([selectedData isKindOfClass:[BYProvince class]]) {
+//    if ([selectedData isKindOfClass:[BYProvince class]]) {
         BYProvince* province = selectedData;
 
         _provinceLabel.text = province.provinceName;
@@ -225,21 +225,21 @@
         _address.area = nil;
         _address.province = selectedData;
         [self updateUI];
-    }
-    else if ([selectedData isKindOfClass:[BYCity class]]) {
-        BYCity* city = selectedData;
-
-        _cityLabel.text = city.cityName;
-        _address.area = nil;
-        _address.city = selectedData;
-        [self updateUI];
-    }
-    else {
-        BYArea* area = selectedData;
-        _areaLabel.text = area.areaName;
-        _address.area = selectedData;
-        [self updateUI];
-    }
+//    }
+//    else if ([selectedData isKindOfClass:[BYCity class]]) {
+//        BYCity* city = selectedData;
+//
+//        _cityLabel.text = city.cityName;
+//        _address.area = nil;
+//        _address.city = selectedData;
+//        [self updateUI];
+//    }
+//    else {
+//        BYArea* area = selectedData;
+//        _areaLabel.text = area.areaName;
+//        _address.area = selectedData;
+//        [self updateUI];
+//    }
 }
 
 #pragma mark -
@@ -285,14 +285,14 @@
     else if ([textField isEqual:_addressDetailTxtfield]) {
         _address.address = textField.text;
     }
-    else if ([textField isEqual:_zipcodeTxtfield]) {
-        if ([textField.text isZipcode]) {
-            _address.zipcode = textField.text;
-        }
-        else {
-            [MBProgressHUD topShowTmpMessage:@"请填写6位邮政编码"];
-        }
-    }
+//    else if ([textField isEqual:_zipcodeTxtfield]) {
+//        if ([textField.text isZipcode]) {
+//            _address.zipcode = textField.text;
+//        }
+//        else {
+//            [MBProgressHUD topShowTmpMessage:@"请填写6位邮政编码"];
+//        }
+//    }
 }
 
 #pragma mark -
@@ -313,27 +313,27 @@
     [self.bodyView by_addSubview:cell2 paddingTop:0];
 
     _provinceLabel = addressEditLabel(@"请选择");
-    BYAddressEditCell* cell3 = [BYAddressEditCell editCellWithTitle:@"省份:" input:_provinceLabel];
+    BYAddressEditCell* cell3 = [BYAddressEditCell editCellWithTitle:@"所在地区:" input:_provinceLabel];
     [cell3 addTarget:self action:@selector(onProvince) forControlEvents:UIControlEventTouchUpInside];
     [self.bodyView by_addSubview:cell3 paddingTop:0];
 
-    _cityLabel = addressEditLabel(@"请选择");
-    BYAddressEditCell* cell4 = [BYAddressEditCell editCellWithTitle:@"城市:" input:_cityLabel];
-    [cell4 addTarget:self action:@selector(onCity) forControlEvents:UIControlEventTouchUpInside];
-    [self.bodyView by_addSubview:cell4 paddingTop:0];
-
-    _areaLabel = addressEditLabel(@"请选择");
-    BYAddressEditCell* cell5 = [BYAddressEditCell editCellWithTitle:@"区域:" input:_areaLabel];
-    [cell5 addTarget:self action:@selector(onArea) forControlEvents:UIControlEventTouchUpInside];
-    [self.bodyView by_addSubview:cell5 paddingTop:0];
+//    _cityLabel = addressEditLabel(@"请选择");
+//    BYAddressEditCell* cell4 = [BYAddressEditCell editCellWithTitle:@"城市:" input:_cityLabel];
+//    [cell4 addTarget:self action:@selector(onCity) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bodyView by_addSubview:cell4 paddingTop:0];
+//
+//    _areaLabel = addressEditLabel(@"请选择");
+//    BYAddressEditCell* cell5 = [BYAddressEditCell editCellWithTitle:@"区域:" input:_areaLabel];
+//    [cell5 addTarget:self action:@selector(onArea) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bodyView by_addSubview:cell5 paddingTop:0];
 
     _addressDetailTxtfield = addressEditTxtfield(@"", self);
     BYAddressEditCell* cell6 = [BYAddressEditCell editCellWithTitle:@"详细地址:" input:_addressDetailTxtfield];
     [self.bodyView by_addSubview:cell6 paddingTop:0];
 
-    _zipcodeTxtfield = addressEditTxtfield(@"", self);
-    BYAddressEditCell* cell7 = [BYAddressEditCell editCellWithTitle:@"邮政编码:" input:_zipcodeTxtfield];
-    [self.bodyView by_addSubview:cell7 paddingTop:0];
+//    _zipcodeTxtfield = addressEditTxtfield(@"", self);
+//    BYAddressEditCell* cell7 = [BYAddressEditCell editCellWithTitle:@"邮政编码:" input:_zipcodeTxtfield];
+//    [self.bodyView by_addSubview:cell7 paddingTop:0];
 
     _footer = [BYAddressEditFooter addressEditFooter];
     _footer.bottom = self.view.height;
@@ -348,12 +348,13 @@
     self.receiverTxtfield.text = data.receiver;
     self.phoneTxtfield.text = data.phone;
     self.addressDetailTxtfield.text = data.address;
-    self.zipcodeTxtfield.text = data.zipcode;
-
-    self.provinceLabel.text = data.province.provinceName ? data.province.provinceName : @"请选择";
-    self.cityLabel.text = data.city.cityName ? data.city.cityName : @"请选择";
-    self.areaLabel.text = data.area.areaName ? data.area.areaName : @"请选择";
-
+//    self.zipcodeTxtfield.text = data.zipcode;
+    
+    NSString* provinceString = [NSString stringWithFormat:@"%@ %@ %@",data.province.provinceName,data.city.cityName,data.area.areaName];
+    self.provinceLabel.text = data.province.provinceName ? provinceString : @"请选择";
+//    self.cityLabel.text = data.city.cityName ? data.city.cityName : @"请选择";
+//    self.areaLabel.text = data.area.areaName ? data.area.areaName : @"请选择";
+    [self.bodyView by_updateDisplay];
     [_footer setWillBeDefault:_address.isdefault];
 }
 
