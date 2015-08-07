@@ -17,6 +17,8 @@
 #define BYMSG_POOR_NETWORK @"网络异常，请检查网络情况"
 
 #define BYURL_SERVICE_PROTOCOL @"http://m.biyao.com/Static/statichtml/registxy.html"
+#define BYURL_ABOUTBIYAO @"http://m.biyao.com/Static/statichtml/aboutus.html"
+
 #define BYURL_SERVICE_SMSCODEHELPER @"http://m.biyao.com/Static/statichtml/regvcerror.html"
 
 #define BYURL_M_DetailDesign @"http://m.biyao.com/product/show?it=biyao&designid="

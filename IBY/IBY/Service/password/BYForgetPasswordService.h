@@ -33,4 +33,8 @@
 
 - (void)resetPassword:(NSString *)password
                finish:(void (^)(BOOL success, BYError *error))finished;
+
+- (void)resetPassword:(NSString*)password
+          oldPassword:(NSString*)oldpassword
+               finish:(void (^)(BOOL success, BYError* error))finished;
 @end

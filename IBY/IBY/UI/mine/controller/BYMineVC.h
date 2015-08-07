@@ -14,6 +14,7 @@
 typedef void (^BYMineExitBlock)(NSString* jumpUrlString);
 @property (nonatomic,strong)BYMutiSwitch *mutiSwitch;
 @property (nonatomic, copy) BYMineExitBlock exitBlk;
+@property (nonatomic, strong)UIImageView* hasNewMessage;
 + (instancetype)sharedMineVC;
 - (void)onToPayOrders;
 
@@ -21,8 +22,11 @@ typedef void (^BYMineExitBlock)(NSString* jumpUrlString);
 
 - (void)onToDeliverConfirmOrders;
 
-- (void)onAvatar;
+//- (void)onAvatar;
 
+- (void)onInRefundOrders;
+
+- (void)loginAction;
 @end
 
 BYNavVC* makeMinenav(BYMineExitBlock blk);

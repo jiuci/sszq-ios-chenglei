@@ -89,9 +89,9 @@
     }else{
         [params safeSetValue:@"false" forKey:@"needOldPasswd"];
     }
-    [params safeSetValue:oldPassword forKey:@"oldPassword"];
+    [params safeSetValue:oldPassword forKey:@"OldPassword"];
     [params safeSetValue:md5 forKey:@"md5"];
-       [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){
             finished(NO,error);
         }else{

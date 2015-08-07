@@ -15,6 +15,7 @@ UILabel* addressEditLabel(NSString* initString);
 
 @interface BYAddressEditCell : BYBaseCell
 + (instancetype)editCellWithTitle:(NSString*)title input:(UIView*)inputView;
++ (instancetype)editCellWithTitle:(NSString*)title input:(UIView*)inputView left:(float)left;
 @end
 
 @interface BYAddressEditFooter : UIView

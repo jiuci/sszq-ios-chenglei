@@ -14,8 +14,9 @@
 @interface BYAddressCell : BYTableCell
 @property (weak, nonatomic) IBOutlet UILabel* receiverLabel;
 
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel* addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel* addressLabel;
 
+@property (strong, nonatomic)  UIImageView* isdefaultMark;
 - (void)update:(BYAddress*)data;
 
 @end

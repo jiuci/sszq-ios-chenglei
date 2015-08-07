@@ -24,11 +24,30 @@
         inputView.left = 95;
         inputView.top = 0;
         [cell addSubview:inputView];
+        cell.height = cell.height < inputView.height ? inputView.height : cell.height;
     }
 
     return cell;
 }
-
++ (instancetype)editCellWithTitle:(NSString*)title input:(UIView*)inputView left:(float)left
+{
+    BYAddressEditCell* cell = [[self alloc] initWithFrame:BYRectMake(0, 0, SCREEN_WIDTH, 40)];
+    cell.showBottomLine = YES;
+    
+    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, 84, cell.height) font:Font(14) andTextColor:BYColor999];
+    label.textAlignment = NSTextAlignmentRight;
+    label.text = title;
+    [cell addSubview:label];
+    
+    if (inputView) {
+        inputView.left = left;
+        inputView.top = 0;
+        [cell addSubview:inputView];
+        cell.height = cell.height < inputView.height ? inputView.height : cell.height;
+    }
+    
+    return cell;
+}
 @end
 
 #pragma mark -
@@ -55,7 +74,7 @@
         _radioView.highlightedImage = [UIImage imageNamed:@"icon_checkbox_on"];
         [self addSubview:_radioView];
 
-        UILabel* radioDescLabel = [UILabel labelWithFrame:BYRectMake(36, 0, 150, self.height) font:Font(14) andTextColor:BYColor666];
+        UILabel* radioDescLabel = [UILabel labelWithFrame:BYRectMake(36, 0, 150, self.height) font:Font(14) andTextColor:BYColor333];
         radioDescLabel.text = @"设为默认地址";
         [self addSubview:radioDescLabel];
 
@@ -63,7 +82,7 @@
         _radioBtn.backgroundColor = BYColorClear;
         [self addSubview:_radioBtn];
 
-        UIButton* confirmBtn = [UIButton buttonWithFrame:BYRectMake(0, 0, 80, 40) title:@"保存" titleColor:BYColorWhite bgName:@"btn_red" handler:nil];
+        UIButton* confirmBtn = [UIButton buttonWithFrame:BYRectMake(0, 0, 80, 36) title:@"确定" titleColor:BYColorWhite bgName:@"btn_red" handler:nil];
         confirmBtn.titleLabel.font = Font(16);
         confirmBtn.right = self.width - 12;
         confirmBtn.centerY = self.height / 2;
@@ -98,7 +117,7 @@ BYTextField* addressEditTxtfield(NSString* placeholder, id<UITextFieldDelegate> 
 
 UILabel* addressEditLabel(NSString* initString)
 {
-    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, 230, 40) font:Font(14) andTextColor:BYColor333];
+    UILabel* label = [UILabel labelWithFrame:BYRectMake(7, 0,SCREEN_WIDTH - 95 - 12, 40) font:Font(14) andTextColor:BYColor333];
     label.numberOfLines = 0;
     label.textAlignment = NSTextAlignmentLeft;
     label.text = initString;

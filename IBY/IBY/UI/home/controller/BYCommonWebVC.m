@@ -193,17 +193,20 @@
     if (!preUrlString) {
         return NO;
     }
-    NSLog(@"%@",preUrlString);
+    [iConsole log:@"%@",preUrlString];
 //    logCookies();
     if (_loadingCaches) {
+        [iConsole log:@"enter load caches"];
         if (![preUrlString isEqualToString:@"about:blank"]) {
+            [iConsole log:@"enter load caches"];
             return NO;
         }
+        [iConsole log:@"load caches"];
         [self.mutiSwitch setSelectedAtIndex:0];
         self.showTabbar = YES;
-//        NSLog(@"loadcache");
         return YES;
     }
+//    [iConsole log:@"mark1"];
     BOOL willShowTabbar = NO;
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
@@ -211,12 +214,12 @@
         _currentUrl = requestString;
         return YES;
     }
-
+//    [iConsole log:@"mark2"];
     //对我们自己的地址进行分类处理
     if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
         || [preUrlString isEqualToString:@"http://m.biyao.com"]
         || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
-        [self caches:preUrlString];
+//        [self caches:preUrlString];
         [self.mutiSwitch setSelectedAtIndex:0];
         willShowTabbar = YES;
     }
@@ -228,6 +231,7 @@
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
+//    [iConsole log:@"mark3"];
     //地图搜索-附近的验光点
     if ([preUrlString rangeOfString:@"/bdmap"].length > 0) {
         if (!_mapNV) {
@@ -237,7 +241,7 @@
         [self presentViewController:_mapNV animated:YES completion:nil];
         return NO;
     }
-    
+//    [iConsole log:@"mark4"];
     if ([preUrlString rangeOfString:@"account/mine"].length > 0) {
         addCookies(preUrlString, @"gobackuri", @"m.biyao.com");
 //        if ([BYAppCenter sharedAppCenter].isLogin) {
@@ -320,7 +324,6 @@
     }
     _currentUrl = requestString;
    
-//    NSLog(@"_currentUrl :%@",_currentUrl);
     return YES;
 }
 -(void)loadcaches
@@ -331,13 +334,15 @@
     NSString * path=[resourcePath stringByAppendingString:[NSString stringWithFormat:@"/Caches/%@.html",[BYURL_HOME generateMD5]]];
     NSError * error;
     NSString * htmlResponseStr = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-//    NSLog(@"%@",htmlResponseStr);
-    _loadingCaches = YES;
+
+    [iConsole log:@"loading caches"];
+//    _loadingCaches = YES;
     NSString *baseURL = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Caches"];
     [self.webView loadHTMLString:htmlResponseStr baseURL:[NSURL URLWithString:baseURL]];
 }
 -(void)caches:(NSString*)urlStr
 {
+    [iConsole log:@"save caches"];
     urlStr = BYURL_HOME;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *resourcePath = [paths objectAtIndex:0];
@@ -349,8 +354,8 @@
     if ([cDate respondsToSelector:@selector(timeIntervalSinceDate:)]) {
         NSDate *date = [NSDate date];
         float time = [cDate timeIntervalSinceDate:date];
-//        NSLog(@"%f",time);
-        if (time > - 60 * 60) {
+        if (time > - 60 * 60 / 60) {
+            [iConsole log:@"save caches cancel"];
             return;
         }
     }
@@ -361,13 +366,12 @@
     [htmlResponseStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
     NSString * creationDateString = [filedetail[@"NSFileCreationDate"] description];
-    
+    [iConsole log:@"save caches finish"];
 }
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
     
-//    NSLog(@"start");
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
@@ -376,7 +380,6 @@
 - (void)webViewDidFinishLoad:(UIWebView*)webView
 {
 //    [MBProgressHUD topHide];
-//    NSLog(@"islogin %d",_loginSuccessLoading);
     if (_loginSuccessLoading) {
         _loginSuccessLoading = NO;
         [MBProgressHUD topHide];
@@ -392,8 +395,10 @@
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
+    [iConsole log:@"finish"];
     if (_loadingCaches) {
         _loadingCaches = NO;
+        [iConsole log:@"finish load caches"];
         NSURL* url = [NSURL URLWithString:BYURL_HOME];
         [webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
@@ -404,7 +409,6 @@
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
 {
-//    NSLog(@"fail %@",error);
     if (_loginSuccessLoading) {
         _loginSuccessLoading = NO;
         [MBProgressHUD topHide];
@@ -472,7 +476,7 @@
     if (self) {
         [self setupUI];
         
-        [self loadcaches];
+//        [self loadcaches];
     }
     return self;
 }
@@ -578,7 +582,8 @@
 
         __weak BYCommonWebVC* wself = self;
 
-        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"主页"];
+        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"首页"];
+        [btn1 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_HOME];
@@ -586,6 +591,7 @@
                                }];
 
         UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart_highlight" title:@"购物车"];
+        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_CARTLIST];
@@ -593,6 +599,7 @@
                                }];
 
         UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine_highlight" title:@"我的必要"];
+        [btn3 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn3
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_MINE];
@@ -706,10 +713,11 @@
     icon.highlightedImage = [UIImage imageNamed:hlIcon];
     [btn addSubview:icon];
 
-    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 30, btn.width, 24) font:Font(12) andTextColor:BYColor333];
+    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 30, btn.width, 24) font:Font(11) andTextColor:BYColor333];
     label.bottom = btn.height - 4;
     label.textAlignment = NSTextAlignmentCenter;
     label.text = title;
+    label.highlightedTextColor = BYColorb768;
     [btn addSubview:label];
 
     btn.iconView = icon;
@@ -722,12 +730,14 @@
 {
     [super setSelected:selected];
     _iconView.highlighted = selected;
+    _sublabel.highlighted = selected;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
     [super setHighlighted:highlighted];
     _iconView.highlighted = highlighted;
+    _sublabel.highlighted = highlighted;
 }
 
 @end

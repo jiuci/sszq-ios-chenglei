@@ -223,6 +223,8 @@
 		F4D910B21B57D1B900A5BEB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D910B11B57D1B900A5BEB9 /* OpenGLES.framework */; };
 		F4D910B41B57D22A00A5BEB9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */; };
 		F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */; };
+		F4DA5DDA1B72F7D9004A8377 /* BYUpdateNicknameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5DD91B72F7D9004A8377 /* BYUpdateNicknameVC.m */; };
+		F4DA5DDD1B7359BB004A8377 /* BYAddressEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5DDC1B7359BB004A8377 /* BYAddressEngine.m */; };
 		F4DB02B91B68AA65009DAB6F /* BYAddressManagelistVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02B71B68AA65009DAB6F /* BYAddressManagelistVC.m */; };
 		F4DB02BA1B68AA65009DAB6F /* BYAddressManagelistVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4DB02B81B68AA65009DAB6F /* BYAddressManagelistVC.xib */; };
 		F4DB02BE1B68AB8A009DAB6F /* BYAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB02BC1B68AB8A009DAB6F /* BYAddressCell.m */; };
@@ -258,6 +260,8 @@
 		F4E0076F1B0F08E100438FD5 /* BYReSetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007661B0F08E100438FD5 /* BYReSetPasswordVC.xib */; };
 		F4E007701B0F08E100438FD5 /* BYVerifySmsCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */; };
 		F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */; };
+		F4E2D6321B71FCAD00E18CA8 /* BYUserProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E2D6311B71FCAD00E18CA8 /* BYUserProfileVC.m */; };
+		F4E2D6351B72094500E18CA8 /* BYGenderSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E2D6341B72094500E18CA8 /* BYGenderSelectView.m */; };
 		F4E6858419EE7F4900237412 /* BYMonitorService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858319EE7F4900237412 /* BYMonitorService.m */; };
 		F4E6858719EE818400237412 /* BYMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858619EE818400237412 /* BYMonitorView.m */; };
 		F4E6858B19EE8F1200237412 /* iConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6858A19EE8F1200237412 /* iConsole.m */; };
@@ -266,6 +270,7 @@
 		F4E6B65C1AAFED3E0022EA66 /* BYAddBookUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6B65B1AAFED3E0022EA66 /* BYAddBookUnit.m */; };
 		F4E6B6631AB061C70022EA66 /* BYBookTurnInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6B6621AB061C70022EA66 /* BYBookTurnInfo.m */; };
 		F4E6B6661AB076100022EA66 /* BYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6B6651AB076100022EA66 /* BYAlertView.m */; };
+		F4E8AA281B6F72B200308CFB /* BYNumberTip.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E8AA271B6F72B200308CFB /* BYNumberTip.m */; };
 		F4ED1DE61AF9B7E900639322 /* BYPayUnknowVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F4ED1DE31AF9B7E900639322 /* BYPayUnknowVC.m */; };
 		F4ED1DE71AF9B7E900639322 /* BYPayUnknowVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4ED1DE41AF9B7E900639322 /* BYPayUnknowVC.xib */; };
 		F4ED1DEC1AF9BEEB00639322 /* BYCaptureController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4ED1DEB1AF9BEEB00639322 /* BYCaptureController.mm */; };
@@ -710,6 +715,10 @@
 		F4D910B31B57D22A00A5BEB9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = IBY/ThirdParty/BaiduMap/BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		F4D9325C1A59131F000E4C02 /* BYPoolNetworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYPoolNetworkView.h; sourceTree = "<group>"; };
 		F4D9325D1A59131F000E4C02 /* BYPoolNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYPoolNetworkView.m; sourceTree = "<group>"; };
+		F4DA5DD81B72F7D9004A8377 /* BYUpdateNicknameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYUpdateNicknameVC.h; sourceTree = "<group>"; };
+		F4DA5DD91B72F7D9004A8377 /* BYUpdateNicknameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYUpdateNicknameVC.m; sourceTree = "<group>"; };
+		F4DA5DDB1B7359BB004A8377 /* BYAddressEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressEngine.h; sourceTree = "<group>"; };
+		F4DA5DDC1B7359BB004A8377 /* BYAddressEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressEngine.m; sourceTree = "<group>"; };
 		F4DB02B61B68AA65009DAB6F /* BYAddressManagelistVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAddressManagelistVC.h; sourceTree = "<group>"; };
 		F4DB02B71B68AA65009DAB6F /* BYAddressManagelistVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAddressManagelistVC.m; sourceTree = "<group>"; };
 		F4DB02B81B68AA65009DAB6F /* BYAddressManagelistVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYAddressManagelistVC.xib; sourceTree = "<group>"; };
@@ -769,6 +778,10 @@
 		F4E007671B0F08E100438FD5 /* BYVerifySmsCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYVerifySmsCodeVC.h; sourceTree = "<group>"; };
 		F4E007681B0F08E100438FD5 /* BYVerifySmsCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYVerifySmsCodeVC.m; sourceTree = "<group>"; };
 		F4E007691B0F08E100438FD5 /* BYVerifySmsCodeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BYVerifySmsCodeVC.xib; sourceTree = "<group>"; };
+		F4E2D6301B71FCAD00E18CA8 /* BYUserProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYUserProfileVC.h; sourceTree = "<group>"; };
+		F4E2D6311B71FCAD00E18CA8 /* BYUserProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYUserProfileVC.m; sourceTree = "<group>"; };
+		F4E2D6331B72094500E18CA8 /* BYGenderSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYGenderSelectView.h; sourceTree = "<group>"; };
+		F4E2D6341B72094500E18CA8 /* BYGenderSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYGenderSelectView.m; sourceTree = "<group>"; };
 		F4E6858219EE7F4900237412 /* BYMonitorService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorService.h; sourceTree = "<group>"; };
 		F4E6858319EE7F4900237412 /* BYMonitorService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMonitorService.m; sourceTree = "<group>"; };
 		F4E6858519EE818400237412 /* BYMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMonitorView.h; sourceTree = "<group>"; };
@@ -785,6 +798,8 @@
 		F4E6B6621AB061C70022EA66 /* BYBookTurnInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBookTurnInfo.m; sourceTree = "<group>"; };
 		F4E6B6641AB076100022EA66 /* BYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYAlertView.h; sourceTree = "<group>"; };
 		F4E6B6651AB076100022EA66 /* BYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYAlertView.m; sourceTree = "<group>"; };
+		F4E8AA261B6F72B200308CFB /* BYNumberTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYNumberTip.h; sourceTree = "<group>"; };
+		F4E8AA271B6F72B200308CFB /* BYNumberTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYNumberTip.m; sourceTree = "<group>"; };
 		F4ED1DE31AF9B7E900639322 /* BYPayUnknowVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYPayUnknowVC.m; path = pay/BYPayUnknowVC.m; sourceTree = "<group>"; };
 		F4ED1DE41AF9B7E900639322 /* BYPayUnknowVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BYPayUnknowVC.xib; path = pay/BYPayUnknowVC.xib; sourceTree = "<group>"; };
 		F4ED1DE51AF9B7E900639322 /* BYPayUnknowVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYPayUnknowVC.h; path = pay/BYPayUnknowVC.h; sourceTree = "<group>"; };
@@ -1377,6 +1392,12 @@
 				F48D0E571AE8AA110080DA22 /* BYFeedbackVC.xib */,
 				F48D0E581AE8AA110080DA22 /* BYSettingVC.h */,
 				F48D0E591AE8AA110080DA22 /* BYSettingVC.m */,
+				F4E2D6301B71FCAD00E18CA8 /* BYUserProfileVC.h */,
+				F4E2D6311B71FCAD00E18CA8 /* BYUserProfileVC.m */,
+				F4E2D6331B72094500E18CA8 /* BYGenderSelectView.h */,
+				F4E2D6341B72094500E18CA8 /* BYGenderSelectView.m */,
+				F4DA5DD81B72F7D9004A8377 /* BYUpdateNicknameVC.h */,
+				F4DA5DD91B72F7D9004A8377 /* BYUpdateNicknameVC.m */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -1424,6 +1445,8 @@
 				F496C3961B317EBF00E503D8 /* BYPassportEngine.m */,
 				F496C3981B318C7E00E503D8 /* BYAppEngine.h */,
 				F496C3991B318C7E00E503D8 /* BYAppEngine.m */,
+				F4DA5DDB1B7359BB004A8377 /* BYAddressEngine.h */,
+				F4DA5DDC1B7359BB004A8377 /* BYAddressEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -1689,6 +1712,8 @@
 				F4DB833C1B6605910083F9B4 /* BYMineHeaderView.h */,
 				F4DB833D1B6605910083F9B4 /* BYMineHeaderView.m */,
 				F4DB833E1B6605910083F9B4 /* BYMineHeaderView.xib */,
+				F4E8AA261B6F72B200308CFB /* BYNumberTip.h */,
+				F4E8AA271B6F72B200308CFB /* BYNumberTip.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2327,6 +2352,7 @@
 				F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */,
 				F4D1345E1AF857F400B7164D /* BYGlassPageVC.m in Sources */,
 				CC771F9119CAE06000E11BAE /* BYRegistService.m in Sources */,
+				F4E2D6321B71FCAD00E18CA8 /* BYUserProfileVC.m in Sources */,
 				F48D728E1A89DBB000870F3F /* MJRefreshHeaderView.m in Sources */,
 				CC6AD03119D11684001FB4EA /* BYPrice.m in Sources */,
 				CC957E3F19C16FAA000700DE /* BYNavVC.m in Sources */,
@@ -2412,6 +2438,7 @@
 				F4818DF01AFCAB9C0023C0A6 /* UIImage+Resize.m in Sources */,
 				CC3D2E1A19BFF8B1000E0E14 /* MJType.m in Sources */,
 				F45CB81C1A28414A004F00EC /* BYConfirmOrderGroup.m in Sources */,
+				F4E2D6351B72094500E18CA8 /* BYGenderSelectView.m in Sources */,
 				F415EFD91AFB3B04001F840A /* BYFaceDataUnit.m in Sources */,
 				F42618041A2C4CBD0076B273 /* BYPayFailVC.m in Sources */,
 				F4A251071A787B7A00127EB2 /* BYPayCenter.m in Sources */,
@@ -2475,10 +2502,12 @@
 				F4818DEF1AFCAB9C0023C0A6 /* UIImage+OpenCV.mm in Sources */,
 				F4159D7A19F241DC00126BDF /* BYSQLiteSample.m in Sources */,
 				F452A4B61A0B4F5600AB1AAF /* BYFeedbackService.m in Sources */,
+				F4DA5DDA1B72F7D9004A8377 /* BYUpdateNicknameVC.m in Sources */,
 				F47E6F871A11B44800304F46 /* BYCommentsService.m in Sources */,
 				F48D0E5E1AE8AA110080DA22 /* BYSettingVC.m in Sources */,
 				F480DFCB19FE18B300301542 /* BYAppService.m in Sources */,
 				F4505E5719F1170D00A12AD2 /* BYMerchant.m in Sources */,
+				F4DA5DDD1B7359BB004A8377 /* BYAddressEngine.m in Sources */,
 				FEC829BC19AC948200D5D70D /* BYBaseEngine.m in Sources */,
 				F426180F1A2C59E30076B273 /* NSData+base64.m in Sources */,
 				F48CF4091A548E3B00EE4EF4 /* BYTestVC1.m in Sources */,
@@ -2489,6 +2518,7 @@
 				F4ED1DEC1AF9BEEB00639322 /* BYCaptureController.mm in Sources */,
 				F4505E5C19F1181D00A12AD2 /* BYDesign.m in Sources */,
 				CC1C2FA719CFC08400877FF8 /* BYAppCenter.m in Sources */,
+				F4E8AA281B6F72B200308CFB /* BYNumberTip.m in Sources */,
 				F4422A841A2D7CB300A07598 /* CommonUtil.m in Sources */,
 				F4E0076A1B0F08E100438FD5 /* BYForgetPasswordVC.m in Sources */,
 				F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */,

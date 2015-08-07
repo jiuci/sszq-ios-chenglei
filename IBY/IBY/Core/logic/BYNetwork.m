@@ -189,7 +189,7 @@ NSString* baseUrlByMode(BYNetMode mode)
 
     AFHTTPRequestOperationManager* curManager = [[BYNetwork sharedNetwork] currentNetManager];
     [[BYNetwork sharedNetwork] refreshHeader:curManager];
-
+    curManager.requestSerializer.timeoutInterval = 8;
     [curManager POST:url parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"data"] && [responseObject[@"success"] intValue] == 1 ) {
             

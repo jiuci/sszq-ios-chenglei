@@ -9,7 +9,7 @@
 #import "BYUserService.h"
 #import "BYUser.h"
 #import "BYAppCenter.h"
-
+#import "BYUserEngine.h"
 #import "BYCartService.h"
 
 BYError* makeUsrError()
@@ -37,51 +37,44 @@ BYError* makeUsrError()
 
 - (void)fetchUserLatestStatus:(void (^)(BOOL isSuccess, BYError* error))finished
 {
+    [BYUserEngine fetchUserLatestStatus:finished];
 
-    NSString* url = @"/user/customer/infobyphone";
-    NSDictionary* params = @{ @"mobile" : [BYAppCenter sharedAppCenter].user.phoneNum };
-
-    [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if (data && !error) {
-//            [[BYAppCenter sharedAppCenter].user updateWithLatestInfo:data[@"customer"]];
-            finished(YES,nil);
-        }else {
-            finished(NO,error);
-        }
-    }];
 }
 
-- (void)checkNicknameByName:(NSString*)nickname finish:(void (^)(BOOL))finished
-{
-    NSString* url = @"customermessage/checkNickName";
+//- (void)checkNicknameByName:(NSString*)nickname finish:(void (^)(BOOL))finished
+//{
+//    NSString* url = @"customermessage/checkNickName";
+//
+//    NSDictionary* params = @{ @"nickname" : nickname ,
+//                              @"mobile":[BYAppCenter sharedAppCenter].user.phoneNum};
+//
+//    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+//        if(error){
+//            finished(TRUE);
+//            return ;
+//        }
+//        finished(FALSE);
+//    }];
+//}
 
-    NSDictionary* params = @{ @"nickname" : nickname ,
-                              @"mobile":[BYAppCenter sharedAppCenter].user.phoneNum};
-
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if(error){
-            finished(TRUE);
-            return ;
-        }
-        finished(FALSE);
-    }];
-}
-
-- (void)updateNicknameByName:(NSString*)nickname finish:(void (^)(BOOL))finished
+- (void)updateNicknameByName:(NSString*)nickname finish:(void (^)(BOOL success, BYError* error))finished
 {
 
-    NSString* url = @"user/customer/UpdateInformation";
-
-    NSDictionary* params = @{ @"nickname" : nickname,
-                              @"gender" : [NSString stringWithFormat:@"%d", [BYAppCenter sharedAppCenter].user.gender] };
-
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if(error){
-            finished(FALSE);
-            return ;
-        }
-        finished(TRUE);
-    }];
+    [BYUserEngine updateNickname:nickname finish:finished];
 }
 
+- (void)updateGender:(NSString*)gender finish:(void (^)(BOOL success, BYError* error))finished;
+{
+    NSString * updateGender = @"0";
+    if ([gender isEqualToString:@"男"]) {
+        updateGender = @"0";
+    }
+    if ([gender isEqualToString:@"女"]) {
+        updateGender = @"1";
+    }
+    if ([gender isEqualToString:@"保密"]) {
+        updateGender = @"-1";
+    }
+    [BYUserEngine updateGender:updateGender finish:finished];
+}
 @end

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BYAboutVC">
             <connections>
+                <outlet property="rightLabel" destination="nY1-gm-Bx7" id="hRy-S4-y8C"/>
                 <outlet property="view" destination="iFh-KO-AsL" id="ziL-IY-qQE"/>
             </connections>
         </placeholder>
@@ -15,60 +16,38 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_usercenter_logo" translatesAutoresizingMaskIntoConstraints="NO" id="aev-ey-A4B">
-                    <rect key="frame" x="110" y="54" width="100" height="100"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="100" id="DpO-C3-Gfs"/>
-                        <constraint firstAttribute="height" constant="100" id="qlO-Az-4ob"/>
-                    </constraints>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_usercenter_slogan" translatesAutoresizingMaskIntoConstraints="NO" id="aGi-rf-1yf">
-                    <rect key="frame" x="110" y="165" width="101" height="11"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="101" id="0en-5K-tX4"/>
-                        <constraint firstAttribute="height" constant="11" id="8QI-rI-uWX"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 BIYAO.COM 版权所有" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nY1-gm-Bx7">
-                    <rect key="frame" x="45" y="362" width="230" height="21"/>
+                    <rect key="frame" x="45" y="418" width="230" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="230" id="SKk-L7-gAn"/>
                         <constraint firstAttribute="height" constant="21" id="ewf-Cj-38x"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="必要科技有限公司" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0w-6s-0eQ">
-                    <rect key="frame" x="75" y="383" width="170" height="21"/>
+                    <rect key="frame" x="75" y="439" width="170" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="170" id="4AF-ev-fbm"/>
                         <constraint firstAttribute="height" constant="21" id="xeq-Xm-k6b"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="r0w-6s-0eQ" secondAttribute="centerX" id="1qj-5Y-NJP"/>
-                <constraint firstItem="aev-ey-A4B" firstAttribute="top" secondItem="iFh-KO-AsL" secondAttribute="top" constant="54" id="AAL-Eb-0bX"/>
-                <constraint firstAttribute="bottom" secondItem="r0w-6s-0eQ" secondAttribute="bottom" constant="76" id="C7c-H0-rak"/>
+                <constraint firstAttribute="bottom" secondItem="r0w-6s-0eQ" secondAttribute="bottom" constant="20" id="C7c-H0-rak"/>
                 <constraint firstAttribute="centerX" secondItem="nY1-gm-Bx7" secondAttribute="centerX" id="EjY-Od-9Ax"/>
-                <constraint firstAttribute="centerX" secondItem="aGi-rf-1yf" secondAttribute="centerX" id="VMr-gQ-CSg"/>
                 <constraint firstItem="r0w-6s-0eQ" firstAttribute="top" secondItem="nY1-gm-Bx7" secondAttribute="bottom" id="Znc-FK-owA"/>
-                <constraint firstAttribute="centerX" secondItem="aev-ey-A4B" secondAttribute="centerX" id="l1j-uu-DB8"/>
-                <constraint firstItem="aGi-rf-1yf" firstAttribute="top" secondItem="aev-ey-A4B" secondAttribute="bottom" constant="11" id="p6R-Tb-ZhD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
-    <resources>
-        <image name="icon_usercenter_logo" width="200" height="200"/>
-        <image name="icon_usercenter_slogan" width="202" height="22"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

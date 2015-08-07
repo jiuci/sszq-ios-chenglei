@@ -14,26 +14,20 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.showRightArrow = YES;
-
+//    self.showRightArrow = YES;
+    self.width = SCREEN_WIDTH;
+    self.height = 80;
     self.backgroundColor = [UIColor whiteColor];
-
-    self.addressLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+    _isdefaultMark = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_address_defultaddress"]];
+    [self.contentView addSubview:_isdefaultMark];
+    _isdefaultMark.width = _isdefaultMark.width * 1.5;
+    _isdefaultMark.height = _isdefaultMark.height * 1.5;
+    _isdefaultMark.right = SCREEN_WIDTH;
+    
+    
+//    self.addressLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
 }
 
-- (void)updateReceverInfo:(BYAddress*)address
-{
-    NSString* preStr = address.isdefault ? @"[默认] " : @"";
-    NSString* subStr = [NSString stringWithFormat:@"%@    %@", address.receiver, address.phone];
-    NSDictionary* arialdict = [NSDictionary dictionaryWithObject:BYColorb768 forKey:NSForegroundColorAttributeName];
-    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:preStr attributes:arialdict];
-
-    NSDictionary* veradnadict = [NSDictionary dictionaryWithObject:BYColor666 forKey:NSForegroundColorAttributeName];
-    NSMutableAttributedString* VattrString = [[NSMutableAttributedString alloc] initWithString:subStr attributes:veradnadict];
-
-    [attrString appendAttributedString:VattrString];
-    _receiverLabel.attributedText = attrString;
-}
 
 - (void)update:(BYAddress*)data
 {
@@ -43,25 +37,27 @@
 
         return;
     }
-
+    
     //TODO: 如果木有地址，会怎么展示
-    [self updateReceverInfo:data];
-
-    NSString* address = [NSString stringWithFormat:@"%@%@%@%@", data.provinceName, data.cityName, data.areaName, data.address];
-    CGSize size = [address sizeWithFont:Font(13) maxSize:CGSizeMake(208, 50)];
-    _addressLabel.height = size.height + 5;
+    _receiverLabel.text = [NSString stringWithFormat:@"%@    %@", data.receiver, data.phone];
+    
+    NSString* address = [NSString stringWithFormat:@"%@%@%@\n%@", data.provinceName, data.cityName, data.areaName, data.address];
+    CGSize size = [address sizeWithFont:Font(12) maxSize:CGSizeMake(self.width - 24, 100)];
+    _addressLabel.height = size.height + 12;
     _addressLabel.text = address;
+    _addressLabel.numberOfLines = 0;
+    
+    if (data.isdefault) {
+        _receiverLabel.textColor = HEXCOLOR(0x523669);
+        _addressLabel.textColor = HEXCOLOR(0x523669);
+        _isdefaultMark.hidden = NO;
+        
+    }else{
+        _receiverLabel.textColor = BYColor333;
+        _addressLabel.textColor = BYColor666;
+        _isdefaultMark.hidden = YES;
+    }
 }
 
-- (void)setItem:(BYTableItem*)item
-{
-    BYOrderService* service = item.cellData;
-    BYAddress* address = service.curAddress;
-
-    [self updateReceverInfo:address];
-
-    NSString* addressString = [NSString stringWithFormat:@"%@%@%@%@", address.provinceName, address.cityName, address.areaName, address.address];
-    _addressLabel.text = addressString;
-}
 
 @end

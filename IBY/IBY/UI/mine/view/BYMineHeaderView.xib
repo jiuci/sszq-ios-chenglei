@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,38 +16,39 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_headphoto" translatesAutoresizingMaskIntoConstraints="NO" id="2y3-Wl-uIV">
-                    <rect key="frame" x="126" y="12" width="68" height="68"/>
+                    <rect key="frame" x="125" y="14" width="70" height="70"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="68" id="hvS-lb-P52"/>
-                        <constraint firstAttribute="width" constant="68" id="yqg-92-q2B"/>
+                        <constraint firstAttribute="height" constant="70" id="hvS-lb-P52"/>
+                        <constraint firstAttribute="width" constant="70" id="yqg-92-q2B"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vk1-LJ-QMj" userLabel="login——View">
-                    <rect key="frame" x="115" y="84" width="90" height="28"/>
+                    <rect key="frame" x="115" y="93" width="90" height="25"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="90" id="3J7-3c-008"/>
-                        <constraint firstAttribute="height" constant="28" id="LqQ-AJ-NjV"/>
+                        <constraint firstAttribute="height" constant="25" id="LqQ-AJ-NjV"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ca7-a2-3OT" userLabel="order_Status_View">
-                    <rect key="frame" x="0.0" y="124" width="320" height="40"/>
+                    <rect key="frame" x="0.0" y="110" width="320" height="54"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_usercenter_trans_orderstatus" translatesAutoresizingMaskIntoConstraints="NO" id="4pG-ME-tfs">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="4pG-ME-tfs" firstAttribute="top" secondItem="Ca7-a2-3OT" secondAttribute="top" id="GmG-Ag-onW"/>
-                        <constraint firstAttribute="height" constant="40" id="QMM-m0-u7v"/>
+                        <constraint firstAttribute="height" constant="54" id="QMM-m0-u7v"/>
                         <constraint firstItem="4pG-ME-tfs" firstAttribute="leading" secondItem="Ca7-a2-3OT" secondAttribute="leading" id="j1O-9f-3xc"/>
                         <constraint firstAttribute="trailing" secondItem="4pG-ME-tfs" secondAttribute="trailing" id="pN1-Iz-2ND"/>
                         <constraint firstAttribute="bottom" secondItem="4pG-ME-tfs" secondAttribute="bottom" id="pVp-vH-i7O"/>
                     </constraints>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-0U-MVt">
-                    <rect key="frame" x="60" y="88" width="200" height="20"/>
+                    <rect key="frame" x="60" y="94" width="200" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="oRt-xf-iEN"/>
                         <constraint firstAttribute="width" constant="200" id="wHG-if-NjV"/>
@@ -55,34 +57,50 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_user_default" translatesAutoresizingMaskIntoConstraints="NO" id="1IK-8a-q13" customClass="BYImageView">
-                    <rect key="frame" x="130" y="16" width="60" height="60"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user_default" translatesAutoresizingMaskIntoConstraints="NO" id="1IK-8a-q13" customClass="BYImageView">
+                    <rect key="frame" x="130" y="18" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="AST-Kf-kUY"/>
+                        <constraint firstAttribute="width" secondItem="1IK-8a-q13" secondAttribute="height" multiplier="1:1" id="IPl-rl-QX1"/>
                         <constraint firstAttribute="width" constant="60" id="Keu-9g-sbE"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="IPl-rl-QX1"/>
+                        </mask>
+                    </variation>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.97254901960784312" green="0.95686274509803926" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Ca7-a2-3OT" secondAttribute="bottom" id="4DE-z2-IWC"/>
-                <constraint firstItem="1IK-8a-q13" firstAttribute="top" secondItem="epg-cx-aVq" secondAttribute="top" constant="15" id="5L1-Z3-yvx"/>
+                <constraint firstItem="OP8-n6-2sf" firstAttribute="top" secondItem="1IK-8a-q13" secondAttribute="bottom" constant="-78" id="4kl-X1-QRu"/>
+                <constraint firstItem="1IK-8a-q13" firstAttribute="top" secondItem="epg-cx-aVq" secondAttribute="top" constant="19" id="5L1-Z3-yvx"/>
                 <constraint firstAttribute="centerX" secondItem="1IK-8a-q13" secondAttribute="centerX" id="DWp-Km-4z7"/>
-                <constraint firstItem="vk1-LJ-QMj" firstAttribute="top" secondItem="2y3-Wl-uIV" secondAttribute="bottom" constant="4" id="F76-HC-sX5"/>
+                <constraint firstItem="vk1-LJ-QMj" firstAttribute="top" secondItem="2y3-Wl-uIV" secondAttribute="bottom" constant="9" id="F76-HC-sX5"/>
                 <constraint firstAttribute="trailing" secondItem="Ca7-a2-3OT" secondAttribute="trailing" id="Kaq-gI-CiM"/>
                 <constraint firstAttribute="centerX" secondItem="vk1-LJ-QMj" secondAttribute="centerX" id="bRg-lS-1Rx"/>
                 <constraint firstAttribute="centerX" secondItem="ShA-0U-MVt" secondAttribute="centerX" id="bs2-DC-Ucf"/>
                 <constraint firstItem="OP8-n6-2sf" firstAttribute="top" secondItem="epg-cx-aVq" secondAttribute="top" id="cYi-qy-KFZ"/>
                 <constraint firstAttribute="trailing" secondItem="OP8-n6-2sf" secondAttribute="trailing" id="ghi-N2-XLG"/>
-                <constraint firstItem="2y3-Wl-uIV" firstAttribute="top" secondItem="epg-cx-aVq" secondAttribute="top" constant="12" id="om0-VX-Zgq"/>
+                <constraint firstItem="1IK-8a-q13" firstAttribute="centerY" secondItem="2y3-Wl-uIV" secondAttribute="centerY" constant="5" id="j68-UU-uIC"/>
+                <constraint firstItem="1IK-8a-q13" firstAttribute="centerY" secondItem="2y3-Wl-uIV" secondAttribute="centerY" id="nou-Kf-6aN"/>
+                <constraint firstItem="2y3-Wl-uIV" firstAttribute="top" secondItem="epg-cx-aVq" secondAttribute="top" constant="14" id="om0-VX-Zgq"/>
                 <constraint firstItem="Ca7-a2-3OT" firstAttribute="leading" secondItem="epg-cx-aVq" secondAttribute="leading" id="sIB-ze-e3g"/>
                 <constraint firstItem="OP8-n6-2sf" firstAttribute="leading" secondItem="epg-cx-aVq" secondAttribute="leading" id="vHL-qA-9W8"/>
-                <constraint firstItem="ShA-0U-MVt" firstAttribute="top" secondItem="2y3-Wl-uIV" secondAttribute="bottom" constant="8" id="wPk-4x-Txi"/>
+                <constraint firstItem="ShA-0U-MVt" firstAttribute="top" secondItem="2y3-Wl-uIV" secondAttribute="bottom" constant="10" id="wPk-4x-Txi"/>
                 <constraint firstAttribute="bottom" secondItem="OP8-n6-2sf" secondAttribute="bottom" id="wTP-Sv-7WW"/>
                 <constraint firstAttribute="centerX" secondItem="2y3-Wl-uIV" secondAttribute="centerX" id="zOp-Lz-WCD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5L1-Z3-yvx"/>
+                    <exclude reference="j68-UU-uIC"/>
+                    <exclude reference="nou-Kf-6aN"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="loginView" destination="vk1-LJ-QMj" id="Q81-ET-o82"/>
                 <outlet property="orderStatusView" destination="Ca7-a2-3OT" id="TsG-pB-NNK"/>
@@ -93,7 +111,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_headphoto" width="68" height="68"/>
+        <image name="bg_headphoto" width="70" height="70"/>
         <image name="bg_usercenter" width="320" height="164"/>
         <image name="bg_usercenter_trans_orderstatus" width="12" height="12"/>
         <image name="icon_user_default" width="60" height="60"/>

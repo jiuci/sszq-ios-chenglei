@@ -16,10 +16,10 @@
 + (void)refreshUserToken:(void (^)(BOOL isSuccess, BYError* error))finished;
 
 //用户最新的状态
-+ (void)fetchUserLatestStatus:(void (^)(BYUser* user, BYError* error))finished;
++ (void)fetchUserLatestStatus:(void (^)(BOOL success, BYError* error))finished;
 
 //检查昵称是否被占用
-+ (void)checkIfNicknameValid:(NSString*)nickname finish:(void (^)(BOOL isExist, BYError* error))finished;
+//+ (void)checkIfNicknameValid:(NSString*)nickname finish:(void (^)(BOOL isExist, BYError* error))finished;
 
 //设置昵称
 + (void)updateNickname:(NSString*)nickname finish:(void (^)(BOOL isSuccess, BYError* error))finished;
@@ -27,4 +27,6 @@
 //登录后同步数据
 + (void)syncUserDataAfterLogin:(void (^)(BOOL isSuccess, BYError* error))finished;
 
+//设置性别
++ (void)updateGender:(NSString*)gender finish:(void (^)(BOOL success, BYError* error))finished;
 @end

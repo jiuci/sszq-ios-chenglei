@@ -20,6 +20,13 @@
 
 #import <TMCache.h>
 
+#import "BYMineCell.h"
+
+#import "BYReSetPasswordVC.h"
+
+#import "BYUserProfileVC.h"
+
+
 @interface BYSettingVC()
 //for test
 @property (nonatomic,strong)NSMutableString *testCmdList;
@@ -31,8 +38,8 @@
 @interface BYSettingVC () {
     BYAppService* _appService;
     BYBaseCell* _logoutCell;
-
-    BYTitleCell* _cacheCell;
+    UILabel* cacheLabel;
+    UISwitch * switcher;
     
 }
 @property (nonatomic, strong) BYLinearScrollView* bodyView;
@@ -56,6 +63,8 @@
     [super viewWillAppear:animated];
     [[BYAppCenter sharedAppCenter] updateUidAndToken];
     _logoutCell.hidden = ![BYAppCenter sharedAppCenter].isLogin;
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -68,7 +77,8 @@
 {
     _bodyView = makeLinearScrollView(self);
     _bodyView.autoAdjustContentSize = NO;
-    _bodyView.minContentSizeHeight = SCREEN_HEIGHT;
+    _bodyView.minContentSizeHeight = SCREEN_HEIGHT - self.navigationController.navigationBar.height - 20;
+    self.view.height = SCREEN_HEIGHT - self.navigationController.navigationBar.height - 20;
     [self.view addSubview:_bodyView];
 
 
@@ -77,60 +87,139 @@
 //                              top:0
 //                              des:[NSString stringWithFormat:@"%.1fM", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)]
 //                              sel:@selector(onRemoveCache)];
-
-    [self appendCell:@""
-               title:@"问题反馈"
+    
+    if ([BYAppCenter sharedAppCenter].isLogin) {
+        [self appendCell:@"icon_setting_status"
+                   title:@"个人资料"
+                     top:12
+                     des:@""
+                     sel:@selector(onUserInfo)];
+        
+        if ([BYAppCenter sharedAppCenter].user.userType.intValue < 5) {
+            [self appendCell:@"icon_setting_password"
+                       title:@"修改密码"
+                         top:0
+                         des:@""
+                         sel:@selector(onResetPassword)];
+        }
+    }
+    
+    
+    [self appendCell:@"icon_setting_suggestion"
+               title:@"意见反馈"
                  top:12
                  des:@""
                  sel:@selector(onFeedback)];
-
-    [self appendCell:@""
+    
+    [self appendCell:@"icon_setting_aboutus"
                title:@"关于我们"
                  top:0
                  des:@""
                  sel:@selector(onAbout)];
+    
+    BYMineCell* notiCell = [self appendCell:@"icon_setting_push"
+               title:@"消息推送"
+                 top:12
+                 des:@""
+                 sel:@selector(onNotification)];
+    
+    switcher = [[UISwitch alloc]init];
+    [notiCell addSubview:switcher];
+    switcher.onTintColor = BYColorb768;
+    switcher.frame = CGRectMake(0, 0, 120, 64);
+    switcher.centerY = notiCell.height / 2;
+    switcher.right = notiCell.width - 28;
+    switcher.on = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    [switcher addTarget:self action:@selector(onSwitchNotification:) forControlEvents:UIControlEventValueChanged];
 
-    _logoutCell = [[BYBaseCell alloc] initWithFrame:BYRectMake(12, 0, SCREEN_WIDTH - 24, 44)];
+    
+    BYMineCell* cacheCell = [self appendCell:@"icon_setting_clean"
+               title:@"清除缓存"
+                 top:0
+                 des:@""
+                 sel:@selector(onRemoveCache)];
+    
+    cacheLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH / 2 , 0, SCREEN_WIDTH / 2 - 28 , 40)];
+    cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
+    cacheLabel.font = [UIFont systemFontOfSize:12];
+    cacheLabel.textColor = HEXCOLOR(0x666666);
+    cacheLabel.textAlignment = NSTextAlignmentRight;
+    
+    [cacheCell addSubview:cacheLabel];
+
+    _logoutCell = [[BYBaseCell alloc] initWithFrame:BYRectMake(12, 0, SCREEN_WIDTH - 12 * 2, 44)];
     _logoutCell.normalBg = [[UIImage imageNamed:@"btn_red"] resizableImage];
     _logoutCell.highlightBg = [[UIImage imageNamed:@"btn_red_on"] resizableImage];
     [_logoutCell bk_addEventHandler:^(id sender) {
         [[BYAppCenter sharedAppCenter] logout];
         [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
     } forControlEvents:UIControlEventTouchUpInside];
-
+    _logoutCell.bottom = self.view.bottom - 20;
+    
     UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, _logoutCell.width, 44) font:Font(16) andTextColor:BYColorWhite];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"退出登录";
     [_logoutCell addSubview:label];
-
+    
+    
     [self.bodyView by_addSubview:_logoutCell paddingTop:32 paddingBottom:30];
 }
 
-- (BYTitleCell*)appendCell:(NSString*)icon title:(NSString*)title top:(CGFloat)top des:(NSString*)des sel:(SEL)selecor
+- (BYMineCell*)appendCell:(NSString*)icon title:(NSString*)title top:(CGFloat)top des:(NSString*)des sel:(SEL)selecor
 {
-    BYTitleCell* cell = [BYTitleCell controlWithFrame:BYRectMake(0, 0, SCREEN_WIDTH, 44) key:title value:des];
+    BYMineCell* cell = [BYMineCell cellWithTitle:title icon:icon target:self sel:selecor];
     //    BYTitleCell* cell = [BYTitleCell controlWithKey:title value:des];
     //    cell.frame = BYRectMake(0, 0, SCREEN_WIDTH, 44);
     cell.showBottomLine = YES;
-    cell.showRightArrow = YES;
+    cell.showRightArrow = NO;
     [cell addTarget:self action:selecor forControlEvents:UIControlEventTouchUpInside];
     [self.bodyView by_addSubview:cell paddingTop:top];
     return cell;
 }
 
 #pragma mark -
+- (void)onUserInfo
+{
+    BYUserProfileVC* feedBackVC = [[BYUserProfileVC alloc] init];
+    [self.navigationController pushViewController:feedBackVC animated:YES];
+}
 
+- (void)onResetPassword
+{
+    BYReSetPasswordVC* feedBackVC = [[BYReSetPasswordVC alloc] init];
+    [self.navigationController pushViewController:feedBackVC animated:YES];
+}
 
 - (void)onRemoveCache
 {
     [[TMCache sharedCache] removeAllObjects:^(TMCache* cache) {
         runOnMainQueue(^{
-            _cacheCell.valueLabel.text = [NSString stringWithFormat:@"%.1fM", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
+            cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
             [MBProgressHUD topShowTmpMessage:@"缓存清理完成"];
         });
     }];
 }
 
+- (void)onNotification
+{
+    [switcher setOn:!switcher.on animated:YES];
+    [self onSwitchNotification:switcher];
+}
+//- (void)registerForRemoteNotifications NS_AVAILABLE_IOS(8_0);
+//
+//- (void)unregisterForRemoteNotifications NS_AVAILABLE_IOS(3_0);
+- (void)onSwitchNotification:(UISwitch*)sender
+{
+    if (sender.on) {
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)]) {
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }else{
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+        }
+    }else{
+        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    }
+}
 
 - (void)onVersion
 {

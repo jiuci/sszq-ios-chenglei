@@ -13,7 +13,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *oldPwdTextField;
 @property (weak, nonatomic) IBOutlet UITextField *newlyPwdTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPwdTextField;
-
+@property (weak, nonatomic) IBOutlet UIImageView *oldPwdBgImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *newlyPwdBgImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *confirmPwdBgImageView;
 - (IBAction)commitAction:(UIButton *)sender;
 
 

@@ -168,7 +168,7 @@
                                                     phone:self.phoneTextField.text
                                                 isdefault:self.isdefault
                                                   zipcode:nil
-                                                   finish:^(BYError* error) {
+                                                   finish:^(BOOL success, BYError* error) {
                  if(error){
                      [MBProgressHUD hideHUD];
                  }else{
@@ -210,7 +210,7 @@
 {
     __weak BYAddressDetailVC* wself = self;
 
-    [self.addressService deleteAddressByAddressId:self.addressData.addressId finish:^(BYError* error) {
+    [self.addressService deleteAddressByAddressId:self.addressData.addressId finish:^(BOOL success, BYError* error) {
         if(error){
             [MBProgressHUD topShowTmpMessage:@"删除失败"];
         }else{

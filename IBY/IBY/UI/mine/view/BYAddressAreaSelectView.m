@@ -33,7 +33,7 @@ static NSString* cellId = @"BYAddressSelectCell";
 @property (nonatomic, strong) BYArea* selectedArea;
 @property (nonatomic, strong) NSIndexPath* preIndex;
 @property (nonatomic, assign) int marker;
-
+@property (nonatomic, strong) UILabel* titleLabel;
 @property (nonatomic, assign) int lock;
 
 @end
@@ -68,7 +68,9 @@ static NSString* cellId = @"BYAddressSelectCell";
 {
 
     _mainView = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 270, 290)];
-    _mainView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - (SCREEN_HEIGHT - self.height) / 2);
+    _mainView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT/2 - 46 -20);
+    _mainView.layer.cornerRadius = 5;
+    _mainView.layer.masksToBounds = YES;
     _mainView.size = CGSizeMake(270, 290);
     [self addSubview:_mainView];
     
@@ -76,33 +78,33 @@ static NSString* cellId = @"BYAddressSelectCell";
     backImageView.image = [[UIImage imageNamed:@"icon_address_background"] resizableImage];
     [_mainView addSubview:backImageView];
 
-    UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _mainView.width, 47)];
-    titleLabel.textColor = BYColorb768;
-    titleLabel.text = @"请选择";
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = Font(16);
-    [_mainView addSubview:titleLabel];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, _mainView.width - 32, 47)];
+    _titleLabel.textColor = BYColorb768;
+    _titleLabel.text = @"选择省";
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    _titleLabel.font = Font(16);
+    [_mainView addSubview:_titleLabel];
 
-    UIImageView* lineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 47, 270, 1)];
-    lineView.image = [UIImage imageNamed:@"line_common"];
+    UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 47, 270, 1)];
+    lineView.backgroundColor = BYColorb768;
     [_mainView addSubview:lineView];
 
-    _selectTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 48, 270, cellHeight * 4)];
+    _selectTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 48, 270, 290 - 50)];
     _selectTableView.backgroundColor = BYColorBG;
     _selectTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _selectTableView.delegate = self;
     _selectTableView.dataSource = self;
     [_mainView addSubview:_selectTableView];
 
-    UIImageView* lineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, _selectTableView.bottom, _mainView.width, 1)];
-    lineView1.image = [UIImage imageNamed:@"line_common"];
-    [_mainView addSubview:lineView1];
-
-    UIButton* cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(_mainView.width - 48, 0, 48, 48)];
-    [cancelButton setImage:[[UIImage imageNamed:@"icon_address_close"] resizableImage] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(dismissClick) forControlEvents:UIControlEventTouchUpInside];
-    [cancelButton setImageEdgeInsets:UIEdgeInsetsMake(12, 12, 12, 12)];
-    [_mainView addSubview:cancelButton];
+//    UIImageView* lineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, _selectTableView.bottom, _mainView.width, 1)];
+//    lineView1.image = [UIImage imageNamed:@"line_common"];
+//    [_mainView addSubview:lineView1];
+//
+//    UIButton* cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(_mainView.width - 48, 0, 48, 48)];
+//    [cancelButton setImage:[[UIImage imageNamed:@"icon_address_close"] resizableImage] forState:UIControlStateNormal];
+//    [cancelButton addTarget:self action:@selector(dismissClick) forControlEvents:UIControlEventTouchUpInside];
+//    [cancelButton setImageEdgeInsets:UIEdgeInsetsMake(12, 12, 12, 12)];
+//    [_mainView addSubview:cancelButton];
 
     // 上一步和下一步按钮
 //    _lastButton = [[UIButton alloc] initWithFrame:CGRectMake(15, _selectTableView.bottom + 9, 112, 44)];
@@ -168,13 +170,16 @@ static NSString* cellId = @"BYAddressSelectCell";
     case BYAddressTypeProvince: {
 //        _nextButton.userInteractionEnabled = NO;
 //        _lastButton.userInteractionEnabled = NO;
+        [MBProgressHUD topShow:@"获取中..."];
         [self.addressService fetchProvinceList:^(NSArray* provinceList, BYError* error) {
             if(error){
                 alertError(error);
             }else{
+                [MBProgressHUD topHide];
                 if(!provinceList || provinceList.count == 0){
                     [MBProgressHUD topShowTmpMessage:@"获取省信息时出现问题"];
                 }else{
+                    _titleLabel.text = @"选择省";
                     [self.showList removeAllObjects];
                     [self.showList addObjectsFromArray:provinceList];
 //                    if (!_selectedProvince) {
@@ -204,13 +209,16 @@ static NSString* cellId = @"BYAddressSelectCell";
     case BYAddressTypeCity: {
 //        _nextButton.userInteractionEnabled = NO;
 //        _lastButton.userInteractionEnabled = NO;
+        [MBProgressHUD topShow:@"获取中..."];
         [self.addressService fetchCityListByProvinceId:[_selectedProvince.provinceId intValue] finish:^(NSArray* cityList, BYError* error) {
                 if(error){
                     alertError(error);
                 }else{
+                    [MBProgressHUD topHide];
                     if(!cityList || cityList.count == 0){
                         [MBProgressHUD topShowTmpMessage:@"获取城市信息时出现问题"];
                     }else{
+                        _titleLabel.text = @"选择城市";
                         [self.showList removeAllObjects];
                         [self.showList addObjectsFromArray:cityList];
                         if (!_selectedCity) {
@@ -243,13 +251,16 @@ static NSString* cellId = @"BYAddressSelectCell";
     case BYAddressTypeArea: {
 //        _nextButton.userInteractionEnabled = NO;
 //        _lastButton.userInteractionEnabled = NO;
+        [MBProgressHUD topShow:@"获取中..."];
         [self.addressService fetchAreaListByCityId:[_selectedCity.cityId intValue] finish:^(NSArray* areaList, BYError* error) {
                 if(error){
                     alertError(error);
                 }else{
+                    [MBProgressHUD topHide];
                     if(!areaList || areaList.count == 0){
                         [MBProgressHUD topShowTmpMessage:@"获取区域信息时出现问题"];
                     }else{
+                        _titleLabel.text = @"选择区域";
                         [self.showList removeAllObjects];
                         [self.showList addObjectsFromArray:areaList];
                         if (!_selectedArea) {

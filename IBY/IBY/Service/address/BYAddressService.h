@@ -26,10 +26,10 @@
                            phone:(NSString*)phone
                        isdefault:(int)isdefault
                          zipcode:(NSString*)zipcode
-                          finish:(void (^)(BYError* error))finished;
+                          finish:(void (^)(BOOL success, BYError*error))finished;
 
 - (void)deleteAddressByAddressId:(int)addressId
-                          finish:(void (^)(BYError* error))finished;
+                          finish:(void (^)(BOOL success, BYError*error))finished;
 
 - (void)fetchProvinceList:(void (^)(NSArray* provinceList, BYError* error))finished;
 

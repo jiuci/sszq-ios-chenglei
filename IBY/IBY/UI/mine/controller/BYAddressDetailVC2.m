@@ -14,17 +14,14 @@
 #import "BYAddressSelectionView.h"
 #import "BYAddressService.h"
 
-@interface BYAddressDetailVC2 () <UITextFieldDelegate, BYAddressSelectionDelegate>
+@interface BYAddressDetailVC2 () <UITextFieldDelegate, BYAddressSelectionDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong) BYLinearScrollView* bodyView;
 
 @property (nonatomic, strong) BYTextField* receiverTxtfield;
 @property (nonatomic, strong) BYTextField* phoneTxtfield;
-@property (nonatomic, strong) BYTextField* addressDetailTxtfield;
-//@property (nonatomic, strong) BYTextField* zipcodeTxtfield;
+@property (nonatomic, strong) UITextView* addressDetailTxtfield;
 @property (nonatomic, strong) UILabel* provinceLabel;
-//@property (nonatomic, strong) UILabel* cityLabel;
-//@property (nonatomic, strong) UILabel* areaLabel;
 @property (nonatomic, strong) BYAddressEditFooter* footer;
 
 @property (nonatomic, strong) BYAddressService* service;
@@ -44,7 +41,7 @@
     [super viewDidLoad];
     self.autoHideKeyboard = YES;
 
-    self.navigationItem.title = _isEditMode ? @"修改收货地址" : @"添加新地址";
+    self.navigationItem.title = _isEditMode ? @"修改收货地址" : @"添加收货地址";
 
     _selectView = [BYAddressAreaSelectView createPopoverView];
 
@@ -89,33 +86,34 @@
 
     if ([self.receiverTxtfield.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请填写收货人信息"];
+        [self.receiverTxtfield resignFirstResponder];
         return NO;
     }
     if ([self.phoneTxtfield.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请填写手机号"];
+        [self.phoneTxtfield resignFirstResponder];
         return NO;
     }
 
     if (![self.phoneTxtfield.text isMobilePhoneNumber]) {
         [MBProgressHUD topShowTmpMessage:@"请输入11位手机号"];
+        [self.phoneTxtfield resignFirstResponder];
         return NO;
     }
 
     if ([self.addressDetailTxtfield.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
+        [self.addressDetailTxtfield resignFirstResponder];
         return NO;
     }
-//    if ([self.zipcodeTxtfield.text isEqual:@""]) {
-//        [MBProgressHUD topShowTmpMessage:@"请填写邮政编码"];
-//        return NO;
-//    }
-//    if (![self.zipcodeTxtfield.text isZipcode]) {
-//        [MBProgressHUD topShowTmpMessage:@"请填写6位邮政编码"];
-//        return NO;
-//    }
 
     if (!_address.province || !_address.city || !_address.area) {
-        [MBProgressHUD topShowTmpMessage:@"请选择省，市或者地区"];
+        [MBProgressHUD topShowTmpMessage:@"请选择省，市和地区"];
+        return NO;
+    }
+    if (self.addressDetailTxtfield.text.length > 40) {
+        [MBProgressHUD topShowTmpMessage:@"详细地址不能超过40字符"];
+        [self.addressDetailTxtfield resignFirstResponder];
         return NO;
     }
 
@@ -136,20 +134,24 @@
     __weak BYAddressDetailVC2* wself = self;
 
     if (_isEditMode) {
-        [self.service updateAddressByAddressId:_address.addressId address:_address.address areaId:[_address.area.areaId intValue] receiver:_address.receiver phone:_address.phone isdefault:_address.isdefault zipcode:_address.zipcode finish:^(BYError* error) {
+        [MBProgressHUD topShow:@"更新中..."];
+        [self.service updateAddressByAddressId:_address.addressId address:_address.address areaId:[_address.area.areaId intValue] receiver:_address.receiver phone:_address.phone isdefault:_address.isdefault zipcode:_address.zipcode finish:^(BOOL success, BYError* error) {
             if (error) {
-                [MBProgressHUD topShowTmpMessage:@"更新地址失败"];
+                alertError(error);
             }else{
+                [MBProgressHUD topShowTmpMessage:@"更新完成"];
                 [wself didPopBack];
                 
             }
         }];
     }
     else {
+        [MBProgressHUD topShow:@"添加中..."];
         [self.service addAddressByAddress:_address.address areaId:_address.area.areaId receiver:_address.receiver phone:_address.phone isdefault:_address.isdefault zipcode:_address.zipcode finish:^(NSNumber* addressId, BYError* error) {
             if (error) {
-                [MBProgressHUD topShowTmpMessage:@"添加地址失败"];
+                alertError(error);
             }else{
+                [MBProgressHUD topShowTmpMessage:@"添加完成"];
                 wself.address.addressId = [addressId intValue];
                 [wself didPopBack];
             }
@@ -309,6 +311,7 @@
     [self.bodyView by_addSubview:cell1 paddingTop:12];
 
     _phoneTxtfield = addressEditTxtfield(@"", self);
+    _phoneTxtfield.keyboardType = UIKeyboardTypeNumberPad;
     BYAddressEditCell* cell2 = [BYAddressEditCell editCellWithTitle:@"手机号码:" input:_phoneTxtfield];
     [self.bodyView by_addSubview:cell2 paddingTop:0];
 
@@ -327,9 +330,16 @@
 //    [cell5 addTarget:self action:@selector(onArea) forControlEvents:UIControlEventTouchUpInside];
 //    [self.bodyView by_addSubview:cell5 paddingTop:0];
 
-    _addressDetailTxtfield = addressEditTxtfield(@"", self);
-    BYAddressEditCell* cell6 = [BYAddressEditCell editCellWithTitle:@"详细地址:" input:_addressDetailTxtfield];
-    [self.bodyView by_addSubview:cell6 paddingTop:0];
+    _addressDetailTxtfield = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, 230, 40 - 4)];
+    _addressDetailTxtfield.backgroundColor = [UIColor clearColor];
+    _addressDetailTxtfield.font = Font(14);
+    _addressDetailTxtfield.textColor = BYColor333;
+    //top, left, bottom, right
+    _addressDetailTxtfield.returnKeyType = UIReturnKeyDefault;
+    _addressDetailTxtfield.delegate = self;
+    BYAddressEditCell* cell6 = [BYAddressEditCell editCellWithTitle:@"详细地址:" input:_addressDetailTxtfield left:90];
+    [self.bodyView by_addSubview:cell6 paddingTop:12];
+    _addressDetailTxtfield.top += 4;
 
 //    _zipcodeTxtfield = addressEditTxtfield(@"", self);
 //    BYAddressEditCell* cell7 = [BYAddressEditCell editCellWithTitle:@"邮政编码:" input:_zipcodeTxtfield];
@@ -348,14 +358,33 @@
     self.receiverTxtfield.text = data.receiver;
     self.phoneTxtfield.text = data.phone;
     self.addressDetailTxtfield.text = data.address;
-//    self.zipcodeTxtfield.text = data.zipcode;
-    
+    [self resizeTextView:self.addressDetailTxtfield];
     NSString* provinceString = [NSString stringWithFormat:@"%@ %@ %@",data.province.provinceName,data.city.cityName,data.area.areaName];
     self.provinceLabel.text = data.province.provinceName ? provinceString : @"请选择";
-//    self.cityLabel.text = data.city.cityName ? data.city.cityName : @"请选择";
-//    self.areaLabel.text = data.area.areaName ? data.area.areaName : @"请选择";
+    [self resizeLabel:self.provinceLabel];
     [self.bodyView by_updateDisplay];
     [_footer setWillBeDefault:_address.isdefault];
 }
 
+- (void)resizeLabel:(UILabel*)label
+{
+    CGSize size = [label.text sizeWithFont:Font(14) maxSize:CGSizeMake(label.width, 1000)];
+    label.height = label.height > size.height ? label.height :size.height;
+    label.superview.height = label.superview.height > size.height ? label.superview.height :size.height;
+}
+
+- (void)resizeTextView:(UITextView*)textView
+{
+    
+    CGSize size = [textView.text sizeWithFont:Font(14) maxSize:CGSizeMake(textView.width, 1000)];
+    size = [textView sizeThatFits:textView.size];
+    size.height += 12;
+    textView.height = textView.height > size.height ? textView.height :size.height;
+    textView.superview.height = textView.superview.height > size.height ? textView.superview.height :size.height;
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    [self resizeTextView:textView];
+}
 @end

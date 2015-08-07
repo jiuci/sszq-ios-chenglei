@@ -15,8 +15,10 @@
 
 - (void)fetchUserLatestStatus:(void (^)(BOOL isSuccess, BYError* error))finished;
 
-- (void)checkNicknameByName:(NSString*)nickname finish:(void (^)(BOOL exitance))finished;
+//- (void)checkNicknameByName:(NSString*)nickname finish:(void (^)(BOOL exitance))finished;
 
-- (void)updateNicknameByName:(NSString*)nickname finish:(void (^)(BOOL success))finished;
+- (void)updateNicknameByName:(NSString*)nickname finish:(void (^)(BOOL success, BYError* error))finished;
+
+- (void)updateGender:(NSString*)gender finish:(void (^)(BOOL success, BYError* error))finished;
 
 @end

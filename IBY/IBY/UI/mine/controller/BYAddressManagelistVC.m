@@ -12,15 +12,20 @@
 #import "BYAddressDetailVC.h"
 #import "BYAddressDetailVC2.h"
 #import "BYAddressService.h"
+#import "BYAutosizeBgButton.h"
 
 static NSString* cellID = @"BYAddressCell";
 
 @interface BYAddressManagelistVC () <BYAddressDetailDelegate, UITableViewDataSource, UITableViewDelegate>
+{
+    BYAutosizeBgButton * addBtn;
+    float offset ;
+}
 @property (weak, nonatomic) IBOutlet UITableView* addressTableView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 
 @property (strong, nonatomic) NSMutableArray* addressList;
-
+@property (nonatomic, strong) UITableViewCell *prototypeCell;
 @end
 
 @implementation BYAddressManagelistVC {
@@ -31,27 +36,63 @@ static NSString* cellID = @"BYAddressCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"地址管理";
-
+    self.title = @"我的地址";
+    self.view.height = SCREEN_HEIGHT - self.navigationController.navigationBar.height - [[UIApplication sharedApplication] statusBarFrame].size.height;
+    self.view.width = SCREEN_WIDTH;
     _addressService = [[BYAddressService alloc] init];
     _addressList = [NSMutableArray array];
 
     self.addressTableView.delegate = self;
     self.addressTableView.dataSource = self;
     self.addressTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.addressTableView.sectionFooterHeight = 12;
+//    self.addressTableView.sectionFooterHeight = 12;
     
-    [_addButton setImage:[[UIImage imageNamed:@"icon_addaddress"] resizableImage] forState:UIControlStateNormal];
-    [_addButton setImageEdgeInsets:UIEdgeInsetsMake(9, 90, 9, 90)];
-    [_addButton setTitle:@"添加新地址" forState:UIControlStateNormal];
+
+    
     
 
     UINib* nib = [UINib nibWithNibName:@"BYAddressCell" bundle:nil];
     [self.addressTableView registerNib:nib forCellReuseIdentifier:cellID];
-
+    self.prototypeCell  = [self.addressTableView dequeueReusableCellWithIdentifier:cellID];
+    
     _needUpdate = YES;
 
     self.tipsTopPadding = 70;
+    
+    addBtn = [[BYAutosizeBgButton alloc]initWithFrame:CGRectMake(12, 0, self.view.width - 24, 40)];
+    addBtn.bottom = self.view.height - 20;
+    [self.view addSubview:addBtn];
+    [addBtn addTarget:self action:@selector(addNewAddress:) forControlEvents:UIControlEventTouchUpInside];
+    [addBtn setBackgroundImage:[[UIImage imageNamed:@"btn_red"] resizableImage] forState:UIControlStateNormal];
+    [addBtn setBackgroundImage:[[UIImage imageNamed:@"btn_red_on"] resizableImage] forState:UIControlStateHighlighted];
+    addBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [addBtn setTitle:@"添加收货地址" forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"icon_address_add"] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [addBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
+    [addBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
+    
+    float height = 0;
+    UIImageView* noneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_address_none"]];
+    noneImage.centerX = self.view.width / 2;
+    height += noneImage.height;
+    [self.view addSubview:noneImage];
+    height += 20;
+    UILabel * noneLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, height, self.view.width, 20)];
+    noneLabel.text = @"您还没有创建过收货地址喔~";
+    noneLabel.textAlignment = NSTextAlignmentCenter;
+    noneLabel.textColor = BYColor666;
+    noneLabel.font = [UIFont systemFontOfSize:14];
+    [self.view addSubview:noneLabel];
+    height += 20;
+    height += 32;
+    height += 40;
+    offset = (self.view.height - height - (SCREEN_HEIGHT - self.view.height)) / 2;
+    noneImage.top += offset;
+    noneLabel.top += offset;
+    [self.view sendSubviewToBack:noneLabel];
+    [self.view sendSubviewToBack:noneImage];
+    
+    _addressTableView.backgroundColor = self.view.backgroundColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,7 +108,7 @@ static NSString* cellID = @"BYAddressCell";
 - (void)updateData
 {
     [self hideTipsView];
-    [MBProgressHUD topShow:@""];
+    [MBProgressHUD topShow:@"更新中..."];
     [_addressService fetchAddressList:^(NSArray* addressList, BYError* error) {
         [MBProgressHUD topHide];
         if(error){
@@ -76,10 +117,17 @@ static NSString* cellID = @"BYAddressCell";
             if(!addressList || addressList.count == 0){
                 [self.addressList removeAllObjects];
                 [self updateUI];
-                [self showTipsView:@"您还没有设置地址信息" icon:nil];
+                [self showTip];
             }else{
                 [self.addressList removeAllObjects];
                 [self.addressList addObjectsFromArray:addressList];
+                for (int i = 0 ; i < self.addressList.count; i++) {
+                    BYAddress* data = addressList[i];
+                    if (data.isdefault) {
+                        [self.addressList exchangeObjectAtIndex:0 withObjectAtIndex:i];
+                    }
+                }
+                [self hideTip];
                 [self updateUI];
             }
             
@@ -87,6 +135,21 @@ static NSString* cellID = @"BYAddressCell";
     }];
 }
 
+- (void)showTip
+{
+    _addressTableView.hidden = YES;
+    addBtn.bottom = self.view.height - offset - (SCREEN_HEIGHT - self.view.height);
+    addBtn.width = 180;
+    addBtn.centerX = self.view.width / 2;
+}
+
+- (void)hideTip
+{
+    _addressTableView.hidden = NO;
+    addBtn.bottom = self.view.height - 20;
+    addBtn.width = self.view.width - 24;
+    addBtn.centerX = self.view.width / 2;
+}
 - (void)updateUI
 {
     [self.addressTableView reloadData];
@@ -103,6 +166,7 @@ static NSString* cellID = @"BYAddressCell";
     if (_inPayProcessing) {
         addNewAddressView.popToVC = self.confirmOrderVC;
     }
+    [self needUpdate];
     [self.navigationController pushViewController:addNewAddressView animated:YES];
 }
 
@@ -112,19 +176,48 @@ static NSString* cellID = @"BYAddressCell";
 }
 
 #pragma mark -
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    return 40;
+    
+    BYAddressCell *cell = (BYAddressCell *)self.prototypeCell;
+    BYAddress* data =self.addressList[[indexPath section]];
+//    cell.t.text = [self.tableData objectAtIndex:indexPath.row];
+    cell.receiverLabel.text = [NSString stringWithFormat:@"%@    %@", data.receiver, data.phone];
+    
+    NSString* address = [NSString stringWithFormat:@"%@%@%@\n%@", data.provinceName, data.cityName, data.areaName, data.address];
+    CGSize size = [address sizeWithFont:Font(12) maxSize:CGSizeMake(cell.width - 24, 1000)];
+    cell.addressLabel.height = size.height;
+    cell.addressLabel.text = address;
+    CGSize newSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return 1  + newSize.height;
+}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
+{
+    return 0;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 12;
+}
 - (UIView*)tableView:(UITableView*)tableView
     viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    }
-    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 12)];
+//    if (section == 0) {
+//        return [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 12)];
+//    }
+    UIView*view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 12)];
+    return view;
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
 {
-    return [[UIView alloc] init];
+    UIView*view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
+    return view;
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
@@ -145,10 +238,6 @@ static NSString* cellID = @"BYAddressCell";
     return cell;
 }
 
-//- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
-//{
-//    return 90;
-//}
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
@@ -173,17 +262,21 @@ static NSString* cellID = @"BYAddressCell";
 {
     return YES;
 }
-
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [MBProgressHUD topShow:@"删除中..."];
         BYAddress* addressData = self.addressList[[indexPath section]];
-        [_addressService deleteAddressByAddressId:addressData.addressId finish:^(BYError* error) {
-            if(error){
-                [MBProgressHUD topShowTmpMessage:@"删除失败"];
-            }else{
+        [_addressService deleteAddressByAddressId:addressData.addressId finish:^(BOOL success, BYError* error) {
+            if(success){
                 [MBProgressHUD topShowTmpMessage:@"删除成功"];
                 [self updateData];
+            }else{
+                alertError(error);
             }
         }];
     }

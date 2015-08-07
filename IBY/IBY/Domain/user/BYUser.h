@@ -23,6 +23,12 @@
 @property (nonatomic, copy) NSString* token;
 @property (nonatomic, copy) NSString* userType;
 
+@property (nonatomic, assign) int refundNum;
+@property (nonatomic, assign) int toReceiveOrderNum;
+@property (nonatomic, assign) int notPayOrderNum;
+
+@property (nonatomic, assign) int messageNum;
+
 + (instancetype)userWithLoginDict:(NSDictionary*)info;
 + (instancetype)userWithUpdateDict:(NSDictionary*)info;
 

@@ -51,5 +51,8 @@
         finished(NO, err);
     }
 }
-
+- (void)resetPassword:(NSString*)password oldPassword:(NSString*)oldpassword finish:(void (^)(BOOL success, BYError* error))finished
+{
+    [BYPassportEngine resetPasswordForUser:self.phone newPassword:password needOldPassword:YES oldPassword:oldpassword md5:nil finish:finished];
+}
 @end

@@ -73,6 +73,8 @@
         [_service fetchUserLatestStatus:^(BOOL isSuccess, BYError* error) {
             if (isSuccess) {
                 [self updateUI];
+            }else{
+                alertError(error);
             }
         }];
     }
@@ -82,19 +84,31 @@
 {
     [self.headerView updateUI];
     [MBProgressHUD topHide];
+    _hasNewMessage.hidden = YES;
+    BYUser * user = [BYAppCenter sharedAppCenter].user;
+    _hasNewMessage.hidden = user.messageNum == 0;
+    
 }
 
 - (void)setupUI
 {
     //nav
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"icon_message" highImgName:@"icon_message" handler:^(id sender) {
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_meassages" highImgName:@"btn_meassages" handler:^(id sender) {
         [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withSuccessBlk:^{
-        
+                _exitBlk(@"http://m.biyao.com/message");
 //                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalMessage];
             } cancelBlk:^{
                 
             }];
     }];
+    _hasNewMessage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 12, 12)];
+    
+    _hasNewMessage.image = [UIImage imageNamed:@"bg_messages_hasmessage"];
+    [self.navigationItem.rightBarButtonItem.customView addSubview:_hasNewMessage];
+    _hasNewMessage.right = _hasNewMessage.superview.width + 5;
+    _hasNewMessage.bottom = _hasNewMessage.superview.height / 2 - 4;
+//    _hasNewMessage.hidden = YES;
+    
     
     _bodyView = [[BYLinearScrollView alloc] initWithFrame:BYRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.height - 46 - [[UIApplication sharedApplication] statusBarFrame].size.height)];
 //    _bodyView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -105,6 +119,7 @@
     _headerView = [BYMineHeaderView headerView];
     [_headerView setupUI];
     _headerView.mineVC = self;
+    
     [self.bodyView by_addSubview:_headerView paddingTop:0];
 
     [self appendCell:@"icon_usercenter_orderinquiry"
@@ -117,25 +132,27 @@
                  top:0
                  sel:@selector(onMydesigns)];
 
-    [self appendCell:@"icon_usercenter_addressadmin"
+    [self appendCell:@"icon_usercenter_address"
                title:@"我的地址"
                  top:0
                  sel:@selector(onAdress)];
     
-    [self appendCell:@"icon_usercenter_addressadmin"
-               title:@"退款管理"
-                 top:0
-                 sel:@selector(onAdress)];
+//    [self appendCell:@"icon_usercenter_addressadmin"
+//               title:@"退款管理"
+//                 top:0
+//                 sel:@selector(onAdress)];
 
-    [self appendCell:@"icon_usercenter_setting"
-               title:@"设置"
+    [self appendCell:@"icon_usercenter_service"
+               title:@"客服中心"
                  top:12
-                 sel:@selector(onSetting)];
+                 sel:@selector(onService)];
     
     [self appendCell:@"icon_usercenter_setting"
-               title:@"客服电话"
+               title:@"设置"
                  top:0
-                 sel:@selector(onService)];
+                 sel:@selector(onSetting)];
+    
+    
 //    [self appendCell:@"icon_usercenter_setting"
 //               title:@"相机"
 //                 top:12
@@ -165,7 +182,7 @@
         
         __weak BYMineVC* wself = self;
         
-        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"主页"];
+        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"首页"];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
                                    wself.exitBlk(BYURL_HOME);
@@ -275,6 +292,10 @@
         [self loginAction];
         return;
     }
+    if ([BYAppCenter sharedAppCenter].user.notPayOrderNum == 0) {
+        [MBProgressHUD topShowTmpMessage:@"您还没有待付款订单"];
+        return;
+    }
     _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=1");
 
     
@@ -293,7 +314,21 @@
         [self loginAction];
         return;
     }
+    
     _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=3");
+}
+
+- (void)onInRefundOrders
+{
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    if ([BYAppCenter sharedAppCenter].user.refundNum == 0) {
+        [MBProgressHUD topShowTmpMessage:@"您还没有退款/售后订单"];
+        return;
+    }
+    _exitBlk(@"http://m.biyao.com/refund/myrefund");
 }
 
 - (void)onToDeliverConfirmOrders
@@ -307,6 +342,10 @@
 //    }];
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
+        return;
+    }
+    if ([BYAppCenter sharedAppCenter].user.toReceiveOrderNum == 0) {
+        [MBProgressHUD topShowTmpMessage:@"您还没有待收货订单"];
         return;
     }
     _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=4");

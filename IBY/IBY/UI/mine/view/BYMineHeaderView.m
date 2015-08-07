@@ -14,8 +14,15 @@
 #import "BYRegist1VC.h"
 #import "BYImageView.h"
 #import "BYMineVC.h"
+#
+#import "BYNumberTip.h"
 
 @interface BYMineHeaderView ()
+{
+    BYNumberTip * notPayOrderTip;
+    BYNumberTip * toReceiveOrderTip;
+    BYNumberTip * refundOrderTip;
+}
 @property (weak, nonatomic) IBOutlet BYImageView* userIcon;
 @property (weak, nonatomic) IBOutlet UILabel* userName;
 @property (weak, nonatomic) IBOutlet UIView* loginView;
@@ -24,7 +31,7 @@
 @property (nonatomic, strong) UIButton* loginButton;
 @property (nonatomic, strong) UIButton* registButton;
 @property (nonatomic, strong) UIButton* notPayOrderBtn;
-@property (nonatomic, strong) UIButton* producingOrderBtn;
+@property (nonatomic, strong) UIButton* refundOrderBtn;
 @property (nonatomic, strong) UIButton* notReceivedOrderBtn;
 
 @end
@@ -38,25 +45,30 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
-    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 164);
+    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
 }
 
 - (void)setupUI
 {
     //点击昵称  跳转到昵称 修改页面
+    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
     [_userName addTapAction:@selector(resetNickname) target:self];
+    _userName.shadowColor = HEXACOLOR(0x000000, .2);
+    _userName.shadowOffset = CGSizeMake(0, 1.0);
     //setup  登录项
     UIImageView* bgImagview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _loginView.width, _loginView.height)];
-    UIImage* bgImage = [UIImage imageNamed:@"bg_userscreen_login"];
+    UIImage* bgImage = [UIImage imageNamed:@"bg_usercenter_header"];
     bgImagview.image = [bgImage stretchableImageWithLeftCapWidth:bgImage.size.width / 2 topCapHeight:0.];
-    [_loginView addSubview:bgImagview];
+//    [_loginView addSubview:bgImagview];
     _mineVC = [BYMineVC sharedMineVC];
-    _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, _loginView.height)];
-    [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, 25)];
+    [_loginButton setTitle:@"登录 / 注册" forState:UIControlStateNormal];
     [_loginButton setTitleColor:BYColorb768 forState:UIControlStateNormal];
-    _loginButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    _loginButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [_loginButton addTarget:_mineVC action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
+    _loginButton.backgroundColor = [UIColor clearColor];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_usercenter_trans_login"] resizableImage] forState:UIControlStateNormal];
+    _loginView.backgroundColor = [UIColor clearColor];
     [_loginView addSubview:_loginButton];
 
 //    UIImageView* loginSepLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 15)];
@@ -75,43 +87,57 @@
 
     //setup 订单项目
     CGFloat btnWidth = (SCREEN_WIDTH - 2) / 3;
-    CGFloat btnHeight = 40;
-    //待付款订单btn
-    _notPayOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_orderpayment" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"待付款"];
+    CGFloat btnHeight = 52;
+    //
+    _notPayOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_orderpayment" iconEdge:UIEdgeInsetsMake(0, 20, 10, 0) bgIcon:nil title:@"待付款"];
+    CGSize size = [_notPayOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
+    [_notPayOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_notPayOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
+    [_notPayOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
     _notPayOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_notPayOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
     _notPayOrderBtn.left = 0;
     [_notPayOrderBtn addTarget:_mineVC action:@selector(onToPayOrders) forControlEvents:UIControlEventTouchUpInside];
     [_orderStatusView addSubview:_notPayOrderBtn];
+    notPayOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_notPayOrderBtn];
+    
 
-    UIImageView* orderSepLineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 22)];
+    UIImageView* orderSepLineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 32)];
     orderSepLineView1.image = [UIImage imageNamed:@"line_usercenter_separate"];
     orderSepLineView1.left = _notPayOrderBtn.right;
     orderSepLineView1.centerY = _orderStatusView.height / 2;
     [_orderStatusView addSubview:orderSepLineView1];
 
-    //生产中订单
-    _producingOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_producing" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"生产中"];
-    _producingOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [_producingOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
-    _producingOrderBtn.left = orderSepLineView1.right;
-    [_producingOrderBtn addTarget:_mineVC action:@selector(onInProcessOrders) forControlEvents:UIControlEventTouchUpInside];
-    [_orderStatusView addSubview:_producingOrderBtn];
-
-    UIImageView* orderSepLineView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 22)];
-    orderSepLineView2.image = [UIImage imageNamed:@"line_usercenter_separate"];
-    orderSepLineView2.left = _producingOrderBtn.right;
-    orderSepLineView2.centerY = _orderStatusView.height / 2;
-    [_orderStatusView addSubview:orderSepLineView2];
-
-    _notReceivedOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_orderdeliver" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"待收货"];
+    //
+    _notReceivedOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_receive" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"待收货"];
+    size = [_notReceivedOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
+    [_notReceivedOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_notReceivedOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
+    [_notReceivedOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
     _notReceivedOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_notReceivedOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
-    _notReceivedOrderBtn.left = orderSepLineView2.right;
+    _notReceivedOrderBtn.left = orderSepLineView1.right;
     [_notReceivedOrderBtn addTarget:_mineVC action:@selector(onToDeliverConfirmOrders) forControlEvents:UIControlEventTouchUpInside];
     [_orderStatusView addSubview:_notReceivedOrderBtn];
     
-    [_userIcon addTapAction:@selector(onAvatar) target:_mineVC];
+    toReceiveOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_notReceivedOrderBtn];
+
+    UIImageView* orderSepLineView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 32)];
+    orderSepLineView2.image = [UIImage imageNamed:@"line_usercenter_separate"];
+    orderSepLineView2.left = _notReceivedOrderBtn.right;
+    orderSepLineView2.centerY = _orderStatusView.height / 2;
+    [_orderStatusView addSubview:orderSepLineView2];
+
+    _refundOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_refund" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"退款/售后"];
+    size = [_refundOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
+    [_refundOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_refundOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
+    [_refundOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
+    _refundOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_refundOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
+    _refundOrderBtn.left = orderSepLineView2.right;
+    [_refundOrderBtn addTarget:_mineVC action:@selector(onInRefundOrders) forControlEvents:UIControlEventTouchUpInside];
+    [_orderStatusView addSubview:_refundOrderBtn];
+    refundOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_refundOrderBtn];
+    
+//    [_userIcon addTapAction:@selector(onAvatar) target:_mineVC];
 }
 
 
@@ -128,6 +154,14 @@
         [imageLayer setMasksToBounds:YES];
 
         _loginView.hidden = YES;
+        
+        refundOrderTip.number = [BYAppCenter sharedAppCenter].user.refundNum;
+        toReceiveOrderTip.number = [BYAppCenter sharedAppCenter].user.toReceiveOrderNum;
+        notPayOrderTip.number = [BYAppCenter sharedAppCenter].user.notPayOrderNum;
+        
+//        refundOrderTip.number = 10;
+//        toReceiveOrderTip.number = 15;
+//        notPayOrderTip.number = 5;
     }
     else {
         self.userName.userInteractionEnabled = NO;

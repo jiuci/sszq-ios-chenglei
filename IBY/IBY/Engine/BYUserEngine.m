@@ -24,31 +24,31 @@
     }];
 }
 
-+ (void)fetchUserLatestStatus:(void (^)(BYUser* user, BYError* error))finished
++ (void)fetchUserLatestStatus:(void (^)(BOOL success, BYError* error))finished
 {
-    if (![BYAppCenter sharedAppCenter].user.phoneNum) {
-        BYError *err = makeCustomError(BYFuErrorInvalidParameter, @"com.biyao.user.update",@"phoneNum is empty", nil);
-        finished(nil,err);
+    if (![BYAppCenter sharedAppCenter].user.userID) {
+        BYError *err = makeCustomError(BYFuErrorInvalidParameter, @"com.biyao.user.update",@"userID is empty", nil);
+        finished(NO,err);
         return;
     }
     
-    NSString* url = @"/user/customer/infobyphone";
+    NSString* url = @"/user/customer/GetUserInformation";
     NSDictionary* params = @{
-                             @"mobile" : [BYAppCenter sharedAppCenter].user.phoneNum
+                             @"uid" : @([BYAppCenter sharedAppCenter].user.userID)
                              };
     
     [BYNetwork get:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
             BYUser *user = [BYUser userWithUpdateDict:data];
-            
+            [[BYAppCenter sharedAppCenter].user updateWithAnother:user];
             if(user){
-                finished(user,nil);
+                finished(YES,nil);
             }else{
                 BYError *err = makeCustomError(BYFuErrorCannotSerialized, @"com.biyao.user.update", @"user serialized fail ", nil);
-                finished(nil,err);
+                finished(NO,err);
             }
         }else {
-            finished(nil,error);
+            finished(NO,error);
         }
     }];
 }
@@ -69,21 +69,7 @@
     }];
 }
 
-+ (void)updateNickname:(NSString*)nickname finish:(void (^)(BOOL isSuccess, BYError* error))finished
-{
-    NSString* url = @"user/customer/UpdateInformation";
-    
-    NSDictionary* params = @{ @"nickname" : nickname,
-                              @"gender" : [NSString stringWithFormat:@"%d", [BYAppCenter sharedAppCenter].user.gender] };
-    
-    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
-        if(error){
-            finished(NO,error);
-        }else{
-            finished(YES,nil);
-        }
-    }];
-}
+
 
 + (void)syncUserDataAfterLogin:(void (^)(BOOL isSuccess, BYError* error))finished {
     if (![BYAppCenter sharedAppCenter].isLogin) {
@@ -104,5 +90,38 @@
         }
     }];
 }
++ (void)updateNickname:(NSString*)nickname finish:(void (^)(BOOL isSuccess, BYError* error))finished
+{
+    NSString* url = @"user/customer/UpdateInformation";
+    
+    NSDictionary* params = @{ @"nickname" : nickname,
+                              @"gender" : [NSString stringWithFormat:@"%d", [BYAppCenter sharedAppCenter].user.gender] };
+    
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if(error){
+            finished(NO,error);
+        }else{
+            [BYAppCenter sharedAppCenter].user.nickname = nickname;
+            finished(YES,nil);
+        }
+    }];
+}
 
++ (void)updateGender:(NSString*)gender finish:(void (^)(BOOL success, BYError* error))finished
+{
+    NSString* url = @"user/customer/UpdateInformation";
+    
+    NSDictionary* params = @{ @"nickname" : [BYAppCenter sharedAppCenter].user.nickname,
+                              @"gender" : gender };
+    
+    [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
+        if(error){
+            finished(NO,error);
+        }else{
+            [BYAppCenter sharedAppCenter].user.gender = [gender intValue];
+            finished(YES,nil);
+        }
+    }];
+    
+}
 @end
