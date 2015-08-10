@@ -14,7 +14,7 @@
 #import "BYRegist1VC.h"
 #import "BYImageView.h"
 #import "BYMineVC.h"
-#
+#import "BYUserProfileVC.h"
 #import "BYNumberTip.h"
 
 @interface BYMineHeaderView ()
@@ -52,7 +52,7 @@
 {
     //点击昵称  跳转到昵称 修改页面
     self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
-    [_userName addTapAction:@selector(resetNickname) target:self];
+    [_userName addTapAction:@selector(onUserInfo) target:self];
     _userName.shadowColor = HEXACOLOR(0x000000, .2);
     _userName.shadowOffset = CGSizeMake(0, 1.0);
     //setup  登录项
@@ -137,7 +137,7 @@
     [_orderStatusView addSubview:_refundOrderBtn];
     refundOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_refundOrderBtn];
     
-//    [_userIcon addTapAction:@selector(onAvatar) target:_mineVC];
+    [_userIcon addTapAction:@selector(onUserInfo) target:self];
 }
 
 
@@ -173,11 +173,10 @@
     
 }
 
-- (void)resetNickname
+- (void)onUserInfo
 {
-    NSLog(@"resetNickname");
-//    BYSetNicknameVC* setNicknameVC = [[BYSetNicknameVC alloc] init];
-//    [self.mineVC.navigationController pushViewController:setNicknameVC animated:YES];
+    BYUserProfileVC* userProfileVC = [[BYUserProfileVC alloc] init];
+    [_mineVC.navigationController pushViewController:userProfileVC animated:YES];
 }
 
 //- (void)loginAction

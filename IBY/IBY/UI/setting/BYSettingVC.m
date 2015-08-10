@@ -26,6 +26,7 @@
 
 #import "BYUserProfileVC.h"
 
+#import "BYAutosizeBgButton.h"
 
 @interface BYSettingVC()
 //for test
@@ -33,6 +34,7 @@
 @property (nonatomic,strong)NSDate *tapTime;
 @property (nonatomic,strong)UIButton *testBtnA;
 @property (nonatomic,strong)UIButton *testBtnB;
+@property (nonatomic,strong)BYAutosizeBgButton * loginButton;
 @end
 
 @interface BYSettingVC () {
@@ -62,7 +64,7 @@
 {
     [super viewWillAppear:animated];
     [[BYAppCenter sharedAppCenter] updateUidAndToken];
-    _logoutCell.hidden = ![BYAppCenter sharedAppCenter].isLogin;
+    _loginButton.hidden = ![BYAppCenter sharedAppCenter].isLogin;
     
     
 }
@@ -126,9 +128,9 @@
     switcher = [[UISwitch alloc]init];
     [notiCell addSubview:switcher];
     switcher.onTintColor = BYColorb768;
-    switcher.frame = CGRectMake(0, 0, 120, 64);
+    switcher.frame = CGRectMake(0, 0, 2400, 64);
     switcher.centerY = notiCell.height / 2;
-    switcher.right = notiCell.width - 28;
+    switcher.right = notiCell.width - 22;
     switcher.on = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
     [switcher addTarget:self action:@selector(onSwitchNotification:) forControlEvents:UIControlEventValueChanged];
 
@@ -139,7 +141,7 @@
                  des:@""
                  sel:@selector(onRemoveCache)];
     
-    cacheLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH / 2 , 0, SCREEN_WIDTH / 2 - 28 , 40)];
+    cacheLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH / 2 , 0, SCREEN_WIDTH / 2 - 24 , 40)];
     cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
     cacheLabel.font = [UIFont systemFontOfSize:12];
     cacheLabel.textColor = HEXCOLOR(0x666666);
@@ -147,24 +149,43 @@
     
     [cacheCell addSubview:cacheLabel];
 
-    _logoutCell = [[BYBaseCell alloc] initWithFrame:BYRectMake(12, 0, SCREEN_WIDTH - 12 * 2, 44)];
-    _logoutCell.normalBg = [[UIImage imageNamed:@"btn_red"] resizableImage];
-    _logoutCell.highlightBg = [[UIImage imageNamed:@"btn_red_on"] resizableImage];
-    [_logoutCell bk_addEventHandler:^(id sender) {
-        [[BYAppCenter sharedAppCenter] logout];
-        [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
-    } forControlEvents:UIControlEventTouchUpInside];
-    _logoutCell.bottom = self.view.bottom - 20;
+//    _logoutCell = [[BYBaseCell alloc] initWithFrame:BYRectMake(12, 0, SCREEN_WIDTH - 12 * 2, 44)];
+//    _logoutCell.normalBg = [[UIImage imageNamed:@"btn_red"] resizableImage];
+//    _logoutCell.highlightBg = [[UIImage imageNamed:@"btn_red_on"] resizableImage];
+//    [_logoutCell bk_addEventHandler:^(id sender) {
+//        [[BYAppCenter sharedAppCenter] logout];
+//        [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
+//    } forControlEvents:UIControlEventTouchUpInside];
+//    _logoutCell.bottom = self.view.bottom - 20;
+//    
+//    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, _logoutCell.width, 44) font:Font(16) andTextColor:BYColorWhite];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.text = @"退出登录";
+//    [_logoutCell addSubview:label];
     
-    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, _logoutCell.width, 44) font:Font(16) andTextColor:BYColorWhite];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"退出登录";
-    [_logoutCell addSubview:label];
-    
-    
-    [self.bodyView by_addSubview:_logoutCell paddingTop:32 paddingBottom:30];
-}
+    _loginButton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
+    _loginButton.frame = CGRectMake(12, 0, SCREEN_WIDTH - 12 * 2, 40);
+    _loginButton.top = cacheLabel.bottom + 40;
+    [_loginButton addTarget:self action:@selector(onlogout) forControlEvents:UIControlEventTouchUpInside];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default"]resizableImage] forState:UIControlStateNormal];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_default"]resizableImage] forState:UIControlStateDisabled];
+    [_loginButton setBackgroundImage:[[UIImage imageNamed:@"bg_btn_main_press"]resizableImage] forState:UIControlStateHighlighted];
+    _loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [_loginButton setTitle:@"退出登录" forState:UIControlStateNormal];
+    [_loginButton setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+    [_loginButton setTitleColor:HEXCOLOR(0xd9b9cd) forState:UIControlStateDisabled];
+    [self.bodyView by_addSubview:_loginButton paddingTop:40];
+//    [self.view addSubview:_loginButton];
+//    _loginButton.enabled = NO;
 
+    
+//    [self.bodyView by_addSubview:_logoutCell paddingTop:32 paddingBottom:30];
+}
+- (void)onlogout
+{
+    [[BYAppCenter sharedAppCenter] logout];
+    [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
+}
 - (BYMineCell*)appendCell:(NSString*)icon title:(NSString*)title top:(CGFloat)top des:(NSString*)des sel:(SEL)selecor
 {
     BYMineCell* cell = [BYMineCell cellWithTitle:title icon:icon target:self sel:selecor];

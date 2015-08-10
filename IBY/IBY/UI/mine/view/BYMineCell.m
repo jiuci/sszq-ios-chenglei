@@ -25,7 +25,7 @@
     if (icon) {
         cell.iconView.image = [UIImage imageNamed:icon];
     }else{
-        cell.titleLabel.left -= cell.iconView.width;
+        cell.titleLabel.left = 12;
     }
     [cell addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
   

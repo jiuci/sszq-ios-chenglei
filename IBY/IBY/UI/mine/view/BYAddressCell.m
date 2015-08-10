@@ -20,8 +20,8 @@
     self.backgroundColor = [UIColor whiteColor];
     _isdefaultMark = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_address_defultaddress"]];
     [self.contentView addSubview:_isdefaultMark];
-    _isdefaultMark.width = _isdefaultMark.width * 1.5;
-    _isdefaultMark.height = _isdefaultMark.height * 1.5;
+//    _isdefaultMark.width = _isdefaultMark.width * 1.5;
+//    _isdefaultMark.height = _isdefaultMark.height * 1.5;
     _isdefaultMark.right = SCREEN_WIDTH;
     
     
@@ -38,11 +38,10 @@
         return;
     }
     
-    //TODO: 如果木有地址，会怎么展示
     _receiverLabel.text = [NSString stringWithFormat:@"%@    %@", data.receiver, data.phone];
     
     NSString* address = [NSString stringWithFormat:@"%@%@%@\n%@", data.provinceName, data.cityName, data.areaName, data.address];
-    CGSize size = [address sizeWithFont:Font(12) maxSize:CGSizeMake(self.width - 24, 100)];
+    CGSize size = [address sizeWithFont:Font(13) maxSize:CGSizeMake(self.width - 24, 100)];
     _addressLabel.height = size.height + 12;
     _addressLabel.text = address;
     _addressLabel.numberOfLines = 0;

@@ -191,7 +191,9 @@ static NSString* cellId = @"BYAddressSelectCell";
                             BYProvince* province = _showList[i];
                             if([province.provinceId isEqualToString:_selectedProvince.provinceId]){
                                 NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                                [_selectTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+//                                [_selectTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+                                [_selectTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+//                                [_selectTableView deselectRowAtIndexPath:indexPath animated:YES];
                                 //[_selectTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
                                 continue;
                             }
@@ -221,9 +223,9 @@ static NSString* cellId = @"BYAddressSelectCell";
                         _titleLabel.text = @"选择城市";
                         [self.showList removeAllObjects];
                         [self.showList addObjectsFromArray:cityList];
-                        if (!_selectedCity) {
-                            _selectedCity = _showList[0];
-                        }
+//                        if (!_selectedCity) {
+//                            _selectedCity = _showList[0];
+//                        }
                         [_selectTableView reloadData];
                         runBlockAfterDelay(0.3, ^{
                             for (int i = 0; i < _showList.count; i++) {
@@ -231,6 +233,7 @@ static NSString* cellId = @"BYAddressSelectCell";
                                 if([city.cityId isEqualToString:_selectedCity.cityId]){
                                     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                                     [_selectTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+                                    
                                     //[_selectTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
                                     continue;
                                 }
@@ -263,9 +266,9 @@ static NSString* cellId = @"BYAddressSelectCell";
                         _titleLabel.text = @"选择区域";
                         [self.showList removeAllObjects];
                         [self.showList addObjectsFromArray:areaList];
-                        if (!_selectedArea) {
-                            _selectedArea = _showList[0];
-                        }
+//                        if (!_selectedArea) {
+//                            _selectedArea = _showList[0];
+//                        }
                         [_selectTableView reloadData];
                         runBlockAfterDelay(0.3, ^{
                             
@@ -325,7 +328,7 @@ static NSString* cellId = @"BYAddressSelectCell";
         BYProvince* province = _showList[indexPath.row];
         [cell updateTitle:province.provinceName];
         if (_selectedProvince && [_selectedProvince.provinceId intValue] == [province.provinceId intValue]) {
-            [cell isSelected:YES];
+//            [cell isSelected:YES];
 
             _preIndex = indexPath;
         }
@@ -334,7 +337,7 @@ static NSString* cellId = @"BYAddressSelectCell";
         BYCity* city = _showList[indexPath.row];
         [cell updateTitle:city.cityName];
         if (_selectedCity && [_selectedCity.cityId intValue] == [city.cityId intValue]) {
-            [cell isSelected:YES];
+//            [cell isSelected:YES];
 
             _preIndex = indexPath;
         }
@@ -343,7 +346,7 @@ static NSString* cellId = @"BYAddressSelectCell";
         BYArea* area = _showList[indexPath.row];
         [cell updateTitle:area.areaName];
         if (_selectedArea && [_selectedArea.areaId intValue] == [area.areaId intValue]) {
-            [cell isSelected:YES];
+//            [cell isSelected:YES];
             _preIndex = indexPath;
         }
     }

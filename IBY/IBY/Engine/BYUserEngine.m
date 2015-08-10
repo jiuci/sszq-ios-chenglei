@@ -70,7 +70,7 @@
 }
 
 
-
+#import "BYNetwork.h"
 + (void)syncUserDataAfterLogin:(void (^)(BOOL isSuccess, BYError* error))finished {
     if (![BYAppCenter sharedAppCenter].isLogin) {
         BYError *err = makeCustomError(BYFuErrorCannotRunAPI, @"com.biyao.user.sync", @"can not sync when not login", nil);

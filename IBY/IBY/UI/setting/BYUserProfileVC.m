@@ -61,11 +61,13 @@
 
 - (void)setupUI
 {
+    self.title = @"个人资料";
+    
     BYMineCell* avatarCell = [BYMineCell cellWithTitle:@"头像" icon:nil target:self sel:nil];
     avatarCell.height = 68;
     avatarCell.top = 12;
     avatarCell.showRightArrow = NO;
-    avatarCell.titleLabel.textColor = BYColor666;
+    avatarCell.titleLabel.textColor = BYColor333;
     avatarCell.titleLabel.centerY = 68 / 2;
     
     BYImageView * avatar = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, 51, 51)];
