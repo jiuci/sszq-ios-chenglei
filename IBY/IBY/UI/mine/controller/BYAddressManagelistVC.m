@@ -14,6 +14,8 @@
 #import "BYAddressService.h"
 #import "BYAutosizeBgButton.h"
 
+#import "BYPoolNetworkView.h"
+
 static NSString* cellID = @"BYAddressCell";
 
 @interface BYAddressManagelistVC () <BYAddressDetailDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -67,9 +69,10 @@ static NSString* cellID = @"BYAddressCell";
     [addBtn setBackgroundImage:[[UIImage imageNamed:@"btn_red_on"] resizableImage] forState:UIControlStateHighlighted];
     addBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [addBtn setTitle:@"添加收货地址" forState:UIControlStateNormal];
-    [addBtn setImage:[UIImage imageNamed:@"icon_address_add"] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [addBtn setImage:[UIImage imageNamed:@"icon_address_add"] forState:UIControlStateNormal|UIControlStateNormal];
     [addBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
     [addBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
+    addBtn.hidden = YES;
     
     float height = 0;
     UIImageView* noneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_address_none"]];
@@ -112,8 +115,16 @@ static NSString* cellID = @"BYAddressCell";
     [_addressService fetchAddressList:^(NSArray* addressList, BYError* error) {
         [MBProgressHUD topHide];
         if(error){
+            addBtn.hidden = YES;
+            alertError(error);
+            self.tipsTopPadding = 0;
             [self showPoolnetworkView];
+            UIButton* btn = [[UIButton alloc] initWithFrame:self.tipsView.frame];
+            btn.backgroundColor = BYColorClear;
+            [btn addTarget:self action:@selector(updateData) forControlEvents:UIControlEventTouchUpInside];
+            [self.tipsView addSubview:btn];
         }else{
+            addBtn.hidden = NO;
             if(!addressList || addressList.count == 0){
                 [self.addressList removeAllObjects];
                 [self updateUI];

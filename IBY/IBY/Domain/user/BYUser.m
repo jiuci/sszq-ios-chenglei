@@ -29,6 +29,7 @@
     user.phoneNum = info[@"userinfo"][@"mobile"];
     user.gender = [info[@"userinfo"][@"gender"] intValue];
     user.email = info[@"userinfo"][@"email"];
+    user.idCard = info[@"userinfo"][@"idcard"];
     if (![user.email.class isSubclassOfClass:[NSString class]]) {
         user.email = @"";
     }
@@ -48,6 +49,7 @@
     user.toReceiveOrderNum = [info[@"toReceiveOrderNum"] intValue];
     user.notPayOrderNum = [info[@"notPayOrderNum"] intValue];
     user.messageNum = [info[@"messageNum"] intValue];
+    user.idCard = info[@"userinfo"][@"idcard"];
 
     return user;
 }

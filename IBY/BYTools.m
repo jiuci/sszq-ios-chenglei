@@ -34,6 +34,7 @@ void inputCookies()
 
     NSString* strUid = IntToString([BYAppCenter sharedAppCenter].user.userID);
     NSString* token = [BYAppCenter sharedAppCenter].user.token;
+    NSString* idcard = [BYAppCenter sharedAppCenter].user.idCard;
 //    token = [token URLEncodedString];
     token = [token URLEncodedStringForMweb];
     //userinfo 规则: 昵称,头像地址,uid ,手机号    写入Cookie前需要做URLEncoder
@@ -44,6 +45,7 @@ void inputCookies()
     setCookies(@"uid", strUid);
     setCookies(@"token", token);
     setCookies(@"userinfo", userinfo);
+    setCookies(@"idcard", idcard);
 //    logCookies();
 }
 
@@ -93,12 +95,17 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
     NSString * objvalue = @"/index";
     for (NSHTTPCookie* obj in cookies) {
         if ([obj.name isEqualToString:inCookieName]&&[obj.domain isEqualToString:inCookieDomain]) {
-//            NSLog(@"%@",obj.value);
             objvalue = [obj.value URLDecodedString];
          
         }
     }
-    NSString* value = [NSString stringWithFormat:@"%@~%@",objvalue,uriStr];
+    NSString* value;
+    if (![objvalue hasSuffix:uriStr]) {
+        value = [NSString stringWithFormat:@"%@~%@",objvalue,uriStr];
+    }else{
+        value = objvalue;
+    }
+//    NSLog(@"adding - %@",value);
     value = [value URLEncodedStringForMweb];
     NSMutableDictionary* cookieProperties = [NSMutableDictionary dictionary];
     [cookieProperties setObject:inCookieName forKey:NSHTTPCookieName];
@@ -115,13 +122,15 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
   
 }
 
+
+
 void logCookies()
 {
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
     for (NSHTTPCookie* obj in cookies) {
-        NSLog(@"%@ - %@", obj.name, obj.value);
-//        NSLog(@"%@ - %@ - %@ - %@", obj.name, obj.value, obj.domain, obj.path);
+//        NSLog(@"%@ - %@", obj.name, obj.value);
+        NSLog(@"%@ - %@ - %@ - %@", obj.name, obj.value, obj.domain, obj.path);
     }
 }
 

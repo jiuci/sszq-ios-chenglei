@@ -41,7 +41,7 @@
     BYAppService* _appService;
     BYBaseCell* _logoutCell;
     UILabel* cacheLabel;
-    UISwitch * switcher;
+    UILabel* pushNoti;
     
 }
 @property (nonatomic, strong) BYLinearScrollView* bodyView;
@@ -58,6 +58,7 @@
     _appService = [[BYAppService alloc] init];
     [self setupUI];
     [self setupTestUI];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,8 +66,31 @@
     [super viewWillAppear:animated];
     [[BYAppCenter sharedAppCenter] updateUidAndToken];
     _loginButton.hidden = ![BYAppCenter sharedAppCenter].isLogin;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0){
+        if ([[UIApplication sharedApplication] currentUserNotificationSettings].types == UIUserNotificationTypeNone) {
+            pushNoti.text = @"已关闭";
+        }else{
+            pushNoti.text = @"已开启";
+        }
+    }else{
+        if ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
+            pushNoti.text = @"已关闭";
+        }else{
+            pushNoti.text = @"已开启";
+        }
+    }
     
-    
+    UIApplication *app = [UIApplication sharedApplication];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(viewWillAppear:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:app];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -125,14 +149,20 @@
                  des:@""
                  sel:@selector(onNotification)];
     
-    switcher = [[UISwitch alloc]init];
-    [notiCell addSubview:switcher];
-    switcher.onTintColor = BYColorb768;
-    switcher.frame = CGRectMake(0, 0, 2400, 64);
-    switcher.centerY = notiCell.height / 2;
-    switcher.right = notiCell.width - 22;
-    switcher.on = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-    [switcher addTarget:self action:@selector(onSwitchNotification:) forControlEvents:UIControlEventValueChanged];
+    pushNoti = [[UILabel alloc]init];
+    [notiCell addSubview:pushNoti];
+    pushNoti.frame = CGRectMake(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2 - 24, 40);
+    pushNoti.textAlignment = NSTextAlignmentRight;
+    pushNoti.font = [UIFont systemFontOfSize:12];
+    pushNoti.textColor = HEXCOLOR(0x666666);
+//    switcher = [[UISwitch alloc]init];
+//    [notiCell addSubview:switcher];
+//    switcher.onTintColor = BYColorb768;
+//    switcher.frame = CGRectMake(0, 0, 2400, 64);
+//    switcher.centerY = notiCell.height / 2;
+//    switcher.right = notiCell.width - 22;
+//    switcher.on = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+//    [switcher addTarget:self action:@selector(onSwitchNotification:) forControlEvents:UIControlEventValueChanged];
 
     
     BYMineCell* cacheCell = [self appendCell:@"icon_setting_clean"
@@ -183,8 +213,16 @@
 }
 - (void)onlogout
 {
-    [[BYAppCenter sharedAppCenter] logout];
-    [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
+    UIAlertView * alert = [UIAlertView bk_alertViewWithTitle:@"确定登出？" message:@""];
+    [alert bk_addButtonWithTitle:@"登出" handler:^{
+        [[BYAppCenter sharedAppCenter] logout];
+        [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
+    }];
+    [alert bk_setCancelButtonWithTitle:@"取消" handler:^{
+    }];
+    [alert show];
+
+    
 }
 - (BYMineCell*)appendCell:(NSString*)icon title:(NSString*)title top:(CGFloat)top des:(NSString*)des sel:(SEL)selecor
 {
@@ -223,54 +261,65 @@
 
 - (void)onNotification
 {
-    [switcher setOn:!switcher.on animated:YES];
-    [self onSwitchNotification:switcher];
+    UIAlertView * alert = [UIAlertView bk_alertViewWithTitle:@"" message:@"开启或停用，可在设置>通知中心>必要，手动设置"];
+    [alert bk_setCancelButtonWithTitle:@"确定" handler:^{
+    }];
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        [alert bk_addButtonWithTitle:@"去设置" handler:^{
+            NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }];
+    }
+    [alert show];
+    
 }
 //- (void)registerForRemoteNotifications NS_AVAILABLE_IOS(8_0);
 //
 //- (void)unregisterForRemoteNotifications NS_AVAILABLE_IOS(3_0);
-- (void)onSwitchNotification:(UISwitch*)sender
-{
-    if (sender.on) {
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)]) {
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-        }else{
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-        }
-    }else{
-        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-    }
-}
+//- (void)onSwitchNotification:(UISwitch*)sender
+//{
+//    if (sender.on) {
+//        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)]) {
+//            [[UIApplication sharedApplication] registerForRemoteNotifications];
+//        }else{
+//            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+//        }
+//    }else{
+//        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+//    }
+//}
 
-- (void)onVersion
-{
-    [_appService checkAppNeedUpdate:^(BYVersionInfo* versionInfo, BYError* error) {
-        if (error) {
-            if (error.code == BYNetErrorNotExist) {
-                [MBProgressHUD topShowTmpMessage:@"已经是最新版本了！"];
-            }else{
-                [MBProgressHUD topShowTmpMessage:BYMSG_POOR_NETWORK];
-            }
-            
-            return ;
-        }
-        
-        if (versionInfo && versionInfo.hasNewVersion) {
-            NSString *title = [NSString stringWithFormat:@"新版本v%@",versionInfo.name];
-            UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:title message:versionInfo.info];
-            
-            [alert bk_addButtonWithTitle:@"去更新" handler:^{
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:versionInfo.url]];
-            }];
-            [alert bk_addButtonWithTitle:@"取消" handler:^{
-            }];
-            
-            [alert show];
-        }else{
-            [MBProgressHUD topShowTmpMessage:@"已经是最新版本了！"];
-        }
-    }];
-}
+//- (void)onVersion
+//{
+//    [_appService checkAppNeedUpdate:^(BYVersionInfo* versionInfo, BYError* error) {
+//        if (error) {
+//            if (error.code == BYNetErrorNotExist) {
+//                [MBProgressHUD topShowTmpMessage:@"已经是最新版本了！"];
+//            }else{
+//                [MBProgressHUD topShowTmpMessage:BYMSG_POOR_NETWORK];
+//            }
+//            
+//            return ;
+//        }
+//        
+//        if (versionInfo && versionInfo.hasNewVersion) {
+//            NSString *title = [NSString stringWithFormat:@"新版本v%@",versionInfo.name];
+//            UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:title message:versionInfo.info];
+//            
+//            [alert bk_addButtonWithTitle:@"去更新" handler:^{
+//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:versionInfo.url]];
+//            }];
+//            [alert bk_addButtonWithTitle:@"取消" handler:^{
+//            }];
+//            
+//            [alert show];
+//        }else{
+//            [MBProgressHUD topShowTmpMessage:@"已经是最新版本了！"];
+//        }
+//    }];
+//}
 
 - (void)onFeedback
 {

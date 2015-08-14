@@ -21,7 +21,6 @@
                               };
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
-            
             BYUser *user = [BYUser userWithLoginDict:data];
             user.userType = @"0";
             if(user.isValid){

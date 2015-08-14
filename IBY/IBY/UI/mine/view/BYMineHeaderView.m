@@ -175,8 +175,13 @@
 
 - (void)onUserInfo
 {
-    BYUserProfileVC* userProfileVC = [[BYUserProfileVC alloc] init];
-    [_mineVC.navigationController pushViewController:userProfileVC animated:YES];
+    if ([BYAppCenter sharedAppCenter].isLogin) {
+        BYUserProfileVC* userProfileVC = [[BYUserProfileVC alloc] init];
+        [_mineVC.navigationController pushViewController:userProfileVC animated:YES];
+    }else{
+        [_mineVC loginAction];
+    }
+    
 }
 
 //- (void)loginAction

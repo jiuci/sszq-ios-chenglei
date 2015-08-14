@@ -21,6 +21,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     // Do any additional setup after loading the view from its nib.
 
 }
@@ -31,10 +33,17 @@
         [MBProgressHUD topShowTmpMessage:@"敢问路在何方"];
         return;
     }
+    NSDictionary *params;
+    if ([txt1.text rangeOfString:@"http://"].length == 0) {
+        params = @{
+                   @"JumpURL":[NSString stringWithFormat:@"http://%@",txt1.text]
+                   };
+    }else{
+        params = @{
+                   @"JumpURL":txt1.text
+                   };
+    }
     
-    NSDictionary *params = @{
-                             @"JumpURL":txt1.text
-                             };
     [[BYPortalCenter sharedPortalCenter]portTo:BYPortalHome params:params];
     
 }

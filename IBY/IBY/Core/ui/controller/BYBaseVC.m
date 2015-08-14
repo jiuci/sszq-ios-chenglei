@@ -15,7 +15,7 @@
 @end
 
 @implementation BYBaseVC {
-    UIView* _tipsView;
+//    UIView* _tipsView;
     UITapGestureRecognizer* _tapGesture;
 }
 

@@ -243,44 +243,20 @@
     }
 //    [iConsole log:@"mark4"];
     if ([preUrlString rangeOfString:@"account/mine"].length > 0) {
-        addCookies(preUrlString, @"gobackuri", @"m.biyao.com");
-//        if ([BYAppCenter sharedAppCenter].isLogin) {
+        addCookies(preUrlString, @"gobackuri", @".biyao.com");
+
         __weak BYCommonWebVC * wself = self;
         BYMineExitBlock blk = ^(NSString* exitUrlString){
             _isMineExit = YES;
+            [MBProgressHUD topShow:@""];
             [wself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
         };
         BYNavVC* nav = makeMinenav(blk);
         
         [self presentViewController:nav animated:NO completion:nil];
-//        }else{
-//            __weak BYCommonWebVC* bself = self;
-//            
-//            BYLoginSuccessBlock blk = ^() {
-//                runOnMainQueue(^{
-//                    [[BYLoginVC sharedLoginVC] clearData];
-//                    BYMineExitBlock blk = ^(NSString* exitUrlString){
-//                        _isMineExit = YES;
-//                        [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
-//                    };
-//                    BYNavVC* nav = makeMinenav(blk);
-//                    [[BYLoginVC sharedLoginVC].navigationController dismissViewControllerAnimated:YES completion:^{
-//                    }];
-//                    [bself presentViewController:nav animated:NO completion:^{
-//                        [MBProgressHUD topHide];
-//                    }];
-//                    
-//                });
-//            };
-//            BYLoginCancelBlock cblk = ^(){
-//                [[BYLoginVC sharedLoginVC] clearData];
-//                [[BYLoginVC sharedLoginVC] dismissViewControllerAnimated:YES completion:nil];
-//            };
-//            BYNavVC* nav = makeLoginnav(blk,cblk);
-//            [self presentViewController:nav animated:YES completion:nil];
-//        }
         return NO;
     }
+//    logCookies();
     if ([preUrlString rangeOfString:@"account/login"].length > 0) {
         __weak BYCommonWebVC* bself = self; //本地化登录
         
@@ -289,6 +265,7 @@
             [[BYLoginVC sharedLoginVC] clearData];
             if (![bself.webView.request.URL.absoluteString rangeOfString:bself.currentUrl].length > 0) {
                 bself.loginSuccessLoading = YES;
+                [bself onAPPLogin];
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
             }else{
                 [MBProgressHUD topHide];
@@ -388,12 +365,14 @@
     }
     if (_isMineExit) {
         _isMineExit = NO;
+        [MBProgressHUD topHide];
         BYMineVC* vc = [BYMineVC sharedMineVC];
         [vc.navigationController dismissViewControllerAnimated:NO completion:nil];
         
     }
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
+        [MBProgressHUD topHide];
     }
     [iConsole log:@"finish"];
     if (_loadingCaches) {
@@ -416,11 +395,13 @@
         [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
     if (_isMineExit) {
+        [MBProgressHUD topShow:@""];
         _isMineExit = NO;
         BYMineVC* vc = [BYMineVC sharedMineVC];
         [vc.navigationController dismissViewControllerAnimated:NO completion:nil];
     }
     if (![BYAppCenter sharedAppCenter].isNetConnected) {
+        [MBProgressHUD topHide];
         _poolNetworkView.hidden = NO;
     }
     if (_loadingCaches) {

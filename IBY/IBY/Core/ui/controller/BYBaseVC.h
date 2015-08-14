@@ -13,6 +13,7 @@
 
 @property (nonatomic, assign) BOOL autoHideKeyboard;
 @property (nonatomic, assign) CGFloat tipsTopPadding;
+@property (nonatomic, strong) UIView* tipsView;
 
 //tips
 - (void)showTipsView:(NSString*)tips icon:(NSString*)icon;

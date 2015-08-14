@@ -66,6 +66,13 @@
 
     self.selectView = [BYAddressAreaSelectView createPopoverView];
 
+    [self.phoneTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (realStr.length > 20) {
+            return NO;
+        }
+        return YES;
+    }];
     [self setUpForDismissKeyboard];
 }
 
@@ -120,37 +127,6 @@
     }
 }
 
-//- (IBAction)selectArea:(id)sender
-//{
-//    [self.view endEditing:YES];
-//    NSLog(@"%@", _provinceTextField.text);
-//    if ([_provinceTextField.text isEqualToString:@"请选择"] || [_cityTextField.text isEqualToString:@"请选择"]) {
-//        [MBProgressHUD topShowTmpMessage:@"请先选择省和城市"];
-//        return;
-//    }
-//
-//    if (_selectedCity) {
-//        [self.addressService fetchAreaListByCityId:[_selectedCity.cityId intValue] finish:^(NSArray* areaList, BYError* error) {
-//            if(error){
-//                alertError(error);
-//            }else{
-//                if(!areaList || areaList.count == 0){
-//                    [MBProgressHUD topShowTmpMessage:@"获取区域信息时出现问题"];
-//                }else{
-//                    [self.showList removeAllObjects];
-//                    [self.showList addObjectsFromArray:areaList];
-//                    [self.selectionView updateData:self.showList];
-//                    [self.view endEditing:YES];
-//                    [self.selectionView showInView:self.view];
-//                    //[self.pickerView reloadAllComponents];
-//                }
-//                
-//            }
-//        }];
-//    }
-//    else {
-//    }
-//}
 
 - (IBAction)changeClick:(id)sender
 {
@@ -246,18 +222,7 @@
     }
 }
 
-- (BOOL)isZipcode:(NSString*)zipcode
-{
-    NSError* error = nil;
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"^\\d{6}$"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    NSUInteger numberOfMatches = [regex numberOfMatchesInString:zipcode options:0 range:NSMakeRange(0, [zipcode length])];
-    if (1 == numberOfMatches) {
-        return YES;
-    }
-    return NO;
-}
+
 
 - (BOOL)isMobilePhoneNumber:(NSString*)phoneNum
 {
@@ -341,7 +306,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField*)textField
 {
-    NSLog(@"have ended editing!");
+//    NSLog(@"have ended editing!");
     if (![self isMobilePhoneNumber:self.phoneTextField.text]) {
         [MBProgressHUD topShowTmpMessage:@"请输入11位手机号"];
     }

@@ -41,7 +41,7 @@ NSString* baseUrlByMode(BYNetMode mode)
         @"http://192.168.99.60:8085/",
         @"http://192.168.99.231:8085/",
         @"http://118.144.72.200:8085/",
-        @"http://api.biyao.com/"
+        @"http://appapi.biyao.com/"
     ];
     return urls[mode];
 }

@@ -52,7 +52,7 @@
     if (_number == 0) {
         self.hidden = YES;
     }else{
-        self.hidden = NO;
+        self.hidden = YES;
     }
 //    if (_number < 100 && _number > 0) {
 //        _numberLabel.text = [NSString stringWithFormat:@"%d",number];

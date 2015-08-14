@@ -58,9 +58,7 @@
         wself.address.province = province;
         wself.address.city = city;
         wself.address.area = area;
-        
         [wself updateUI];
-
     };
 
     _service = [[BYAddressService alloc] init];
@@ -95,11 +93,6 @@
         return NO;
     }
 
-    if (![self.phoneTxtfield.text isMobilePhoneNumber]) {
-        [MBProgressHUD topShowTmpMessage:@"请输入11位手机号"];
-        [self.phoneTxtfield resignFirstResponder];
-        return NO;
-    }
 
     if ([self.addressDetailTxtfield.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
@@ -111,8 +104,8 @@
         [MBProgressHUD topShowTmpMessage:@"请选择省，市和地区"];
         return NO;
     }
-    if (self.addressDetailTxtfield.text.length > 40) {
-        [MBProgressHUD topShowTmpMessage:@"详细地址不能超过40字符"];
+    if (self.addressDetailTxtfield.text.length > 60) {
+        [MBProgressHUD topShowTmpMessage:@"详细地址不能超过60字符"];
         [self.addressDetailTxtfield resignFirstResponder];
         return NO;
     }
@@ -314,21 +307,19 @@
     _phoneTxtfield.keyboardType = UIKeyboardTypeNumberPad;
     BYAddressEditCell* cell2 = [BYAddressEditCell editCellWithTitle:@"手机号码:" input:_phoneTxtfield];
     [self.bodyView by_addSubview:cell2 paddingTop:0];
-
+    [self.phoneTxtfield setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (realStr.length > 20) {
+            return NO;
+        }
+        return YES;
+    }];
+    
+    
     _provinceLabel = addressEditLabel(@"请选择");
     BYAddressEditCell* cell3 = [BYAddressEditCell editCellWithTitle:@"所在地区:" input:_provinceLabel];
     [cell3 addTarget:self action:@selector(onProvince) forControlEvents:UIControlEventTouchUpInside];
     [self.bodyView by_addSubview:cell3 paddingTop:0];
-
-//    _cityLabel = addressEditLabel(@"请选择");
-//    BYAddressEditCell* cell4 = [BYAddressEditCell editCellWithTitle:@"城市:" input:_cityLabel];
-//    [cell4 addTarget:self action:@selector(onCity) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bodyView by_addSubview:cell4 paddingTop:0];
-//
-//    _areaLabel = addressEditLabel(@"请选择");
-//    BYAddressEditCell* cell5 = [BYAddressEditCell editCellWithTitle:@"区域:" input:_areaLabel];
-//    [cell5 addTarget:self action:@selector(onArea) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bodyView by_addSubview:cell5 paddingTop:0];
 
     _addressDetailTxtfield = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, 230, 40 - 4)];
     _addressDetailTxtfield.backgroundColor = [UIColor clearColor];
@@ -341,12 +332,10 @@
     [self.bodyView by_addSubview:cell6 paddingTop:12];
     _addressDetailTxtfield.top += 4;
 
-//    _zipcodeTxtfield = addressEditTxtfield(@"", self);
-//    BYAddressEditCell* cell7 = [BYAddressEditCell editCellWithTitle:@"邮政编码:" input:_zipcodeTxtfield];
-//    [self.bodyView by_addSubview:cell7 paddingTop:0];
 
     _footer = [BYAddressEditFooter addressEditFooter];
     _footer.bottom = self.view.height;
+    [_footer setWillBeDefault:YES];
     [_footer.confirmBtn addTarget:self action:@selector(onConfirm) forControlEvents:UIControlEventTouchUpInside];
     [_footer.radioBtn addTarget:self action:@selector(onSetDefault) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_footer];
@@ -363,7 +352,12 @@
     self.provinceLabel.text = data.province.provinceName ? provinceString : @"请选择";
     [self resizeLabel:self.provinceLabel];
     [self.bodyView by_updateDisplay];
-    [_footer setWillBeDefault:_address.isdefault];
+    if (_isEditMode) {
+        [_footer setWillBeDefault:_address.isdefault];
+    }else{
+        [_footer setWillBeDefault:YES];
+    }
+    
 }
 
 - (void)resizeLabel:(UILabel*)label

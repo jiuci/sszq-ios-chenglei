@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"问题反馈";
+    self.title = @"意见反馈";
     _feedBackService = [[BYFeedbackService alloc] init];
 
     contentTxtView.textAlignment = NSTextAlignmentLeft;

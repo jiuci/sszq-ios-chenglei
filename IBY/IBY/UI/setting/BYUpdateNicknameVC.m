@@ -44,7 +44,7 @@
     nicknameTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     UILabel * tipsLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 12 + 44 +12, SCREEN_WIDTH - 20 * 2, 30)];
-    tipsLabel.text = @"4-20个字符，可由中英文、数字、\"_\"、\"-\"组成";
+    tipsLabel.text = @"最多20个字符，可由中英文、数字、\"_\"、\"-\"组成";
     tipsLabel.font = [UIFont systemFontOfSize:12];
     tipsLabel.textColor = BYColor666;
     tipsLabel.numberOfLines = 0;
@@ -95,16 +95,17 @@
 
 - (void)onSave
 {
-    if (nicknameTF.text.length<4) {
-        [MBProgressHUD topShowTmpMessage:@"昵称不能小于4位字符"];
+    if ([nicknameTF.text hasPrefix:@" "]||[nicknameTF.text hasSuffix:@" "]) {
+        [MBProgressHUD topShowTmpMessage:@"昵称格式有误，请重新输入"];
         [nicknameTF becomeFirstResponder];
         return;
     }
-    [MBProgressHUD topShow:@"修改中..."];
+    
+    [MBProgressHUD topShow:@"保存中..."];
     BYUserService * userService = [[BYUserService alloc]init];
     [userService updateNicknameByName:nicknameTF.text finish:^(BOOL success ,BYError* error){
         if (success) {
-            [MBProgressHUD topShowTmpMessage:@"昵称修改成功"];
+            [MBProgressHUD topShowTmpMessage:@"保存成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             alertError(error);
