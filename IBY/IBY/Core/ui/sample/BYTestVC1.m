@@ -9,7 +9,7 @@
 #import "BYTestVC1.h"
 #import "BYTextField.h"
 #import "BYPortalCenter.h"
-
+#import "BYCommonWebVC.h"
 @interface BYTestVC1 ()
 
 @end
@@ -43,8 +43,8 @@
                    @"JumpURL":txt1.text
                    };
     }
-    
-    [[BYPortalCenter sharedPortalCenter]portTo:BYPortalHome params:params];
+    JumpToWebBlk(params[@"JumpURL"], nil);
+//    [[BYPortalCenter sharedPortalCenter]portTo:BYPortalHome params:params];
     
 }
 

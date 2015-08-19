@@ -11,9 +11,9 @@
 #import "BYMutiSwitch.h"
 
 @interface BYMineVC : BYBaseVC
-typedef void (^BYMineExitBlock)(NSString* jumpUrlString);
+//typedef void (^BYJumpWebBlock)(NSString* jumpUrlString);
 @property (nonatomic,strong)BYMutiSwitch *mutiSwitch;
-@property (nonatomic, copy) BYMineExitBlock exitBlk;
+//@property (nonatomic, copy) BYJumpWebBlock exitBlk;
 @property (nonatomic, strong)UIImageView* hasNewMessage;
 + (instancetype)sharedMineVC;
 - (void)onToPayOrders;
@@ -29,4 +29,4 @@ typedef void (^BYMineExitBlock)(NSString* jumpUrlString);
 - (void)loginAction;
 @end
 
-BYNavVC* makeMinenav(BYMineExitBlock blk);
+//BYNavVC* makeMinenav(BYJumpWebBlock blk);

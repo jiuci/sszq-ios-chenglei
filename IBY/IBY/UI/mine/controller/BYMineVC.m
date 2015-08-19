@@ -53,6 +53,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationItem setHidesBackButton:YES];
     _service = [[BYUserService alloc] init];
     [self setupUI];
 }
@@ -60,13 +61,27 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updateUI];
-    [self updateData];
     [self.mutiSwitch setSelectedAtIndex:2];
     
+    addCookies(BYURL_MINE, @"gobackuri", @".biyao.com");
+    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
+    
+    
+    [self updateUI];
+    [self updateData];
+
     
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+    self.title = @"个人中心";
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
 - (void)updateData
 {
     if ([BYAppCenter sharedAppCenter].isLogin) {
@@ -94,13 +109,14 @@
 {
     //nav
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_meassages" highImgName:@"btn_meassages" handler:^(id sender) {
-        [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withSuccessBlk:^{
-                _exitBlk(@"http://m.biyao.com/message");
-//                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalMessage];
-            } cancelBlk:^{
-                
-            }];
+        if (![BYAppCenter sharedAppCenter].isLogin) {
+            [self loginAction];
+            return;
+        }
+        JumpToWebBlk(@"http://m.biyao.com/message", nil);
     }];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]init];
+    
     _hasNewMessage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 12, 12)];
     
     _hasNewMessage.image = [UIImage imageNamed:@"bg_messages_hasmessage"];
@@ -185,13 +201,13 @@
         UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"首页"];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
-                                   wself.exitBlk(BYURL_HOME);
+                                   [wself.navigationController popToRootViewControllerAnimated:NO];
                                }];
         
         UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart_highlight" title:@"购物车"];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
-                                   wself.exitBlk(BYURL_CARTLIST);
+                                   JumpToWebBlk(BYURL_CARTLIST, nil);
                                }];
         
         UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine_highlight" title:@"我的必要"];
@@ -241,15 +257,12 @@
 
 - (void)onMydesigns
 {
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-//        BYMyDesignsVC *vc = [[BYMyDesignsVC alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }];
+
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
     }
-    _exitBlk(@"http://m.biyao.com/account/myworks");
+    JumpToWebBlk(@"http://m.biyao.com/account/myworks", nil);
 }
 
 - (void)onAdress
@@ -258,36 +271,24 @@
         [self loginAction];
         return;
     }
-    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-        BYAddressManagelistVC *vc = [[BYAddressManagelistVC alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }];
+    BYAddressManagelistVC *vc = [[BYAddressManagelistVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)onOrders
 {
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_All;
-//        vc.title = @"订单查询";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }];
+
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
     }
-    _exitBlk(@"http://m.biyao.com/order/orderlist");
+    JumpToWebBlk(@"http://m.biyao.com/order/orderlist", nil);
 }
 
 - (void)onToPayOrders
 {
-    //TODO: sitong
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_UNPAY;
-//        vc.titleString = @"待付款订单";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }];
+
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
@@ -296,26 +297,19 @@
         [MBProgressHUD topShowTmpMessage:@"您还没有待付款订单"];
         return;
     }
-    _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=1");
+    JumpToWebBlk(@"http://m.biyao.com/order/orderlist?orderStatus=1", nil);
 
     
 }
 
 - (void)onInProcessOrders
 {
-    //TODO: sitong
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_PRODUCING;
-//        vc.titleString = @"生产中订单";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }];
+
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
     }
-    
-    _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=3");
+    JumpToWebBlk(@"http://m.biyao.com/order/orderlist?orderStatus=3", nil);
 }
 
 - (void)onInRefundOrders
@@ -328,18 +322,12 @@
         [MBProgressHUD topShowTmpMessage:@"您还没有退款/售后订单"];
         return;
     }
-    _exitBlk(@"http://m.biyao.com/refund/myrefund");
+    JumpToWebBlk(@"http://m.biyao.com/refund/myrefund", nil);
 }
 
 - (void)onToDeliverConfirmOrders
 {
-//    //TODO: sitong
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_DILIVER;
-//        vc.titleString = @"待收货订单";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }];
+
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
@@ -348,12 +336,12 @@
         [MBProgressHUD topShowTmpMessage:@"您还没有待收货订单"];
         return;
     }
-    _exitBlk(@"http://m.biyao.com/order/orderlist?orderStatus=4");
+    JumpToWebBlk(@"http://m.biyao.com/order/orderlist?orderStatus=4", nil);
 }
 
 - (void)onService
 {
-    _exitBlk(@"http://m.biyao.com/service");
+    JumpToWebBlk(@"http://m.biyao.com/service", nil);
     
 }
 
@@ -375,11 +363,5 @@
 //    
 //}
 
-BYNavVC* makeMinenav(BYMineExitBlock blk)
-{
-    BYMineVC* vc = [BYMineVC sharedMineVC];
-    BYNavVC* nav = [BYNavVC nav:vc title:@"个人中心"];
-    vc.exitBlk = blk;
-    return nav;
-}
+
 @end

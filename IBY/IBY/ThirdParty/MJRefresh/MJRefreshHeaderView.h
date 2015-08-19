@@ -11,6 +11,7 @@
 @interface MJRefreshHeaderView : MJRefreshBaseView
 
 @property (nonatomic, copy) NSString *dateKey;
+@property (nonatomic, assign) BOOL showTimeLabel;
 + (instancetype)header;
 
 @end

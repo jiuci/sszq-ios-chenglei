@@ -41,16 +41,15 @@
 + (instancetype)userWithUpdateDict:(NSDictionary*)info
 {
     BYUser* user = [[BYUser alloc] init];
-    user.userID = [info[@"userinfo"][@"customer_id"] intValue];
-    user.nickname = info[@"userinfo"][@"nickname"];
-    user.avatar = info[@"userinfo"][@"avater_url"];
-    user.gender = [info[@"userinfo"][@"gender"] intValue];
+    user.userID = [info[@"customer"][@"customer_id"] intValue];
+    user.nickname = info[@"customer"][@"nickname"];
+    user.avatar = info[@"customer"][@"avater_url"];
+    user.gender = [info[@"customer"][@"gender"] intValue];
     user.refundNum = [info[@"refundNum"] intValue];
     user.toReceiveOrderNum = [info[@"toReceiveOrderNum"] intValue];
     user.notPayOrderNum = [info[@"notPayOrderNum"] intValue];
     user.messageNum = [info[@"messageNum"] intValue];
-    user.idCard = info[@"userinfo"][@"idcard"];
-
+    user.idCard = info[@"customer"][@"idcard"];
     return user;
 }
 
@@ -59,7 +58,6 @@
     if (!user) {
         return;
     }
-
     if (_userID != user.userID) {
         return;
     }
@@ -71,6 +69,7 @@
     _avatar = user.avatar;
     _toReceiveOrderNum = user.toReceiveOrderNum;
     _notPayOrderNum = user.notPayOrderNum;
+    _refundNum = user.refundNum;
     _messageNum = user.messageNum;
 }
 

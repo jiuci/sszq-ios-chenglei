@@ -24,7 +24,7 @@ void clearCookies()
 void inputCookies()
 {
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
-    setCookies(@"fromapp", @"ios|17");
+    setCookies(@"fromapp", @"ios|18");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
 
     if (![BYAppCenter sharedAppCenter].isLogin) {
@@ -92,7 +92,7 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
 {
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
-    NSString * objvalue = @"/index";
+    NSString * objvalue = @"/index~";
     for (NSHTTPCookie* obj in cookies) {
         if ([obj.name isEqualToString:inCookieName]&&[obj.domain isEqualToString:inCookieDomain]) {
             objvalue = [obj.value URLDecodedString];
@@ -122,7 +122,20 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
   
 }
 
+void loggobackCookies()
+{
+    NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
+    NSString * objvalue = @"/index~http://m.biyao.com/index";
+    for (NSHTTPCookie* obj in cookies) {
+        if ([obj.name isEqualToString:@"gobackuri"]) {
+            objvalue = [obj.value URLDecodedString];
+            NSLog(@"gobackuri - %@ - %@",objvalue,obj.domain);
+        }
+    }
 
+    
+}
 
 void logCookies()
 {

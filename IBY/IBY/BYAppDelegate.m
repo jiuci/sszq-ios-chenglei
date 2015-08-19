@@ -60,8 +60,8 @@
 
     _homeVC = [[BYHomeVC alloc] init];
     
-    NSURL* url = [NSURL URLWithString:BYURL_HOME];
-    [_homeVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
+//    NSURL* url = [NSURL URLWithString:BYURL_HOME];
+//    [_homeVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
     
 //    NSLog(@"%@",_homeVC.webView);
     _homeNav = [BYNavVC nav:_homeVC title:@""];
@@ -335,7 +335,7 @@
                     }];
                 }
                 else if (rp.code) {
-                [self.homeVC onWeixinAuth:rp.code];
+                [self.homeVC.commonWebVC onWeixinAuth:rp.code];
             }
             
 //            BYLog(@"用户同意%@",rp.code);

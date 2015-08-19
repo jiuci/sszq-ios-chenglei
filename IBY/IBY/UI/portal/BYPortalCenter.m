@@ -51,10 +51,10 @@
             
         }else if (params[@"JumpURL"]) {
             NSURL* url = [NSURL URLWithString:params[@"JumpURL"]];
-            [lastVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
+            [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
         }else{
             NSURL* url = [NSURL URLWithString:BYURL_HOME];
-            [lastVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
+            [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
         }
         
         [nav popToRootViewControllerAnimated:YES];
@@ -66,7 +66,7 @@
     case BYPortalHomeWithGlassesId:{
         if (params[@"did"]) {
             int did = [params[@"did"] intValue];
-            [homeVC onSelectGlasses:did];
+            [homeVC.commonWebVC onSelectGlasses:did];
         }
         
         [nav popToRootViewControllerAnimated:YES];

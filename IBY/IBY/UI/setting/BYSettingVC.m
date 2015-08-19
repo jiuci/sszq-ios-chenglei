@@ -213,8 +213,8 @@
 }
 - (void)onlogout
 {
-    UIAlertView * alert = [UIAlertView bk_alertViewWithTitle:@"确定登出？" message:@""];
-    [alert bk_addButtonWithTitle:@"登出" handler:^{
+    UIAlertView * alert = [UIAlertView bk_alertViewWithTitle:@"您确定要退出吗？" message:@""];
+    [alert bk_addButtonWithTitle:@"确定" handler:^{
         [[BYAppCenter sharedAppCenter] logout];
         [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
     }];
@@ -254,7 +254,7 @@
     [[TMCache sharedCache] removeAllObjects:^(TMCache* cache) {
         runOnMainQueue(^{
             cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
-            [MBProgressHUD topShowTmpMessage:@"缓存清理完成"];
+            [MBProgressHUD topShowTmpMessage:@"清除完成"];
         });
     }];
 }

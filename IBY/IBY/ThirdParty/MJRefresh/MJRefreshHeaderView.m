@@ -56,6 +56,7 @@
         self.pullToRefreshText = MJRefreshHeaderPullToRefresh;
         self.releaseToRefreshText = MJRefreshHeaderReleaseToRefresh;
         self.refreshingText = MJRefreshHeaderRefreshing;
+        self.showTimeLabel = YES;
     }
     return self;
 }
@@ -66,11 +67,13 @@
 
     CGFloat statusX = 0;
     CGFloat statusY = 0;
-    CGFloat statusHeight = self.mj_height * 0.5;
+    CGFloat statusHeight = _showTimeLabel?self.mj_height * 0.5:self.mj_height;
     CGFloat statusWidth = self.mj_width;
     // 1.状态标签
     self.statusLabel.frame = CGRectMake(statusX, statusY, statusWidth, statusHeight);
-
+    if (!_showTimeLabel) {
+        return;
+    }
     // 2.时间标签
     CGFloat lastUpdateY = statusHeight;
     CGFloat lastUpdateX = 0;

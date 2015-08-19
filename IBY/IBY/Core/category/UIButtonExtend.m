@@ -14,8 +14,13 @@
 {
     UIButton* button = [[UIButton alloc] init];
     button.imageEdgeInsets = UIEdgeInsetsMake(10, 0, 10, 0);
-    [button setImage:[UIImage imageNamed:normalIcon] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:hlIcon] forState:UIControlStateHighlighted];
+    if (normalIcon) {
+        [button setImage:[UIImage imageNamed:normalIcon] forState:UIControlStateNormal];
+    }
+    if (hlIcon) {
+        [button setImage:[UIImage imageNamed:hlIcon] forState:UIControlStateHighlighted];
+    }
+    
     CGSize imgSize = button.imageView.image.size;
     button.size = CGSizeMake(imgSize.width, imgSize.height + 20);
     return button;

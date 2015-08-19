@@ -68,6 +68,9 @@
 
     [self.phoneTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (txtField.text.length > realStr.length) {
+            return YES;
+        }
         if (realStr.length > 20) {
             return NO;
         }

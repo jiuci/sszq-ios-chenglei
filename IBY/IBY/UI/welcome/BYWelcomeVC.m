@@ -76,9 +76,10 @@
         
 
         CGFloat frontHeight = SCREEN_WIDTH * 1920 / 1080;
-        CGFloat realWidth = frontHeight > SCREEN_HEIGHT ? SCREEN_HEIGHT *1080 /1920 : SCREEN_WIDTH;
+        CGFloat realWidth = frontHeight < SCREEN_HEIGHT ? SCREEN_HEIGHT *1080 /1920 : SCREEN_WIDTH;
         CGFloat realHeight = frontHeight > SCREEN_HEIGHT ? SCREEN_HEIGHT : frontHeight;
         UIImageView* front = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, realWidth, realHeight), _frontImglist[i]);
+
         front.centerY = SCREEN_HEIGHT / 2;
         front.centerX = SCREEN_WIDTH * i + SCREEN_WIDTH/2;
         [_contentView addSubview:front];

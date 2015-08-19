@@ -72,7 +72,9 @@
     
     BYImageView * avatar = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, 51, 51)];
     [avatarCell addSubview:avatar];
+    avatar.image = [UIImage imageNamed:@"icon_user_default"];
     [avatar setImageWithUrl:[BYAppCenter sharedAppCenter].user.avatar placeholderName:@"icon_user_default"];
+
     [avatar.layer setCornerRadius:avatar.width / 2];
     CALayer* imageLayer = avatar.layer;
     [imageLayer setMasksToBounds:YES];
@@ -83,7 +85,6 @@
     avatar.layer.masksToBounds = YES;
     avatar.layer.borderWidth = 1;
     avatar.layer.borderColor = [HEXCOLOR(0xeeeeee) CGColor];
-    avatar.backgroundColor = [UIColor redColor];
     [self.view addSubview:avatarCell];
     
     BYMineCell* nicknameCell = [BYMineCell cellWithTitle:@"昵称" icon:nil target:self sel:@selector(onNickname)];

@@ -16,6 +16,7 @@ void clearCookies();
 void inputCookies();
 void resetCookies();
 void logCookies();
+void loggobackCookies();
 void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookiePath);
 void setCookies(NSString* name, NSString* value);
 NSHTTPCookie* createCookie(NSString* name, NSString* value);

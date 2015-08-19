@@ -575,7 +575,7 @@
     NSMutableString* changedStr = [NSMutableString stringWithString:textField.text];
     [changedStr replaceCharactersInRange:range withString:string];
     NSUInteger length = changedStr.length;
-    if (length > 32) {
+    if (length > 32 && textField.text.length < length) {
         return NO;
     }
     if (length < 1) {

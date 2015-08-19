@@ -40,7 +40,7 @@
     }];
     [self.firstPwdTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
-        if (realStr.length > 32) {
+        if (realStr.length > 32 && txtField.text.length < realStr.length) {
             return NO;
         }
         self.btnNext.enabled = realStr&&[realStr length]>0;

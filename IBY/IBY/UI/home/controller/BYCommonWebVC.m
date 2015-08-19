@@ -9,6 +9,7 @@
 #import "BYCommonWebVC.h"
 #import "Masonry.h"
 #import "BYMutiSwitch.h"
+#import "BYAppDelegate.h"
 
 #import "WebViewJavascriptBridge.h"
 #import "BYPoolNetworkView.h"
@@ -26,7 +27,7 @@
 #import <netdb.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
-
+#import "BYHomeVC.h"
 #import "BYBDmapVC.h"
 
 @interface BYCommonWebVC () <UIWebViewDelegate>
@@ -37,12 +38,19 @@
 @property (nonatomic, strong) BYNavVC* mapNV;
 @property (nonatomic, assign) BOOL loadingCaches;
 @property (nonatomic, assign) BOOL loginSuccessLoading;
-@property (nonatomic, assign) BOOL isMineExit;
 @property (nonatomic, strong) UIView * navBackview;
 @end
 
 @implementation BYCommonWebVC
-
++ (instancetype)sharedCommonWebVC
+{
+    static BYCommonWebVC* instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
 #pragma mark - dns解析
 - (NSString*)getAddressFromArray:(CFArrayRef)addresses
 {
@@ -195,17 +203,18 @@
     }
     [iConsole log:@"%@",preUrlString];
 //    logCookies();
-    if (_loadingCaches) {
-        [iConsole log:@"enter load caches"];
-        if (![preUrlString isEqualToString:@"about:blank"]) {
-            [iConsole log:@"enter load caches"];
-            return NO;
-        }
-        [iConsole log:@"load caches"];
-        [self.mutiSwitch setSelectedAtIndex:0];
-        self.showTabbar = YES;
-        return YES;
-    }
+//    loggobackCookies();
+//    if (_loadingCaches) {
+//        [iConsole log:@"enter load caches"];
+//        if (![preUrlString isEqualToString:@"about:blank"]) {
+//            [iConsole log:@"enter load caches"];
+//            return NO;
+//        }
+//        [iConsole log:@"load caches"];
+//        [self.mutiSwitch setSelectedAtIndex:0];
+//        self.showTabbar = YES;
+//        return YES;
+//    }
 //    [iConsole log:@"mark1"];
     BOOL willShowTabbar = NO;
     //非biyao.com域直接放行
@@ -221,7 +230,9 @@
         || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
 //        [self caches:preUrlString];
         [self.mutiSwitch setSelectedAtIndex:0];
+        [self.navigationController popToRootViewControllerAnimated:NO];
         willShowTabbar = YES;
+        return NO;
     }
     else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
         [self.mutiSwitch setSelectedAtIndex:1];
@@ -243,17 +254,15 @@
     }
 //    [iConsole log:@"mark4"];
     if ([preUrlString rangeOfString:@"account/mine"].length > 0) {
-        addCookies(preUrlString, @"gobackuri", @".biyao.com");
+        
 
         __weak BYCommonWebVC * wself = self;
-        BYMineExitBlock blk = ^(NSString* exitUrlString){
-            _isMineExit = YES;
-            [MBProgressHUD topShow:@""];
-            [wself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:exitUrlString]]];
-        };
-        BYNavVC* nav = makeMinenav(blk);
         
-        [self presentViewController:nav animated:NO completion:nil];
+        if ([self.navigationController.viewControllers containsObject:[BYMineVC sharedMineVC]]) {
+            [self.navigationController popToViewController:[BYMineVC sharedMineVC] animated:NO];
+        }else{
+            [self.navigationController pushViewController:[BYMineVC sharedMineVC] animated:NO];
+        }
         return NO;
     }
 //    logCookies();
@@ -303,48 +312,6 @@
    
     return YES;
 }
--(void)loadcaches
-{
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *resourcePath = [paths objectAtIndex:0];
-    NSString * path=[resourcePath stringByAppendingString:[NSString stringWithFormat:@"/Caches/%@.html",[BYURL_HOME generateMD5]]];
-    NSError * error;
-    NSString * htmlResponseStr = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-
-    [iConsole log:@"loading caches"];
-//    _loadingCaches = YES;
-    NSString *baseURL = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Caches"];
-    [self.webView loadHTMLString:htmlResponseStr baseURL:[NSURL URLWithString:baseURL]];
-}
--(void)caches:(NSString*)urlStr
-{
-    [iConsole log:@"save caches"];
-    urlStr = BYURL_HOME;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *resourcePath = [paths objectAtIndex:0];
-    NSString * path=[resourcePath stringByAppendingString:[NSString stringWithFormat:@"/Caches/%@.html",[urlStr generateMD5]]];
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-    NSError* error;
-    NSDictionary * filedetail = [fileManager attributesOfItemAtPath:path error:&error];
-    NSDate *cDate = filedetail[@"NSFileCreationDate"];
-    if ([cDate respondsToSelector:@selector(timeIntervalSinceDate:)]) {
-        NSDate *date = [NSDate date];
-        float time = [cDate timeIntervalSinceDate:date];
-        if (time > - 60 * 60 / 60) {
-            [iConsole log:@"save caches cancel"];
-            return;
-        }
-    }
-    [fileManager createDirectoryAtPath:[resourcePath stringByAppendingString:@"/Caches"] withIntermediateDirectories:YES attributes:nil error:nil];
-    
-    NSString * htmlResponseStr=[NSString stringWithContentsOfURL:[NSURL URLWithString:urlStr] encoding:NSUTF8StringEncoding error:Nil];
-    
-    [htmlResponseStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    
-    NSString * creationDateString = [filedetail[@"NSFileCreationDate"] description];
-    [iConsole log:@"save caches finish"];
-}
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
@@ -363,24 +330,22 @@
         BYLoginVC* vc = [BYLoginVC sharedLoginVC];
         [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
-    if (_isMineExit) {
-        _isMineExit = NO;
+    if (_needShow) {
+        _needShow = NO;
         [MBProgressHUD topHide];
-        BYMineVC* vc = [BYMineVC sharedMineVC];
-        [vc.navigationController dismissViewControllerAnimated:NO completion:nil];
-        
+        BYHomeVC* homeVC = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeVC;
+        if ([homeVC.navigationController.viewControllers containsObject:self]) {
+            [homeVC.navigationController popToViewController:self animated:NO];
+        }else{
+            [homeVC.navigationController pushViewController:self animated:NO];
+        }
     }
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
         [MBProgressHUD topHide];
     }
     [iConsole log:@"finish"];
-    if (_loadingCaches) {
-        _loadingCaches = NO;
-        [iConsole log:@"finish load caches"];
-        NSURL* url = [NSURL URLWithString:BYURL_HOME];
-        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-    }
+
 //    if ([self.currentUrl containsString:@"m.biyao.com/product/show"]&&![self.currentUrl containsString:@"192.168.97.69"]) {
 //        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.97.69:8080/m.biyao.com/product/show?designid=63786"]]];
 //    }
@@ -388,27 +353,22 @@
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
 {
+    [iConsole log:@"fail"];
+    [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
     if (_loginSuccessLoading) {
         _loginSuccessLoading = NO;
         [MBProgressHUD topHide];
         BYLoginVC* vc = [BYLoginVC sharedLoginVC];
         [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
-    if (_isMineExit) {
-        [MBProgressHUD topShow:@""];
-        _isMineExit = NO;
-        BYMineVC* vc = [BYMineVC sharedMineVC];
-        [vc.navigationController dismissViewControllerAnimated:NO completion:nil];
+    if (_needShow) {
+        _needShow = NO;
     }
     if (![BYAppCenter sharedAppCenter].isNetConnected) {
         [MBProgressHUD topHide];
         _poolNetworkView.hidden = NO;
     }
-    if (_loadingCaches) {
-        _loadingCaches = NO;
-        NSURL* url = [NSURL URLWithString:BYURL_HOME];
-        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-    }
+
 }
 
 #pragma mark - methods
@@ -550,7 +510,7 @@
         self.view.backgroundColor = BYColorBG;
         _webView.clipsToBounds=NO;
     }
-    _isMineExit = NO;
+    _needShow = NO;
     _loginSuccessLoading = NO;
     _loginCount = 10;
 }
@@ -722,3 +682,14 @@
 }
 
 @end
+void JumpToWebBlk(NSString*url,BYJumpWebFinish blk)
+{
+    if (![BYAppCenter sharedAppCenter].isNetConnected) {
+        [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
+        return;
+    }
+    [BYCommonWebVC sharedCommonWebVC].needShow = YES;
+    [MBProgressHUD topShow:@""];
+    [[BYCommonWebVC sharedCommonWebVC].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10]];
+    [BYCommonWebVC sharedCommonWebVC].jumpCallBack = blk;
+}

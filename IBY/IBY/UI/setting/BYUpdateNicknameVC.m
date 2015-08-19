@@ -16,6 +16,7 @@
     UITextField * nicknameTF;
 }
 @property (nonatomic, strong) BYAutosizeBgButton * btnNext;
+@property (strong, nonatomic) UIImageView* inputBg;
 @end
 
 @implementation BYUpdateNicknameVC
@@ -30,19 +31,41 @@
 {
     self.title = @"修改昵称";
     
-    BYMineCell* cell = [BYMineCell cellWithTitle:@"昵称" icon:nil target:self sel:nil];
-    cell.frame = BYRectMake(0, 12, SCREEN_WIDTH, 44);
-    cell.titleLabel.textColor = BYColor666;
-    cell.showBottomLine = YES;
-    cell.showRightArrow = NO;
-    nicknameTF = [[UITextField alloc]initWithFrame:CGRectMake(70, 0, cell.width - 75, cell.height)];
+    _inputBg  = [[UIImageView alloc]initWithFrame:CGRectMake(12, 12, SCREEN_WIDTH - 24, 40)];
+    [self.view addSubview:_inputBg];
+    _inputBg.image = [[UIImage imageNamed:@"bg_inputbox"] resizableImage];
+    _inputBg.highlightedImage = [UIImage imageNamed:@"bg_inputbox_on"];
+    
+    nicknameTF = [[UITextField alloc] initWithFrame:CGRectMake(26, 12, SCREEN_WIDTH - 12 * 2 - 7 - 14, 40)];
+    nicknameTF.leftViewMode = UITextFieldViewModeAlways;
+    nicknameTF.placeholder = @"请输入昵称";
+    nicknameTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     nicknameTF.delegate = self;
-    [cell addSubview:nicknameTF];
     nicknameTF.textColor = BYColor333;
     nicknameTF.font = [UIFont systemFontOfSize:14];
     nicknameTF.text = [BYAppCenter sharedAppCenter].user.nickname;
-    nicknameTF.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:nicknameTF];
+    __weak BYUpdateNicknameVC * wself = self;
+    [nicknameTF setBk_didBeginEditingBlock:^(UITextField* txtField) {
+        wself.inputBg.highlighted = YES;
+    }];
     
+    [nicknameTF setBk_didEndEditingBlock:^(UITextField* txtField) {
+        wself.inputBg.highlighted = NO;
+    }];
+    [nicknameTF setBk_shouldClearBlock:^BOOL(UITextField* txtField){
+        wself.btnNext.enabled = NO;
+        return YES;
+    }];
+    [nicknameTF setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (realStr.length > 20 && txtField.text.length < realStr.length) {
+            return NO;
+        }
+        wself.btnNext.enabled = realStr&&[realStr length]>0;
+        return YES;
+    }];
+
     UILabel * tipsLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 12 + 44 +12, SCREEN_WIDTH - 20 * 2, 30)];
     tipsLabel.text = @"最多20个字符，可由中英文、数字、\"_\"、\"-\"组成";
     tipsLabel.font = [UIFont systemFontOfSize:12];
@@ -64,30 +87,11 @@
     [self.view addSubview:_btnNext];
     
     
-    [cell addTarget:self action:@selector(Onfocus) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.view addSubview:cell];
-    __weak BYUpdateNicknameVC * wself = self;
-    [nicknameTF setBk_shouldClearBlock:^BOOL(UITextField* txtField){
-        wself.btnNext.enabled = NO;
-        return YES;
-    }];
-    [nicknameTF setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
-        NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
-        if (realStr.length > 20) {
-            return NO;
-        }
-        wself.btnNext.enabled = realStr&&[realStr length]>0;
-        return YES;
-    }];
+   
     
 
 }
 
-- (void)Onfocus
-{
-    [nicknameTF resignFirstResponder];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -80,7 +80,7 @@
 - (void)resetPasswordFun
 {
     if (![_newlyPwdTextField.text isEqualToString:_confirmPwdTextField.text]) {
-        [MBProgressHUD topShowTmpMessage:@"确认密码与设置的密码不一致"];
+        [MBProgressHUD topShowTmpMessage:@"新密码输入不一致，请重新输入"];
         return;
     }
     if (self.newlyPwdTextField.text.length<6) {
@@ -99,7 +99,7 @@
     __weak BYReSetPasswordVC * wself = self;
     [pwdService resetPassword:_newlyPwdTextField.text oldPassword:_oldPwdTextField.text finish:^(BOOL success, BYError* error) {
         if (success) {
-            [MBProgressHUD topShowTmpMessage:@"密码修改成功"];
+            [MBProgressHUD topShowTmpMessage:@"恭喜！密码修改成功"];
             [wself.navigationController popViewControllerAnimated:YES];
         }else{
             alertError(error);

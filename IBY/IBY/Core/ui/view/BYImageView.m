@@ -8,7 +8,7 @@
 
 #import "BYImageView.h"
 #import "UIImageView+WebCache.h"
-
+#import "BYCommonWebVC.h"
 @implementation BYImageView
 
 - (id)initWithFrame:(CGRect)frame
@@ -58,5 +58,8 @@
         finished(image);
     }];
 }
-
+- (void)onImagetap:(id)sender;
+{
+    JumpToWebBlk(self.jumpURL, nil);
+}
 @end

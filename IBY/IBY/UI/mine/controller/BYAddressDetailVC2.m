@@ -300,15 +300,18 @@
     [self.view addSubview:_bodyView];
 
     _receiverTxtfield = addressEditTxtfield(@"", self);
-    BYAddressEditCell* cell1 = [BYAddressEditCell editCellWithTitle:@"收货人:" input:_receiverTxtfield];
+    BYAddressEditCell* cell1 = [BYAddressEditCell editCellWithTitle:@"收货人：" input:_receiverTxtfield];
     [self.bodyView by_addSubview:cell1 paddingTop:12];
 
     _phoneTxtfield = addressEditTxtfield(@"", self);
     _phoneTxtfield.keyboardType = UIKeyboardTypeNumberPad;
-    BYAddressEditCell* cell2 = [BYAddressEditCell editCellWithTitle:@"手机号码:" input:_phoneTxtfield];
+    BYAddressEditCell* cell2 = [BYAddressEditCell editCellWithTitle:@"手机号码：" input:_phoneTxtfield];
     [self.bodyView by_addSubview:cell2 paddingTop:0];
     [self.phoneTxtfield setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
+        if (txtField.text.length > realStr.length) {
+            return YES;
+        }
         if (realStr.length > 20) {
             return NO;
         }
@@ -317,7 +320,7 @@
     
     
     _provinceLabel = addressEditLabel(@"请选择");
-    BYAddressEditCell* cell3 = [BYAddressEditCell editCellWithTitle:@"所在地区:" input:_provinceLabel];
+    BYAddressEditCell* cell3 = [BYAddressEditCell editCellWithTitle:@"所在地区：" input:_provinceLabel];
     [cell3 addTarget:self action:@selector(onProvince) forControlEvents:UIControlEventTouchUpInside];
     [self.bodyView by_addSubview:cell3 paddingTop:0];
 
@@ -328,7 +331,7 @@
     //top, left, bottom, right
     _addressDetailTxtfield.returnKeyType = UIReturnKeyDefault;
     _addressDetailTxtfield.delegate = self;
-    BYAddressEditCell* cell6 = [BYAddressEditCell editCellWithTitle:@"详细地址:" input:_addressDetailTxtfield left:90];
+    BYAddressEditCell* cell6 = [BYAddressEditCell editCellWithTitle:@"详细地址：" input:_addressDetailTxtfield left:90];
     [self.bodyView by_addSubview:cell6 paddingTop:12];
     _addressDetailTxtfield.top += 4;
 

@@ -8,9 +8,9 @@
 
 #import "BYBaseVC.h"
 #import "BYCommonWebVC.h"
+#import "BYMutiSwitch.h"
+@interface BYHomeVC : BYBaseVC
 
-@interface BYHomeVC : BYCommonWebVC
-
-@property (nonatomic , strong) NSString * jumpURL;
-
+@property (nonatomic , assign) BYCommonWebVC * commonWebVC;
+@property (nonatomic,strong)BYMutiSwitch *mutiSwitch;
 @end

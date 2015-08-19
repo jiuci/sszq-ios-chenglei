@@ -158,10 +158,6 @@
         refundOrderTip.number = [BYAppCenter sharedAppCenter].user.refundNum;
         toReceiveOrderTip.number = [BYAppCenter sharedAppCenter].user.toReceiveOrderNum;
         notPayOrderTip.number = [BYAppCenter sharedAppCenter].user.notPayOrderNum;
-        
-//        refundOrderTip.number = 10;
-//        toReceiveOrderTip.number = 15;
-//        notPayOrderTip.number = 5;
     }
     else {
         self.userName.userInteractionEnabled = NO;
@@ -184,48 +180,5 @@
     
 }
 
-//- (void)loginAction
-//{
-//    [self.mineVC.navigationController presentViewController:makeLoginnav(nil,nil) animated:YES completion:nil];
-//}
-
-//- (void)registAction
-//{
-//    BYRegist1VC* registerVC = [[BYRegist1VC alloc] init];
-//    [self.mineVC.navigationController pushViewController:registerVC animated:YES];
-//}
-
-//- (void)onToPayOrders
-//{
-//    //TODO: sitong
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self.mineVC withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_UNPAY;
-//        vc.titleString = @"待付款订单";
-//        [self.mineVC.navigationController pushViewController:vc animated:YES];
-//    }];
-//}
-
-//- (void)onInProcessOrders
-//{
-//    //TODO: sitong
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self.mineVC withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_PRODUCING;
-//        vc.titleString = @"生产中订单";
-//        [self.mineVC.navigationController pushViewController:vc animated:YES];
-//    }];
-//}
-
-//- (void)onToDeliverConfirmOrders
-//{
-    //TODO: sitong
-//    [[BYAppCenter sharedAppCenter] runAfterLoginFromVC:self.mineVC withBlk:^{
-//        BYOrderlistVC *vc = [[BYOrderlistVC alloc] init];
-//        vc.filterStatus = STATUS_DILIVER;
-//        vc.titleString = @"待收货订单";
-//        [self.mineVC.navigationController pushViewController:vc animated:YES];
-//    }];
-//}
 
 @end
