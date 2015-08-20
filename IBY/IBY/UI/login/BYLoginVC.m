@@ -104,7 +104,7 @@
 - (void)setupUI
 {
     _countForLoginTimes = 0;
-    _showThirdPartyLogin = YES;
+//    _showThirdPartyLogin = YES;
     // nav
     self.title = @"登录";
     self.navigationItem.leftBarButtonItem =
@@ -249,8 +249,6 @@
     //thirdparty login
     BOOL showQQ = [_loginService canUseQQlogin];
     BOOL showWX = [_loginService canUseWXlogin];
-//    showWX = false;
-//    showQQ = false;
     if (showQQ | showWX) {
         _thirdLine = [[UIView alloc]initWithFrame:CGRectMake(38 + 10, 0, SCREEN_WIDTH - 38 * 2 - 20, 1)];
         _thirdLine.backgroundColor = HEXCOLOR(0x999999);
@@ -357,7 +355,8 @@
     [super viewWillAppear:animated];
     BOOL showQQ = [_loginService canUseQQlogin];
     BOOL showWX = [_loginService canUseWXlogin];
-    if (_showThirdPartyLogin == false) {
+    
+    if (_showThirdPartyLogin == NO) {
         showQQ = NO;
         showWX = NO;
     }
@@ -397,6 +396,7 @@
     }
     
 }
+
 #pragma mark - 按钮处理
 
 - (void)onLogin
@@ -599,6 +599,7 @@
 BYNavVC* makeLoginnav(BYLoginSuccessBlock blk,BYLoginCancelBlock cblk)
 {
     BYLoginVC* vc = [BYLoginVC sharedLoginVC];
+    vc.showThirdPartyLogin = YES;
     vc.successBlk = blk;
     vc.cancelBlk = cblk;
     BYNavVC* nav = [BYNavVC nav:vc title:@"登录"];

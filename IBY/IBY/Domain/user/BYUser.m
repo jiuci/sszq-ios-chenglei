@@ -45,6 +45,7 @@
     user.nickname = info[@"customer"][@"nickname"];
     user.avatar = info[@"customer"][@"avater_url"];
     user.gender = [info[@"customer"][@"gender"] intValue];
+    user.phoneNum = info[@"customer"][@"mobile"];
     user.refundNum = [info[@"refundNum"] intValue];
     user.toReceiveOrderNum = [info[@"toReceiveOrderNum"] intValue];
     user.notPayOrderNum = [info[@"notPayOrderNum"] intValue];

@@ -27,7 +27,7 @@
 
 #import "SDCycleScrollView.h"
 
-@interface BYHomeVC ()<SDCycleScrollViewDelegate,UIScrollViewDelegate>
+@interface BYHomeVC ()<SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) BYHomeService * service;
 @property (nonatomic, strong) BYHomeInfo * info;
@@ -83,14 +83,19 @@
 }
 -(void)updateUI
 {
+    if (!_info) {
+        return;
+    }
     [_bodyView headerEndRefreshing];
     _hasNewMessage.hidden = YES;
     BYUser * user = [BYAppCenter sharedAppCenter].user;
     _hasNewMessage.hidden = user.messageNum == 0;
     [_bodyView by_removeAllSubviews];
-    if (!_info) {
-        return;
-    }
+    __weak BYHomeVC * wself = self;
+    [_bodyView addHeaderWithCallback:^{
+        [wself viewWillAppear:YES];
+    }];
+    
     NSMutableArray *imagesURL = [NSMutableArray array];
     for (int i =0; i<_info.bannerArray.count; i++) {
         BYHomeInfoSimple *simpe = _info.bannerArray[i];
@@ -99,6 +104,7 @@
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL];
     cycleScrollView.delegate = self;
     cycleScrollView.autoScrollTimeInterval = 3.0;
+    
     [_bodyView by_addSubview:cycleScrollView paddingTop:0];
     for (int i = 0; i < _info.adArray.count; i++) {
         
@@ -110,6 +116,9 @@
         [image addTapAction:@selector(onImagetap:) target:image];
         [_bodyView by_addSubview:image paddingTop:0 + (i == 0) * 12];
         
+    }
+    if (!_info.bbsArray||_info.bbsArray.count == 0) {
+        return;
     }
     NSDictionary *attrDict1 = @{ NSFontAttributeName: Font(14),
                                 NSForegroundColorAttributeName: BYColor333};
@@ -168,10 +177,7 @@
 
     }
     
-    __weak BYHomeVC * wself = self;
-    [_bodyView addHeaderWithCallback:^{
-        [wself viewWillAppear:YES];
-    }];
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -264,12 +270,6 @@
 
 -(BOOL)canBecomeFirstResponder {
     return YES;
-}
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.dragging) {
-        NSLog(@"111");
-    }
 }
 //- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent*)event
 //{

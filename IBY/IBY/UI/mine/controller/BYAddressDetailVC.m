@@ -65,7 +65,7 @@
     self.selectionView.delegate = self;
 
     self.selectView = [BYAddressAreaSelectView createPopoverView];
-
+    self.phoneTextField.text = [BYAppCenter sharedAppCenter].user.phoneNum;
     [self.phoneTextField setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
         if (txtField.text.length > realStr.length) {
@@ -212,12 +212,12 @@
         [MBProgressHUD topShowTmpMessage:@"请填写手机号"];
         return NO;
     }
-    else if ([self.detailaddressTextFiled.text isEqual:@""]) {
-        [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
-        return NO;
-    }
     else if ([self.provinceTextField.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请选择省，市或者地区"];
+        return NO;
+    }
+    else if ([self.detailaddressTextFiled.text isEqual:@""]) {
+        [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
         return NO;
     }
     else {

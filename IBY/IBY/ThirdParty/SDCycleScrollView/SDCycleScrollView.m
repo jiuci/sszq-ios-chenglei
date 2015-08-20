@@ -49,6 +49,8 @@ NSString * const ID = @"cycleCell";
         self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         _autoScrollTimeInterval = 1.0;
         [self setupMainView];
+        UILongPressGestureRecognizer * gesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
+        [self addGestureRecognizer:gesture];
     }
     return self;
 }
@@ -66,6 +68,15 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
+- (void)longPress:(UILongPressGestureRecognizer*)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [_timer invalidate];
+        _timer = nil;
+    }else if (sender.state == UIGestureRecognizerStateEnded){
+        [self setupTimer];
+    }
+}
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];

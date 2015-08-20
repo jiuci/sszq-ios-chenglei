@@ -39,6 +39,8 @@
 @property (nonatomic, assign) BOOL loadingCaches;
 @property (nonatomic, assign) BOOL loginSuccessLoading;
 @property (nonatomic, strong) UIView * navBackview;
+
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation BYCommonWebVC
@@ -201,6 +203,7 @@
     if (!preUrlString) {
         return NO;
     }
+//    [iConsole log:@"%@",requestString];
     [iConsole log:@"%@",preUrlString];
 //    logCookies();
 //    loggobackCookies();
@@ -292,9 +295,10 @@
             [[BYLoginVC sharedLoginVC] clearData];
         };
         BYNavVC* nav = makeLoginnav(blk,cblk);
-        if ([preUrlString rangeOfString:@"home.biyao.com"].length > 0) {
+        if ([requestString rangeOfString:@"home.biyao.com"].length > 0) {
             [BYLoginVC sharedLoginVC].showThirdPartyLogin = NO;
         }else{
+            NSLog(@"set yes");
             [BYLoginVC sharedLoginVC].showThirdPartyLogin = YES;
         }
         [self presentViewController:nav animated:YES completion:nil];
@@ -315,7 +319,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
-    
+
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
@@ -323,7 +327,9 @@
 
 - (void)webViewDidFinishLoad:(UIWebView*)webView
 {
-//    [MBProgressHUD topHide];
+    [MBProgressHUD topHide];
+    [_timer invalidate];
+    _timer = nil;
     if (_loginSuccessLoading) {
         _loginSuccessLoading = NO;
         [MBProgressHUD topHide];
@@ -368,7 +374,6 @@
         [MBProgressHUD topHide];
         _poolNetworkView.hidden = NO;
     }
-
 }
 
 #pragma mark - methods
@@ -633,7 +638,17 @@
     //[self serverResoluton];
     
 }
+- (void)setupTimer
+{
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(loadingTimeout) userInfo:nil repeats:NO];
+    _timer = timer;
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
 
+- (void)loadingTimeout
+{
+    [self.webView stopLoading];
+}
 @end
 
 @interface BYBarButton ()
@@ -690,6 +705,7 @@ void JumpToWebBlk(NSString*url,BYJumpWebFinish blk)
     }
     [BYCommonWebVC sharedCommonWebVC].needShow = YES;
     [MBProgressHUD topShow:@""];
-    [[BYCommonWebVC sharedCommonWebVC].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10]];
+    [[BYCommonWebVC sharedCommonWebVC].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [BYCommonWebVC sharedCommonWebVC].jumpCallBack = blk;
+    [[BYCommonWebVC sharedCommonWebVC] setupTimer];
 }

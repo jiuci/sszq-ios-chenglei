@@ -19,6 +19,6 @@ profile
 DerivedData
 .idea/
 # Pods - for those of you who use CocoaPods
-Pods
+# Pods
 
 IBY/IBY.xcworkspace/xcuserdata/panshiyu.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

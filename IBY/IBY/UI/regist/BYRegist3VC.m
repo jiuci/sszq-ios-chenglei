@@ -82,6 +82,7 @@
                 runOnMainQueue(^{
                     BYLoginService *loginService = [[BYLoginService alloc] init];
                     BYLoginVC * bylogin = [BYLoginVC sharedLoginVC];
+                    bylogin.showThirdPartyLogin = YES;
                     [self.navigationController popToViewController:bylogin animated:YES];
                     [loginService loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
                         //TODO:在后台自动登录，不用处理失败的情况?

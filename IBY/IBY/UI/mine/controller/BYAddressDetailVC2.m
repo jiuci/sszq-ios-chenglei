@@ -104,8 +104,8 @@
         [MBProgressHUD topShowTmpMessage:@"请选择省，市和地区"];
         return NO;
     }
-    if (self.addressDetailTxtfield.text.length > 60) {
-        [MBProgressHUD topShowTmpMessage:@"详细地址不能超过60字符"];
+    if (self.addressDetailTxtfield.text.length > 120) {
+        [MBProgressHUD topShowTmpMessage:@"详细地址不能超过120字符"];
         [self.addressDetailTxtfield resignFirstResponder];
         return NO;
     }
@@ -304,10 +304,13 @@
     [self.bodyView by_addSubview:cell1 paddingTop:12];
 
     _phoneTxtfield = addressEditTxtfield(@"", self);
+    _phoneTxtfield.text = [BYAppCenter sharedAppCenter].user.phoneNum;
     _phoneTxtfield.keyboardType = UIKeyboardTypeNumberPad;
+    
     BYAddressEditCell* cell2 = [BYAddressEditCell editCellWithTitle:@"手机号码：" input:_phoneTxtfield];
     [self.bodyView by_addSubview:cell2 paddingTop:0];
     [self.phoneTxtfield setBk_shouldChangeCharactersInRangeWithReplacementStringBlock:^BOOL(UITextField* txtField, NSRange range, NSString* str) {
+        
         NSString* realStr = [txtField.text stringByReplacingCharactersInRange:range withString:str];
         if (txtField.text.length > realStr.length) {
             return YES;
@@ -347,11 +350,22 @@
 - (void)updateUI
 {
     BYAddress* data = _address;
-    self.receiverTxtfield.text = data.receiver;
-    self.phoneTxtfield.text = data.phone;
-    self.addressDetailTxtfield.text = data.address;
+    if (data.receiver) {
+        self.receiverTxtfield.text = data.receiver;
+    }
+    if (data.phone) {
+        self.phoneTxtfield.text = data.phone;
+    }
+    if (data.address) {
+        self.addressDetailTxtfield.text = data.address;
+    }
     [self resizeTextView:self.addressDetailTxtfield];
+    
+    
     NSString* provinceString = [NSString stringWithFormat:@"%@ %@ %@",data.province.provinceName,data.city.cityName,data.area.areaName];
+    if ([data.city.cityName isEqualToString:@"市辖区"]||[data.city.cityName isEqualToString:@"县"]) {
+        provinceString = [NSString stringWithFormat:@"%@ %@",data.province.provinceName,data.area.areaName];
+    }
     self.provinceLabel.text = data.province.provinceName ? provinceString : @"请选择";
     [self resizeLabel:self.provinceLabel];
     [self.bodyView by_updateDisplay];
