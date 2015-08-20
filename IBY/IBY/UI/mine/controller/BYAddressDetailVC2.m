@@ -92,7 +92,10 @@
         [self.phoneTxtfield resignFirstResponder];
         return NO;
     }
-
+    if (!_address.province || !_address.city || !_address.area) {
+        [MBProgressHUD topShowTmpMessage:@"请选择省，市和地区"];
+        return NO;
+    }
 
     if ([self.addressDetailTxtfield.text isEqual:@""]) {
         [MBProgressHUD topShowTmpMessage:@"请填写详细地址"];
@@ -100,10 +103,7 @@
         return NO;
     }
 
-    if (!_address.province || !_address.city || !_address.area) {
-        [MBProgressHUD topShowTmpMessage:@"请选择省，市和地区"];
-        return NO;
-    }
+    
     if (self.addressDetailTxtfield.text.length > 120) {
         [MBProgressHUD topShowTmpMessage:@"详细地址不能超过120字符"];
         [self.addressDetailTxtfield resignFirstResponder];

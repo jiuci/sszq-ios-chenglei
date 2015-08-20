@@ -159,7 +159,6 @@
 		F48D728F1A89DBB000870F3F /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F48D72851A89DBB000870F3F /* UIScrollView+MJExtension.m */; };
 		F48D72901A89DBB000870F3F /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F48D72871A89DBB000870F3F /* UIScrollView+MJRefresh.m */; };
 		F48D72911A89DBB000870F3F /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F48D72891A89DBB000870F3F /* UIView+MJExtension.m */; };
-		F490100F1B589D930062D102 /* BYBDmapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F490100E1B589D930062D102 /* BYBDmapVC.m */; };
 		F490E3B41B06F7FD00752223 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F490E3B21B06F7FD00752223 /* libjpeg.a */; };
 		F490E3B51B06F7FD00752223 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F490E3B31B06F7FD00752223 /* opencv2.framework */; };
 		F496C3881B317B9F00E503D8 /* BYLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = F496C3871B317B9F00E503D8 /* BYLoginService.m */; };
@@ -305,6 +304,7 @@
 		FEC829BB19AC948200D5D70D /* BYBaseDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B119AC948200D5D70D /* BYBaseDomain.m */; };
 		FEC829BC19AC948200D5D70D /* BYBaseEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B319AC948200D5D70D /* BYBaseEngine.m */; };
 		FEC829BD19AC948200D5D70D /* BYBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B519AC948200D5D70D /* BYBaseService.m */; };
+		FED37FFC1B85C7B700A02FEF /* BYBDmapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F490100E1B589D930062D102 /* BYBDmapVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -867,7 +867,6 @@
 		FE14D6A419AC2289006B0E48 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		FE14D6AC19AC2289006B0E48 /* IBYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IBYTests-Info.plist"; sourceTree = "<group>"; };
 		FE14D6AE19AC2289006B0E48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FE14D6B019AC2289006B0E48 /* IBYTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IBYTests.m; sourceTree = "<group>"; };
 		FE5DA8101A11B4D000A58F22 /* BYTbVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYTbVC.h; sourceTree = "<group>"; };
 		FE5DA8111A11B4D000A58F22 /* BYTbVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTbVC.m; sourceTree = "<group>"; };
 		FE5DA8161A11B91500A58F22 /* UITableViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewExtension.h; sourceTree = "<group>"; };
@@ -2044,7 +2043,6 @@
 		FE14D6AA19AC2289006B0E48 /* IBYTests */ = {
 			isa = PBXGroup;
 			children = (
-				FE14D6B019AC2289006B0E48 /* IBYTests.m */,
 				FE14D6AB19AC2289006B0E48 /* Supporting Files */,
 			);
 			path = IBYTests;
@@ -2428,6 +2426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED37FFC1B85C7B700A02FEF /* BYBDmapVC.m in Sources */,
 				F4D9325E1A59131F000E4C02 /* BYPoolNetworkView.m in Sources */,
 				CC3D2E1919BFF8B1000E0E14 /* MJMethod.m in Sources */,
 				F4FCC8F21A51E43500C89C1F /* BYDelivery.m in Sources */,
@@ -2485,7 +2484,6 @@
 				FEC829BD19AC948200D5D70D /* BYBaseService.m in Sources */,
 				CC3D2E1719BFF8B1000E0E14 /* MJIvar.m in Sources */,
 				F417A6E41A304B7200F7CF66 /* BYTools.m in Sources */,
-				F490100F1B589D930062D102 /* BYBDmapVC.m in Sources */,
 				F496C39A1B318C7E00E503D8 /* BYAppEngine.m in Sources */,
 				F48CF3F51A52D27500EE4EF4 /* BYOrderCreateInfo.m in Sources */,
 				CC957EA019C2FB45000700DE /* BYHomeVC.m in Sources */,
@@ -2734,6 +2732,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
@@ -2748,6 +2747,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
@@ -2757,7 +2757,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "IBY/Service/login/IBY-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7s armv7 arm64";
+				VALID_ARCHS = "armv7s armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -2807,6 +2807,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
@@ -2821,6 +2822,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
@@ -2830,7 +2832,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "IBY/Service/login/IBY-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7s armv7 arm64";
+				VALID_ARCHS = "armv7s armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = adhoc;
@@ -2931,6 +2933,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
@@ -2944,6 +2947,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
@@ -2956,7 +2960,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "IBY/Service/login/IBY-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7s armv7 arm64";
+				VALID_ARCHS = "armv7s armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2971,6 +2975,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/Core/share",
 					"$(PROJECT_DIR)/IBY/ThirdParty/Alipay",
@@ -2985,6 +2990,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
@@ -2994,7 +3000,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "IBY/Service/login/IBY-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7s armv7 arm64";
+				VALID_ARCHS = "armv7s armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

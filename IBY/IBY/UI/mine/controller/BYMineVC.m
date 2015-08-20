@@ -64,7 +64,7 @@
     [self.mutiSwitch setSelectedAtIndex:2];
     
     addCookies(BYURL_MINE, @"gobackuri", @".biyao.com");
-    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
+//    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
     
     
     [self updateUI];

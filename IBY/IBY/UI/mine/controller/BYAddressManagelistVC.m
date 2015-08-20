@@ -195,7 +195,9 @@ static NSString* cellID = @"BYAddressCell";
     BYAddress* data =self.addressList[[indexPath section]];
 //    cell.t.text = [self.tableData objectAtIndex:indexPath.row];
     cell.receiverLabel.text = [NSString stringWithFormat:@"%@    %@", data.receiver, data.phone];
-    
+    if ([data.cityName isEqualToString:@"市辖区"]||[data.cityName isEqualToString:@"县"]) {
+        data.cityName = @"";
+    }
     NSString* address = [NSString stringWithFormat:@"%@%@%@\n%@", data.provinceName, data.cityName, data.areaName, data.address];
     CGSize size = [address sizeWithFont:Font(12) maxSize:CGSizeMake(cell.width - 24, 1000)];
     cell.addressLabel.height = size.height;

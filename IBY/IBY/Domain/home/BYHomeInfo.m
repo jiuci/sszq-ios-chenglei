@@ -19,6 +19,7 @@
     for (int i = 0 ; i< ads.count; i++) {
         BYHomeInfoSimple * simple = [[BYHomeInfoSimple alloc]init];
         simple.imagePath = ads[i][@"img"];
+        
         simple.link = ads[i][@"link"];
         simple.type = [ads[i][@"type"] intValue];
         if (!simple.isValid) {
@@ -32,11 +33,11 @@
     homeInfo.bannerWidth = [info[@"bannerWidth"] intValue];
     [tempArray removeAllObjects];
     NSArray * banners = info[@"banners"];
-    for (int i = 0 ; i< ads.count; i++) {
+    for (int i = 0 ; i< banners.count; i++) {
         BYHomeInfoSimple * simple = [[BYHomeInfoSimple alloc]init];
-        simple.imagePath = ads[i][@"img"];
-        simple.link = ads[i][@"link"];
-        simple.type = [ads[i][@"type"] intValue];
+        simple.imagePath = banners[i][@"img"];
+        simple.link = banners[i][@"link"];
+        simple.type = [banners[i][@"type"] intValue];
         if (!simple.isValid) {
             return nil;
         }

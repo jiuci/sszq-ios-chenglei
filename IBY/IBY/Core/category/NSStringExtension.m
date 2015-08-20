@@ -95,9 +95,14 @@
     if (self.length < 6 || self.length > 32) {
         return NO;
     }
-
+    NSString* regex = @".*[0-9a-zA-Z@!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}\\[\\]<>\\(\\)\"~,\\.:;\\\\]+.*";
+    NSPredicate* pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:self];
+    if (isMatch) {
+        return NO;
+    }
     int matchCount = 0;
-
+//  ^[0-9a-zA-Z@!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}\\[\\]<>\\(\\)\"~,\\.:;\\\\]{6,32}$
     //判断是否包含数字
     NSString* regex1 = @".*[0-9]+.*";
     NSPredicate* pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
