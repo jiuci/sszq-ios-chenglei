@@ -181,34 +181,15 @@
 - (void)onProvince
 {
     [_selectView showInfoByMark:BYAddressTypeProvince];
-    [_selectView showInView:self.view];
-}
-
-- (void)onCity
-{
-    if ([_provinceLabel.text isEqualToString:@"请选择"]) {
-        [MBProgressHUD topShowTmpMessage:@"请先选择省份"];
-        return;
+    if (_selectView.hasData) {
+        [_selectView showInView:self.view];
     }
-//    NSLog(@"djahd = %@", _provinceLabel.text);
-    [_selectView showInfoByMark:BYAddressTypeCity];
-    [_selectView showInView:self.view];
+    
 }
 
-- (void)onArea
-{
 
-//    if ([_provinceLabel.text isEqualToString:@"请选择"]) {
-//        [MBProgressHUD topShowTmpMessage:@"请先选择省份"];
-//        return;
-//    }
-//    if ([_cityLabel.text isEqualToString:@"请选择"]) {
-//        [MBProgressHUD topShowTmpMessage:@"请先选择城市"];
-//        return;
-//    }
-//    [_selectView showInfoByMark:BYAddressTypeArea];
-//    [_selectView showInView:self.view];
-}
+
+
 
 - (void)didSelect:(id)selectedData
 {

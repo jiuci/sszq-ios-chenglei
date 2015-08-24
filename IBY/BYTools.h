@@ -14,6 +14,7 @@
 
 void clearCookies();
 void inputCookies();
+BOOL checkLoginCookies();
 void resetCookies();
 void logCookies();
 void loggobackCookies();

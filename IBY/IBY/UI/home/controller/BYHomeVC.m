@@ -1,3 +1,4 @@
+
 //
 //  BYHomeVC.m
 //  IBY
@@ -26,13 +27,15 @@
 #import "MJRefreshHeaderView.h"
 
 #import "SDCycleScrollView.h"
-
+#import "BYPoolNetworkView.h"
 @interface BYHomeVC ()<SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) BYHomeService * service;
 @property (nonatomic, strong) BYHomeInfo * info;
 @property (nonatomic, strong) BYLinearScrollView * bodyView;
 @property (nonatomic, strong) UIImageView* hasNewMessage;
+@property (nonatomic, strong) BYPoolNetworkView* poolNetworkView;
+@property (nonatomic, assign) BOOL isLoading;
 @end
 @implementation BYHomeVC
 
@@ -46,7 +49,7 @@
 {
     [self.navigationController setNavigationBarHidden:NO];
     [self.view addSubview:self.mutiSwitch];
-    
+    self.commonWebVC = [BYCommonWebVC sharedCommonWebVC];
     [self.mutiSwitch mas_makeConstraints:^(MASConstraintMaker* make) {
         make.centerX.equalTo(self.view);
         make.width.equalTo(self.view);
@@ -57,6 +60,7 @@
     _bodyView = [[BYLinearScrollView alloc] initWithFrame:BYRectMake(0, 0, SCREEN_WIDTH, self.view.height - 20 - 46 - 46)];
     _bodyView.backgroundColor = BYColorBG;
     [self.view addSubview:_bodyView];
+    self.bodyView.alwaysBounceVertical = YES;
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_meassages" highImgName:@"btn_meassages" handler:^(id sender) {
         if (![BYAppCenter sharedAppCenter].isLogin) {
             [self loginAction];
@@ -75,37 +79,66 @@
     _hasNewMessage.hidden = YES;
     __weak BYHomeVC * wself = self;
     [self.bodyView addHeaderWithCallback:^{
-        [wself viewWillAppear:YES];
+        [wself reloadData];
     }];
     for (UIView* view in self.bodyView.subviews) {
         ((MJRefreshHeaderView*)view).showTimeLabel = NO;
     }
+    _info = [BYHomeInfo loadInfo];
+    
+    
+    
+    [_poolNetworkView removeFromSuperview];
+    _poolNetworkView = [BYPoolNetworkView poolNetworkView];
+    [self.view addSubview:_poolNetworkView];
+    UIButton* btn = [[UIButton alloc] initWithFrame:_poolNetworkView.frame];
+    btn.backgroundColor = BYColorClear;
+    [btn addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventTouchUpInside];
+    [_poolNetworkView addSubview:btn];
+    _poolNetworkView.hidden = YES;
+    _poolNetworkView.backgroundColor = BYColorBG;
+    
+    [self reloadData];
 }
 -(void)updateUI
 {
+    [_bodyView headerEndRefreshing];
     if (!_info) {
         return;
     }
-    [_bodyView headerEndRefreshing];
+    self.isLoading = YES;
+    
     _hasNewMessage.hidden = YES;
     BYUser * user = [BYAppCenter sharedAppCenter].user;
     _hasNewMessage.hidden = user.messageNum == 0;
     [_bodyView by_removeAllSubviews];
     __weak BYHomeVC * wself = self;
     [_bodyView addHeaderWithCallback:^{
-        [wself viewWillAppear:YES];
+        [wself reloadData];
     }];
-    
-    NSMutableArray *imagesURL = [NSMutableArray array];
-    for (int i =0; i<_info.bannerArray.count; i++) {
-        BYHomeInfoSimple *simpe = _info.bannerArray[i];
-        [imagesURL addObject:[NSURL URLWithString:simpe.imagePath]];
+    if (_info.bannerArray.count == 1) {
+        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight)];
+        BYHomeInfoSimple * simple = _info.bannerArray[0];
+        image.jumpURL = simple.link;
+        image.image = [UIImage imageNamed:@"bg_placeholder"];
+        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
+        [image addTapAction:@selector(onImagetap:) target:image];
+        [_bodyView by_addSubview:image paddingTop:0];
+
+    }else if (_info.bannerArray.count > 1){
+        NSMutableArray *imagesURL = [NSMutableArray array];
+        for (int i =0; i<_info.bannerArray.count; i++) {
+            BYHomeInfoSimple *simpe = _info.bannerArray[i];
+            [imagesURL addObject:[NSURL URLWithString:simpe.imagePath]];
+        }
+        SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL placeHolderImage:[UIImage imageNamed:@"bg_placeholder"]];
+        cycleScrollView.delegate = self;
+        cycleScrollView.autoScrollTimeInterval = 3.0;
+        
+        [_bodyView by_addSubview:cycleScrollView paddingTop:0];
+
+
     }
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL];
-    cycleScrollView.delegate = self;
-    cycleScrollView.autoScrollTimeInterval = 3.0;
-    
-    [_bodyView by_addSubview:cycleScrollView paddingTop:0];
     for (int i = 0; i < _info.adArray.count; i++) {
         
         BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH-24, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
@@ -114,10 +147,11 @@
         image.image = [UIImage imageNamed:@"bg_placeholder"];
         [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
         [image addTapAction:@selector(onImagetap:) target:image];
-        [_bodyView by_addSubview:image paddingTop:0 + (i == 0) * 12];
+        [_bodyView by_addSubview:image paddingTop:8 + (i == 0) * 4];
         
     }
     if (!_info.bbsArray||_info.bbsArray.count == 0) {
+        self.isLoading = NO;
         return;
     }
     NSDictionary *attrDict1 = @{ NSFontAttributeName: Font(14),
@@ -176,27 +210,42 @@
         
 
     }
-    
-    
+    [self.mutiSwitch setSelectedAtIndex:0];
+    self.isLoading = NO;
     
 }
--(void)viewWillAppear:(BOOL)animated
+-(void)reloadData
 {
-    [super viewWillAppear:animated];
+    NSLog(@"reload");
     __weak BYHomeVC * wself = self;
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         [_service loadHomePagefinish:^(BYHomeInfo*info,BYError *error){
             if (error) {
                 alertError(error);
+                [_bodyView headerEndRefreshing];
                 return;
             }
             wself.info = info;
+            if (wself.isLoading) {
+                return;
+            }
+            _poolNetworkView.hidden = YES;
             [wself updateUI];
         }];
     }else{
         _info = [BYHomeInfo loadInfo];
-        [self updateUI];
+        if (_info) {
+            [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
+            return;
+        }
+        _poolNetworkView.hidden = NO;
     }
+
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    addCookies(@"http://m.biyao.com/index", @"gobackuri", @".biyao.com");
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -237,21 +286,23 @@
         
         __weak BYHomeVC* wself = self;
         
-        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"首页"];
+        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_hoicon_home_highlightme" hlIcon:@"icon_home_highlight" title:@"首页"];
         [btn1 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
+                                   [wself reloadData];
                                    [wself.mutiSwitch setSelectedAtIndex:0];
                                }];
         
-        UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart_highlight" title:@"购物车"];
+        UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart" title:@"购物车"];
         [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
+                                   [wself.mutiSwitch setSelectedAtIndex:0];
                                }];
         
-        UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine_highlight" title:@"我的必要"];
+        UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine" title:@"我的必要"];
         [btn3 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn3
                                handle:^(id sender) {

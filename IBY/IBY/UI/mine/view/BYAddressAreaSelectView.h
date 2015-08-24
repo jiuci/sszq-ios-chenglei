@@ -24,7 +24,7 @@ typedef enum {
 @interface BYAddressAreaSelectView : BYBasePopoverView
 
 @property (nonatomic, copy) saveBlock saveBlk;
-
+@property (nonatomic, assign) BOOL hasData;
 - (void)updateData:(BYProvince*)province city:(BYCity*)city area:(BYArea*)area;
 - (void)showInfoByMark:(int)mark;
 @end

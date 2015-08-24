@@ -34,7 +34,7 @@
     _inputBg  = [[UIImageView alloc]initWithFrame:CGRectMake(12, 12, SCREEN_WIDTH - 24, 40)];
     [self.view addSubview:_inputBg];
     _inputBg.image = [[UIImage imageNamed:@"bg_inputbox"] resizableImage];
-    _inputBg.highlightedImage = [UIImage imageNamed:@"bg_inputbox_on"];
+    _inputBg.highlightedImage = [[UIImage imageNamed:@"bg_inputbox_on"] resizableImage];
     
     nicknameTF = [[UITextField alloc] initWithFrame:CGRectMake(26, 12, SCREEN_WIDTH - 12 * 2 - 7 - 14, 40)];
     nicknameTF.leftViewMode = UITextFieldViewModeAlways;

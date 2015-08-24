@@ -47,7 +47,7 @@
 {
     self.backgroundColor    = [UIColor clearColor];
     self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2;
-    self.layer.borderColor  = BYColorNav.CGColor;
+    self.layer.borderColor  = BYColorb768.CGColor;
     self.layer.borderWidth  = 2;
 }
 
@@ -55,7 +55,7 @@
 - (void)changeActivityState:(BOOL)active
 {
     if (active) {
-        self.backgroundColor = BYColorNav;
+        self.backgroundColor = BYColorb768;
     } else {
         self.backgroundColor = [UIColor clearColor];
     }

@@ -13,7 +13,6 @@ typedef void (^BYJumpWebFinish)();
 @interface BYCommonWebVC : BYBaseVC
 @property (nonatomic,strong)BYMutiSwitch *mutiSwitch;
 @property (nonatomic, strong) BYWebView* webView;
-@property (nonatomic, assign) BOOL needShow;
 @property (nonatomic,assign)BOOL showTabbar;
 @property (nonatomic,copy)BYJumpWebFinish jumpCallBack;
 - (void)onWeixinAuth:(NSString*)code;

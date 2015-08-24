@@ -49,6 +49,19 @@ void inputCookies()
 //    logCookies();
 }
 
+BOOL checkLoginCookies()
+{
+    NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
+    NSMutableArray * cookiesNames = [NSMutableArray array];
+    for (NSHTTPCookie* obj in cookies) {
+        if ([obj.domain isEqualToString:@".biyao.com"]) {
+            [cookiesNames addObject:obj.name];
+        }
+    }
+    return [cookiesNames containsObject:@"uid"]&&[cookiesNames containsObject:@"token"]&&[cookiesNames containsObject:@"userinfo"]&&[cookiesNames containsObject:@"idcard"];
+}
+
 NSHTTPCookie* createCookie(NSString* name, NSString* value)
 {
     NSMutableDictionary* cookieProperties = [NSMutableDictionary dictionary];

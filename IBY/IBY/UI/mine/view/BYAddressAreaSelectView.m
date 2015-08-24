@@ -161,6 +161,11 @@ static NSString* cellId = @"BYAddressSelectCell";
     [self showInfoByMark:_marker];
 }
 
+- (BOOL)hasData
+{
+    return self.showList.count > 0;
+}
+
 - (void)showInfoByMark:(int)mark
 {
     _marker = mark;
@@ -186,6 +191,7 @@ static NSString* cellId = @"BYAddressSelectCell";
 //                        _selectedProvince = _showList[0];
 //                    }
                     [_selectTableView reloadData];
+                    [MBProgressHUD topShow:@"加载中..."];
                     runBlockAfterDelay(0.3, ^{
                         for (int i = 0; i < _showList.count; i++) {
                             BYProvince* province = _showList[i];
@@ -193,11 +199,13 @@ static NSString* cellId = @"BYAddressSelectCell";
                                 NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
 //                                [_selectTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
                                 [_selectTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                                
 //                                [_selectTableView deselectRowAtIndexPath:indexPath animated:YES];
                                 //[_selectTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
                                 continue;
                             }
                         }
+                        [MBProgressHUD topHide];
 //                        _nextButton.userInteractionEnabled = YES;
 //                        _lastButton.userInteractionEnabled = YES;
                     });
@@ -227,6 +235,7 @@ static NSString* cellId = @"BYAddressSelectCell";
 //                            _selectedCity = _showList[0];
 //                        }
                         [_selectTableView reloadData];
+                        [MBProgressHUD topShow:@"加载中..."];
                         runBlockAfterDelay(0.3, ^{
                             for (int i = 0; i < _showList.count; i++) {
                                 BYCity* city = _showList[i];
@@ -238,6 +247,7 @@ static NSString* cellId = @"BYAddressSelectCell";
                                     continue;
                                 }
                             }
+                            [MBProgressHUD topHide];
 //                            _nextButton.userInteractionEnabled = YES;
 //                            _lastButton.userInteractionEnabled = YES;
                         }) ;
@@ -270,6 +280,7 @@ static NSString* cellId = @"BYAddressSelectCell";
 //                            _selectedArea = _showList[0];
 //                        }
                         [_selectTableView reloadData];
+                        [MBProgressHUD topShow:@"加载中..."];
                         runBlockAfterDelay(0.3, ^{
                             
                             for (int i = 0; i < _showList.count; i++) {
@@ -281,6 +292,7 @@ static NSString* cellId = @"BYAddressSelectCell";
                                     continue;
                                 }
                             }
+                            [MBProgressHUD topHide];
 //                            _nextButton.userInteractionEnabled = YES;
 //                            _lastButton.userInteractionEnabled = YES;
                         });

@@ -32,7 +32,6 @@
         @"pushtoken" : token,
         @"enable" : @(1)
     };
-
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (error) {
             finished(NO,error);

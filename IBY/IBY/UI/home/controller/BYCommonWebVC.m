@@ -275,7 +275,8 @@
         BYLoginSuccessBlock blk = ^() {
             runOnMainQueue(^{
             [[BYLoginVC sharedLoginVC] clearData];
-            if (![bself.webView.request.URL.absoluteString rangeOfString:bself.currentUrl].length > 0) {
+            if (![bself.webView.request.URL.absoluteString rangeOfString:bself.currentUrl].length > 0
+                ||[requestString rangeOfString:@"home.biyao.com"].length > 0) {
                 bself.loginSuccessLoading = YES;
                 [bself onAPPLogin];
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
@@ -298,7 +299,6 @@
         if ([requestString rangeOfString:@"home.biyao.com"].length > 0) {
             [BYLoginVC sharedLoginVC].showThirdPartyLogin = NO;
         }else{
-            NSLog(@"set yes");
             [BYLoginVC sharedLoginVC].showThirdPartyLogin = YES;
         }
         [self presentViewController:nav animated:YES completion:nil];
@@ -319,7 +319,8 @@
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
-
+    
+    [iConsole log:@"start"];
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
     }
@@ -336,16 +337,7 @@
         BYLoginVC* vc = [BYLoginVC sharedLoginVC];
         [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
-    if (_needShow) {
-        _needShow = NO;
-        [MBProgressHUD topHide];
-        BYHomeVC* homeVC = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeVC;
-        if ([homeVC.navigationController.viewControllers containsObject:self]) {
-            [homeVC.navigationController popToViewController:self animated:NO];
-        }else{
-            [homeVC.navigationController pushViewController:self animated:NO];
-        }
-    }
+    
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
         [MBProgressHUD topHide];
@@ -359,16 +351,16 @@
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
 {
-    [iConsole log:@"fail"];
-    [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
+    [iConsole log:@"fail %@",error];
+//    if ([error code] == NSURLErrorCancelled) {
+//        return;
+//    }
+//    [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
     if (_loginSuccessLoading) {
         _loginSuccessLoading = NO;
         [MBProgressHUD topHide];
         BYLoginVC* vc = [BYLoginVC sharedLoginVC];
         [vc.navigationController dismissViewControllerAnimated:YES completion:nil];
-    }
-    if (_needShow) {
-        _needShow = NO;
     }
     if (![BYAppCenter sharedAppCenter].isNetConnected) {
         [MBProgressHUD topHide];
@@ -515,7 +507,6 @@
         self.view.backgroundColor = BYColorBG;
         _webView.clipsToBounds=NO;
     }
-    _needShow = NO;
     _loginSuccessLoading = NO;
     _loginCount = 10;
 }
@@ -601,6 +592,7 @@
 {
     [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO];
+    [self loadBlank];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -638,11 +630,13 @@
     //[self serverResoluton];
     
 }
-- (void)setupTimer
+
+- (void)loadBlank
 {
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(loadingTimeout) userInfo:nil repeats:NO];
-    _timer = timer;
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"blank" ofType:@"html"];
+    NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    [self.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:filePath]];
+    
 }
 
 - (void)loadingTimeout
@@ -703,9 +697,13 @@ void JumpToWebBlk(NSString*url,BYJumpWebFinish blk)
         [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
         return;
     }
-    [BYCommonWebVC sharedCommonWebVC].needShow = YES;
-    [MBProgressHUD topShow:@""];
     [[BYCommonWebVC sharedCommonWebVC].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [BYCommonWebVC sharedCommonWebVC].jumpCallBack = blk;
-    [[BYCommonWebVC sharedCommonWebVC] setupTimer];
+    BYHomeVC* homeVC = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeVC;
+    if ([homeVC.navigationController.viewControllers containsObject:[BYCommonWebVC sharedCommonWebVC]]) {
+        [homeVC.navigationController popToViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
+    }else{
+        [homeVC.navigationController pushViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
+    }
+    
 }

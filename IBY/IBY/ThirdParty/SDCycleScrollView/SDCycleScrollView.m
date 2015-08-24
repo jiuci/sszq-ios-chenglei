@@ -62,8 +62,9 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup{
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup placeHolderImage:(UIImage*)placeHolder{
     SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.placeholderImage = placeHolder;
     cycleScrollView.imageURLsGroup = imageURLsGroup;
     return cycleScrollView;
 }
@@ -153,7 +154,8 @@ NSString * const ID = @"cycleCell";
     if (data) {
         [self.imagesGroup setObject:[UIImage imageWithData:data] atIndexedSubscript:index];
     } else {
-        
+        //加载默认图片
+        [self.imagesGroup setObject:_placeholderImage atIndexedSubscript:index];
         // 网络加载图片并缓存图片
         [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url]
                                            queue:[[NSOperationQueue alloc] init]
@@ -168,7 +170,6 @@ NSString * const ID = @"cycleCell";
                                            [self loadImageAtIndex:index];
                                            repeat++;
                                        });
-                                       
                                    }
                                }
          

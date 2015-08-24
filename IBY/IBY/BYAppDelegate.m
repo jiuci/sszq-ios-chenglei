@@ -201,6 +201,7 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     NSString* token = [NSString stringWithFormat:@"%@", deviceToken];
+//    NSLog(@"%@",token);
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"com.biyao.push.token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[BYAppCenter sharedAppCenter] uploadToken:token];
@@ -215,7 +216,8 @@
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    BYLog(@"%@", error);
+    
+//    NSLog(@"%@", error);
 }
 
 #pragma mark -share

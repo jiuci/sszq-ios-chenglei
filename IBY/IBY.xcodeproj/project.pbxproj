@@ -305,6 +305,7 @@
 		FEC829BC19AC948200D5D70D /* BYBaseEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B319AC948200D5D70D /* BYBaseEngine.m */; };
 		FEC829BD19AC948200D5D70D /* BYBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B519AC948200D5D70D /* BYBaseService.m */; };
 		FED37FFC1B85C7B700A02FEF /* BYBDmapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F490100E1B589D930062D102 /* BYBDmapVC.m */; };
+		FED37FFF1B871FD800A02FEF /* blank.html in Resources */ = {isa = PBXBuildFile; fileRef = FED37FFE1B871FD800A02FEF /* blank.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -881,6 +882,7 @@
 		FEC829B319AC948200D5D70D /* BYBaseEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBaseEngine.m; sourceTree = "<group>"; };
 		FEC829B419AC948200D5D70D /* BYBaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYBaseService.h; sourceTree = "<group>"; };
 		FEC829B519AC948200D5D70D /* BYBaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBaseService.m; sourceTree = "<group>"; };
+		FED37FFE1B871FD800A02FEF /* blank.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = blank.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1154,6 +1156,7 @@
 		CC957E5019C1788C000700DE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				FED37FFE1B871FD800A02FEF /* blank.html */,
 				CC957E9E19C2FB45000700DE /* BYHomeVC.h */,
 				CC957E9F19C2FB45000700DE /* BYHomeVC.m */,
 				F4A7FCD81AC97BBC000CDEB4 /* BYCommonWebVC.h */,
@@ -2369,6 +2372,7 @@
 				F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */,
 				F41664EE1B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml in Resources */,
 				F48D0E5B1AE8AA110080DA22 /* BYAboutVC.xib in Resources */,
+				FED37FFF1B871FD800A02FEF /* blank.html in Resources */,
 				F48D728A1A89DBB000870F3F /* MJRefresh.bundle in Resources */,
 				F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */,
 				FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */,
@@ -2729,8 +2733,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Pods",
 					"$(inherited)",

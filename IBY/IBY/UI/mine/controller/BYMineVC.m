@@ -62,6 +62,10 @@
 {
     [super viewWillAppear:animated];
     [self.mutiSwitch setSelectedAtIndex:2];
+    BOOL isLogin = checkLoginCookies();
+    if (!isLogin) {
+        [[BYAppCenter sharedAppCenter] logout];
+    }
     
     addCookies(BYURL_MINE, @"gobackuri", @".biyao.com");
 //    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
@@ -198,19 +202,19 @@
         
         __weak BYMineVC* wself = self;
         
-        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"首页"];
+        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home" title:@"首页"];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
                                    [wself.navigationController popToRootViewControllerAnimated:NO];
                                }];
         
-        UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart_highlight" title:@"购物车"];
+        UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart" title:@"购物车"];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
                                }];
         
-        UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine_highlight" title:@"我的必要"];
+        UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine_highlight" hlIcon:@"icon_mine_highlight" title:@"我的必要"];
         [_mutiSwitch addButtonWithBtn:btn3
                                handle:^(id sender) {
                                    //再进我的必要就不响应了

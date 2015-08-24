@@ -116,6 +116,7 @@ static NSString* cellID = @"BYAddressCell";
         [MBProgressHUD topHide];
         if(error){
             addBtn.hidden = YES;
+            self.addressTableView.hidden = YES;
             alertError(error);
             self.tipsTopPadding = 0;
             [self showPoolnetworkView];
@@ -130,6 +131,7 @@ static NSString* cellID = @"BYAddressCell";
                 [self updateUI];
                 [self showTip];
             }else{
+                self.addressTableView.hidden = NO;
                 [self.addressList removeAllObjects];
                 [self.addressList addObjectsFromArray:addressList];
                 for (int i = 0 ; i < self.addressList.count; i++) {
@@ -177,7 +179,6 @@ static NSString* cellID = @"BYAddressCell";
     if (_inPayProcessing) {
         addNewAddressView.popToVC = self.confirmOrderVC;
     }
-    [self needUpdate];
     [self.navigationController pushViewController:addNewAddressView animated:YES];
 }
 
