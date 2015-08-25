@@ -12,5 +12,7 @@
 	<string>iOS</string>
 	<key>numVersion</key>
 	<integer>28</integer>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

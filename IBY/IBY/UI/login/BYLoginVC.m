@@ -433,15 +433,15 @@
         loginByUser:self.userTextField.text
                 pwd:self.pwdTextField.text
              finish:^(BYUser* user, BYError* error) {
-//                 [MBProgressHUD topHide];
+                 [MBProgressHUD topHide];
                  if (user && !error) {
 //                     NSLog(@"%@",user);
                      if (_successBlk) {
-//                         [MBProgressHUD topShow:@"登录成功!"];
+                         [MBProgressHUD topShowTmpMessage:@"登录成功!"];
                          _successBlk();
                          
                      }else{
-//                         [MBProgressHUD showSuccess:@"登录成功!"];
+                         [MBProgressHUD topShowTmpMessage:@"登录成功!"];
                          [self.navigationController
                           dismissViewControllerAnimated:YES
                                                 completion:^{

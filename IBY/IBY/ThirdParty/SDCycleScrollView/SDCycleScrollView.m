@@ -32,11 +32,12 @@ NSString * const ID = @"cycleCell";
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *imagesGroup;
-@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
+ // 显示图片的collectionView
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) TAPageControl *pageControl;
+
 
 @end
 
@@ -49,8 +50,6 @@ NSString * const ID = @"cycleCell";
         self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         _autoScrollTimeInterval = 1.0;
         [self setupMainView];
-        UILongPressGestureRecognizer * gesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
-        [self addGestureRecognizer:gesture];
     }
     return self;
 }
@@ -68,7 +67,11 @@ NSString * const ID = @"cycleCell";
     cycleScrollView.imageURLsGroup = imageURLsGroup;
     return cycleScrollView;
 }
-
+- (void)stopTimer
+{
+    [_timer invalidate];
+    _timer = nil;
+}
 - (void)longPress:(UILongPressGestureRecognizer*)sender
 {
     if (sender.state == UIGestureRecognizerStateBegan) {

@@ -52,6 +52,7 @@
         }else if (params[@"JumpURL"]) {
             NSURL* url = [NSURL URLWithString:params[@"JumpURL"]];
             [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
+            //todo
         }else{
             NSURL* url = [NSURL URLWithString:BYURL_HOME];
             [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];

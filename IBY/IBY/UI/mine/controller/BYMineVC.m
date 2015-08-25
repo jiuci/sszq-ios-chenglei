@@ -61,18 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.mutiSwitch setSelectedAtIndex:2];
-    BOOL isLogin = checkLoginCookies();
-    if (!isLogin) {
-        [[BYAppCenter sharedAppCenter] logout];
-    }
-    
-    addCookies(BYURL_MINE, @"gobackuri", @".biyao.com");
-//    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
-    
-    
-    [self updateUI];
-    [self updateData];
+
 
     
 }
@@ -81,6 +70,18 @@
     [super viewDidAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
     self.title = @"个人中心";
+    [self.mutiSwitch setSelectedAtIndex:2];
+    BOOL isLogin = checkLoginCookies();
+    if (!isLogin) {
+        [[BYAppCenter sharedAppCenter] logout];
+    }
+    
+    addCookies(BYURL_MINE, @"gobackuri", @".biyao.com");
+    //    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
+    
+    
+    [self updateUI];
+    [self updateData];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {

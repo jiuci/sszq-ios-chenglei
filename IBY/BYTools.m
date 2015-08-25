@@ -74,7 +74,7 @@ NSHTTPCookie* createCookie(NSString* name, NSString* value)
 
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];
-    [cookieProperties setObject:[[NSDate date] dateByAddingTimeInterval:360000] forKey:NSHTTPCookieExpires];
+    [cookieProperties setObject:[[NSDate date] dateByAddingTimeInterval:3600 *24 *14] forKey:NSHTTPCookieExpires];
 
     NSHTTPCookie* cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     return cookie;
@@ -128,7 +128,7 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
     
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@(0) forKey:NSHTTPCookieVersion];
-    [cookieProperties setObject:[[NSDate date] dateByAddingTimeInterval:360000] forKey:NSHTTPCookieExpires];
+    [cookieProperties setObject:[[NSDate date] dateByAddingTimeInterval:3600 *24 *14] forKey:NSHTTPCookieExpires];
     
     NSHTTPCookie* cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];

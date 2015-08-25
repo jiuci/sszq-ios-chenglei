@@ -74,32 +74,34 @@
 //    NSString* smsCode = self.registService.verifyCode;
     [MBProgressHUD topShow:@"注册中..."];
     [self.registService registByUser:user pwd:pwd finsh:^(BOOL success, BYError* error) {
-        [MBProgressHUD topHide];
+//        [MBProgressHUD topHide];
         if(error){
             alertError(error);
         }else{
-            [MBProgressHUD topShow:@"登录中..."];
+            
                 runOnMainQueue(^{
                     BYLoginService *loginService = [[BYLoginService alloc] init];
                     BYLoginVC * bylogin = [BYLoginVC sharedLoginVC];
                     bylogin.showThirdPartyLogin = YES;
-                    [self.navigationController popToViewController:bylogin animated:YES];
                     [loginService loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
                         //TODO:在后台自动登录，不用处理失败的情况?
                         if (!error) {
-                            
+                            BYLoginVC * bylogin = [BYLoginVC sharedLoginVC];
+                            [MBProgressHUD topHide];
                             if (bylogin.successBlk) {
-                                
-                                //                            [MBProgressHUD topShow:@"登录成功!"];
                                 bylogin.successBlk();
-                                
-                            }else{
+                            }
+                            [self.navigationController
+                             dismissViewControllerAnimated:YES
+                             completion:^{
+                                 
+                             }];
+                        }else{
+                            [self.navigationController popToViewController:bylogin animated:YES];
                                 [MBProgressHUD topHide];
                                 [MBProgressHUD topShowTmpMessage:@"登录失败!请重新登录"];
                             }
-                        }
-                    }
-                     ];
+                    }];
                 });
         }
         

@@ -85,7 +85,7 @@
         [_contentView addSubview:front];
         
         bgUp.height = (SCREEN_HEIGHT - realHeight)/2 + realHeight * 1262 / 1920;
-
+        NSLog(@"%@",front);
 //        UILabel* titlelabel = [UILabel labelWithFrame:BYRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 126, SCREEN_WIDTH, 20) font:Font(18) andTextColor:HEXCOLOR(0x000000)];
 //        titlelabel.textAlignment = NSTextAlignmentCenter;
 //        titlelabel.text = _titlelist[i];

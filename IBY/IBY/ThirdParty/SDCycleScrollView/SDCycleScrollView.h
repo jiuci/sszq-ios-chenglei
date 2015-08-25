@@ -42,7 +42,8 @@ typedef enum {
 @property (nonatomic, strong) UIImage * placeholderImage;
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
 @property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
-
+@property (nonatomic, strong) UICollectionView *mainView;
+- (void)stopTimer;
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup placeHolderImage:(UIImage*)placeHolder;

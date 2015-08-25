@@ -36,6 +36,7 @@
 @property (nonatomic, strong) UIImageView* hasNewMessage;
 @property (nonatomic, strong) BYPoolNetworkView* poolNetworkView;
 @property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @end
 @implementation BYHomeVC
 
@@ -43,6 +44,7 @@
 {
     [super viewDidLoad];
     [self setupUI];
+    
 }
 
 -(void)setupUI
@@ -82,9 +84,11 @@
         [wself reloadData];
     }];
     for (UIView* view in self.bodyView.subviews) {
+        if (![view.class isSubclassOfClass:[MJRefreshHeaderView class]]) {
+            continue;
+        }
         ((MJRefreshHeaderView*)view).showTimeLabel = NO;
     }
-    _info = [BYHomeInfo loadInfo];
     
     
     
@@ -98,16 +102,21 @@
     _poolNetworkView.hidden = YES;
     _poolNetworkView.backgroundColor = BYColorBG;
     
+    
+    _info = [BYHomeInfo loadInfo];
+    if (_info) {
+        [self updateUI];
+    }
     [self reloadData];
 }
 -(void)updateUI
 {
-    [_bodyView headerEndRefreshing];
+    
     if (!_info) {
         return;
     }
     self.isLoading = YES;
-    
+    NSLog(@"starat");
     _hasNewMessage.hidden = YES;
     BYUser * user = [BYAppCenter sharedAppCenter].user;
     _hasNewMessage.hidden = user.messageNum == 0;
@@ -131,12 +140,17 @@
             BYHomeInfoSimple *simpe = _info.bannerArray[i];
             [imagesURL addObject:[NSURL URLWithString:simpe.imagePath]];
         }
-        SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL placeHolderImage:[UIImage imageNamed:@"bg_placeholder"]];
-        cycleScrollView.delegate = self;
-        cycleScrollView.autoScrollTimeInterval = 3.0;
         
-        [_bodyView by_addSubview:cycleScrollView paddingTop:0];
-
+        if (_cycleScrollView) {
+            _cycleScrollView.imageURLsGroup = imagesURL;
+        }else{
+            _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL placeHolderImage:[UIImage imageNamed:@"bg_placeholder"]];
+            _cycleScrollView.delegate = self;
+            _cycleScrollView.autoScrollTimeInterval = 3.0;
+        }
+        [_bodyView by_addSubview:_cycleScrollView paddingTop:0];
+        NSLog(@"%@",_cycleScrollView.mainView);
+        NSLog(@"%@",_cycleScrollView);
 
     }
     for (int i = 0; i < _info.adArray.count; i++) {
@@ -212,7 +226,8 @@
     }
     [self.mutiSwitch setSelectedAtIndex:0];
     self.isLoading = NO;
-    
+    NSLog(@"%@",self.bodyView);
+    NSLog(@"update finish");
 }
 -(void)reloadData
 {
@@ -230,9 +245,11 @@
                 return;
             }
             _poolNetworkView.hidden = YES;
-            [wself updateUI];
+            [_bodyView headerEndRefreshing];
+            [wself performSelector:@selector(updateUI) withObject:nil afterDelay:.4];
         }];
     }else{
+        [_bodyView headerEndRefreshing];
         _info = [BYHomeInfo loadInfo];
         if (_info) {
             [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];

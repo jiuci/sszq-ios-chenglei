@@ -194,6 +194,7 @@
     NSString* preUrlString = nil;
     NSString* requestString = [request.URL absoluteString];
     NSArray* urlPiece = [requestString componentsSeparatedByString:@"?"];
+    NSLog(@"1%@",requestString);
     if (urlPiece.count > 0) {
         preUrlString = urlPiece[0];
         if ([preUrlString hasSuffix:@"/"]) {
@@ -232,19 +233,20 @@
         || [preUrlString isEqualToString:@"http://m.biyao.com"]
         || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
 //        [self caches:preUrlString];
-        [self.mutiSwitch setSelectedAtIndex:0];
+//        [self.mutiSwitch setSelectedAtIndex:0];
         [self.navigationController popToRootViewControllerAnimated:NO];
-        willShowTabbar = YES;
+        [self loadBlank];
+//        willShowTabbar = YES;
         return NO;
     }
     else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
-        [self.mutiSwitch setSelectedAtIndex:1];
+//        [self.mutiSwitch setSelectedAtIndex:1];
         willShowTabbar = YES;
     }
-    else if ([preUrlString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
-        [self.mutiSwitch setSelectedAtIndex:2];
-        willShowTabbar = YES;
-    }
+//    else if ([preUrlString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
+////        [self.mutiSwitch setSelectedAtIndex:2];
+//        willShowTabbar = YES;
+//    }
 //    [iConsole log:@"mark3"];
     //地图搜索-附近的验光点
     if ([preUrlString rangeOfString:@"/bdmap"].length > 0) {
@@ -266,6 +268,7 @@
         }else{
             [self.navigationController pushViewController:[BYMineVC sharedMineVC] animated:NO];
         }
+        [self loadBlank];
         return NO;
     }
 //    logCookies();
@@ -302,6 +305,7 @@
             [BYLoginVC sharedLoginVC].showThirdPartyLogin = YES;
         }
         [self presentViewController:nav animated:YES completion:nil];
+        
         return NO;
     }
     self.showTabbar = willShowTabbar;
@@ -434,6 +438,7 @@
 
 - (void)setupUI
 {
+    self.view.backgroundColor = BYColorBG;
 //    _navBackview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height/2)];
 //    [self.view addSubview:_navBackview];
 //    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -519,7 +524,7 @@
 
         __weak BYCommonWebVC* wself = self;
 
-        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home_highlight" title:@"首页"];
+        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home" hlIcon:@"icon_home" title:@"首页"];
         [btn1 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
@@ -527,7 +532,7 @@
                                    [wself.webView loadRequest:[NSURLRequest requestWithURL:url]];
                                }];
 
-        UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart" hlIcon:@"icon_cart_highlight" title:@"购物车"];
+        UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart_highlight" hlIcon:@"icon_cart_highlight" title:@"购物车"];
         [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
@@ -535,7 +540,7 @@
                                    [wself.webView loadRequest:[NSURLRequest requestWithURL:url]];
                                }];
 
-        UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine_highlight" title:@"我的必要"];
+        UIButton* btn3 = [BYBarButton barBtnWithIcon:@"icon_mine" hlIcon:@"icon_mine" title:@"我的必要"];
         [btn3 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn3
                                handle:^(id sender) {
@@ -592,7 +597,7 @@
 {
     [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO];
-    [self loadBlank];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -603,6 +608,10 @@
     BOOL willShowTabbar = NO;
     if (preUrlString.length == 0) {
         willShowTabbar = YES;
+    }
+    if([preUrlString isEqualToString:@"about:blank"]){
+        [self.webView goBack];
+        return;
     }
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
@@ -626,6 +635,8 @@
         [self.mutiSwitch setSelectedAtIndex:2];
         willShowTabbar = YES;
     }
+    
+
     self.showTabbar = willShowTabbar;
     //[self serverResoluton];
     

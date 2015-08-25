@@ -116,14 +116,15 @@
         dict = [NSDictionary dictionary];
     }
     BOOL hasShow = [dict[[BYAppCenter sharedAppCenter].appVersion] boolValue];
+//    hasShow = NO;
     if (!hasShow) {
         hasShow = YES;
         NSMutableDictionary* mdict = [NSMutableDictionary dictionaryWithDictionary:dict];
         mdict[[BYAppCenter sharedAppCenter].appVersion] = @(YES);
         [[NSUserDefaults standardUserDefaults] setObject:mdict forKey:kHasShowWelcome];
         [[NSUserDefaults standardUserDefaults] synchronize];
-
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+//        [[UIApplication sharedApplication] setStatusBarHidden:YES];
         _welcomeVC = [[BYWelcomeVC alloc] init];
         [self.window addSubview:_welcomeVC.view];
         [_welcomeVC setTutorialDone:^{
