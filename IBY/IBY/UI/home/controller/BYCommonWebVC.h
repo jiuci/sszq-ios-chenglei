@@ -18,6 +18,8 @@ typedef void (^BYJumpWebFinish)();
 - (void)onWeixinAuth:(NSString*)code;
 - (void)onAppShake;
 - (void)onSelectGlasses:(int)designId;
+
+- (void)loadBlank;
 + (instancetype)sharedCommonWebVC;
 @end
 

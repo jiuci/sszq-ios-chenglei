@@ -115,6 +115,10 @@
             }
 
         }break;
+        case BYH5TypeBlankGoback:{
+            [[BYCommonWebVC sharedCommonWebVC].navigationController popViewControllerAnimated:NO];
+            
+        }break;
         default:
             break;
     }

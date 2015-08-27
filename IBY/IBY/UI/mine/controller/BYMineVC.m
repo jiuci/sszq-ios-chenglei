@@ -75,7 +75,6 @@
     if (!isLogin) {
         [[BYAppCenter sharedAppCenter] logout];
     }
-    
     addCookies(BYURL_MINE, @"gobackuri", @".biyao.com");
     //    addCookies(BYURL_MINE, @"gobackuri", @"m.biyao.com");
     
@@ -283,7 +282,7 @@
 
 - (void)onOrders
 {
-
+   
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
@@ -298,10 +297,10 @@
         [self loginAction];
         return;
     }
-    if ([BYAppCenter sharedAppCenter].user.notPayOrderNum == 0) {
-        [MBProgressHUD topShowTmpMessage:@"您还没有待付款订单"];
-        return;
-    }
+//    if ([BYAppCenter sharedAppCenter].user.notPayOrderNum == 0) {
+//        [MBProgressHUD topShowTmpMessage:@"您还没有待付款订单"];
+//        return;
+//    }
     JumpToWebBlk(@"http://m.biyao.com/order/orderlist?orderStatus=1", nil);
 
     
@@ -309,6 +308,7 @@
 
 - (void)onInProcessOrders
 {
+
 
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
@@ -319,28 +319,30 @@
 
 - (void)onInRefundOrders
 {
+    
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
     }
-    if ([BYAppCenter sharedAppCenter].user.refundNum == 0) {
-        [MBProgressHUD topShowTmpMessage:@"您还没有退款/售后订单"];
-        return;
-    }
+//    if ([BYAppCenter sharedAppCenter].user.refundNum == 0) {
+//        [MBProgressHUD topShowTmpMessage:@"您还没有退款/售后订单"];
+//        return;
+//    }
+    
     JumpToWebBlk(@"http://m.biyao.com/refund/myrefund", nil);
 }
 
 - (void)onToDeliverConfirmOrders
 {
-
+    
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
     }
-    if ([BYAppCenter sharedAppCenter].user.toReceiveOrderNum == 0) {
-        [MBProgressHUD topShowTmpMessage:@"您还没有待收货订单"];
-        return;
-    }
+//    if ([BYAppCenter sharedAppCenter].user.toReceiveOrderNum == 0) {
+//        [MBProgressHUD topShowTmpMessage:@"您还没有待收货订单"];
+//        return;
+//    }
     JumpToWebBlk(@"http://m.biyao.com/order/orderlist?orderStatus=4", nil);
 }
 

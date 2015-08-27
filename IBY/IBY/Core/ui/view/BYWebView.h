@@ -29,6 +29,7 @@ typedef enum {
     BYH5TypeSetting = 11,
     BYH5TypeGoWeixinAuth = 12,
     BYH5TypeGlassWearing = 13,
+    BYH5TypeBlankGoback = 14,
 } BYH5Type;
 
 @interface BYH5Unit : NSObject

@@ -107,7 +107,7 @@ NSString * const ID = @"cycleCell";
     _flowLayout = flowLayout;
     
     UICollectionView *mainView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:flowLayout];
-    mainView.backgroundColor = [UIColor lightGrayColor];
+    mainView.backgroundColor = HEXCOLOR(0xfcfcfc);
     mainView.pagingEnabled = YES;
     mainView.showsHorizontalScrollIndicator = NO;
     mainView.showsVerticalScrollIndicator = NO;
@@ -125,6 +125,7 @@ NSString * const ID = @"cycleCell";
     
     [self setupTimer];
     [self setupPageControl];
+    [self.mainView reloadData];
 }
 
 - (void)setImageURLsGroup:(NSArray *)imageURLsGroup
@@ -243,6 +244,11 @@ NSString * const ID = @"cycleCell";
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = indexPath.item % self.imagesGroup.count;
     cell.imageView.image = self.imagesGroup[itemIndex];
+    if ([cell.imageView.image isEqual:_placeholderImage]) {
+        cell.imageView.contentMode = UIViewContentModeCenter;
+    }else{
+        cell.imageView.contentMode = UIViewContentModeScaleToFill;
+    }
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }

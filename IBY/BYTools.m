@@ -95,6 +95,7 @@ void resetCookies()
         if (![obj.name isEqual:@"DZVISIT"]
             && ![obj.name isEqual:@"fromapp"]
             && ![obj.name isEqual:@"uuid"]
+            && ![obj.name isEqual:@"gobackuri"]
             && ![obj.name isEqual:@"userinfo"]) {
             [cookieJar deleteCookie:obj];
         }
@@ -133,6 +134,20 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
     NSHTTPCookie* cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
   
+}
+
+NSString * loadCookies(NSString* inCookieName, NSString* inCookieDomain)
+{
+    NSString * value;
+    NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
+    for (NSHTTPCookie* obj in cookies) {
+        if ([obj.name isEqualToString:inCookieName]&&[obj.domain isEqualToString:inCookieDomain]) {
+            value = [obj.value URLDecodedString];
+            
+        }
+    }
+    return value;
 }
 
 void loggobackCookies()

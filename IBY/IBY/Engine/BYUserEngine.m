@@ -77,11 +77,12 @@
         finished(NO,err);
         return;
     }
-    
+  
     NSString* url = @"/shopCar/updateCustomerId";
     NSDictionary* params = @{
                              @"uid" : @([BYAppCenter sharedAppCenter].user.userID)
                              };
+   
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (error) {
             finished(NO,error);
@@ -89,6 +90,7 @@
             finished(YES,nil);
         }
     }];
+//    NSLog(@"%@",[BYNetwork sharedNetwork]);
 }
 + (void)updateNickname:(NSString*)nickname finish:(void (^)(BOOL isSuccess, BYError* error))finished
 {

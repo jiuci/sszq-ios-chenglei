@@ -22,6 +22,8 @@ static NSString* cellID = @"BYAddressCell";
 {
     BYAutosizeBgButton * addBtn;
     float offset ;
+    UILabel * noneLabel;
+    UIImageView* noneImage;
 }
 @property (weak, nonatomic) IBOutlet UITableView* addressTableView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
@@ -75,12 +77,12 @@ static NSString* cellID = @"BYAddressCell";
     addBtn.hidden = YES;
     
     float height = 0;
-    UIImageView* noneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_address_none"]];
+    noneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_address_none"]];
     noneImage.centerX = self.view.width / 2;
     height += noneImage.height;
     [self.view addSubview:noneImage];
     height += 20;
-    UILabel * noneLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, height, self.view.width, 20)];
+    noneLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, height, self.view.width, 20)];
     noneLabel.text = @"您还没有创建过收货地址喔~";
     noneLabel.textAlignment = NSTextAlignmentCenter;
     noneLabel.textColor = BYColor666;
@@ -96,6 +98,11 @@ static NSString* cellID = @"BYAddressCell";
     [self.view sendSubviewToBack:noneImage];
     
     _addressTableView.backgroundColor = self.view.backgroundColor;
+}
+
+- (void)setNoneAddr:(BOOL)noneaddr
+{
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -120,6 +127,7 @@ static NSString* cellID = @"BYAddressCell";
             alertError(error);
             self.tipsTopPadding = 0;
             [self showPoolnetworkView];
+            self.tipsView.backgroundColor = self.view.backgroundColor;
             UIButton* btn = [[UIButton alloc] initWithFrame:self.tipsView.frame];
             btn.backgroundColor = BYColorClear;
             [btn addTarget:self action:@selector(updateData) forControlEvents:UIControlEventTouchUpInside];

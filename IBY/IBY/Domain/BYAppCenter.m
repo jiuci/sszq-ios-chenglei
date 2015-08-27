@@ -152,11 +152,12 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
     }];
     
     //现在token不是客户端维护，不必再做检测
-    [_userService refreshToken:^(BOOL isSuccess, BYError *error) {
-        if (!isSuccess) {
-            [[BYAppCenter sharedAppCenter] logout];
-        }
-    }];
+//    [_userService refreshToken:^(BOOL isSuccess, BYError *error) {
+//        if (!isSuccess) {
+//            NSLog(@"logout");
+//            [[BYAppCenter sharedAppCenter] logout];
+//        }
+//    }];
 }
 
 - (void)logout

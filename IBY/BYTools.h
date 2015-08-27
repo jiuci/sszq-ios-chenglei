@@ -21,6 +21,7 @@ void loggobackCookies();
 void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookiePath);
 void setCookies(NSString* name, NSString* value);
 NSHTTPCookie* createCookie(NSString* name, NSString* value);
+NSString * loadCookies(NSString* inCookieName, NSString* inCookieDomain);
 
 UIImageView* makeSepline();
 UIImageView* makeImgView(CGRect frame, NSString* picName);

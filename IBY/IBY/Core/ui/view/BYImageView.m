@@ -15,6 +15,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = HEXCOLOR(0xfcfcfc);
         // Initialization code
     }
     return self;

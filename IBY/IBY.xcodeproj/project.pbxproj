@@ -305,7 +305,8 @@
 		FEC829BC19AC948200D5D70D /* BYBaseEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B319AC948200D5D70D /* BYBaseEngine.m */; };
 		FEC829BD19AC948200D5D70D /* BYBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B519AC948200D5D70D /* BYBaseService.m */; };
 		FED37FFC1B85C7B700A02FEF /* BYBDmapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F490100E1B589D930062D102 /* BYBDmapVC.m */; };
-		FED37FFF1B871FD800A02FEF /* blank.html in Resources */ = {isa = PBXBuildFile; fileRef = FED37FFE1B871FD800A02FEF /* blank.html */; };
+		FED3800D1B8C5EA200A02FEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = FED380091B8C5EA200A02FEF /* index.html */; };
+		FED380221B8DD08000A02FEF /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -882,7 +883,9 @@
 		FEC829B319AC948200D5D70D /* BYBaseEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBaseEngine.m; sourceTree = "<group>"; };
 		FEC829B419AC948200D5D70D /* BYBaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYBaseService.h; sourceTree = "<group>"; };
 		FEC829B519AC948200D5D70D /* BYBaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYBaseService.m; sourceTree = "<group>"; };
-		FED37FFE1B871FD800A02FEF /* blank.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = blank.html; sourceTree = "<group>"; };
+		FED380091B8C5EA200A02FEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		FED3801F1B8DD08000A02FEF /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
+		FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1156,7 +1159,7 @@
 		CC957E5019C1788C000700DE /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				FED37FFE1B871FD800A02FEF /* blank.html */,
+				FED380091B8C5EA200A02FEF /* index.html */,
 				CC957E9E19C2FB45000700DE /* BYHomeVC.h */,
 				CC957E9F19C2FB45000700DE /* BYHomeVC.m */,
 				F4A7FCD81AC97BBC000CDEB4 /* BYCommonWebVC.h */,
@@ -2142,6 +2145,7 @@
 		FE14D6C119AC333E006B0E48 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				FED3801C1B8DD08000A02FEF /* NJKWebViewProgress */,
 				F4F20BFD1B84949800E8D355 /* SDCycleScrollView */,
 				F490E3B11B06F7FD00752223 /* opencv */,
 				F45A8EFC1A91E4D300D478A8 /* Reachability */,
@@ -2285,6 +2289,15 @@
 			path = logic;
 			sourceTree = "<group>";
 		};
+		FED3801C1B8DD08000A02FEF /* NJKWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				FED3801F1B8DD08000A02FEF /* NJKWebViewProgressView.h */,
+				FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */,
+			);
+			path = NJKWebViewProgress;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2355,6 +2368,7 @@
 				F4E007581B0F07F800438FD5 /* BYRegist1VC.xib in Resources */,
 				F4E0075A1B0F07F800438FD5 /* BYRegist2VC.xib in Resources */,
 				F42618001A2C3BEB0076B273 /* BYPaySuccessVC.xib in Resources */,
+				FED3800D1B8C5EA200A02FEF /* index.html in Resources */,
 				F41664EC1B2A8E8A00D91CA8 /* haarcascade_frontalface_default.xml in Resources */,
 				F48CF40A1A548E3B00EE4EF4 /* BYTestVC1.xib in Resources */,
 				F4DB02C41B68ABFD009DAB6F /* BYAddressDetailVC.xib in Resources */,
@@ -2372,7 +2386,6 @@
 				F41664EF1B2A8E8A00D91CA8 /* haarcascade_mcs_righteye.xml in Resources */,
 				F41664EE1B2A8E8A00D91CA8 /* haarcascade_mcs_nose.xml in Resources */,
 				F48D0E5B1AE8AA110080DA22 /* BYAboutVC.xib in Resources */,
-				FED37FFF1B871FD800A02FEF /* blank.html in Resources */,
 				F48D728A1A89DBB000870F3F /* MJRefresh.bundle in Resources */,
 				F4E007711B0F08E100438FD5 /* BYVerifySmsCodeVC.xib in Resources */,
 				FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */,
@@ -2524,6 +2537,7 @@
 				F4F20C131B84949800E8D355 /* TAPageControl.m in Sources */,
 				CC3D2E1619BFF8B1000E0E14 /* MJArgument.m in Sources */,
 				CC1C2FB319CFEC6500877FF8 /* BYAddress.m in Sources */,
+				FED380221B8DD08000A02FEF /* NJKWebViewProgressView.m in Sources */,
 				F4818DDD1AFC85620023C0A6 /* TMCacheExtend.m in Sources */,
 				F4888A2C1A6D114A0056427E /* SAKPipeSMS.m in Sources */,
 				F4A278531A490BEB00176292 /* BYAutosizeBgImageView.m in Sources */,

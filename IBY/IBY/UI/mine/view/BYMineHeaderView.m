@@ -42,11 +42,11 @@
     return [[[NSBundle mainBundle] loadNibNamed:@"BYMineHeaderView" owner:nil options:nil] lastObject];
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
-}
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
+//}
 
 - (void)setupUI
 {

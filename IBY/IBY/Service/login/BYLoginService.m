@@ -16,15 +16,18 @@
 - (void)loginByUser:(NSString*)user
                 pwd:(NSString*)pwd
              finish:(void (^)(BYUser* user, BYError* error))finished {
+    NSString* dzvisit = loadCookies(@"DZVISIT", @".biyao.com");
+    
     [BYPassportEngine loginByUser:user pwd:pwd finish:^(BYUser *user, BYError *error) {
         if (user&&!error) {
             [[BYAppCenter sharedAppCenter] didLogin:user];
             finished(user,nil);
-            
+            NSString* orginDZVISIT = [BYAppCenter sharedAppCenter].visitCode;
+            [BYAppCenter sharedAppCenter].visitCode = dzvisit;
             [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                 //无论结果如何，不处理，不显示
             }];
-            
+            [BYAppCenter sharedAppCenter].visitCode = orginDZVISIT;
             [[BYAppCenter sharedAppCenter] uploadToken:nil];
             
         }else{
@@ -63,14 +66,19 @@
 - (void)loginWithWXcode:(NSString*)code finish:(void (^)(BYUser* user, BYError* error))finished
 {
 //    NSLog( @"wx授权完成 %@",code);
+    NSString* dzvisit = loadCookies(@"DZVISIT", @".biyao.com");
     [BYPassportEngine loginWithWXcode:code finish:^(BYUser *user, BYError *error) {
         if (user&&!error) {
             [[BYAppCenter sharedAppCenter] didLogin:user];
             finished(user,nil);
             
+            
+            NSString* orginDZVISIT = [BYAppCenter sharedAppCenter].visitCode;
+            [BYAppCenter sharedAppCenter].visitCode = dzvisit;
             [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                 //无论结果如何，不处理，不显示
             }];
+            [BYAppCenter sharedAppCenter].visitCode = orginDZVISIT;
             
             [[BYAppCenter sharedAppCenter] uploadToken:nil];
         }else{
@@ -116,6 +124,8 @@
 - (void)tencentDidLogin
 {
 //    NSLog( @"QQ授权完成");
+    
+    NSString* dzvisit = loadCookies(@"DZVISIT", @".biyao.com");
     if (_oAuth.accessToken && 0 != [_oAuth.accessToken length])
     {
         // 记录登录用户的OpenID、Token以及过期时间
@@ -129,9 +139,12 @@
             if (!error) {
 //                NSLog(@"%@",user);
                 [[BYAppCenter sharedAppCenter] didLogin:user];
+                NSString* orginDZVISIT = [BYAppCenter sharedAppCenter].visitCode;
+                [BYAppCenter sharedAppCenter].visitCode = dzvisit;
                 [BYUserEngine syncUserDataAfterLogin:^(BOOL isSuccess, BYError *error) {
                     //无论结果如何，不处理，不显示
                 }];
+                [BYAppCenter sharedAppCenter].visitCode = orginDZVISIT;
                 
                 [[BYAppCenter sharedAppCenter] uploadToken:nil];
                 

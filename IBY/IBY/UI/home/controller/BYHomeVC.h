@@ -13,4 +13,5 @@
 
 @property (nonatomic , assign) BYCommonWebVC * commonWebVC;
 @property (nonatomic,strong)BYMutiSwitch *mutiSwitch;
+-(void)reloadData;
 @end

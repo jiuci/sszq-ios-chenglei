@@ -245,6 +245,7 @@ NSString* baseUrlByMode(BYNetMode mode)
     [[BYAppCenter sharedAppCenter].paramsMapForHeader bk_each:^(id key, NSString* value) {
         if ([value isKindOfClass:[NSString class]] && value.length > 0) {
             [netmanager.requestSerializer setValue:value forHTTPHeaderField:key];
+            
         }
     }];
 }

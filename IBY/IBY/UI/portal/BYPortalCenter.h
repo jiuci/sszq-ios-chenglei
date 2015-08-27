@@ -14,6 +14,7 @@ typedef enum {
     BYPortalMine = 2,
     BYPortalpay = 9,
     BYPortalHomeWithGlassesId = 10,
+    BYPortalBlankGoback = 14
 } BYPortal;
 
 @interface BYPortalCenter : NSObject

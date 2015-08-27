@@ -44,7 +44,6 @@
 {
     [super viewDidLoad];
     [self setupUI];
-    
 }
 
 -(void)setupUI
@@ -63,13 +62,13 @@
     _bodyView.backgroundColor = BYColorBG;
     [self.view addSubview:_bodyView];
     self.bodyView.alwaysBounceVertical = YES;
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_meassages" highImgName:@"btn_meassages" handler:^(id sender) {
-        if (![BYAppCenter sharedAppCenter].isLogin) {
-            [self loginAction];
-            return;
-        }
-        JumpToWebBlk(@"http://m.biyao.com/message", nil);
-    }];
+//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_meassages" highImgName:@"btn_meassages" handler:^(id sender) {
+//        if (![BYAppCenter sharedAppCenter].isLogin) {
+//            [self loginAction];
+//            return;
+//        }
+//        JumpToWebBlk(@"http://m.biyao.com/message", nil);
+//    }];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImgName:@"icon_index_logo" highImgName:@"icon_index_logo" handler:nil];
     _hasNewMessage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 12, 12)];
     
@@ -116,10 +115,9 @@
         return;
     }
     self.isLoading = YES;
-    NSLog(@"starat");
     _hasNewMessage.hidden = YES;
-    BYUser * user = [BYAppCenter sharedAppCenter].user;
-    _hasNewMessage.hidden = user.messageNum == 0;
+//    BYUser * user = [BYAppCenter sharedAppCenter].user; 
+//    _hasNewMessage.hidden = user.messageNum == 0;
     [_bodyView by_removeAllSubviews];
     __weak BYHomeVC * wself = self;
     [_bodyView addHeaderWithCallback:^{
@@ -148,9 +146,8 @@
             _cycleScrollView.delegate = self;
             _cycleScrollView.autoScrollTimeInterval = 3.0;
         }
+        _cycleScrollView.backgroundColor = HEXCOLOR(0xfcfcfc);
         [_bodyView by_addSubview:_cycleScrollView paddingTop:0];
-        NSLog(@"%@",_cycleScrollView.mainView);
-        NSLog(@"%@",_cycleScrollView);
 
     }
     for (int i = 0; i < _info.adArray.count; i++) {
@@ -226,12 +223,9 @@
     }
     [self.mutiSwitch setSelectedAtIndex:0];
     self.isLoading = NO;
-    NSLog(@"%@",self.bodyView);
-    NSLog(@"update finish");
 }
 -(void)reloadData
 {
-    NSLog(@"reload");
     __weak BYHomeVC * wself = self;
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         [_service loadHomePagefinish:^(BYHomeInfo*info,BYError *error){
@@ -262,14 +256,19 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    addCookies(@"http://m.biyao.com/index", @"gobackuri", @".biyao.com");
+    
+    
 }
 -(void)viewDidAppear:(BOOL)animated {
+    
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
-    [self.mutiSwitch setSelectedAtIndex:0];
     [self.navigationController setNavigationBarHidden:NO];
-    
+ 
+    addCookies(@"http://m.biyao.com/index", @"gobackuri", @".biyao.com");
+//    BYUser * user = [BYAppCenter sharedAppCenter].user;
+//    _hasNewMessage.hidden = user.messageNum == 0;
+//    [self.navigationController pushViewController:[BYCommonWebVC sharedCommonWebVC] animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -303,8 +302,8 @@
         
         __weak BYHomeVC* wself = self;
         
-        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_hoicon_home_highlightme" hlIcon:@"icon_home_highlight" title:@"首页"];
-        [btn1 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
+        UIButton* btn1 = [BYBarButton barBtnWithIcon:@"icon_home_highlight" hlIcon:@"icon_home_highlight" title:@"首页"];
+        [btn1 setTitleColor:BYColorb768 forState:UIControlStateHighlighted|UIControlStateNormal];
         [_mutiSwitch addButtonWithBtn:btn1
                                handle:^(id sender) {
                                    [wself reloadData];

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta charset="UTF-8">
+    <title>运动专题</title>
+    <style type="text/css">
+        html,body{margin:0;padding:0;height:100%;width:100%;background: #eee;}
+        .loading{position:absolute;top:46%;width:100%;text-align: center;color:#666;font-size: 16px;}
+        .pagetop{width: 100%;min-width: 320px;height: 40px;background-color: #523669;color: #ffffff;overflow: hidden;
+            padding: 0;position: relative;z-index: 20;border-bottom: 2px solid #b768a5;text-align: center;line-height: 40px;}
+        .goback{background: url("img/back.png") no-repeat;width:40px;height: 40px;background-size: 40px 40px;position: absolute;left: 0;top:0;}
+
+        .wkloading{-webkit-transition: all 600s linear!important;transition: all 600s linear!important;}
+        .loading{z-index:100;position:absolute;top:50%;left:0px;width:100%;height:40px;margin:-35px 0px 0px 0px;text-align:center;}
+        .loading_pic_w{border-radius:5px;margin:0 auto;padding:6px 8px 6px 8px;text-align: center;}
+        .loading_pic{height:33px;display:block;background:url(img/m_loading.png) no-repeat center center; background-size:32px 33px;}
+        .loading_test{color:#666;position: relative;top: 15px;}
+        .loadingrotate{transform:rotate(180000deg);-webkit-transform:rotate(180000deg);-webkit-transform-origin:center center;transform-origin:center center;}
+    </style>
+</head>
+<body>
+<div class="pagetop">
+    <span class="goback"></span>
+    <span>个人中心</span>
+</div>
+<div class="loading">
+    <div id="loading" class="loading"><table class="loading_pic_w"><tr><td><span id="zqq" class="loading_pic wkloading"></span></td></tr><tr><td><span class="loading_test">加载中...</span></td></tr></table></div>
+    <script>setTimeout(function(){document.getElementById('zqq').className='loading_pic wkloading loadingrotate';},10)</script>
+</div>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+    var toapp = {
+        connectWebViewJavascriptBridge: function (callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener('WebViewJavascriptBridgeReady', function () {
+                    callback(WebViewJavascriptBridge)
+                }, false)
+            }
+        },
+        istoapp: function (obj) {
+            try {
+                var ua = navigator.userAgent.toLowerCase();
+                var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod'), isAndroid = navigator.userAgent.match('Android'), isDesktop = !isiOS && !isAndroid;
+                if (isiOS) {
+                    this.connectWebViewJavascriptBridge(function (bridge) {
+                        bridge.send(obj);
+                    })
+                }
+                if (isAndroid) {
+                    window.BYLinkAppInterface.linkAndroidApp(JSON.stringify(obj));
+                }
+            } catch (e) {
+                alert(e.message);
+            }
+        },
+        loadingback: function (vals) {//详情页vals规范 did=1
+            if (vals == undefined || vals == null || vals == '')vals = {};
+            this.istoapp({
+                type: 14,
+                des: 'loadinggoback',
+                values: vals
+            })
+        }
+    };
+
+    $('.goback').click(function () {
+        toapp.loadingback({'gb':"gb"});
+    });
+</script>
+</body>
+</html>

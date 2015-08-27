@@ -58,19 +58,26 @@
             [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
         }
         
-        [nav popToRootViewControllerAnimated:YES];
+        if ([nav.viewControllers containsObject:[BYCommonWebVC sharedCommonWebVC]]) {
+            [nav popToViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
+        }else{
+            [nav pushViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
+        }
         if ([nav presentedViewController]) {
             [nav dismissViewControllerAnimated:NO completion:nil];
         }
-        
     }break;
     case BYPortalHomeWithGlassesId:{
         if (params[@"did"]) {
             int did = [params[@"did"] intValue];
             [homeVC.commonWebVC onSelectGlasses:did];
         }
-        
-        [nav popToRootViewControllerAnimated:YES];
+        if ([nav.viewControllers containsObject:[BYCommonWebVC sharedCommonWebVC]]) {
+            [nav popToViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
+        }else{
+            [nav pushViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
+        }
+//        [nav popToRootViewControllerAnimated:YES];
         if ([nav presentedViewController]) {
             [nav dismissViewControllerAnimated:NO completion:nil];
         }
@@ -98,6 +105,10 @@
         [nav presentViewController:[BYMineVC sharedMineVC] animated:NO completion:nil];
         
     } break;
+    case BYPortalBlankGoback:{
+        [nav popViewControllerAnimated:NO];
+        [[BYCommonWebVC sharedCommonWebVC] loadBlank];
+    }break;
     default:
         break;
     }

@@ -30,6 +30,8 @@
 #import "BYHomeVC.h"
 #import "BYBDmapVC.h"
 
+
+
 @interface BYCommonWebVC () <UIWebViewDelegate>
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic, strong) BYPoolNetworkView* poolNetworkView;
@@ -39,8 +41,17 @@
 @property (nonatomic, assign) BOOL loadingCaches;
 @property (nonatomic, assign) BOOL loginSuccessLoading;
 @property (nonatomic, strong) UIView * navBackview;
-
 @property (nonatomic, strong) NSTimer *timer;
+
+
+@property (nonatomic, assign) float progress;
+
+@property (nonatomic, strong) UIView *progressBarView;
+@property (nonatomic, assign) NSTimeInterval barAnimationDuration; // default 0.1
+@property (nonatomic, assign) NSTimeInterval fadeAnimationDuration; // default 0.27
+@property (nonatomic, assign) NSTimeInterval fadeOutDelay; // default 0.1
+@property (nonatomic, assign) NSTimeInterval fakeAnimationDurantion; // default 0.1
+
 @end
 
 @implementation BYCommonWebVC
@@ -188,13 +199,14 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
-
+    [self setProgress:.1];
+//    loggobackCookies();
+    
     [BYAnalysis logEvent:@"App通用事件" action:@"url跳转" desc:nil];
 
     NSString* preUrlString = nil;
     NSString* requestString = [request.URL absoluteString];
     NSArray* urlPiece = [requestString componentsSeparatedByString:@"?"];
-    NSLog(@"1%@",requestString);
     if (urlPiece.count > 0) {
         preUrlString = urlPiece[0];
         if ([preUrlString hasSuffix:@"/"]) {
@@ -220,10 +232,9 @@
 //        return YES;
 //    }
 //    [iConsole log:@"mark1"];
-    BOOL willShowTabbar = NO;
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
-        self.showTabbar = willShowTabbar;
+        self.showTabbar = NO;
         _currentUrl = requestString;
         return YES;
     }
@@ -236,12 +247,14 @@
 //        [self.mutiSwitch setSelectedAtIndex:0];
         [self.navigationController popToRootViewControllerAnimated:NO];
         [self loadBlank];
-//        willShowTabbar = YES;
         return NO;
     }
     else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
 //        [self.mutiSwitch setSelectedAtIndex:1];
-        willShowTabbar = YES;
+//        return NO;
+        self.showTabbar = YES;
+    }else{
+        self.showTabbar = NO;
     }
 //    else if ([preUrlString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
 ////        [self.mutiSwitch setSelectedAtIndex:2];
@@ -271,8 +284,8 @@
         [self loadBlank];
         return NO;
     }
-//    logCookies();
-    if ([preUrlString rangeOfString:@"account/login"].length > 0) {
+    if ([preUrlString rangeOfString:@"account/login"].length > 0
+        ||[requestString rangeOfString:@"member.php?mod=logging"].length > 0) {
         __weak BYCommonWebVC* bself = self; //本地化登录
         
         BYLoginSuccessBlock blk = ^() {
@@ -283,6 +296,7 @@
                 bself.loginSuccessLoading = YES;
                 [bself onAPPLogin];
                 [bself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bself.currentUrl]]];
+//                NSLog(@"%@",bself.currentUrl);
             }else{
                 [MBProgressHUD topHide];
                 [bself onAPPLogin];
@@ -308,7 +322,6 @@
         
         return NO;
     }
-    self.showTabbar = willShowTabbar;
 
     if (!([preUrlString rangeOfString:@"/order/pay2"].length > 0) && [preUrlString rangeOfString:@"/order/pay"].length > 0) {
         [[BYAppCenter sharedAppCenter] updateUidAndToken];
@@ -323,7 +336,12 @@
 
 - (void)webViewDidStartLoad:(UIWebView*)webView
 {
-    
+    float start = (arc4random()%10+20)/100.0;
+    [self setProgress:start];
+    [_timer invalidate];
+    _timer = nil;
+    _timer = [NSTimer scheduledTimerWithTimeInterval:.3 target:self selector:@selector(didAutoProgress) userInfo:nil repeats:YES];
+    [_timer fire];
     [iConsole log:@"start"];
     if ([BYAppCenter sharedAppCenter].isNetConnected) {
         _poolNetworkView.hidden = YES;
@@ -332,6 +350,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView*)webView
 {
+    [self setProgress:1];
     [MBProgressHUD topHide];
     [_timer invalidate];
     _timer = nil;
@@ -355,6 +374,10 @@
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error
 {
+    
+    [_timer invalidate];
+    _timer = nil;
+//    [self setProgress:.1];
     [iConsole log:@"fail %@",error];
 //    if ([error code] == NSURLErrorCancelled) {
 //        return;
@@ -514,6 +537,21 @@
     }
     _loginSuccessLoading = NO;
     _loginCount = 10;
+    
+    
+    _progressBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 3)];
+//    _progressBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    _progressBarView.backgroundColor = HEXCOLOR(0xF37B03);//F37B03 FFF6D2
+    [self.webView addSubview:_progressBarView];
+    
+    _barAnimationDuration = 0.4f;
+    _fadeAnimationDuration = 0.27f;
+    _fadeOutDelay = 0.1f;
+    _fakeAnimationDurantion = .33;
+
+    
+    
+    [self loadBlank];
 }
 
 - (BYMutiSwitch*)mutiSwitch
@@ -533,7 +571,7 @@
                                }];
 
         UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart_highlight" hlIcon:@"icon_cart_highlight" title:@"购物车"];
-        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
+        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted|UIControlStateNormal];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_CARTLIST];
@@ -605,51 +643,68 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     NSString * preUrlString = self.webView.request.URL.absoluteString;
-    BOOL willShowTabbar = NO;
-    if (preUrlString.length == 0) {
-        willShowTabbar = YES;
+  
+    if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
+        self.showTabbar = YES;
     }
-    if([preUrlString isEqualToString:@"about:blank"]){
-        [self.webView goBack];
-        return;
-    }
-    //非biyao.com域直接放行
-    if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
-        self.showTabbar = willShowTabbar;
-        return;
-    }
-    
-    //对我们自己的地址进行分类处理
-    if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
-        || [preUrlString isEqualToString:@"http://m.biyao.com"]
-        || [preUrlString isEqualToString:@"http://m.biyao.com/index"]
-        || [preUrlString isEqualToString:@"http://m.biyao.com/index/?f=ios&it=biyao"]) {
-        [self.mutiSwitch setSelectedAtIndex:0];
-        willShowTabbar = YES;
-    }
-    else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
-        [self.mutiSwitch setSelectedAtIndex:1];
-        willShowTabbar = YES;
-    }
-    else if ([preUrlString rangeOfString:@"http://m.biyao.com/account/mine"].length > 0) {
-        [self.mutiSwitch setSelectedAtIndex:2];
-        willShowTabbar = YES;
+    else {
+        self.showTabbar = NO;
     }
     
 
-    self.showTabbar = willShowTabbar;
-    //[self serverResoluton];
     
 }
 
 - (void)loadBlank
 {
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"blank" ofType:@"html"];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"index" ofType:@"html"];
     NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     [self.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:filePath]];
     
 }
 
+
+#pragma mark progress
+-(void)setProgress:(float)progress
+{
+    [self setProgress:progress animated:YES];
+}
+- (void)setProgress:(float)progress animated:(BOOL)animated
+{
+    _progress = progress;
+    BOOL isGrowing = progress > 0.0;
+    [UIView animateWithDuration:(isGrowing && animated) ? _barAnimationDuration : _fakeAnimationDurantion delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        CGRect frame = _progressBarView.frame;
+        frame.size.width = progress * SCREEN_WIDTH;
+        _progressBarView.frame = frame;
+    } completion:nil];
+    
+    if (progress >= 1.0) {
+        [UIView animateWithDuration:animated ? _fadeAnimationDuration : _fakeAnimationDurantion delay:_fadeOutDelay options:animated? UIViewAnimationOptionCurveEaseInOut:UIViewAnimationOptionCurveLinear animations:^{
+            _progressBarView.alpha = 0.0;
+        } completion:^(BOOL completed){
+            CGRect frame = _progressBarView.frame;
+            frame.size.width = 0;
+            _progressBarView.frame = frame;
+        }];
+    }
+    else {
+        [UIView animateWithDuration:animated ? _fadeAnimationDuration : _fakeAnimationDurantion delay:0.0 options:animated? UIViewAnimationOptionCurveEaseInOut:UIViewAnimationOptionCurveLinear animations:^{
+            _progressBarView.alpha = 1.0;
+        } completion:nil];
+    }
+}
+- (void)didAutoProgress
+{
+    if (_progress <.7) {
+        float add = (arc4random()%4)/100.0;
+        if (_progress > .5) {
+            add = add / 2;
+        }
+        [self setProgress:_progress+add animated:NO];
+    }
+    
+}
 - (void)loadingTimeout
 {
     [self.webView stopLoading];

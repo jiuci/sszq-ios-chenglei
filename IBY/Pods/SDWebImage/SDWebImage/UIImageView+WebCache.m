@@ -45,6 +45,7 @@ static char imageURLKey;
     if (!(options & SDWebImageDelayPlaceholder)) {
         dispatch_main_async_safe(^{
             self.image = placeholder;
+            self.contentMode = UIViewContentModeCenter;
         });
     }
     
@@ -55,6 +56,7 @@ static char imageURLKey;
             dispatch_main_sync_safe(^{
                 if (!wself) return;
                 if (image) {
+                    wself.contentMode = UIViewContentModeScaleToFill;
                     wself.image = image;
                     [wself setNeedsLayout];
                 } else {
