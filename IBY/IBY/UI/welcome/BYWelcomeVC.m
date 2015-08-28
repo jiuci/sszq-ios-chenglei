@@ -51,6 +51,10 @@
 - (void)viewDidLoad
 {
     _frontImglist = @[ @"wel_1", @"wel_2", @"wel_3",@"wel_4" ];
+    if (SCREEN_HEIGHT < 500) {
+        NSLog(@"???");
+        _frontImglist = @[ @"wel4_1", @"wel4_2", @"wel4_3",@"wel4_4" ];
+    }
     NSArray *upBgColors = @[HEXCOLOR(0xf9d350),HEXCOLOR(0xf85453),HEXCOLOR(0x43c8be),HEXCOLOR(0x8d7aa5)];
 //    _backImglist = @[ @"welcome1_back", @"welcome2_back", @"welcome3_back" ];
 //    _titlelist = @[ @"100%奢侈品质 1%价格", @"直连全球奢侈品制造商", @"我要的，才是必要的" ];
@@ -63,28 +67,30 @@
     _contentView.showsHorizontalScrollIndicator = NO;
 
     _contentView.delegate = self;
-
+//    NSLog(@"%f,%f",SCREEN_WIDTH,SCREEN_HEIGHT);
     for (int i = 0; i < [_frontImglist count]; i++) {
 //        UIImageView* bg = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT), _backImglist[i]);
-        UIImageView *bg = [[UIImageView alloc] initWithFrame:BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        bg.backgroundColor = [UIColor whiteColor];
-        [_contentView addSubview:bg];
-        
-        UIImageView *bgUp = [[UIImageView alloc] initWithFrame:BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, 0)];
-        bgUp.backgroundColor = upBgColors[i];
-        [_contentView addSubview:bgUp];
+//        UIImageView *bg = [[UIImageView alloc] initWithFrame:BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//        bg.backgroundColor = [UIColor whiteColor];
+//        [_contentView addSubview:bg];
+//        
+//        UIImageView *bgUp = [[UIImageView alloc] initWithFrame:BYRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, 0)];
+//        bgUp.backgroundColor = upBgColors[i];
+//        [_contentView addSubview:bgUp];
         
 
         CGFloat frontHeight = SCREEN_WIDTH * 1920 / 1080;
         CGFloat realWidth = frontHeight < SCREEN_HEIGHT ? SCREEN_HEIGHT *1080 /1920 : SCREEN_WIDTH;
         CGFloat realHeight = frontHeight > SCREEN_HEIGHT ? SCREEN_HEIGHT : frontHeight;
+        realHeight = SCREEN_HEIGHT;
+        realWidth = SCREEN_WIDTH;
         UIImageView* front = makeImgView(BYRectMake(SCREEN_WIDTH * i, 0, realWidth, realHeight), _frontImglist[i]);
 
         front.centerY = SCREEN_HEIGHT / 2;
         front.centerX = SCREEN_WIDTH * i + SCREEN_WIDTH/2;
         [_contentView addSubview:front];
         
-        bgUp.height = (SCREEN_HEIGHT - realHeight)/2 + realHeight * 1262 / 1920;
+//        bgUp.height = (SCREEN_HEIGHT - realHeight)/2 + realHeight * 1262 / 1920;
 //        UILabel* titlelabel = [UILabel labelWithFrame:BYRectMake(SCREEN_WIDTH * i, SCREEN_HEIGHT - 126, SCREEN_WIDTH, 20) font:Font(18) andTextColor:HEXCOLOR(0x000000)];
 //        titlelabel.textAlignment = NSTextAlignmentCenter;
 //        titlelabel.text = _titlelist[i];

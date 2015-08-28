@@ -199,7 +199,7 @@
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    [self setProgress:.1];
+//    [self setProgress:.1];
 //    loggobackCookies();
     
     [BYAnalysis logEvent:@"App通用事件" action:@"url跳转" desc:nil];
@@ -330,7 +330,7 @@
         return NO;
     }
     _currentUrl = requestString;
-   
+   [self setProgress:.1];
     return YES;
 }
 
