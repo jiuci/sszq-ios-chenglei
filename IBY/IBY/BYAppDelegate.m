@@ -41,14 +41,14 @@
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
-//    _window = [[iConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _window = [[iConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //支持摇一摇
     
     
     application.applicationSupportsShakeToEdit = YES;
 
-    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     [[BYAppCenter sharedAppCenter] setupConfiguration];
     [[BYAppCenter sharedAppCenter] doUpgradeIfNeeded];
@@ -96,6 +96,20 @@
     if ([location respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [location requestWhenInUseAuthorization];
     }
+    
+//    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"com.biyao.push.token"]);
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    if (IS_OS_8_OR_LATER) {
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        [application registerForRemoteNotificationTypes:
+         UIRemoteNotificationTypeBadge |
+         UIRemoteNotificationTypeAlert |
+         UIRemoteNotificationTypeSound];
+    }
+    
     return YES;
 }
 
@@ -189,7 +203,7 @@
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [[BYPushCenter sharedPushCenter] handleRemoteInfoWithApplication:application userinfo:userInfo];
-
+    completionHandler(UIBackgroundFetchResultNewData);
     //[MBProgressHUD topShowTmpMessage:userInfo[@"aps"][@"alert"]];
 
     //    // 记录远程通知和回调，在数据加载完成之后需要这些信息
@@ -208,6 +222,7 @@
 {
     NSString* token = [NSString stringWithFormat:@"%@", deviceToken];
 //    NSLog(@"%@",token);
+    [iConsole log:@"设备token:%@",token];
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"com.biyao.push.token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[BYAppCenter sharedAppCenter] uploadToken:token];
@@ -223,7 +238,7 @@
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
     
-//    NSLog(@"%@", error);
+//    NSLog(@"fail!!!－%@", error);
 }
 
 #pragma mark -share

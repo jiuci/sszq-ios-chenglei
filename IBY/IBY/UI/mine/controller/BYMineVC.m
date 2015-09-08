@@ -147,10 +147,10 @@
                  top:12
                  sel:@selector(onOrders)];
 
-    [self appendCell:@"icon_usercenter_collection"
-               title:@"我的作品集"
+    [self appendCell:@"icon_usercenter_coupon"
+               title:@"我的红包"
                  top:0
-                 sel:@selector(onMydesigns)];
+                 sel:@selector(onMycoupon)];
 
     [self appendCell:@"icon_usercenter_address"
                title:@"我的地址"
@@ -259,14 +259,14 @@
     }
 }
 
-- (void)onMydesigns
+- (void)onMycoupon
 {
 
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
         return;
     }
-    JumpToWebBlk(@"http://m.biyao.com/account/myworks", nil);
+    JumpToWebBlk(@"http://m.biyao.com/money/money", nil);
 }
 
 - (void)onAdress

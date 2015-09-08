@@ -11,7 +11,8 @@
 #import "BYMutiSwitch.h"
 @interface BYHomeVC : BYBaseVC
 
-@property (nonatomic , assign) BYCommonWebVC * commonWebVC;
-@property (nonatomic,strong)BYMutiSwitch *mutiSwitch;
+@property (nonatomic, assign) BYCommonWebVC * commonWebVC;
+@property (nonatomic, strong) BYMutiSwitch *mutiSwitch;
+@property (nonatomic, strong) NSString * needJumpUrl;
 -(void)reloadData;
 @end

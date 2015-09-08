@@ -40,6 +40,7 @@
                 [BYAppCenter sharedAppCenter].pushId = unit.pushId;
                 NSDictionary* params = @{@"JumpURL":designDetailUrl};
                 [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome params:params];
+                [iConsole log:@"design %@",params];
 //                [[BYPortalCenter sharedPortalCenter] portTo:BYPortalDesignDetail params:unit.pushParams];
             }
         } break;
@@ -47,10 +48,12 @@
             if (unit.pushParams[@"url"] && [unit.pushParams[@"url"] hasPrefix:@"http://"]) {
                 [BYAppCenter sharedAppCenter].pushId = unit.pushId;
                 NSDictionary* params = @{@"JumpURL":unit.pushParams[@"url"]};
+                [iConsole log:@"url %@",params];
                 [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome params:params];
             }
         } break;
         default:
+                [iConsole log:@"none %@",userInfo];
             break;
         }
     }

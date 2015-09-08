@@ -217,7 +217,7 @@
         return NO;
     }
 //    [iConsole log:@"%@",requestString];
-    [iConsole log:@"%@",preUrlString];
+    [iConsole log:@"web is loading %@",preUrlString];
 //    logCookies();
 //    loggobackCookies();
 //    if (_loadingCaches) {
@@ -452,6 +452,7 @@
 //    [self setupUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogin) name:BYAppLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogout) name:BYAppLogoutNotification object:nil];
+    [iConsole log:@"did load"];
 }
 
 - (void)dealloc
@@ -552,6 +553,9 @@
     
     
     [self loadBlank];
+    
+    [iConsole log:@"setupUI finish"];
+  
 }
 
 - (BYMutiSwitch*)mutiSwitch

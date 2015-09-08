@@ -52,7 +52,6 @@
 {
     _frontImglist = @[ @"wel_1", @"wel_2", @"wel_3",@"wel_4" ];
     if (SCREEN_HEIGHT < 500) {
-        NSLog(@"???");
         _frontImglist = @[ @"wel4_1", @"wel4_2", @"wel4_3",@"wel4_4" ];
     }
     NSArray *upBgColors = @[HEXCOLOR(0xf9d350),HEXCOLOR(0xf85453),HEXCOLOR(0x43c8be),HEXCOLOR(0x8d7aa5)];

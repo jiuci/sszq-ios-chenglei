@@ -264,8 +264,17 @@
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
     [self.navigationController setNavigationBarHidden:NO];
- 
+    
+    
     addCookies(@"http://m.biyao.com/index", @"gobackuri", @".biyao.com");
+//    _needJumpUrl = @"http://ibuyfun.biyao.com/nvzhuang?f_upd-fa-114";
+    if ([_needJumpUrl hasPrefix:@"http://"]) {
+        [_commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_needJumpUrl]]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController pushViewController:_commonWebVC animated:YES];
+        });
+        _needJumpUrl = nil;
+    }
 //    BYUser * user = [BYAppCenter sharedAppCenter].user;
 //    _hasNewMessage.hidden = user.messageNum == 0;
 //    [self.navigationController pushViewController:[BYCommonWebVC sharedCommonWebVC] animated:YES];

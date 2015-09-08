@@ -51,10 +51,16 @@
             
         }else if (params[@"JumpURL"]) {
             NSURL* url = [NSURL URLWithString:params[@"JumpURL"]];
-            [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
-            //todo
+            
+            if (lastVC.commonWebVC.webView) {
+                [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
+            }else{
+                lastVC.needJumpUrl = params[@"JumpURL"];
+                return;
+            }
         }else{
             NSURL* url = [NSURL URLWithString:BYURL_HOME];
+            //home就不需要再跳转了
             [lastVC.commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
         }
         

@@ -11,7 +11,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleVersion</key>
-	<string>2.1.6</string>
+	<string>2.1.7</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -31,7 +31,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.6</string>
+	<string>2.1.7</string>
 	<key>NSAppTransportSecurity</key>
 	<string>NSAllowsArbitraryLoads</string>
 	<key>CFBundleInfoDictionaryVersion</key>
