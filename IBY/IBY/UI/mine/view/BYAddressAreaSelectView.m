@@ -52,7 +52,7 @@ static NSString* cellId = @"BYAddressSelectCell";
         _addressService = [[BYAddressService alloc] init];
         [self setupUI];
 
-        self.autoHideWhenTapBg = NO;
+        self.autoHideWhenTapBg = YES;
     }
     return self;
 }

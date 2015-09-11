@@ -324,7 +324,7 @@
 }
 - (void)resizeGlassesImg:(UIImage*)image
 {
-//    NSArray*array =[NSArray arrayWithObjects:@"0.2",@"0.3",@"0.4",@"0.5", nil];
+//    NSArray*array =[NSArray arrayWithObjects:@"0.3",@"0.4",@"0.5",@"0.6",@"0.7", nil];
 //    
 //    _glassImgView.image = [UIImage imageNamed:array[_number++]];
 //    if (_number>=array.count) {

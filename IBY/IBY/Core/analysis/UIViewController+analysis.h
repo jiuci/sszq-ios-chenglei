@@ -11,6 +11,6 @@
 @interface UIViewController (analysis)
 
 @property (nonatomic,readonly) NSString *pageName;
-@property (nonatomic,readonly) NSMutableDictionary *pageParameter;
+@property (nonatomic,copy) NSMutableDictionary *pageParameter;
 
 @end

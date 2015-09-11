@@ -8,6 +8,6 @@
 
 #import "BYBaseVC.h"
 
-@interface BYSettingVC : BYBaseVC
+@interface BYSettingVC : BYBaseVC<UIGestureRecognizerDelegate>
 
 @end

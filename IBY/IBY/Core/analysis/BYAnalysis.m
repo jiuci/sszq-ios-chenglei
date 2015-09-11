@@ -10,6 +10,7 @@
 #import "BYAnalysisConfig.h"
 #import "BYNetwork.h"
 #import "BYAppCenter.h"
+#import "BYAppDelegate.h"
 
 @implementation BYAnalysis
 
@@ -43,7 +44,6 @@
                type3:nil
                 page:pageName
            extension:parameters];
-
     [self saveCurrentEventTime];
 }
 
@@ -80,7 +80,7 @@
         [stat appendFormat:@"\"%@\" ", app.deviceType];
         [stat appendFormat:@"\"%@\" ", app.systemVersion];
         [stat appendFormat:@"\"%@\" ", empty]; //浏览器
-        [stat appendFormat:@"\"%@\" ", empty]; //referer
+        [stat appendFormat:@"\"%@\" ", ((BYAppDelegate*)[UIApplication sharedApplication].delegate).activeVC]; //referer
         //TODO:referer字段会比较不好做，来源统计需要好好考虑下
         [stat appendFormat:@"\"%@\" ", [[NSDate date] dateStringWithFormat:BYDateFormatyyyyMMddHHmm]]; //客户端time
         [stat appendFormat:@"\"%@\" ", app.channel];
@@ -89,11 +89,13 @@
         NSDictionary* params = @{
                                  @"log" : stat
                                  };
-        
+        NSLog(@"%@",stat);
         [BYNetwork postByBaseUrl:@"http://track.biyao.com/" suffix:@"" params:params finish:^(NSDictionary* data, NSError* error) {
             //暂时不关心是否传过去
             BYLog(@"");
         }];
+        
+        ((BYAppDelegate*)[UIApplication sharedApplication].delegate).activeVC = page;
     });
 }
 

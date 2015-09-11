@@ -40,6 +40,7 @@ static NSString* cellID = @"BYAddressCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     self.title = @"我的地址";
     self.view.height = SCREEN_HEIGHT - self.navigationController.navigationBar.height - [[UIApplication sharedApplication] statusBarFrame].size.height;
     self.view.width = SCREEN_WIDTH;

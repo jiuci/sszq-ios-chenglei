@@ -299,6 +299,7 @@
 		FE14D68F19AC2289006B0E48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE14D68E19AC2289006B0E48 /* main.m */; };
 		FE5DA8121A11B4D000A58F22 /* BYTbVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8111A11B4D000A58F22 /* BYTbVC.m */; };
 		FE5DA8181A11B91500A58F22 /* UITableViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8171A11B91500A58F22 /* UITableViewExtension.m */; };
+		FE70C56D1BA1818100718B51 /* BYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C56C1BA1818100718B51 /* BYTheme.m */; };
 		FEC829A519AC8FC800D5D70D /* BYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829A419AC8FC800D5D70D /* BYUser.m */; };
 		FEC829BA19AC948200D5D70D /* BYBaseDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829AF19AC948200D5D70D /* BYBaseDAO.m */; };
 		FEC829BB19AC948200D5D70D /* BYBaseDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B119AC948200D5D70D /* BYBaseDomain.m */; };
@@ -873,6 +874,8 @@
 		FE5DA8111A11B4D000A58F22 /* BYTbVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTbVC.m; sourceTree = "<group>"; };
 		FE5DA8161A11B91500A58F22 /* UITableViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewExtension.h; sourceTree = "<group>"; };
 		FE5DA8171A11B91500A58F22 /* UITableViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewExtension.m; sourceTree = "<group>"; };
+		FE70C56B1BA1818100718B51 /* BYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYTheme.h; sourceTree = "<group>"; };
+		FE70C56C1BA1818100718B51 /* BYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTheme.m; sourceTree = "<group>"; };
 		FEC829A319AC8FC800D5D70D /* BYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYUser.h; sourceTree = "<group>"; };
 		FEC829A419AC8FC800D5D70D /* BYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYUser.m; sourceTree = "<group>"; };
 		FEC829AE19AC948200D5D70D /* BYBaseDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYBaseDAO.h; sourceTree = "<group>"; };
@@ -2167,6 +2170,7 @@
 		FE14D6C219AC333E006B0E48 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				FE70C56A1BA1815B00718B51 /* theme */,
 				F4DB83351B6605910083F9B4 /* mine */,
 				F4E0075D1B0F08E100438FD5 /* forgetpassword */,
 				F4E0073D1B0F075A00438FD5 /* login */,
@@ -2180,6 +2184,15 @@
 				F4AE74831A26F9DB005ED6A9 /* pay */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		FE70C56A1BA1815B00718B51 /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				FE70C56B1BA1818100718B51 /* BYTheme.h */,
+				FE70C56C1BA1818100718B51 /* BYTheme.m */,
+			);
+			name = theme;
 			sourceTree = "<group>";
 		};
 		FEC8298319AC78DD00D5D70D /* home */ = {
@@ -2480,6 +2493,7 @@
 				F481FA911A7A41E600FB1C20 /* NSDataExtend.m in Sources */,
 				F47747FF1A6F5AE6008BF3FC /* BYAppDelegate.m in Sources */,
 				CC3D2E1E19BFF8B1000E0E14 /* NSObject+MJMember.m in Sources */,
+				FE70C56D1BA1818100718B51 /* BYTheme.m in Sources */,
 				F41A801519C6C07B0002AEEE /* BYImageView.m in Sources */,
 				F4D134851AF85C3100B7164D /* RtHist.cpp in Sources */,
 				F41A801919C6F1460002AEEE /* BYBaseCell.m in Sources */,
