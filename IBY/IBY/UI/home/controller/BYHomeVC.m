@@ -28,7 +28,9 @@
 
 #import "SDCycleScrollView.h"
 #import "BYPoolNetworkView.h"
-@interface BYHomeVC ()<SDCycleScrollViewDelegate>
+
+#import "BYThemeVC.h"
+@interface BYHomeVC ()<SDCycleScrollViewDelegate,BYImageViewTapDelegate>
 
 @property (nonatomic, strong) BYHomeService * service;
 @property (nonatomic, strong) BYHomeInfo * info;
@@ -127,6 +129,9 @@
         BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight)];
         BYHomeInfoSimple * simple = _info.bannerArray[0];
         image.jumpURL = simple.link;
+        image.categoryId = simple.categoryID;
+        image.tapDelegate = self;
+        image.tag = simple.categoryID;
         image.image = [UIImage imageNamed:@"bg_placeholder"];
         [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
         [image addTapAction:@selector(onImagetap:) target:image];
@@ -155,6 +160,9 @@
         BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH-24, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
         BYHomeInfoSimple * simple = _info.adArray[i];
         image.jumpURL = simple.link;
+        image.tag = simple.categoryID;
+        image.categoryId = simple.categoryID;
+        image.tapDelegate = self;
         image.image = [UIImage imageNamed:@"bg_placeholder"];
         [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
         [image addTapAction:@selector(onImagetap:) target:image];
@@ -267,6 +275,8 @@
     
     
     addCookies(@"http://m.biyao.com/index", @"gobackuri", @".biyao.com");
+    
+    addCookies(@"", @"gobackuri", @".biyao.com");
 //    _needJumpUrl = @"http://ibuyfun.biyao.com/nvzhuang?f_upd-fa-114";
     if ([_needJumpUrl hasPrefix:@"http://"]) {
         [_commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_needJumpUrl]]];
@@ -301,8 +311,17 @@
 }
 - (void)onImagetap:(BYImageView*)sender
 {
-    JumpToWebBlk(sender.jumpURL, nil);
+    
+    if (sender.categoryId == 0) {
+        JumpToWebBlk(sender.jumpURL, nil);
+    }else{
+        BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:sender.categoryId];
+        themeVC.url = sender.jumpURL;
+        [self.navigationController pushViewController:themeVC animated:YES];
+    }
+    
 }
+
 - (BYMutiSwitch*)mutiSwitch
 {
     if (!_mutiSwitch) {

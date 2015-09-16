@@ -89,7 +89,7 @@
         NSDictionary* params = @{
                                  @"log" : stat
                                  };
-        NSLog(@"%@",stat);
+//        NSLog(@"%@",stat);
         [BYNetwork postByBaseUrl:@"http://track.biyao.com/" suffix:@"" params:params finish:^(NSDictionary* data, NSError* error) {
             //暂时不关心是否传过去
             BYLog(@"");

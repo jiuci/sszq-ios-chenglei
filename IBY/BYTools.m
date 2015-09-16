@@ -107,20 +107,26 @@ void addCookies(NSString* uriStr,NSString* inCookieName, NSString* inCookieDomai
     NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* cookies = [NSArray arrayWithArray:[cookieJar cookies]];
     NSString * objvalue = @"/index~";
-    for (NSHTTPCookie* obj in cookies) {
-        if ([obj.name isEqualToString:inCookieName]&&[obj.domain isEqualToString:inCookieDomain]) {
-            objvalue = [obj.value URLDecodedString];
-         
-        }
-    }
-    NSString* value;
-    if (![objvalue hasSuffix:uriStr]) {
-        value = [NSString stringWithFormat:@"%@~%@",objvalue,uriStr];
-    }else{
-        value = objvalue;
-    }
+//    for (NSHTTPCookie* obj in cookies) {
+//        if ([obj.name isEqualToString:inCookieName]&&[obj.domain isEqualToString:inCookieDomain]) {
+//            objvalue = [obj.value URLDecodedString];
+//         
+//        }
+//    }
+    NSString* value = [NSString stringWithFormat:@"%@~%@",objvalue,uriStr];
+
+//    if (![objvalue hasSuffix:uriStr]||1) {
+//        value = [NSString stringWithFormat:@"%@~%@",objvalue,uriStr];
+//    }else{
+//        value = objvalue;
+//    }
+    
 //    NSLog(@"adding - %@",value);
     value = [value URLEncodedStringForMweb];
+    
+    if ([uriStr isEqualToString:@""]) {
+        value = @"";
+    }
     NSMutableDictionary* cookieProperties = [NSMutableDictionary dictionary];
     [cookieProperties setObject:inCookieName forKey:NSHTTPCookieName];
     [cookieProperties setObject:value forKey:NSHTTPCookieValue];

@@ -19,6 +19,7 @@
             finished(nil,error);
             return ;
         }
+//        NSLog(@"%@",data);
         BYHomeInfo * homeInfo = [BYHomeInfo homeWithDict:data];
         if (!homeInfo) {
             BYError* error = [BYError errorWithDomain:@"com.biyao.fu" code:503 userInfo:nil];

@@ -22,6 +22,7 @@
         
         simple.link = ads[i][@"link"];
         simple.type = [ads[i][@"type"] intValue];
+        simple.categoryID = [ads[i][@"cmsCategoryID"] intValue];
         if (!simple.isValid) {
             return nil;
         }
@@ -38,6 +39,7 @@
         simple.imagePath = banners[i][@"img"];
         simple.link = banners[i][@"link"];
         simple.type = [banners[i][@"type"] intValue];
+        simple.categoryID = [banners[i][@"cmsCategoryID"] intValue];
         if (!simple.isValid) {
             return nil;
         }

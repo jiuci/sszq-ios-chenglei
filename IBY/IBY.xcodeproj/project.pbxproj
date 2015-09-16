@@ -299,7 +299,11 @@
 		FE14D68F19AC2289006B0E48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE14D68E19AC2289006B0E48 /* main.m */; };
 		FE5DA8121A11B4D000A58F22 /* BYTbVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8111A11B4D000A58F22 /* BYTbVC.m */; };
 		FE5DA8181A11B91500A58F22 /* UITableViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8171A11B91500A58F22 /* UITableViewExtension.m */; };
-		FE70C56D1BA1818100718B51 /* BYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C56C1BA1818100718B51 /* BYTheme.m */; };
+		FE70C5701BA2BDAE00718B51 /* BYThemeEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C56F1BA2BDAE00718B51 /* BYThemeEngine.m */; };
+		FE70C5741BA2C0F900718B51 /* BYThemeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C5731BA2C0F900718B51 /* BYThemeInfo.m */; };
+		FE70C5781BA2C3F400718B51 /* BYThemeService.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C5771BA2C3F400718B51 /* BYThemeService.m */; };
+		FE70C57B1BA2C61700718B51 /* BYThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C57A1BA2C61700718B51 /* BYThemeVC.m */; };
+		FE70C57E1BA6B37B00718B51 /* BYThemeFloorSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C57D1BA6B37B00718B51 /* BYThemeFloorSimple.m */; };
 		FEC829A519AC8FC800D5D70D /* BYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829A419AC8FC800D5D70D /* BYUser.m */; };
 		FEC829BA19AC948200D5D70D /* BYBaseDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829AF19AC948200D5D70D /* BYBaseDAO.m */; };
 		FEC829BB19AC948200D5D70D /* BYBaseDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829B119AC948200D5D70D /* BYBaseDomain.m */; };
@@ -874,8 +878,16 @@
 		FE5DA8111A11B4D000A58F22 /* BYTbVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTbVC.m; sourceTree = "<group>"; };
 		FE5DA8161A11B91500A58F22 /* UITableViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewExtension.h; sourceTree = "<group>"; };
 		FE5DA8171A11B91500A58F22 /* UITableViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewExtension.m; sourceTree = "<group>"; };
-		FE70C56B1BA1818100718B51 /* BYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYTheme.h; sourceTree = "<group>"; };
-		FE70C56C1BA1818100718B51 /* BYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTheme.m; sourceTree = "<group>"; };
+		FE70C56E1BA2BDAE00718B51 /* BYThemeEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeEngine.h; sourceTree = "<group>"; };
+		FE70C56F1BA2BDAE00718B51 /* BYThemeEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeEngine.m; sourceTree = "<group>"; };
+		FE70C5721BA2C0F900718B51 /* BYThemeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeInfo.h; sourceTree = "<group>"; };
+		FE70C5731BA2C0F900718B51 /* BYThemeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeInfo.m; sourceTree = "<group>"; };
+		FE70C5761BA2C3F400718B51 /* BYThemeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeService.h; sourceTree = "<group>"; };
+		FE70C5771BA2C3F400718B51 /* BYThemeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeService.m; sourceTree = "<group>"; };
+		FE70C5791BA2C61700718B51 /* BYThemeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeVC.h; sourceTree = "<group>"; };
+		FE70C57A1BA2C61700718B51 /* BYThemeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeVC.m; sourceTree = "<group>"; };
+		FE70C57C1BA6B37B00718B51 /* BYThemeFloorSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeFloorSimple.h; sourceTree = "<group>"; };
+		FE70C57D1BA6B37B00718B51 /* BYThemeFloorSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeFloorSimple.m; sourceTree = "<group>"; };
 		FEC829A319AC8FC800D5D70D /* BYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYUser.h; sourceTree = "<group>"; };
 		FEC829A419AC8FC800D5D70D /* BYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYUser.m; sourceTree = "<group>"; };
 		FEC829AE19AC948200D5D70D /* BYBaseDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYBaseDAO.h; sourceTree = "<group>"; };
@@ -1493,6 +1505,8 @@
 				F4DA5DDC1B7359BB004A8377 /* BYAddressEngine.m */,
 				F4E8A5CD1B83116D007261B3 /* BYHomeEngine.h */,
 				F4E8A5CE1B83116D007261B3 /* BYHomeEngine.m */,
+				FE70C56E1BA2BDAE00718B51 /* BYThemeEngine.h */,
+				FE70C56F1BA2BDAE00718B51 /* BYThemeEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -2097,6 +2111,7 @@
 		FE14D6BF19AC333E006B0E48 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				FE70C5711BA2C0D600718B51 /* theme */,
 				F4F20BF91B84170500E8D355 /* home */,
 				F4ED1DED1AF9FC2700639322 /* glasses */,
 				F4E6B6591AAF1CD10022EA66 /* book */,
@@ -2120,6 +2135,7 @@
 		FE14D6C019AC333E006B0E48 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				FE70C5751BA2C3D500718B51 /* theme */,
 				F4E8A5C91B83106E007261B3 /* home */,
 				F4D1346C1AF8581800B7164D /* glass */,
 				F4E6B6551AAF1CA40022EA66 /* book */,
@@ -2189,8 +2205,28 @@
 		FE70C56A1BA1815B00718B51 /* theme */ = {
 			isa = PBXGroup;
 			children = (
-				FE70C56B1BA1818100718B51 /* BYTheme.h */,
-				FE70C56C1BA1818100718B51 /* BYTheme.m */,
+				FE70C5791BA2C61700718B51 /* BYThemeVC.h */,
+				FE70C57A1BA2C61700718B51 /* BYThemeVC.m */,
+			);
+			name = theme;
+			sourceTree = "<group>";
+		};
+		FE70C5711BA2C0D600718B51 /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				FE70C5721BA2C0F900718B51 /* BYThemeInfo.h */,
+				FE70C5731BA2C0F900718B51 /* BYThemeInfo.m */,
+				FE70C57C1BA6B37B00718B51 /* BYThemeFloorSimple.h */,
+				FE70C57D1BA6B37B00718B51 /* BYThemeFloorSimple.m */,
+			);
+			name = theme;
+			sourceTree = "<group>";
+		};
+		FE70C5751BA2C3D500718B51 /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				FE70C5761BA2C3F400718B51 /* BYThemeService.h */,
+				FE70C5771BA2C3F400718B51 /* BYThemeService.m */,
 			);
 			name = theme;
 			sourceTree = "<group>";
@@ -2461,6 +2497,7 @@
 				CC3D2E1919BFF8B1000E0E14 /* MJMethod.m in Sources */,
 				F4FCC8F21A51E43500C89C1F /* BYDelivery.m in Sources */,
 				F4E8A5CC1B8310D4007261B3 /* BYHomeService.m in Sources */,
+				FE70C57B1BA2C61700718B51 /* BYThemeVC.m in Sources */,
 				F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */,
 				F4E6858F19EE8F6B00237412 /* GTMStackTrace.m in Sources */,
 				F4DB02D91B68AEB1009DAB6F /* BYAddressSelectCell.m in Sources */,
@@ -2488,12 +2525,12 @@
 				F4D1345D1AF857F400B7164D /* BYGlassLocateDistVC.m in Sources */,
 				F496C3911B317E7B00E503D8 /* BYUserEngine.m in Sources */,
 				F4DEC34D1B340265003B9730 /* BYCaptchaService.m in Sources */,
+				FE70C57E1BA6B37B00718B51 /* BYThemeFloorSimple.m in Sources */,
 				F4F20C101B84949800E8D355 /* TAAbstractDotView.m in Sources */,
 				CC3D2E1819BFF8B1000E0E14 /* MJMember.m in Sources */,
 				F481FA911A7A41E600FB1C20 /* NSDataExtend.m in Sources */,
 				F47747FF1A6F5AE6008BF3FC /* BYAppDelegate.m in Sources */,
 				CC3D2E1E19BFF8B1000E0E14 /* NSObject+MJMember.m in Sources */,
-				FE70C56D1BA1818100718B51 /* BYTheme.m in Sources */,
 				F41A801519C6C07B0002AEEE /* BYImageView.m in Sources */,
 				F4D134851AF85C3100B7164D /* RtHist.cpp in Sources */,
 				F41A801919C6F1460002AEEE /* BYBaseCell.m in Sources */,
@@ -2614,6 +2651,7 @@
 				F4DB02C31B68ABFD009DAB6F /* BYAddressDetailVC.m in Sources */,
 				F4DB02D61B68AE7F009DAB6F /* BYAddressAreaSelectView.m in Sources */,
 				F4888A3C1A6DB58F0056427E /* BYShareCenter.m in Sources */,
+				FE70C5781BA2C3F400718B51 /* BYThemeService.m in Sources */,
 				F4FD2E0E19F75F20002D5A3C /* BYMessage.m in Sources */,
 				F45A8EFF1A91E4D400D478A8 /* Reachability.m in Sources */,
 				F48C675F1A0C6EE600023B49 /* NSStringExtension.m in Sources */,
@@ -2630,6 +2668,7 @@
 				CC771FA419CB3AC900E11BAE /* FMDatabasePool.m in Sources */,
 				F4AE74901A271564005ED6A9 /* BYPayService.m in Sources */,
 				F4D134601AF857F400B7164D /* BYGlassSampleView.m in Sources */,
+				FE70C5701BA2BDAE00718B51 /* BYThemeEngine.m in Sources */,
 				F4505E5019F0F9B600A12AD2 /* BYCart.m in Sources */,
 				F4818DEF1AFCAB9C0023C0A6 /* UIImage+OpenCV.mm in Sources */,
 				F4159D7A19F241DC00126BDF /* BYSQLiteSample.m in Sources */,
@@ -2649,6 +2688,7 @@
 				F4E0076C1B0F08E100438FD5 /* BYPasswordSettingVC.m in Sources */,
 				F4A7FCDA1AC97BBC000CDEB4 /* BYCommonWebVC.m in Sources */,
 				F4ED1DEC1AF9BEEB00639322 /* BYCaptureController.mm in Sources */,
+				FE70C5741BA2C0F900718B51 /* BYThemeInfo.m in Sources */,
 				F4505E5C19F1181D00A12AD2 /* BYDesign.m in Sources */,
 				CC1C2FA719CFC08400877FF8 /* BYAppCenter.m in Sources */,
 				F4E8AA281B6F72B200308CFB /* BYNumberTip.m in Sources */,

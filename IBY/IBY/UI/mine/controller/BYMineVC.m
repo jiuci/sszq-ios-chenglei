@@ -151,6 +151,11 @@
                title:@"我的红包"
                  top:0
                  sel:@selector(onMycoupon)];
+    
+    [self appendCell:@"icon_usercenter_mydesign"
+               title:@"我的作品集"
+                 top:0
+                 sel:@selector(onMydesign)];
 
     [self appendCell:@"icon_usercenter_address"
                title:@"我的地址"
@@ -267,6 +272,17 @@
         return;
     }
     JumpToWebBlk(@"http://m.biyao.com/money/money", nil);
+}
+
+
+- (void)onMydesign
+{
+    
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    JumpToWebBlk(@"http://m.biyao.com/account/myworks", nil);
 }
 
 - (void)onAdress

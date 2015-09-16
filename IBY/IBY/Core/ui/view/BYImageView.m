@@ -59,8 +59,19 @@
         finished(image);
     }];
 }
+
+- (void)setTapDelegate:(id<BYImageViewTapDelegate>)tapDelegate
+{
+    _tapDelegate = tapDelegate;
+    [self addTapAction:@selector(onImagetap:) target:self];
+}
+
 - (void)onImagetap:(id)sender;
 {
-    JumpToWebBlk(self.jumpURL, nil);
+    if (_tapDelegate && [_tapDelegate respondsToSelector:@selector(onImagetap:)]) {
+        [_tapDelegate onImagetap:self];
+    }else{
+        JumpToWebBlk(self.jumpURL, nil);
+    }
 }
 @end

@@ -29,7 +29,7 @@
 
 #import "BYHomeVC.h"
 #import "BYBDmapVC.h"
-
+#import "BYThemeVC.h"
 
 
 @interface BYCommonWebVC () <UIWebViewDelegate>
@@ -232,6 +232,8 @@
 //        return YES;
 //    }
 //    [iConsole log:@"mark1"];
+    
+
     //非biyao.com域直接放行
     if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
         self.showTabbar = NO;
@@ -240,12 +242,21 @@
     }
 //    [iConsole log:@"mark2"];
     //对我们自己的地址进行分类处理
+//    NSLog(@"%@",[BYThemeVC sharedTheme].url);
+    if ([[BYThemeVC sharedTheme].url rangeOfString:preUrlString].length > 0) {
+        [self.navigationController popToViewController:[BYThemeVC sharedTheme] animated:NO];
+        [[BYThemeVC sharedTheme].navigationController setNavigationBarHidden:NO];
+        [self loadBlank];
+        return NO;
+    }
+    
     if ([preUrlString rangeOfString:@"http://m.biyao.com/appindex"].length > 0
         || [preUrlString isEqualToString:@"http://m.biyao.com"]
         || [preUrlString isEqualToString:@"http://m.biyao.com/index"]) {
 //        [self caches:preUrlString];
 //        [self.mutiSwitch setSelectedAtIndex:0];
-        [self.navigationController popToRootViewControllerAnimated:NO];
+        BYHomeVC* homeVC = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeVC;
+        [homeVC.navigationController popToViewController:homeVC animated:NO];
         [self loadBlank];
         return NO;
     }
@@ -268,6 +279,7 @@
         }
      
         [self presentViewController:_mapNV animated:YES completion:nil];
+        //特殊，地图页面没有其他出口，只能返回，所以不需要加载空白
         return NO;
     }
 //    [iConsole log:@"mark4"];
@@ -319,7 +331,7 @@
             [BYLoginVC sharedLoginVC].showThirdPartyLogin = YES;
         }
         [self presentViewController:nav animated:YES completion:nil];
-        
+        //同地图，只能返回的页面
         return NO;
     }
 
@@ -366,7 +378,7 @@
         [MBProgressHUD topHide];
     }
     [iConsole log:@"finish"];
-
+    loggobackCookies();
 //    if ([self.currentUrl containsString:@"m.biyao.com/product/show"]&&![self.currentUrl containsString:@"192.168.97.69"]) {
 //        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.97.69:8080/m.biyao.com/product/show?designid=63786"]]];
 //    }
@@ -767,7 +779,10 @@ void JumpToWebBlk(NSString*url,BYJumpWebFinish blk)
         [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
         return;
     }
-    [[BYCommonWebVC sharedCommonWebVC].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    if (![url hasPrefix:@"http"]) {
+        return;
+    }
+    
     [BYCommonWebVC sharedCommonWebVC].jumpCallBack = blk;
     BYHomeVC* homeVC = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeVC;
     if ([homeVC.navigationController.viewControllers containsObject:[BYCommonWebVC sharedCommonWebVC]]) {
@@ -775,5 +790,6 @@ void JumpToWebBlk(NSString*url,BYJumpWebFinish blk)
     }else{
         [homeVC.navigationController pushViewController:[BYCommonWebVC sharedCommonWebVC] animated:NO];
     }
+    [[BYCommonWebVC sharedCommonWebVC].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     
 }
