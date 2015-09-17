@@ -61,7 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+//    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 
     
 }
@@ -84,6 +84,7 @@
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
+//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     [super viewWillDisappear:animated];
 }
 - (void)updateData

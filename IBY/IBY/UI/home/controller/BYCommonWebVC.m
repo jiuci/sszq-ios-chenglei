@@ -378,7 +378,7 @@
         [MBProgressHUD topHide];
     }
     [iConsole log:@"finish"];
-    loggobackCookies();
+//    loggobackCookies();
 //    if ([self.currentUrl containsString:@"m.biyao.com/product/show"]&&![self.currentUrl containsString:@"192.168.97.69"]) {
 //        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.97.69:8080/m.biyao.com/product/show?designid=63786"]]];
 //    }
@@ -464,7 +464,7 @@
 //    [self setupUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogin) name:BYAppLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAPPLogout) name:BYAppLogoutNotification object:nil];
-    [iConsole log:@"did load"];
+//    [iConsole log:@"did load"];
 }
 
 - (void)dealloc
@@ -566,7 +566,7 @@
     
     [self loadBlank];
     
-    [iConsole log:@"setupUI finish"];
+//    [iConsole log:@"setupUI finish"];
   
 }
 

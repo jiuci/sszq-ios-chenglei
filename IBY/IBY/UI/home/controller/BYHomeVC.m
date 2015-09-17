@@ -30,7 +30,7 @@
 #import "BYPoolNetworkView.h"
 
 #import "BYThemeVC.h"
-@interface BYHomeVC ()<SDCycleScrollViewDelegate,BYImageViewTapDelegate>
+@interface BYHomeVC ()<SDCycleScrollViewDelegate,BYImageViewTapDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) BYHomeService * service;
 @property (nonatomic, strong) BYHomeInfo * info;
@@ -103,6 +103,8 @@
     _poolNetworkView.hidden = YES;
     _poolNetworkView.backgroundColor = BYColorBG;
     
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     _info = [BYHomeInfo loadInfo];
     if (_info) {
@@ -276,7 +278,7 @@
     
     addCookies(@"http://m.biyao.com/index", @"gobackuri", @".biyao.com");
     
-    addCookies(@"", @"gobackuri", @".biyao.com");
+//    addCookies(@"", @"gobackuri", @".biyao.com");
 //    _needJumpUrl = @"http://ibuyfun.biyao.com/nvzhuang?f_upd-fa-114";
     if ([_needJumpUrl hasPrefix:@"http://"]) {
         [_commonWebVC.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_needJumpUrl]]];
@@ -303,7 +305,14 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     BYHomeInfoSimple * simple = _info.bannerArray[index];
-    JumpToWebBlk(simple.link, nil);
+    if (simple.categoryID == 0) {
+        JumpToWebBlk(simple.link, nil);
+    }else{
+        BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:simple.categoryID];
+        themeVC.url = simple.link;
+        [self.navigationController pushViewController:themeVC animated:YES];
+    }
+//    JumpToWebBlk(simple.link, nil);
 }
 - (void)onMore
 {
@@ -364,6 +373,24 @@
 }
 
 -(BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (self.navigationController.viewControllers.count == 1) {
+        return NO;
+    }
+    if ([self.navigationController.visibleViewController isEqual:[BYMineVC sharedMineVC]]||
+        [self.navigationController.visibleViewController isEqual:[BYCommonWebVC sharedCommonWebVC]]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+//    NSLog(@"%@",gestureRecognizer);
     return YES;
 }
 //- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent*)event

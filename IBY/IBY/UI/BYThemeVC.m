@@ -12,6 +12,7 @@
 #import "BYImageView.h"
 #import "BYPoolNetworkView.h"
 #import "MJRefresh.h"
+#import "MJRefreshHeaderView.h"
 
 @interface BYThemeVC ()<UIScrollViewDelegate>
 @property (nonatomic, strong)BYThemeService * service;
@@ -34,7 +35,11 @@
 + (instancetype)sharedThemeWithId:(int)categoryID
 {
     BYThemeVC* instance = [BYThemeVC sharedTheme];
+    if (instance.categoryID != categoryID) {
+        [instance clearUI];
+    }
     instance.categoryID = categoryID;
+    
     [instance refresh];
     return instance;
 }
@@ -62,6 +67,18 @@
     [_gototop setBackgroundImage:[UIImage imageNamed:@"icon_theme_gototop"] forState:UIControlStateNormal];
     _gototop.hidden = YES;
     _gototop.alpha = 0;
+    __weak BYThemeVC * wself = self;
+    [self.scroll addHeaderWithCallback:^{
+        [wself refresh];
+    }];
+    
+    for (UIView* view in self.scroll.subviews) {
+        if (![view.class isSubclassOfClass:[MJRefreshHeaderView class]]) {
+            continue;
+        }
+        ((MJRefreshHeaderView*)view).showTimeLabel = NO;
+    }
+    
 }
 
 - (void)updateUI
@@ -71,6 +88,10 @@
     for (UIView * view in _scroll.subviews) {
         [view removeFromSuperview];
     }
+    __weak typeof(self) wself = self;
+    [self.scroll addHeaderWithCallback:^{
+        [wself refresh];
+    }];
     BYHomeInfoSimple * simple = _info.headerInfo;
     BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)simple.width*simple.height)];
     
@@ -85,7 +106,7 @@
     for (int i = 0; i < _info.floors.count; i++) {
         BYThemeFloorSimple * floor = _info.floors[i];
         
-        if (floor.mainTitle) {
+        if (floor.mainTitle && floor.mainTitle.length) {
             UILabel * mainTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
             mainTitleLabel.text = floor.mainTitle;
             mainTitleLabel.font = Font(16);
@@ -97,7 +118,7 @@
             offset += 12 + mainTitleLabel.height + 10;
         }
         
-        if (floor.subTitle) {
+        if (floor.subTitle && floor.subTitle.length) {
             UILabel * subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 14)];
             subTitleLabel.text = floor.subTitle;
             subTitleLabel.font = Font(14);
@@ -132,15 +153,15 @@
             if (j%2) {
                 UIView * centerLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - .5, header.top, 1, header.height)];
                 [_scroll addSubview:centerLine];
-                centerLine.backgroundColor = BYColor999;
+                centerLine.backgroundColor = HEXCOLOR(0xe8e8e8);
                 
                 UIView * bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.bottom - .5, SCREEN_WIDTH, 1)];
                 [_scroll addSubview:bottomLine];
-                bottomLine.backgroundColor = BYColor999;
+                bottomLine.backgroundColor = HEXCOLOR(0xe8e8e8);
                 
                 UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
                 [_scroll addSubview:topLine];
-                topLine.backgroundColor = BYColor999;
+                topLine.backgroundColor = HEXCOLOR(0xe8e8e8);
             }
 //            if (j == 1) {
 //                UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
@@ -169,12 +190,13 @@
 
     }
     _scroll.contentSize = CGSizeMake(SCREEN_WIDTH, offset);
+    
 }
 
 - (void)refresh
 {
     __weak BYThemeVC* wself = self;
-    [_service loadThemePage:_categoryID type:0 finish:^(BYThemeInfo*info,BYError *error){
+    [_service loadThemePage:_categoryID type:1 finish:^(BYThemeInfo*info,BYError *error){
         if (error) {
             if (!self.info) {
                 [self showPoolnetworkView];
@@ -184,14 +206,28 @@
                 [self.tipsView addSubview:tapRefresh];
                 [tapRefresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
             }
+            [self.scroll headerEndRefreshing];
             alertError(error);
             return;
         }
         [self hideTipsView];
         wself.info = info;
         [wself updateUI];
-        
+        [self.scroll headerEndRefreshing];
     }];
+}
+
+- (void)clearUI
+{
+    for (UIView * view in _scroll.subviews) {
+        [view removeFromSuperview];
+    }
+    __weak typeof(self) wself = self;
+    [self.scroll addHeaderWithCallback:^{
+        [wself refresh];
+    }];
+    self.info = nil;
+
 }
 
 - (void)onGototop
@@ -224,6 +260,14 @@
 //    NSLog(@"setgobackuri");
     addCookies(self.url, @"gobackuri", @".biyao.com");
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
