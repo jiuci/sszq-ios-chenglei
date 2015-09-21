@@ -26,6 +26,10 @@ void inputCookies()
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
     setCookies(@"fromapp", @"ios|18");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
+    setCookies(@"platform", @"iOS");
+    setCookies(@"__appversion", @"18");
+    setCookies(@"source", @"biyao");
+    setCookies(@"__osv", [BYAppCenter sharedAppCenter].systemVersion);
 
     if (![BYAppCenter sharedAppCenter].isLogin) {
         resetCookies();

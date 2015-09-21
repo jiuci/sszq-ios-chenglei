@@ -77,6 +77,12 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
     Reachability * reach = [Reachability reachabilityWithHostname:@"www.biyao.com"];
     reach.reachableBlock = ^(Reachability * reachability)
     {
+        if ([reachability isReachableViaWiFi]) {
+            setCookies(@"__net", @"WIFI");
+        }else if([reachability isReachableViaWWAN]){
+            setCookies(@"__net", @"WWAN");
+        }
+        
         _isNetConnected = YES;
     };
     

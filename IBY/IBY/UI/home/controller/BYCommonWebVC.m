@@ -587,7 +587,7 @@
                                }];
 
         UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart_highlight" hlIcon:@"icon_cart_highlight" title:@"购物车"];
-        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted|UIControlStateNormal];
+        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted|UIControlStateNormal|UIControlStateSelected];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_CARTLIST];
