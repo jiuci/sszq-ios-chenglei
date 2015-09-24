@@ -244,7 +244,12 @@
     //对我们自己的地址进行分类处理
 //    NSLog(@"%@",[BYThemeVC sharedTheme].url);
     if ([[BYThemeVC sharedTheme].url rangeOfString:preUrlString].length > 0) {
-        [self.navigationController popToViewController:[BYThemeVC sharedTheme] animated:NO];
+        if ([self.navigationController.viewControllers containsObject:[BYThemeVC sharedTheme]]) {
+            [self.navigationController popToViewController:[BYThemeVC sharedTheme] animated:NO];
+        }else{
+            [self.navigationController pushViewController:[BYThemeVC sharedTheme] animated:NO];
+        }
+        
         [[BYThemeVC sharedTheme].navigationController setNavigationBarHidden:NO];
         [self loadBlank];
         return NO;

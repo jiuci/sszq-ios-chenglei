@@ -43,6 +43,7 @@ const void *pageParameter;
     [self trackPageViewDidAppear:animation];
 
     NSString* pageName = self.pageName ? self.pageName : [self.class description];
+//    NSLog(@"%@",pageName);
     //屏蔽掉一些非主动的页面
     if ([pageName isEqualToString:@"BYNavVC"] || [pageName isEqualToString:@"BYTabBarVC"] || [pageName isEqualToString:@"UIInputWindowController"]||[pageName rangeOfString:@"UIAlert"].length > 0) {
         return;

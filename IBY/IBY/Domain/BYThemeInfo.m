@@ -7,14 +7,19 @@
 //
 
 #import "BYThemeInfo.h"
+@interface BYThemeInfo()
 
+@property(nonatomic, copy)NSDictionary * info;
+@end
 @implementation BYThemeInfo
 
 + (instancetype)themeWithDict:(NSDictionary*)info
 {
 //    NSLog(@"%@",info);
     BYThemeInfo * themeinfo = [[BYThemeInfo alloc]init];
+    themeinfo.info = info;
     themeinfo.title = info[@"title"];
+    themeinfo.layout = info[@"layout"];
     
     BYHomeInfoSimple * header = [[BYHomeInfoSimple alloc]init];
     header.height = [info[@"header"][@"height"] intValue];
@@ -32,6 +37,7 @@
         BYThemeFloorSimple * simple = [[BYThemeFloorSimple alloc] init];
         simple.height = [floorsData[i][@"height"] intValue];
         simple.width = [floorsData[i][@"width"] intValue];
+        simple.column = [floorsData[i][@"column_num"] intValue];
         simple.imageTitle = floorsData[i][@"imgTitle"];
         simple.mainTitle = floorsData[i][@"mainTitle"];
         simple.subTitle = floorsData[i][@"subTitle"];
@@ -61,6 +67,11 @@
         [themeinfo.products addObject:simple];
     }
     return themeinfo;
+}
+
+-(BOOL)isSameTo:(BYThemeInfo*)another
+{
+    return [_info isEqual:another.info];
 }
 
 @end

@@ -17,6 +17,8 @@
 @property(nonatomic, strong)BYHomeInfoSimple * headerInfo;
 @property(nonatomic, strong)NSMutableArray * floors;
 @property(nonatomic, strong)NSMutableArray * products;
+@property(nonatomic, copy)NSString * layout;
 
 + (instancetype)themeWithDict:(NSDictionary*)info;
+-(BOOL)isSameTo:(BYThemeInfo*)another;
 @end

@@ -31,10 +31,12 @@
 
 BYError* makeCustomError(BYFuError type, NSString* domain, NSString* desc, NSError* originError)
 {
-    BYError* err = [[BYError alloc] init];
+    BYError* err;// = [[BYError alloc] init];
     ;
     if (originError) {
         err = [BYError errorWithDomain:originError.domain code:originError.code userInfo:originError.userInfo];
+    }else{
+        err = [BYError errorWithDomain:domain code:0 userInfo:nil];
     }
     err.byErrorCode = type;
     err.byDomain = domain;

@@ -13,6 +13,7 @@
 @property(nonatomic , copy)NSString * mainTitle;
 @property(nonatomic , copy)NSString * subTitle;
 @property(nonatomic , copy)NSString * imageTitle;
+@property(nonatomic)int column;
 @property(nonatomic)int height;
 @property(nonatomic)int width;
 

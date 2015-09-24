@@ -21,6 +21,7 @@ static NSString* kSinaWeiboUpdateStatusWithImage = @"https://api.weibo.com/2/sta
 {
     self = [super init];
     if (self) {
+        NSLog(@"%@",[WeiboSDK getSDKVersion]);
         [WeiboSDK enableDebugMode:YES];
         [WeiboSDK registerApp:[SAKShareConfig sharedInstance].sinaAppKey];
     }
