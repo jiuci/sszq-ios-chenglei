@@ -30,6 +30,8 @@ typedef enum {
     BYH5TypeGoWeixinAuth = 12,
     BYH5TypeGlassWearing = 13,
     BYH5TypeBlankGoback = 14,
+    //15是活动页面，iOS无
+    BYH5TypeIM = 16,
 } BYH5Type;
 
 @interface BYH5Unit : NSObject

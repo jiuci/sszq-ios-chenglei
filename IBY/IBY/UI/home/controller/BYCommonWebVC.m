@@ -218,20 +218,6 @@
     }
 //    [iConsole log:@"%@",requestString];
     [iConsole log:@"web is loading %@",preUrlString];
-//    logCookies();
-//    loggobackCookies();
-//    if (_loadingCaches) {
-//        [iConsole log:@"enter load caches"];
-//        if (![preUrlString isEqualToString:@"about:blank"]) {
-//            [iConsole log:@"enter load caches"];
-//            return NO;
-//        }
-//        [iConsole log:@"load caches"];
-//        [self.mutiSwitch setSelectedAtIndex:0];
-//        self.showTabbar = YES;
-//        return YES;
-//    }
-//    [iConsole log:@"mark1"];
     
 
     //非biyao.com域直接放行
@@ -266,7 +252,7 @@
         return NO;
     }
     else if ([preUrlString rangeOfString:@"http://m.biyao.com/shopcar/list"].length > 0) {
-//        [self.mutiSwitch setSelectedAtIndex:1];
+        [self.mutiSwitch setSelectedAtIndex:1];
 //        return NO;
         self.showTabbar = YES;
     }else{
@@ -592,7 +578,7 @@
                                }];
 
         UIButton* btn2 = [BYBarButton barBtnWithIcon:@"icon_cart_highlight" hlIcon:@"icon_cart_highlight" title:@"购物车"];
-        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted|UIControlStateNormal|UIControlStateSelected];
+        [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted|UIControlStateNormal];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
                                    NSURL* url = [NSURL URLWithString:BYURL_CARTLIST];

@@ -234,7 +234,7 @@
 - (void)refresh
 {
     __weak BYThemeVC* wself = self;
-    [_service loadThemePage:_categoryID type:0 finish:^(BYThemeInfo*info,BYError *error){
+    [_service loadThemePage:_categoryID type:1 finish:^(BYThemeInfo*info,BYError *error){
         if (!info || error) {
             if (!wself.info) {
                 [wself showPoolnetworkView];

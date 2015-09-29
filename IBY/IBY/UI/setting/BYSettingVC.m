@@ -9,6 +9,7 @@
 #import "BYSettingVC.h"
 #import "BYFeedbackVC.h"
 #import "BYAboutVC.h"
+#import <SDImageCache.h>
 
 #import "BYAppService.h"
 
@@ -173,26 +174,25 @@
                  sel:@selector(onRemoveCache)];
     
     cacheLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH / 2 , 0, SCREEN_WIDTH / 2 - 24 , 40)];
-    cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
+//    cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
+    NSUInteger cacheSize = 0;
+    cacheSize += [SDImageCache sharedImageCache].getSize;
+//    NSLog(@"%lu",(unsigned long)cacheSize);
+    if (cacheSize != 0) {
+        cacheSize += [NSURLCache sharedURLCache].currentDiskUsage;
+    }
+//    NSLog(@"%lu",(unsigned long)cacheSize);
+    cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)cacheSize / (1024 * 1024)];
     cacheLabel.font = [UIFont systemFontOfSize:12];
     cacheLabel.textColor = HEXCOLOR(0x666666);
     cacheLabel.textAlignment = NSTextAlignmentRight;
     
     [cacheCell addSubview:cacheLabel];
-
-//    _logoutCell = [[BYBaseCell alloc] initWithFrame:BYRectMake(12, 0, SCREEN_WIDTH - 12 * 2, 44)];
-//    _logoutCell.normalBg = [[UIImage imageNamed:@"btn_red"] resizableImage];
-//    _logoutCell.highlightBg = [[UIImage imageNamed:@"btn_red_on"] resizableImage];
-//    [_logoutCell bk_addEventHandler:^(id sender) {
-//        [[BYAppCenter sharedAppCenter] logout];
-//        [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
-//    } forControlEvents:UIControlEventTouchUpInside];
-//    _logoutCell.bottom = self.view.bottom - 20;
-//    
-//    UILabel* label = [UILabel labelWithFrame:BYRectMake(0, 0, _logoutCell.width, 44) font:Font(16) andTextColor:BYColorWhite];
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.text = @"退出登录";
-//    [_logoutCell addSubview:label];
+    NSArray *paths1=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory
+                                                        , NSUserDomainMask
+                                                        , YES);
+    
+    
     
     _loginButton = [BYAutosizeBgButton buttonWithType:UIButtonTypeCustom];
     _loginButton.frame = CGRectMake(12, 0, SCREEN_WIDTH - 12 * 2, 40);
@@ -212,6 +212,32 @@
     
 //    [self.bodyView by_addSubview:_logoutCell paddingTop:32 paddingBottom:30];
 }
+
+//+(float)folderSizeAtPath:(NSString *)path{
+//    NSFileManager *fileManager=[NSFileManager defaultManager];
+//    float folderSize = 0.0;
+//    if ([fileManager fileExistsAtPath:path]) {
+//        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+//        for (NSString *fileName in childerFiles) {
+//            
+//            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+//            float size = [BYSettingVC fileSizeAtPath:absolutePath];
+//            folderSize += size;
+//            NSLog(@"%f,%@",size,fileName);
+//        }
+//        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
+//        return folderSize;
+//    }
+//    return 0;
+//}
+//+(float)fileSizeAtPath:(NSString *)path{
+//    NSFileManager *fileManager=[NSFileManager defaultManager];
+//    if([fileManager fileExistsAtPath:path]){
+//        long long size=[fileManager attributesOfItemAtPath:path error:nil].fileSize;
+//        return size/1024.0/1024.0;
+//    }
+//    return 0;
+//}
 - (void)onlogout
 {
     UIAlertView * alert = [UIAlertView bk_alertViewWithTitle:@"您确定要退出吗？" message:@""];
@@ -252,9 +278,20 @@
 
 - (void)onRemoveCache
 {
-    [[TMCache sharedCache] removeAllObjects:^(TMCache* cache) {
+//    [[TMCache sharedCache] removeAllObjects:^(TMCache* cache) {
+//        runOnMainQueue(^{
+//            cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
+//            [MBProgressHUD topShowTmpMessage:@"清除完成"];
+//        });
+//    }];
+    [MBProgressHUD topShow:@"清除中..."];
+    NSURLCache * cache = [NSURLCache sharedURLCache];
+    [cache removeAllCachedResponses];
+    [cache setDiskCapacity:0];
+    [cache setMemoryCapacity:0];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         runOnMainQueue(^{
-            cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", (float)[TMCache sharedCache].diskByteCount / (1024 * 1024)];
+            cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", 0.0];
             [MBProgressHUD topShowTmpMessage:@"清除完成"];
         });
     }];

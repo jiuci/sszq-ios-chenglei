@@ -35,6 +35,7 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - EaseMobSDK (2.2.0.1)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
@@ -50,6 +51,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.5.2)
   - BlocksKit (~> 2.2.5)
+  - EaseMobSDK (from `https://github.com/easemob/sdk-ios-cocoapods.git`)
   - Mantle (~> 1.5)
   - Masonry (~> 0.5.3)
   - MBProgressHUD (~> 0.9)
@@ -58,9 +60,19 @@ DEPENDENCIES:
   - TPKeyboardAvoiding (~> 1.2.6)
   - TTTAttributedLabel (~> 1.10.1)
 
+EXTERNAL SOURCES:
+  EaseMobSDK:
+    :git: https://github.com/easemob/sdk-ios-cocoapods.git
+
+CHECKOUT OPTIONS:
+  EaseMobSDK:
+    :commit: d7476b878044564357f47bb95279019f20448e19
+    :git: https://github.com/easemob/sdk-ios-cocoapods.git
+
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  EaseMobSDK: dd9f205c4ff5e202ca4ece9e470f3cb4b1901c55
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   Masonry: 9f515466afe48632562342a40a1c224071a1a022
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
@@ -69,4 +81,4 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: ee4dd35e3bb7bb64bfbda47e7cc9ba872ff10f77
   TTTAttributedLabel: c8f3801a6463b9c9b82b0c84c465fdda9751892a
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.38.2

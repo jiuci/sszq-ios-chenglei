@@ -297,6 +297,7 @@
 		FE14D68719AC2289006B0E48 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE14D68619AC2289006B0E48 /* UIKit.framework */; };
 		FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE14D68B19AC2289006B0E48 /* InfoPlist.strings */; };
 		FE14D68F19AC2289006B0E48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE14D68E19AC2289006B0E48 /* main.m */; };
+		FE4F77221BB9207A00F91692 /* BYIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F77211BB9207A00F91692 /* BYIMViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FE5DA8121A11B4D000A58F22 /* BYTbVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8111A11B4D000A58F22 /* BYTbVC.m */; };
 		FE5DA8181A11B91500A58F22 /* UITableViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8171A11B91500A58F22 /* UITableViewExtension.m */; };
 		FE70C5701BA2BDAE00718B51 /* BYThemeEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C56F1BA2BDAE00718B51 /* BYThemeEngine.m */; };
@@ -874,6 +875,8 @@
 		FE14D6A419AC2289006B0E48 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		FE14D6AC19AC2289006B0E48 /* IBYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IBYTests-Info.plist"; sourceTree = "<group>"; };
 		FE14D6AE19AC2289006B0E48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FE4F77201BB9207A00F91692 /* BYIMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYIMViewController.h; sourceTree = "<group>"; };
+		FE4F77211BB9207A00F91692 /* BYIMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYIMViewController.m; sourceTree = "<group>"; };
 		FE5DA8101A11B4D000A58F22 /* BYTbVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYTbVC.h; sourceTree = "<group>"; };
 		FE5DA8111A11B4D000A58F22 /* BYTbVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTbVC.m; sourceTree = "<group>"; };
 		FE5DA8161A11B91500A58F22 /* UITableViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewExtension.h; sourceTree = "<group>"; };
@@ -2186,6 +2189,7 @@
 		FE14D6C219AC333E006B0E48 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				FE4F771F1BB9200B00F91692 /* Instantmessaging */,
 				FE70C56A1BA1815B00718B51 /* theme */,
 				F4DB83351B6605910083F9B4 /* mine */,
 				F4E0075D1B0F08E100438FD5 /* forgetpassword */,
@@ -2200,6 +2204,15 @@
 				F4AE74831A26F9DB005ED6A9 /* pay */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		FE4F771F1BB9200B00F91692 /* Instantmessaging */ = {
+			isa = PBXGroup;
+			children = (
+				FE4F77201BB9207A00F91692 /* BYIMViewController.h */,
+				FE4F77211BB9207A00F91692 /* BYIMViewController.m */,
+			);
+			name = Instantmessaging;
 			sourceTree = "<group>";
 		};
 		FE70C56A1BA1815B00718B51 /* theme */ = {
@@ -2577,6 +2590,7 @@
 				F489E43119FF6F83003C6567 /* NSNumberAdditions.m in Sources */,
 				CC771F8D19CAE06000E11BAE /* BYDesignService.m in Sources */,
 				F48C94F61A174BBA009C10A1 /* NSDictionaryExtensions.m in Sources */,
+				FE4F77221BB9207A00F91692 /* BYIMViewController.m in Sources */,
 				F4CDB3781A320C600053AED0 /* BYLinearItem.m in Sources */,
 				CC957E1519C0B28F000700DE /* UIBarButtonItem+Extension.m in Sources */,
 				F4505E4919F0F65100A12AD2 /* BYCartService.m in Sources */,
@@ -2825,6 +2839,7 @@
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/EaseMobSDK/lib",
 				);
 				PRODUCT_NAME = "必要";
 				PROVISIONING_PROFILE = "";
@@ -2901,6 +2916,7 @@
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/EaseMobSDK/lib",
 				);
 				PRODUCT_NAME = "必要";
 				PROVISIONING_PROFILE = "";
@@ -3027,6 +3043,7 @@
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/EaseMobSDK/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "必要";
@@ -3071,6 +3088,7 @@
 					"$(PROJECT_DIR)/IBY/ThirdParty/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/IBY/ThirdParty/libWeiboSDK",
 					"$(PROJECT_DIR)/IBY/ThirdParty/opencv",
+					"$(PROJECT_DIR)/IBY/ThirdParty/EaseMobSDK/lib",
 				);
 				PRODUCT_NAME = "必要";
 				PROVISIONING_PROFILE = "";

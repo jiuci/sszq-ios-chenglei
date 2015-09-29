@@ -13,6 +13,7 @@
 #import "CommonFunc.h"
 
 #import "Reachability.h"
+#import <EaseMobSDK/EaseMob.h>
 
 #define CACHE_EXPIRED_TIME (60 * 1 * 1)
 #define SECONDS_PER_HOUR (60 * 60 * 1)
@@ -170,6 +171,8 @@ NSString* const BYAppSessionInvalidNotification = @"com.biyao.app.sessionInvalid
 {
     _user = nil;
     resetCookies();
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+    } onQueue:nil];
 //    inputCookies();
     [[NSNotificationCenter defaultCenter] postNotificationName:BYAppLogoutNotification object:nil];
 

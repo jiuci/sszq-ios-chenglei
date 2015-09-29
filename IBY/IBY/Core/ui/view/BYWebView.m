@@ -20,7 +20,7 @@
 
 #import "WXApi.h"
 #import "WXApiObject.h"
-
+#import "BYIMViewController.h"
 #import "BYCaptureController.h"
 
 @interface BYWebView ()
@@ -117,6 +117,11 @@
         }break;
         case BYH5TypeBlankGoback:{
             [[BYCommonWebVC sharedCommonWebVC].navigationController popViewControllerAnimated:NO];
+            
+        }break;
+        case BYH5TypeIM:{
+            BYNavVC* nav = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeNav;
+            [nav pushViewController:[[BYIMViewController alloc] init] animated:YES];
             
         }break;
         default:

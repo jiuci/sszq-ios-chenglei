@@ -353,6 +353,7 @@
     if (_isEditMode) {
         [_footer setWillBeDefault:_address.isdefault];
     }else{
+        _address.isdefault = YES;
         [_footer setWillBeDefault:YES];
     }
     

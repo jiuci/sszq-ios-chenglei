@@ -31,6 +31,10 @@
 
 #import <BaiduMapAPI/BMapKit.h>
 
+
+#import <EaseMobSDK/EaseMob.h>
+
+
 @interface BYAppDelegate () <WXApiDelegate, WeiboSDKDelegate,TencentSessionDelegate>
 
 @property (nonatomic, strong) BYWelcomeVC* welcomeVC;
@@ -41,14 +45,14 @@
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
-    _window = [[iConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    _window = [[iConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //支持摇一摇
     
     
-    application.applicationSupportsShakeToEdit = YES;
+//    application.applicationSupportsShakeToEdit = YES;
 
-//    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     [[BYAppCenter sharedAppCenter] setupConfiguration];
     [[BYAppCenter sharedAppCenter] doUpgradeIfNeeded];
@@ -92,6 +96,11 @@
                                                (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
     }
     [BYMonitorService startMonitoring];
+    
+    
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"zhaohua#im" apnsCertName:nil];
+    [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
     CLLocationManager* location = [CLLocationManager new];
     if ([location respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [location requestWhenInUseAuthorization];
@@ -165,7 +174,7 @@
 {
     
     [BYAnalysis logEvent:@"App通用事件" action:@"进入后台" desc:nil];
-    
+    [[EaseMob sharedInstance] applicationDidEnterBackground:application];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -175,6 +184,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
     [[BYAppCenter sharedAppCenter] didActive];
+    [[EaseMob sharedInstance] applicationWillEnterForeground:application];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     
 }
@@ -194,6 +204,7 @@
 
 - (void)applicationWillTerminate:(UIApplication*)application
 {
+    [[EaseMob sharedInstance] applicationWillTerminate:application];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

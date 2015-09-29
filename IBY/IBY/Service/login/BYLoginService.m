@@ -65,7 +65,7 @@
 
 - (void)loginWithWXcode:(NSString*)code finish:(void (^)(BYUser* user, BYError* error))finished
 {
-    NSLog( @"wx授权完成 %@",code);
+//    NSLog( @"wx授权完成 %@",code);
     NSString* dzvisit = loadCookies(@"DZVISIT", @".biyao.com");
     [BYPassportEngine loginWithWXcode:code finish:^(BYUser *user, BYError *error) {
         if (user&&!error) {
