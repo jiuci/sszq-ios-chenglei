@@ -297,13 +297,16 @@
 		FE14D68719AC2289006B0E48 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE14D68619AC2289006B0E48 /* UIKit.framework */; };
 		FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE14D68B19AC2289006B0E48 /* InfoPlist.strings */; };
 		FE14D68F19AC2289006B0E48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE14D68E19AC2289006B0E48 /* main.m */; };
-		FE4F77221BB9207A00F91692 /* BYIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F77211BB9207A00F91692 /* BYIMViewController.m */; settings = {ASSET_TAGS = (); }; };
+		FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */; settings = {ASSET_TAGS = (); }; };
+		FE4F77301BBA8D8E00F91692 /* BYIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */; settings = {ASSET_TAGS = (); }; };
+		FE4F77311BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772F1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m */; settings = {ASSET_TAGS = (); }; };
+		FE4F77371BBA8DF400F91692 /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F77341BBA8DF400F91692 /* Emoji.m */; settings = {ASSET_TAGS = (); }; };
+		FE4F77381BBA8DF400F91692 /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F77361BBA8DF400F91692 /* EmojiEmoticons.m */; settings = {ASSET_TAGS = (); }; };
 		FE5DA8121A11B4D000A58F22 /* BYTbVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8111A11B4D000A58F22 /* BYTbVC.m */; };
 		FE5DA8181A11B91500A58F22 /* UITableViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5DA8171A11B91500A58F22 /* UITableViewExtension.m */; };
 		FE70C5701BA2BDAE00718B51 /* BYThemeEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C56F1BA2BDAE00718B51 /* BYThemeEngine.m */; };
 		FE70C5741BA2C0F900718B51 /* BYThemeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C5731BA2C0F900718B51 /* BYThemeInfo.m */; };
 		FE70C5781BA2C3F400718B51 /* BYThemeService.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C5771BA2C3F400718B51 /* BYThemeService.m */; };
-		FE70C57B1BA2C61700718B51 /* BYThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C57A1BA2C61700718B51 /* BYThemeVC.m */; };
 		FE70C57E1BA6B37B00718B51 /* BYThemeFloorSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = FE70C57D1BA6B37B00718B51 /* BYThemeFloorSimple.m */; };
 		FEC829A519AC8FC800D5D70D /* BYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829A419AC8FC800D5D70D /* BYUser.m */; };
 		FEC829BA19AC948200D5D70D /* BYBaseDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC829AF19AC948200D5D70D /* BYBaseDAO.m */; };
@@ -875,8 +878,16 @@
 		FE14D6A419AC2289006B0E48 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		FE14D6AC19AC2289006B0E48 /* IBYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IBYTests-Info.plist"; sourceTree = "<group>"; };
 		FE14D6AE19AC2289006B0E48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FE4F77201BB9207A00F91692 /* BYIMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYIMViewController.h; sourceTree = "<group>"; };
-		FE4F77211BB9207A00F91692 /* BYIMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYIMViewController.m; sourceTree = "<group>"; };
+		FE4F77291BBA8D7700F91692 /* BYThemeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYThemeVC.h; path = theme/BYThemeVC.h; sourceTree = "<group>"; };
+		FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYThemeVC.m; path = theme/BYThemeVC.m; sourceTree = "<group>"; };
+		FE4F772C1BBA8D8E00F91692 /* BYIMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYIMViewController.h; path = Instantmessaging/BYIMViewController.h; sourceTree = "<group>"; };
+		FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYIMViewController.m; path = Instantmessaging/BYIMViewController.m; sourceTree = "<group>"; };
+		FE4F772E1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvertToCommonEmoticonsHelper.h; path = Instantmessaging/ConvertToCommonEmoticonsHelper.h; sourceTree = "<group>"; };
+		FE4F772F1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvertToCommonEmoticonsHelper.m; path = Instantmessaging/ConvertToCommonEmoticonsHelper.m; sourceTree = "<group>"; };
+		FE4F77331BBA8DF400F91692 /* Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emoji.h; sourceTree = "<group>"; };
+		FE4F77341BBA8DF400F91692 /* Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emoji.m; sourceTree = "<group>"; };
+		FE4F77351BBA8DF400F91692 /* EmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiEmoticons.h; sourceTree = "<group>"; };
+		FE4F77361BBA8DF400F91692 /* EmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiEmoticons.m; sourceTree = "<group>"; };
 		FE5DA8101A11B4D000A58F22 /* BYTbVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYTbVC.h; sourceTree = "<group>"; };
 		FE5DA8111A11B4D000A58F22 /* BYTbVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYTbVC.m; sourceTree = "<group>"; };
 		FE5DA8161A11B91500A58F22 /* UITableViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewExtension.h; sourceTree = "<group>"; };
@@ -887,8 +898,6 @@
 		FE70C5731BA2C0F900718B51 /* BYThemeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeInfo.m; sourceTree = "<group>"; };
 		FE70C5761BA2C3F400718B51 /* BYThemeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeService.h; sourceTree = "<group>"; };
 		FE70C5771BA2C3F400718B51 /* BYThemeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeService.m; sourceTree = "<group>"; };
-		FE70C5791BA2C61700718B51 /* BYThemeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeVC.h; sourceTree = "<group>"; };
-		FE70C57A1BA2C61700718B51 /* BYThemeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeVC.m; sourceTree = "<group>"; };
 		FE70C57C1BA6B37B00718B51 /* BYThemeFloorSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYThemeFloorSimple.h; sourceTree = "<group>"; };
 		FE70C57D1BA6B37B00718B51 /* BYThemeFloorSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYThemeFloorSimple.m; sourceTree = "<group>"; };
 		FEC829A319AC8FC800D5D70D /* BYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYUser.h; sourceTree = "<group>"; };
@@ -2167,6 +2176,7 @@
 		FE14D6C119AC333E006B0E48 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				FE4F77321BBA8DF400F91692 /* Emoji */,
 				FED3801C1B8DD08000A02FEF /* NJKWebViewProgress */,
 				F4F20BFD1B84949800E8D355 /* SDCycleScrollView */,
 				F490E3B11B06F7FD00752223 /* opencv */,
@@ -2209,17 +2219,30 @@
 		FE4F771F1BB9200B00F91692 /* Instantmessaging */ = {
 			isa = PBXGroup;
 			children = (
-				FE4F77201BB9207A00F91692 /* BYIMViewController.h */,
-				FE4F77211BB9207A00F91692 /* BYIMViewController.m */,
+				FE4F772C1BBA8D8E00F91692 /* BYIMViewController.h */,
+				FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */,
+				FE4F772E1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.h */,
+				FE4F772F1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m */,
 			);
 			name = Instantmessaging;
+			sourceTree = "<group>";
+		};
+		FE4F77321BBA8DF400F91692 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				FE4F77331BBA8DF400F91692 /* Emoji.h */,
+				FE4F77341BBA8DF400F91692 /* Emoji.m */,
+				FE4F77351BBA8DF400F91692 /* EmojiEmoticons.h */,
+				FE4F77361BBA8DF400F91692 /* EmojiEmoticons.m */,
+			);
+			path = Emoji;
 			sourceTree = "<group>";
 		};
 		FE70C56A1BA1815B00718B51 /* theme */ = {
 			isa = PBXGroup;
 			children = (
-				FE70C5791BA2C61700718B51 /* BYThemeVC.h */,
-				FE70C57A1BA2C61700718B51 /* BYThemeVC.m */,
+				FE4F77291BBA8D7700F91692 /* BYThemeVC.h */,
+				FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */,
 			);
 			name = theme;
 			sourceTree = "<group>";
@@ -2510,8 +2533,8 @@
 				CC3D2E1919BFF8B1000E0E14 /* MJMethod.m in Sources */,
 				F4FCC8F21A51E43500C89C1F /* BYDelivery.m in Sources */,
 				F4E8A5CC1B8310D4007261B3 /* BYHomeService.m in Sources */,
-				FE70C57B1BA2C61700718B51 /* BYThemeVC.m in Sources */,
 				F4DB833F1B6605910083F9B4 /* BYMineVC.m in Sources */,
+				FE4F77371BBA8DF400F91692 /* Emoji.m in Sources */,
 				F4E6858F19EE8F6B00237412 /* GTMStackTrace.m in Sources */,
 				F4DB02D91B68AEB1009DAB6F /* BYAddressSelectCell.m in Sources */,
 				CC771FA219CB3AC900E11BAE /* FMDatabase.m in Sources */,
@@ -2590,7 +2613,6 @@
 				F489E43119FF6F83003C6567 /* NSNumberAdditions.m in Sources */,
 				CC771F8D19CAE06000E11BAE /* BYDesignService.m in Sources */,
 				F48C94F61A174BBA009C10A1 /* NSDictionaryExtensions.m in Sources */,
-				FE4F77221BB9207A00F91692 /* BYIMViewController.m in Sources */,
 				F4CDB3781A320C600053AED0 /* BYLinearItem.m in Sources */,
 				CC957E1519C0B28F000700DE /* UIBarButtonItem+Extension.m in Sources */,
 				F4505E4919F0F65100A12AD2 /* BYCartService.m in Sources */,
@@ -2630,6 +2652,7 @@
 				F471CCC319F89D78000A85A2 /* BYBaseWebVC.m in Sources */,
 				F4DB02BE1B68AB8A009DAB6F /* BYAddressCell.m in Sources */,
 				F4CE62631A75B5F70072B866 /* ZLPanGestureRecognizer.m in Sources */,
+				FE4F77311BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				FEC829BA19AC948200D5D70D /* BYBaseDAO.m in Sources */,
 				F467DAA81A36F39200355515 /* BYCollectionViewCell.m in Sources */,
 				F4888A2E1A6D114A0056427E /* SAKPipeWeixinFriends.m in Sources */,
@@ -2680,6 +2703,7 @@
 				F4888A2B1A6D114A0056427E /* SAKPipeSinaWeibo.m in Sources */,
 				F47E6FA81A11FDD300304F46 /* BYMerchantService.m in Sources */,
 				CC771FA419CB3AC900E11BAE /* FMDatabasePool.m in Sources */,
+				FE4F77301BBA8D8E00F91692 /* BYIMViewController.m in Sources */,
 				F4AE74901A271564005ED6A9 /* BYPayService.m in Sources */,
 				F4D134601AF857F400B7164D /* BYGlassSampleView.m in Sources */,
 				FE70C5701BA2BDAE00718B51 /* BYThemeEngine.m in Sources */,
@@ -2693,6 +2717,7 @@
 				F480DFCB19FE18B300301542 /* BYAppService.m in Sources */,
 				F4F20C151B84949800E8D355 /* SDCycleScrollView.m in Sources */,
 				F4505E5719F1170D00A12AD2 /* BYMerchant.m in Sources */,
+				FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */,
 				F4DA5DDD1B7359BB004A8377 /* BYAddressEngine.m in Sources */,
 				FEC829BC19AC948200D5D70D /* BYBaseEngine.m in Sources */,
 				F426180F1A2C59E30076B273 /* NSData+base64.m in Sources */,
@@ -2731,6 +2756,7 @@
 				F4841A891A909A5000F972FE /* BYPushCenter.m in Sources */,
 				F4888A261A6D114A0056427E /* SAKPipeBase.m in Sources */,
 				CC3D2E1C19BFF8B1000E0E14 /* NSObject+MJCoding.m in Sources */,
+				FE4F77381BBA8DF400F91692 /* EmojiEmoticons.m in Sources */,
 				F4CDB3671A307FFF0053AED0 /* BYPopMenu.m in Sources */,
 				F4CDB3791A320C600053AED0 /* BYLinearScrollView.m in Sources */,
 				F46F93851A0B24AC0088C100 /* BYMaterial.m in Sources */,
