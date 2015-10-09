@@ -353,7 +353,7 @@
         [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
-                                   [self.navigationController pushViewController:[[BYIMViewController alloc]init] animated:YES];
+                                   [wself.navigationController pushViewController:[[BYIMViewController alloc]init] animated:YES];
                                    
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
                                    [wself.mutiSwitch setSelectedAtIndex:0];

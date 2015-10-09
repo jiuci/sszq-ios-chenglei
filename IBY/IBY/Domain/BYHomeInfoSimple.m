@@ -20,5 +20,8 @@
     }
     return YES;
 }
-
+-(int)categoryID
+{
+    return 0;
+}
 @end

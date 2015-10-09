@@ -249,7 +249,7 @@
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
     
-    NSLog(@"fail!!!－%@", error);
+//    NSLog(@"fail!!!－%@", error);
 }
 
 #pragma mark -share

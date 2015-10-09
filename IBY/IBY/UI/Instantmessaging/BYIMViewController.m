@@ -90,14 +90,20 @@
     _inputTextField = [[UITextField alloc]initWithFrame:CGRectMake(30, 10,SCREEN_WIDTH - 120,60)];
     _inputTextField.backgroundColor = BYColorWhite;
     [_inputArea addSubview:_inputTextField];
+    _inputTextField.returnKeyType = UIReturnKeySend;
+    __weak typeof (self) wself = self;
+    [_inputTextField setBk_shouldReturnBlock:^BOOL(UITextField * textfield){
+        [wself sendMessage];
+        return YES;
+    }];
     
-    UIButton * send = [UIButton buttonWithType:UIButtonTypeCustom];
-    send.frame = CGRectMake(_inputTextField.right + 10, 10, 60, 60);
-    [_inputArea addSubview:send];
-    send.backgroundColor = BYColor333;
-    send.titleLabel.text = @"send";
+    UIButton * emoji = [UIButton buttonWithType:UIButtonTypeCustom];
+    emoji.frame = CGRectMake(_inputTextField.right + 10, 10, 60, 60);
+    [_inputArea addSubview:emoji];
+    emoji.backgroundColor = BYColor333;
+    emoji.titleLabel.text = @"emoji";
     
-    [send addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    [emoji addTarget:self action:@selector(sendEmoji) forControlEvents:UIControlEventTouchUpInside];
     
     _textTable = [[UITableView alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20 , SCREEN_HEIGHT - 44 - 20 - 10 - 80)];
     _textTable.delegate = self;
@@ -147,6 +153,11 @@
         NSIndexPath * index = [NSIndexPath indexPathForRow:_talkInfo.count - 1 inSection:0];
         [_textTable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }
+    
+}
+
+- (void)sendEmoji
+{
     
 }
 

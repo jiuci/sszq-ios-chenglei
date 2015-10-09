@@ -8,10 +8,26 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright @2014 必要科技 All rights reserved</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>mqq</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqqapi</string>
+		<string>weibosdk2.5</string>
+		<string>weibosdk</string>
+		<string>sinaweibo</string>
+		<string>sinaweibohd</string>
+		<string>alipay</string>
+		<string>cydia</string>
+		<string>safepay</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleVersion</key>
-	<string>2.1.7</string>
+	<string>2.1.8</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -31,7 +47,12 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.7</string>
+	<string>2.1.8</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -100,34 +121,13 @@
 	<string>????</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>weixin</string>
-		<string>wechat</string>
-		<string>mqq</string>
-		<string>mqqopensdkapiV2</string>
-		<string>mqqOpensdkSSoLogin</string>
-		<string>mqqapi</string>
-		<string>weibosdk2.5</string>
-		<string>weibosdk</string>
-		<string>sinaweibo</string>
-		<string>sinaweibohd</string>
-		<string>alipay</string>
-		<string>cydia</string>
-		<string>safepay</string>
-	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 </dict>
 </plist>

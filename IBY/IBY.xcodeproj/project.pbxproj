@@ -297,6 +297,8 @@
 		FE14D68719AC2289006B0E48 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE14D68619AC2289006B0E48 /* UIKit.framework */; };
 		FE14D68D19AC2289006B0E48 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE14D68B19AC2289006B0E48 /* InfoPlist.strings */; };
 		FE14D68F19AC2289006B0E48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE14D68E19AC2289006B0E48 /* main.m */; };
+		FE3A9A5E1BC76DA4008835C1 /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9A5B1BC76DA4008835C1 /* DXFaceView.m */; settings = {ASSET_TAGS = (); }; };
+		FE3A9A5F1BC76DA4008835C1 /* FacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9A5D1BC76DA4008835C1 /* FacialView.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F77301BBA8D8E00F91692 /* BYIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F77311BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772F1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m */; settings = {ASSET_TAGS = (); }; };
@@ -878,6 +880,10 @@
 		FE14D6A419AC2289006B0E48 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		FE14D6AC19AC2289006B0E48 /* IBYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IBYTests-Info.plist"; sourceTree = "<group>"; };
 		FE14D6AE19AC2289006B0E48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FE3A9A5A1BC76DA4008835C1 /* DXFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXFaceView.h; sourceTree = "<group>"; };
+		FE3A9A5B1BC76DA4008835C1 /* DXFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXFaceView.m; sourceTree = "<group>"; };
+		FE3A9A5C1BC76DA4008835C1 /* FacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacialView.h; sourceTree = "<group>"; };
+		FE3A9A5D1BC76DA4008835C1 /* FacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacialView.m; sourceTree = "<group>"; };
 		FE4F77291BBA8D7700F91692 /* BYThemeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYThemeVC.h; path = theme/BYThemeVC.h; sourceTree = "<group>"; };
 		FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYThemeVC.m; path = theme/BYThemeVC.m; sourceTree = "<group>"; };
 		FE4F772C1BBA8D8E00F91692 /* BYIMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYIMViewController.h; path = Instantmessaging/BYIMViewController.h; sourceTree = "<group>"; };
@@ -2216,9 +2222,22 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		FE3A9A591BC76DA4008835C1 /* FaceView */ = {
+			isa = PBXGroup;
+			children = (
+				FE3A9A5A1BC76DA4008835C1 /* DXFaceView.h */,
+				FE3A9A5B1BC76DA4008835C1 /* DXFaceView.m */,
+				FE3A9A5C1BC76DA4008835C1 /* FacialView.h */,
+				FE3A9A5D1BC76DA4008835C1 /* FacialView.m */,
+			);
+			name = FaceView;
+			path = Instantmessaging/FaceView;
+			sourceTree = "<group>";
+		};
 		FE4F771F1BB9200B00F91692 /* Instantmessaging */ = {
 			isa = PBXGroup;
 			children = (
+				FE3A9A591BC76DA4008835C1 /* FaceView */,
 				FE4F772C1BBA8D8E00F91692 /* BYIMViewController.h */,
 				FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */,
 				FE4F772E1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.h */,
@@ -2544,6 +2563,7 @@
 				F4F20BF81B8416FD00E8D355 /* BYHomeInfo.m in Sources */,
 				F44EC7651A71E51C00C2AFF6 /* BYAnalysis.m in Sources */,
 				F4C77D131A2DA969005EADA0 /* UIImageExtend.m in Sources */,
+				FE3A9A5F1BC76DA4008835C1 /* FacialView.m in Sources */,
 				F4E6B65C1AAFED3E0022EA66 /* BYAddBookUnit.m in Sources */,
 				F4DEC3471B33C0F2003B9730 /* BYForgetPasswordService.m in Sources */,
 				F4D1345E1AF857F400B7164D /* BYGlassPageVC.m in Sources */,
@@ -2673,6 +2693,7 @@
 				F4D134841AF85C3100B7164D /* RtBioRuler.mm in Sources */,
 				F4E007591B0F07F800438FD5 /* BYRegist2VC.m in Sources */,
 				F4E6858B19EE8F1200237412 /* iConsole.m in Sources */,
+				FE3A9A5E1BC76DA4008835C1 /* DXFaceView.m in Sources */,
 				F48D0E5A1AE8AA110080DA22 /* BYAboutVC.m in Sources */,
 				F4888A361A6DB4EE0056427E /* BYShareConfig.m in Sources */,
 				F4F20BFC1B84183900E8D355 /* BYHomeInfoSimple.m in Sources */,
