@@ -11,7 +11,7 @@
   */
 
 #import "MessageModel.h"
-
+#import "BYAppCenter.h"
 @implementation MessageModel
 
 - (instancetype)init
@@ -40,4 +40,12 @@
     return _message.deliveryState;
 }
 
+- (NSURL *)headImageURL
+{
+    if (self.isSender) {
+        NSURL * url = [NSURL URLWithString:[BYAppCenter sharedAppCenter].user.avatar];
+        return url;
+    }
+    return _headImageURL;
+}
 @end

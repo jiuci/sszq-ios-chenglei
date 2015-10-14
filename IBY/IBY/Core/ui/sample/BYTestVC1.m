@@ -34,7 +34,8 @@
         return;
     }
     NSDictionary *params;
-    if ([txt1.text rangeOfString:@"http://"].length == 0) {
+    if ([txt1.text rangeOfString:@"http://"].length == 0 &&
+        [txt1.text rangeOfString:@"https://"].length == 0) {
         params = @{
                    @"JumpURL":[NSString stringWithFormat:@"http://%@",txt1.text]
                    };

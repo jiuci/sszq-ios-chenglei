@@ -333,7 +333,7 @@
         return NO;
     }
     _currentUrl = requestString;
-   [self setProgress:.1];
+   [self setProgress:.0];
     return YES;
 }
 

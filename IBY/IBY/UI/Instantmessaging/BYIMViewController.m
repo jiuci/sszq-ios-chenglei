@@ -15,8 +15,12 @@
 #import "MessageModelManager.h"
 #import "NSDate+Category.h"
 #import "MessageReadManager.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "MJRefresh.h"
+#define KPageCount 20
+//#import "ChatSendHelper.m"
 
-@interface BYIMViewController ()<UITableViewDataSource,UITableViewDelegate,IEMChatProgressDelegate,EMChatManagerChatDelegate,EMChatManagerDelegate,EMCallManagerDelegate>
+@interface BYIMViewController ()<UITableViewDataSource,UITableViewDelegate,IEMChatProgressDelegate,EMChatManagerChatDelegate,EMChatManagerDelegate,EMCallManagerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic)UIScrollView * bodyView;
 @property (nonatomic)UITableView * textTable;
 @property (nonatomic)UITextField * inputTextField;
@@ -27,6 +31,7 @@
 @property (nonatomic)NSDate * chatTagDate;
 @property (nonatomic) NSMutableArray *messages;
 @property (nonatomic) BOOL needScrollToEnd;
+@property (strong, nonatomic) UIImagePickerController *imagePicker;
 @property (strong, nonatomic) MessageReadManager *messageReadManager;
 @property (strong, nonatomic) EMConversation *conversation;
 
@@ -104,25 +109,37 @@
     
     return _messageReadManager;
 }
-
+- (UIImagePickerController *)imagePicker
+{
+    if (_imagePicker == nil) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.modalPresentationStyle= UIModalPresentationOverFullScreen;
+        _imagePicker.delegate = self;
+    }
+    
+    return _imagePicker;
+}
 - (void)setupUI
 {
-    float inputAreaHeight = 44;
+    float inputAreaHeight = 60;
+    float offset = 8;
     _inputArea = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 20 - 44 - inputAreaHeight, SCREEN_WIDTH, inputAreaHeight)];
+    UIImageView * inputAreaBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _inputArea.width, _inputArea.height)];
+    [_inputArea addSubview:inputAreaBg];
+    
+    inputAreaBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
+    
     [self.view addSubview:_inputArea];
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
-    [_inputArea addSubview:line];
-    line.backgroundColor = [UIColor grayColor];
     
-    UIImageView * inputBg = [[UIImageView alloc]initWithFrame:CGRectMake(41, (inputAreaHeight - 32) / 2, SCREEN_WIDTH - 41 -10, 32)];
+    UIImageView * inputBg = [[UIImageView alloc]initWithFrame:CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, inputAreaHeight - offset * 2)];
     [_inputArea addSubview:inputBg];
     inputBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
     
     
-    _inputTextField = [[UITextField alloc]initWithFrame:CGRectMake(41 + 5, (inputAreaHeight - 32) / 2, inputBg.width - 10 ,32)];
+    _inputTextField = [[UITextField alloc]initWithFrame:CGRectMake(55 + 8, offset, inputBg.width - 10 ,inputAreaHeight - offset * 2)];
 //    _inputTextField.backgroundColor = BYColorWhite;
-    _inputTextField.font = Font(14);
+    _inputTextField.font = Font(18);
     _inputTextField.placeholder = @"输入聊天内容";
     [_inputArea addSubview:_inputTextField];
     _inputTextField.returnKeyType = UIReturnKeySend;
@@ -134,7 +151,7 @@
     }];
     
     UIButton * picture = [UIButton buttonWithType:UIButtonTypeCustom];
-    picture.frame = CGRectMake(12 , (inputAreaHeight - 18)/2, 18, 18);
+    picture.frame = CGRectMake(13 , (inputAreaHeight - 28)/2, 28, 28);
     [_inputArea addSubview:picture];
 //    picture.backgroundColor = [UIColor blackColor];
 //    [picture setBackgroundImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>]
@@ -154,7 +171,8 @@
     _textTable.dataSource = self;
     _textTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_textTable];
-    self.view.backgroundColor = BYColorBG;
+    [self.textTable addHeaderWithTarget:self action:@selector(headerRereshing)];
+    _textTable.backgroundColor = BYColorBG;
     
     _dataSource = [NSMutableArray array];
     _messages = [NSMutableArray array];
@@ -194,7 +212,10 @@
 {
     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_targetUser conversationType:eConversationTypeChat];
     _conversation = conversation;
-    _messages = [[conversation loadAllMessages] mutableCopy];
+    [_conversation markAllMessagesAsRead:YES];
+    long long timestamp = [[NSDate date] timeIntervalSince1970] * 1000 + 1;
+    [self loadMoreMessagesFrom:timestamp count:KPageCount append:NO];
+//    _messages = [[conversation loadAllMessages] mutableCopy];
     [self reloadData];
     if (_messages.count&&_needScrollToEnd) {
         NSIndexPath * index = [NSIndexPath indexPathForRow:_dataSource.count - 1 inSection:0];
@@ -205,14 +226,146 @@
     }
 }
 
+
+- (void)headerRereshing
+{
+    _chatTagDate = nil;
+    EMMessage *firstMessage = [self.messages firstObject];
+    if (firstMessage)
+    {
+        [self loadMoreMessagesFrom:firstMessage.timestamp count:KPageCount append:YES];
+    }
+    [self reloadData];
+    [self.textTable headerEndRefreshing];
+}
+
+- (void)loadMoreMessagesFrom:(long long)timestamp count:(NSInteger)count append:(BOOL)append
+{
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(_messageQueue, ^{
+        NSArray *messages = [weakSelf.conversation loadNumbersOfMessages:count before:timestamp];
+        if ([messages count] > 0) {
+            NSInteger currentCount = 0;
+            if (append)
+            {
+                [weakSelf.messages insertObjects:messages atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [messages count])]];
+                NSArray *formated = [weakSelf formatMessages:messages];
+                id model = [weakSelf.dataSource firstObject];
+                if ([model isKindOfClass:[NSString class]])
+                {
+                    NSString *timestamp = model;
+                    [formated enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id model, NSUInteger idx, BOOL *stop) {
+                        if ([model isKindOfClass:[NSString class]] && [timestamp isEqualToString:model])
+                        {
+                            [weakSelf.dataSource removeObjectAtIndex:0];
+                            *stop = YES;
+                        }
+                    }];
+                }
+                currentCount = [weakSelf.dataSource count];
+                [weakSelf.dataSource insertObjects:formated atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [formated count])]];
+                
+                EMMessage *latest = [weakSelf.messages lastObject];
+                weakSelf.chatTagDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)latest.timestamp];
+            }
+            else
+            {
+                weakSelf.messages = [messages mutableCopy];
+                weakSelf.dataSource = [[weakSelf formatMessages:messages] mutableCopy];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.textTable reloadData];
+                
+                [weakSelf.textTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            });
+            
+            //从数据库导入时重新下载没有下载成功的附件
+//            for (EMMessage *message in messages)
+//            {
+//                [weakSelf downloadMessageAttachments:message];
+//            }
+            
+            NSMutableArray *unreadMessages = [NSMutableArray array];
+            for (NSInteger i = 0; i < [messages count]; i++)
+            {
+                EMMessage *message = messages[i];
+                if ([self shouldAckMessage:message read:NO])
+                {
+                    [unreadMessages addObject:message];
+                }
+            }
+            if ([unreadMessages count])
+            {
+                [self sendHasReadResponseForMessages:unreadMessages];
+            }
+        }
+    });
+}
+
 - (void)sendEmoji
 {
     
 }
+#pragma mark - UIImagePickerControllerDelegate
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+  
+        UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
+        [picker dismissViewControllerAnimated:YES completion:^{
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isShowPicker"];
+        }];
+        [self sendImageMessage:orgImage];
+
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isShowPicker"];
+    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    
+}
+-(void)sendImageMessage:(UIImage *)image
+{
+    EMChatImage *imgChat = [[EMChatImage alloc] initWithUIImage:image displayName:@"displayName"];
+    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithChatObject:imgChat];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:_targetUser bodies:@[body]];
+    message.messageType = eMessageTypeChat; // 设置为单聊消息
+    
+    [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
+        if (error) {
+            NSLog(@"发送失败%@",error);
+        }else{
+            NSLog(@"发送成功%@",message);
+        }
+    } onQueue:nil];
+    _inputTextField.text = @"";
+    [_messages addObject:message];
+    [self reloadData];
+    NSIndexPath * index = [NSIndexPath indexPathForRow:_dataSource.count - 1 inSection:0];
+    [_textTable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionNone animated:YES];
+
+    
+}
+#pragma mark -- end
+- (void)moreViewPhotoAction
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"isShowPicker"];
+    // 隐藏键盘
+    [self.view endEditing:YES];
+    
+    // 弹出照片选择
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    [self presentViewController:self.imagePicker animated:YES completion:NULL];
+//    self.isInvisible = YES;
+}
 - (void)addPicture
 {
-    NSLog(@"addPicture");
+    [self moreViewPhotoAction];
 }
 
 - (void)sendMessage
@@ -464,7 +617,7 @@
             model.nickName = model.username;
             NSString * avatar = [BYAppCenter sharedAppCenter].user.avatar;
             if ([[avatar class] isSubclassOfClass:[NSString class]]&&avatar.length > 0) {
-                model.headImageURL = [NSURL URLWithString:[BYAppCenter sharedAppCenter].user.avatar];
+//                model.headImageURL = [NSURL URLWithString:[BYAppCenter sharedAppCenter].user.avatar];
             }else{
                 
             }

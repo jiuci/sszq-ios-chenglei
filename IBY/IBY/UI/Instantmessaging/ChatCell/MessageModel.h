@@ -11,7 +11,7 @@
   */
 
 #import <Foundation/Foundation.h>
-#import <EMChatManagerDefs.h>
+//#import <EMChatManagerDefs>
 #import <EMChatVoice.h>
 #import <EMMessage.h>
 #define KFIRETIME 20

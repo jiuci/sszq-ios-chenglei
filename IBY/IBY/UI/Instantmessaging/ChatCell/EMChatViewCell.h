@@ -18,8 +18,8 @@
 #import "EMChatVideoBubbleView.h"
 #import "EMChatLocationBubbleView.h"
 
-#define SEND_STATUS_SIZE 15 // 发送状态View的Size
-#define ACTIVTIYVIEW_BUBBLE_PADDING 10 // 菊花和bubbleView之间的间距
+#define SEND_STATUS_SIZE 18 // 发送状态View的Size
+#define ACTIVTIYVIEW_BUBBLE_PADDING 12 // 菊花和bubbleView之间的间距
 
 extern NSString *const kResendButtonTapEventName;
 extern NSString *const kShouldResendCell;

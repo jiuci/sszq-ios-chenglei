@@ -366,6 +366,8 @@
 		FE3A9B3D1BC7B1F5008835C1 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE3A9B381BC7B1F5008835C1 /* libopencore-amrwb.a */; settings = {ASSET_TAGS = (); }; };
 		FE3A9B401BC7BB4A008835C1 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B3F1BC7BB4A008835C1 /* NSDate+Category.m */; settings = {ASSET_TAGS = (); }; };
 		FE3A9B431BC7BB78008835C1 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B421BC7BB78008835C1 /* NSDateFormatter+Category.m */; settings = {ASSET_TAGS = (); }; };
+		FE3A9B691BCD0085008835C1 /* BYIMPassWordEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B681BCD0085008835C1 /* BYIMPassWordEngine.m */; settings = {ASSET_TAGS = (); }; };
+		FE3A9B6D1BCD056C008835C1 /* BYIMPassWordService.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B6C1BCD056C008835C1 /* BYIMPassWordService.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F77301BBA8D8E00F91692 /* BYIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F77311BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772F1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m */; settings = {ASSET_TAGS = (); }; };
@@ -1096,6 +1098,10 @@
 		FE3A9B3F1BC7BB4A008835C1 /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
 		FE3A9B411BC7BB78008835C1 /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
 		FE3A9B421BC7BB78008835C1 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
+		FE3A9B671BCD0085008835C1 /* BYIMPassWordEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYIMPassWordEngine.h; sourceTree = "<group>"; };
+		FE3A9B681BCD0085008835C1 /* BYIMPassWordEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYIMPassWordEngine.m; sourceTree = "<group>"; };
+		FE3A9B6B1BCD056C008835C1 /* BYIMPassWordService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYIMPassWordService.h; sourceTree = "<group>"; };
+		FE3A9B6C1BCD056C008835C1 /* BYIMPassWordService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYIMPassWordService.m; sourceTree = "<group>"; };
 		FE4F77291BBA8D7700F91692 /* BYThemeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYThemeVC.h; path = theme/BYThemeVC.h; sourceTree = "<group>"; };
 		FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYThemeVC.m; path = theme/BYThemeVC.m; sourceTree = "<group>"; };
 		FE4F772C1BBA8D8E00F91692 /* BYIMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYIMViewController.h; path = Instantmessaging/BYIMViewController.h; sourceTree = "<group>"; };
@@ -1745,6 +1751,8 @@
 				F4E8A5CE1B83116D007261B3 /* BYHomeEngine.m */,
 				FE70C56E1BA2BDAE00718B51 /* BYThemeEngine.h */,
 				FE70C56F1BA2BDAE00718B51 /* BYThemeEngine.m */,
+				FE3A9B671BCD0085008835C1 /* BYIMPassWordEngine.h */,
+				FE3A9B681BCD0085008835C1 /* BYIMPassWordEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -2373,6 +2381,7 @@
 		FE14D6C019AC333E006B0E48 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				FE3A9B6A1BCD054C008835C1 /* im */,
 				FE70C5751BA2C3D500718B51 /* theme */,
 				F4E8A5C91B83106E007261B3 /* home */,
 				F4D1346C1AF8581800B7164D /* glass */,
@@ -2719,6 +2728,15 @@
 				FE3A9B381BC7B1F5008835C1 /* libopencore-amrwb.a */,
 			);
 			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		FE3A9B6A1BCD054C008835C1 /* im */ = {
+			isa = PBXGroup;
+			children = (
+				FE3A9B6B1BCD056C008835C1 /* BYIMPassWordService.h */,
+				FE3A9B6C1BCD056C008835C1 /* BYIMPassWordService.m */,
+			);
+			name = im;
 			sourceTree = "<group>";
 		};
 		FE4F771F1BB9200B00F91692 /* Instantmessaging */ = {
@@ -3073,6 +3091,7 @@
 				F4ED1DE61AF9B7E900639322 /* BYPayUnknowVC.m in Sources */,
 				FE14D68F19AC2289006B0E48 /* main.m in Sources */,
 				FE3A9AF71BC7AE9C008835C1 /* UIView+EMWebCacheOperation.m in Sources */,
+				FE3A9B6D1BCD056C008835C1 /* BYIMPassWordService.m in Sources */,
 				CC771F8E19CAE06000E11BAE /* BYUserService.m in Sources */,
 				CC3D2E1D19BFF8B1000E0E14 /* NSObject+MJKeyValue.m in Sources */,
 				F4D1345D1AF857F400B7164D /* BYGlassLocateDistVC.m in Sources */,
@@ -3273,6 +3292,7 @@
 				FE3A9AFC1BC7AE9C008835C1 /* PSTCollectionViewData.m in Sources */,
 				F480DFCB19FE18B300301542 /* BYAppService.m in Sources */,
 				F4F20C151B84949800E8D355 /* SDCycleScrollView.m in Sources */,
+				FE3A9B691BCD0085008835C1 /* BYIMPassWordEngine.m in Sources */,
 				F4505E5719F1170D00A12AD2 /* BYMerchant.m in Sources */,
 				FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */,
 				FE3A9AF51BC7AE9C008835C1 /* UIImageView+EMHighlightedWebCache.m in Sources */,
