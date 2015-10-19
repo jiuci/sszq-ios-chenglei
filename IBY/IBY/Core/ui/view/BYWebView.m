@@ -120,8 +120,13 @@
             
         }break;
         case BYH5TypeIM:{
+            NSLog(@"%@",self.h5Params);
             BYNavVC* nav = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeNav;
-            [nav pushViewController:[[BYIMViewController alloc] init] animated:YES];
+            BYIMViewController * imVC =[[BYIMViewController alloc] init];
+            imVC.targetUser = [NSString stringWithFormat:@"supplier_%@",self.h5Params[@"sjid"]];
+            imVC.supplierName = self.h5Params[@"sjname"];
+            imVC.supplierAvatar = [self.h5Params[@"sjlogo"] URLDecodedString];
+            [nav pushViewController:imVC animated:YES];
             
         }break;
         default:

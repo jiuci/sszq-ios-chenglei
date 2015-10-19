@@ -17,6 +17,8 @@
 #import "MessageReadManager.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MJRefresh.h"
+#import "BYIMService.h"
+
 #define KPageCount 20
 //#import "ChatSendHelper.m"
 
@@ -25,7 +27,7 @@
 @property (nonatomic)UITableView * textTable;
 @property (nonatomic)UITextField * inputTextField;
 @property (nonatomic)UIView * inputArea;
-@property (nonatomic, copy)NSString * targetUser;
+
 @property (nonatomic) NSMutableArray *dataSource;
 @property (nonatomic)BOOL keyboardWasShown;
 @property (nonatomic)NSDate * chatTagDate;
@@ -96,7 +98,7 @@
         return YES;
     };
     [self setupUI];
-    [self updateUI];
+//    [self updateUI];
     
     // Do any additional setup after loading the view.
 }
@@ -123,6 +125,7 @@
 {
     float inputAreaHeight = 60;
     float offset = 8;
+    _needScrollToEnd = YES;
     _inputArea = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 20 - 44 - inputAreaHeight, SCREEN_WIDTH, inputAreaHeight)];
     UIImageView * inputAreaBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _inputArea.width, _inputArea.height)];
     [_inputArea addSubview:inputAreaBg];
@@ -181,28 +184,76 @@
 
 - (void)updateUI
 {
-    __weak typeof (self) wself = self;
-    _targetUser = @"user_16697";
-    self.title = _targetUser;
-    if (![EaseMob sharedInstance].chatManager.isLoggedIn) {
-        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"iOS1" password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
-            if (!error && loginInfo) {
-                NSLog(@"登陆成功");
-                NSLog(@"%@",loginInfo);
-                [wself loadConversation];
-            }
-        } onQueue:nil];
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
     }
-    [self loadConversation];
+    
+    __weak typeof (self) wself = self;
+    self.title = _supplierName;
+    NSString * easeMobID = [NSString stringWithFormat:@"user_%d",(unsigned int)[BYAppCenter sharedAppCenter].user.userID];
+
+    BYIMService * service = [[BYIMService alloc]init];
+    [service loadpassword:^(NSString * psw,BYError * error){
+        if (error) {
+            NSLog(@"error %@",error);
+            return;
+        }
+        if (![EaseMob sharedInstance].chatManager.isLoggedIn) {
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:easeMobID password:psw completion:^(NSDictionary *loginInfo, EMError *error) {
+                if (!error && loginInfo) {
+                    NSLog(@"登陆成功");
+                    NSLog(@"%@",loginInfo);
+                    [wself loadConversation];
+                }
+                else if ([error.description isEqualToString:@"User do not exist."]){
+                    NSLog(@"未注册");
+                    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:easeMobID password:psw withCompletion:^(NSString * userName,NSString * passWord,EMError*error){
+                    if (!error) {
+                        NSLog(@"注册成功 %@",easeMobID);
+                        [wself updateUI];
+                    }else{
+                        NSLog(@"error :%@",error);
+                    }
+                } onQueue:nil];
+                }
+                else{
+                    NSLog(@"---%@",error);
+                }
+                     
+            } onQueue:nil];
+        }else{
+            [wself loadConversation];
+        }
+    }];
+    
    
 }
 
+- (void)easeMobLogin
+{
+    
+}
+
+- (void)loginAction
+{
+    __weak typeof (self) wself = self;
+    BYLoginCancelBlock cblk = ^(){
+        [[BYLoginVC sharedLoginVC] clearData];
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+
+    [self.navigationController presentViewController:makeLoginnav(nil,cblk) animated:YES completion:nil];
+}
 
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateUI];
+    if (!_needScrollToEnd) {
+        _needScrollToEnd = YES;
+    }else{
+        [self updateUI];
+    }
 }
 
 
@@ -213,17 +264,17 @@
     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_targetUser conversationType:eConversationTypeChat];
     _conversation = conversation;
     [_conversation markAllMessagesAsRead:YES];
+    BYIMService * service = [[BYIMService alloc]init];
+    [service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
+        if (!error && status) {
+            NSLog(@"online");
+        }else{
+            [MBProgressHUD topShowTmpMessage:@"客服不在线"];
+        }
+    }];
     long long timestamp = [[NSDate date] timeIntervalSince1970] * 1000 + 1;
     [self loadMoreMessagesFrom:timestamp count:KPageCount append:NO];
-//    _messages = [[conversation loadAllMessages] mutableCopy];
-    [self reloadData];
-    if (_messages.count&&_needScrollToEnd) {
-        NSIndexPath * index = [NSIndexPath indexPathForRow:_dataSource.count - 1 inSection:0];
-        [_textTable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionNone animated:NO];
-    }
-    if (!_needScrollToEnd) {
-        _needScrollToEnd = YES;
-    }
+   
 }
 
 
@@ -274,9 +325,12 @@
                 weakSelf.dataSource = [[weakSelf formatMessages:messages] mutableCopy];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.textTable reloadData];
-                
-                [weakSelf.textTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [weakSelf reloadData];
+                if (weakSelf.dataSource.count && !append) {
+                    NSLog(@"load");
+                    NSIndexPath * index = [NSIndexPath indexPathForRow:weakSelf.dataSource.count - 1 inSection:0];
+                    [weakSelf.textTable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionNone animated:NO];
+                }
             });
             
             //从数据库导入时重新下载没有下载成功的附件
@@ -425,6 +479,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.dataSource addObjectsFromArray:messages];
             [weakSelf.textTable reloadData];
+            NSLog(@"add");
             [weakSelf.textTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
     });
@@ -604,8 +659,9 @@
 - (NSArray *)formatMessages:(NSArray *)messagesArray
 {
     NSMutableArray *formatArray = [[NSMutableArray alloc] init];
-    if ([messagesArray count] > 0) {
-        for (EMMessage *message in messagesArray) {
+    NSArray * array = [messagesArray copy];
+    if ([array count] > 0) {
+        for (EMMessage *message in array) {
             NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
             NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
             if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
@@ -617,7 +673,7 @@
             model.nickName = model.username;
             NSString * avatar = [BYAppCenter sharedAppCenter].user.avatar;
             if ([[avatar class] isSubclassOfClass:[NSString class]]&&avatar.length > 0) {
-//                model.headImageURL = [NSURL URLWithString:[BYAppCenter sharedAppCenter].user.avatar];
+                model.headImageURL = [NSURL URLWithString:_supplierAvatar];
             }else{
                 
             }

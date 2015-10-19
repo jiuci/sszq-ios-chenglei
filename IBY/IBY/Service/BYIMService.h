@@ -8,6 +8,11 @@
 
 #import "BYBaseService.h"
 
-@interface BYIMPassWordService : BYBaseService
+@interface BYIMService : BYBaseService
+@property (nonatomic,strong)NSString * token;
 - (void)loadpassword:(void (^)(NSString * password, BYError* error))finished;
+
+- (void)getTargetStatus:(NSString *)user finish:(void (^)(BOOL online, BYError* error))finished;
+
+
 @end

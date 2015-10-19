@@ -169,6 +169,47 @@ NSString* baseUrlByMode(BYNetMode mode)
     }];
 }
 
++ (void)postComplete:(NSString*)url
+     params:(NSDictionary*)params
+    header:(NSDictionary*)header
+     finish:(void (^)(NSDictionary* data, BYError* error))finish
+{
+ 
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
+    securityPolicy.allowInvalidCertificates = YES;
+    
+    NSCAssert(finish, @"finish block 不能为空");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    //如果报接受类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //传入的参数
+    //你的接口地址
+    //发送请求
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+       finish(responseObject,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+         finish(nil,makeNetError(error));
+    }];
+    return;
+    AFHTTPRequestOperationManager* curManager = makeNetManager(url);
+    curManager.securityPolicy = securityPolicy;
+    [[BYNetwork sharedNetwork] refreshCustomHeader:header manager:curManager];
+    [curManager POST:url parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+      
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        NSString * str = [[NSString alloc]initWithData:error.userInfo[@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding];
+        NSLog(@"res -- %@",str);
+       
+    }];
+}
+
+
 + (void)post:(NSString*)url
           params:(NSDictionary*)params
     isCacheValid:(BOOL)isCacheValid
@@ -237,12 +278,77 @@ NSString* baseUrlByMode(BYNetMode mode)
     }];
 }
 
++ (void)getComplete:(NSString*)url
+             params:(NSDictionary*)params
+             header:(NSDictionary*)header
+             finish:(void (^)(NSDictionary* data, BYError* error))finish
+{
+    NSCAssert(finish, @"finish block 不能为空");
+    
+    
+    
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
+    securityPolicy.allowInvalidCertificates = YES;
+    
+    NSCAssert(finish, @"finish block 不能为空");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    //如果报接受类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [[BYNetwork sharedNetwork] refreshCustomHeader:header manager:manager];
+    //传入的参数
+    //你的接口地址
+    //发送请求
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+        finish(responseObject,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        finish(nil,makeNetError(error));
+    }];
+    return;
+
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+        if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"data"] && [responseObject[@"success"] intValue] == 1 ) {
+            
+            NSDictionary *result = responseObject[@"data"];
+            
+            finish(result,nil);
+        }else {
+            BYError *netErr = nil;
+            if ([responseObject isKindOfClass:[NSDictionary class]] && responseObject[@"error"]) {
+                netErr = makeTransferNetError(responseObject[@"error"]);
+            }
+            BYError *error = makeNetDecodeError(netErr);
+            finish(nil,error);
+        }
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        finish(nil,makeNetError(error));
+    }];
+}
+
 - (void)refreshHeader:(AFHTTPRequestOperationManager*)netmanager
 {
     if (!netmanager.requestSerializer) {
         netmanager.requestSerializer = [AFJSONRequestSerializer serializer];
     }
     [[BYAppCenter sharedAppCenter].paramsMapForHeader bk_each:^(id key, NSString* value) {
+        if ([value isKindOfClass:[NSString class]] && value.length > 0) {
+            [netmanager.requestSerializer setValue:value forHTTPHeaderField:key];
+            
+        }
+    }];
+}
+
+- (void)refreshCustomHeader:(NSDictionary*)header manager:(AFHTTPRequestOperationManager*)netmanager
+{
+    if (!netmanager.requestSerializer) {
+        netmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+    }
+    [header bk_each:^(id key, NSString* value) {
         if ([value isKindOfClass:[NSString class]] && value.length > 0) {
             [netmanager.requestSerializer setValue:value forHTTPHeaderField:key];
             

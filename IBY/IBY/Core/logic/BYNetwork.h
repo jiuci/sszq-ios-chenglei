@@ -48,5 +48,14 @@ typedef enum {
                params:(NSDictionary*)params
                finish:(void (^)(NSDictionary* data, NSError* error))finish;
 
+//用于自定义api
++ (void)postComplete:(NSString*)url
+             params:(NSDictionary*)params
+             header:(NSDictionary*)header
+             finish:(void (^)(NSDictionary* data, BYError* error))finish;
++ (void)getComplete:(NSString*)url
+              params:(NSDictionary*)params
+              header:(NSDictionary*)header
+              finish:(void (^)(NSDictionary* data, BYError* error))finish;
 
 @end

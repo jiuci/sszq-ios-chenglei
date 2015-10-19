@@ -10,6 +10,6 @@
 
 @interface UIImage (helper)
 - (UIImage*)resizableImage;
-
+- (UIImage*)resizableImageOffset:(float)offset;
 + (UIImage*)imageFromColor:(UIColor*)color forSize:(CGSize)size withCornerRadius:(CGFloat)radius;
 @end

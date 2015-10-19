@@ -8,6 +8,12 @@
 
 #import "BYBaseEngine.h"
 
-@interface BYIMPassWordEngine : BYBaseEngine
+@interface BYIMEngine : BYBaseEngine
+
 + (void)loadpassword:(void (^)(NSString * password, BYError* error))finished;
+
++ (void)getTargetStatus:(NSString *)user token:(NSString *)token finish:(void (^)(BOOL online, BYError* error))finished;
+
++ (void)getToken:(void (^)(NSString * token, BYError * error))finished;
+
 @end

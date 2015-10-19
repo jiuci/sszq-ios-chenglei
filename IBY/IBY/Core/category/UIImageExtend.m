@@ -19,6 +19,16 @@
     return [self resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right)];
 }
 
+- (UIImage*)resizableImageOffset:(float)offset
+{
+    CGFloat top = floor(self.size.height / 2);
+    CGFloat bottom = self.size.height - top - 1;
+    CGFloat left = offset;
+    CGFloat right = self.size.width - left - 1;
+    return [self resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right)];
+}
+
+
 + (UIImage*)imageFromColor:(UIColor*)color forSize:(CGSize)size withCornerRadius:(CGFloat)radius
 {
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
