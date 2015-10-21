@@ -26,6 +26,8 @@
 #import "BYHomeVC.h"
 #import "BYLoginVC.h"
 #import "BYLoginService.h"
+#import "BYLeftMenuViewController.h"
+#import "RESideMenu.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -35,7 +37,7 @@
 #import <EaseMobSDK/EaseMob.h>
 
 
-@interface BYAppDelegate () <WXApiDelegate, WeiboSDKDelegate,TencentSessionDelegate>
+@interface BYAppDelegate () <WXApiDelegate, WeiboSDKDelegate,TencentSessionDelegate,RESideMenuDelegate>
 
 @property (nonatomic, strong) BYWelcomeVC* welcomeVC;
 
@@ -63,13 +65,16 @@
     [WXApi registerApp:@"wxa0286879d34677b0"];
 
     _homeVC = [[BYHomeVC alloc] init];
+    _homeNav = [BYNavVC nav:_homeVC title:@"必要商城"];
+    BYLeftMenuViewController *leftMenuViewController = [[BYLeftMenuViewController alloc] init];
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_homeNav
+                                                                    leftMenuViewController:leftMenuViewController];
+    sideMenuViewController.delegate = self;
+    //张
     
-//    NSURL* url = [NSURL URLWithString:BYURL_HOME];
-//    [_homeVC.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    self.reSideMenu = sideMenuViewController;
     
-//    NSLog(@"%@",_homeVC.webView);
-    _homeNav = [BYNavVC nav:_homeVC title:@""];
-    _window.rootViewController = _homeNav;
+    _window.rootViewController = self.reSideMenu;
     [_window makeKeyAndVisible];
 
     [self showWelcomeVC];

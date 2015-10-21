@@ -278,7 +278,6 @@
 		F4ED1DF01AF9FC7E00639322 /* BYGlasses.m in Sources */ = {isa = PBXBuildFile; fileRef = F4ED1DEF1AF9FC7D00639322 /* BYGlasses.m */; };
 		F4EE20BE1A32E77100FC1789 /* BYScrollview.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EE20BD1A32E77100FC1789 /* BYScrollview.m */; };
 		F4F20BF81B8416FD00E8D355 /* BYHomeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F20BF71B8416FD00E8D355 /* BYHomeInfo.m */; };
-		F4F20BFC1B84183900E8D355 /* BYHomeInfoSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F20BFB1B84183900E8D355 /* BYHomeInfoSimple.m */; };
 		F4F20C0F1B84949800E8D355 /* NSData+SDDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F20BFF1B84949800E8D355 /* NSData+SDDataCache.m */; };
 		F4F20C101B84949800E8D355 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F20C021B84949800E8D355 /* TAAbstractDotView.m */; };
 		F4F20C111B84949800E8D355 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F20C041B84949800E8D355 /* TAAnimatedDotView.m */; };
@@ -368,6 +367,16 @@
 		FE3A9B431BC7BB78008835C1 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B421BC7BB78008835C1 /* NSDateFormatter+Category.m */; settings = {ASSET_TAGS = (); }; };
 		FE3A9B691BCD0085008835C1 /* BYIMEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B681BCD0085008835C1 /* BYIMEngine.m */; settings = {ASSET_TAGS = (); }; };
 		FE3A9B6D1BCD056C008835C1 /* BYIMService.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A9B6C1BCD056C008835C1 /* BYIMService.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD5B1BD79EF40046CD73 /* BYNavHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD431BD79EF40046CD73 /* BYNavHeaderView.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD5C1BD79EF40046CD73 /* BYNavSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD451BD79EF40046CD73 /* BYNavSecondCell.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD5D1BD79EF40046CD73 /* BYLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD471BD79EF40046CD73 /* BYLeftMenuViewController.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD611BD79EF40046CD73 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD4D1BD79EF40046CD73 /* RECommonFunctions.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD621BD79EF40046CD73 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD4F1BD79EF40046CD73 /* RESideMenu.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD641BD79EF40046CD73 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD521BD79EF40046CD73 /* UIImage+ImageEffects.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD651BD79EF40046CD73 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD541BD79EF40046CD73 /* UIViewController+RESideMenu.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD6D1BD7A1DF0046CD73 /* BYHomeInfoSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD6A1BD7A1DF0046CD73 /* BYHomeInfoSimple.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD6E1BD7A1DF0046CD73 /* BYHomeNavInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD6C1BD7A1DF0046CD73 /* BYHomeNavInfo.m */; settings = {ASSET_TAGS = (); }; };
+		FE47CD711BD7A1E60046CD73 /* BYHomeFloorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FE47CD701BD7A1E60046CD73 /* BYHomeFloorInfo.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F77301BBA8D8E00F91692 /* BYIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772D1BBA8D8E00F91692 /* BYIMViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FE4F77311BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F772F1BBA8D8E00F91692 /* ConvertToCommonEmoticonsHelper.m */; settings = {ASSET_TAGS = (); }; };
@@ -909,8 +918,6 @@
 		F4EE20BD1A32E77100FC1789 /* BYScrollview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYScrollview.m; sourceTree = "<group>"; };
 		F4F20BF61B8416FD00E8D355 /* BYHomeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYHomeInfo.h; path = home/BYHomeInfo.h; sourceTree = "<group>"; };
 		F4F20BF71B8416FD00E8D355 /* BYHomeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYHomeInfo.m; path = home/BYHomeInfo.m; sourceTree = "<group>"; };
-		F4F20BFA1B84183900E8D355 /* BYHomeInfoSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYHomeInfoSimple.h; sourceTree = "<group>"; };
-		F4F20BFB1B84183900E8D355 /* BYHomeInfoSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYHomeInfoSimple.m; sourceTree = "<group>"; };
 		F4F20BFE1B84949800E8D355 /* NSData+SDDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SDDataCache.h"; sourceTree = "<group>"; };
 		F4F20BFF1B84949800E8D355 /* NSData+SDDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SDDataCache.m"; sourceTree = "<group>"; };
 		F4F20C011B84949800E8D355 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -1102,6 +1109,26 @@
 		FE3A9B681BCD0085008835C1 /* BYIMEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYIMEngine.m; sourceTree = "<group>"; };
 		FE3A9B6B1BCD056C008835C1 /* BYIMService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYIMService.h; sourceTree = "<group>"; };
 		FE3A9B6C1BCD056C008835C1 /* BYIMService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYIMService.m; sourceTree = "<group>"; };
+		FE47CD421BD79EF40046CD73 /* BYNavHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYNavHeaderView.h; sourceTree = "<group>"; };
+		FE47CD431BD79EF40046CD73 /* BYNavHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYNavHeaderView.m; sourceTree = "<group>"; };
+		FE47CD441BD79EF40046CD73 /* BYNavSecondCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYNavSecondCell.h; sourceTree = "<group>"; };
+		FE47CD451BD79EF40046CD73 /* BYNavSecondCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYNavSecondCell.m; sourceTree = "<group>"; };
+		FE47CD461BD79EF40046CD73 /* BYLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYLeftMenuViewController.h; sourceTree = "<group>"; };
+		FE47CD471BD79EF40046CD73 /* BYLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYLeftMenuViewController.m; sourceTree = "<group>"; };
+		FE47CD4C1BD79EF40046CD73 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		FE47CD4D1BD79EF40046CD73 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		FE47CD4E1BD79EF40046CD73 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
+		FE47CD4F1BD79EF40046CD73 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
+		FE47CD511BD79EF40046CD73 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		FE47CD521BD79EF40046CD73 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		FE47CD531BD79EF40046CD73 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		FE47CD541BD79EF40046CD73 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		FE47CD691BD7A1DF0046CD73 /* BYHomeInfoSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYHomeInfoSimple.h; path = home/BYHomeInfoSimple.h; sourceTree = "<group>"; };
+		FE47CD6A1BD7A1DF0046CD73 /* BYHomeInfoSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYHomeInfoSimple.m; path = home/BYHomeInfoSimple.m; sourceTree = "<group>"; };
+		FE47CD6B1BD7A1DF0046CD73 /* BYHomeNavInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYHomeNavInfo.h; path = home/BYHomeNavInfo.h; sourceTree = "<group>"; };
+		FE47CD6C1BD7A1DF0046CD73 /* BYHomeNavInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYHomeNavInfo.m; path = home/BYHomeNavInfo.m; sourceTree = "<group>"; };
+		FE47CD6F1BD7A1E60046CD73 /* BYHomeFloorInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYHomeFloorInfo.h; path = home/BYHomeFloorInfo.h; sourceTree = "<group>"; };
+		FE47CD701BD7A1E60046CD73 /* BYHomeFloorInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYHomeFloorInfo.m; path = home/BYHomeFloorInfo.m; sourceTree = "<group>"; };
 		FE4F77291BBA8D7700F91692 /* BYThemeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYThemeVC.h; path = theme/BYThemeVC.h; sourceTree = "<group>"; };
 		FE4F772A1BBA8D7700F91692 /* BYThemeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BYThemeVC.m; path = theme/BYThemeVC.m; sourceTree = "<group>"; };
 		FE4F772C1BBA8D8E00F91692 /* BYIMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BYIMViewController.h; path = Instantmessaging/BYIMViewController.h; sourceTree = "<group>"; };
@@ -2173,10 +2200,14 @@
 		F4F20BF91B84170500E8D355 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				FE47CD6F1BD7A1E60046CD73 /* BYHomeFloorInfo.h */,
+				FE47CD701BD7A1E60046CD73 /* BYHomeFloorInfo.m */,
+				FE47CD691BD7A1DF0046CD73 /* BYHomeInfoSimple.h */,
+				FE47CD6A1BD7A1DF0046CD73 /* BYHomeInfoSimple.m */,
+				FE47CD6B1BD7A1DF0046CD73 /* BYHomeNavInfo.h */,
+				FE47CD6C1BD7A1DF0046CD73 /* BYHomeNavInfo.m */,
 				F4F20BF61B8416FD00E8D355 /* BYHomeInfo.h */,
 				F4F20BF71B8416FD00E8D355 /* BYHomeInfo.m */,
-				F4F20BFA1B84183900E8D355 /* BYHomeInfoSimple.h */,
-				F4F20BFB1B84183900E8D355 /* BYHomeInfoSimple.m */,
 			);
 			name = home;
 			sourceTree = "<group>";
@@ -2739,6 +2770,28 @@
 			name = im;
 			sourceTree = "<group>";
 		};
+		FE47CD3B1BD79EF40046CD73 /* leftNav */ = {
+			isa = PBXGroup;
+			children = (
+				FE47CD421BD79EF40046CD73 /* BYNavHeaderView.h */,
+				FE47CD431BD79EF40046CD73 /* BYNavHeaderView.m */,
+				FE47CD441BD79EF40046CD73 /* BYNavSecondCell.h */,
+				FE47CD451BD79EF40046CD73 /* BYNavSecondCell.m */,
+				FE47CD461BD79EF40046CD73 /* BYLeftMenuViewController.h */,
+				FE47CD471BD79EF40046CD73 /* BYLeftMenuViewController.m */,
+				FE47CD4C1BD79EF40046CD73 /* RECommonFunctions.h */,
+				FE47CD4D1BD79EF40046CD73 /* RECommonFunctions.m */,
+				FE47CD4E1BD79EF40046CD73 /* RESideMenu.h */,
+				FE47CD4F1BD79EF40046CD73 /* RESideMenu.m */,
+				FE47CD511BD79EF40046CD73 /* UIImage+ImageEffects.h */,
+				FE47CD521BD79EF40046CD73 /* UIImage+ImageEffects.m */,
+				FE47CD531BD79EF40046CD73 /* UIViewController+RESideMenu.h */,
+				FE47CD541BD79EF40046CD73 /* UIViewController+RESideMenu.m */,
+			);
+			name = leftNav;
+			path = leftSider;
+			sourceTree = "<group>";
+		};
 		FE4F771F1BB9200B00F91692 /* Instantmessaging */ = {
 			isa = PBXGroup;
 			children = (
@@ -2795,6 +2848,7 @@
 		FEC8298319AC78DD00D5D70D /* home */ = {
 			isa = PBXGroup;
 			children = (
+				FE47CD3B1BD79EF40046CD73 /* leftNav */,
 				CC957E5019C1788C000700DE /* controller */,
 			);
 			path = home;
@@ -3088,6 +3142,7 @@
 				FE3A9B001BC7AE9C008835C1 /* PSTCollectionViewUpdateItem.m in Sources */,
 				F4E007571B0F07F800438FD5 /* BYRegist1VC.m in Sources */,
 				F4DB02B91B68AA65009DAB6F /* BYAddressManagelistVC.m in Sources */,
+				FE47CD6E1BD7A1DF0046CD73 /* BYHomeNavInfo.m in Sources */,
 				F4ED1DE61AF9B7E900639322 /* BYPayUnknowVC.m in Sources */,
 				FE14D68F19AC2289006B0E48 /* main.m in Sources */,
 				FE3A9AF71BC7AE9C008835C1 /* UIView+EMWebCacheOperation.m in Sources */,
@@ -3097,6 +3152,7 @@
 				F4D1345D1AF857F400B7164D /* BYGlassLocateDistVC.m in Sources */,
 				FE3A9B231BC7B147008835C1 /* EMAudioRecorderUtil.m in Sources */,
 				FE3A9AEA1BC7AE9C008835C1 /* EMSDWebImageDecoder.m in Sources */,
+				FE47CD651BD79EF40046CD73 /* UIViewController+RESideMenu.m in Sources */,
 				F496C3911B317E7B00E503D8 /* BYUserEngine.m in Sources */,
 				F4DEC34D1B340265003B9730 /* BYCaptchaService.m in Sources */,
 				FE70C57E1BA6B37B00718B51 /* BYThemeFloorSimple.m in Sources */,
@@ -3116,6 +3172,7 @@
 				F4607AF41A107B6400255B57 /* BYStarView.m in Sources */,
 				F4E0076E1B0F08E100438FD5 /* BYReSetPasswordVC.m in Sources */,
 				F4AE74871A26FA55005ED6A9 /* BYPayVC.m in Sources */,
+				FE47CD6D1BD7A1DF0046CD73 /* BYHomeInfoSimple.m in Sources */,
 				CC771FA619CB3AC900E11BAE /* FMResultSet.m in Sources */,
 				F478BA691AA5BCD000627097 /* BYFCodeService.m in Sources */,
 				F46F93821A0B243A0088C100 /* BYComponent.m in Sources */,
@@ -3151,6 +3208,7 @@
 				FE3A9B021BC7AE9C008835C1 /* PSTGridLayoutItem.m in Sources */,
 				FE5DA8181A11B91500A58F22 /* UITableViewExtension.m in Sources */,
 				F4F20C161B84949800E8D355 /* UIView+SDExtension.m in Sources */,
+				FE47CD5C1BD79EF40046CD73 /* BYNavSecondCell.m in Sources */,
 				F489E42B19FF41D2003C6567 /* BYPackage.m in Sources */,
 				FE3A9B221BC7B146008835C1 /* EMAudioPlayerUtil.m in Sources */,
 				F48C94F91A174BC6009C10A1 /* NSArrayExtensions.m in Sources */,
@@ -3200,6 +3258,7 @@
 				F415EFD91AFB3B04001F840A /* BYFaceDataUnit.m in Sources */,
 				F42618041A2C4CBD0076B273 /* BYPayFailVC.m in Sources */,
 				F4A251071A787B7A00127EB2 /* BYPayCenter.m in Sources */,
+				FE47CD5D1BD79EF40046CD73 /* BYLeftMenuViewController.m in Sources */,
 				F43D4CCE1AA4037B007A8D4C /* BYWebView.m in Sources */,
 				F48D728F1A89DBB000870F3F /* UIScrollView+MJExtension.m in Sources */,
 				F4F20C121B84949800E8D355 /* TADotView.m in Sources */,
@@ -3219,6 +3278,7 @@
 				F47E6FAC1A12002D00304F46 /* BYBusinessIntroduction.m in Sources */,
 				FE3A9AE21BC7AE9C008835C1 /* MWPhoto.m in Sources */,
 				F4CE62641A75B5F70072B866 /* ZLSwipeableView.m in Sources */,
+				FE47CD641BD79EF40046CD73 /* UIImage+ImageEffects.m in Sources */,
 				F4E8A5CF1B83116D007261B3 /* BYHomeEngine.m in Sources */,
 				F47E6F8E1A11F88700304F46 /* BYComment.m in Sources */,
 				CC771FA319CB3AC900E11BAE /* FMDatabaseAdditions.m in Sources */,
@@ -3240,7 +3300,6 @@
 				F48D0E5A1AE8AA110080DA22 /* BYAboutVC.m in Sources */,
 				FE3A9AEB1BC7AE9C008835C1 /* EMSDWebImageDownloader.m in Sources */,
 				F4888A361A6DB4EE0056427E /* BYShareConfig.m in Sources */,
-				F4F20BFC1B84183900E8D355 /* BYHomeInfoSimple.m in Sources */,
 				F4E0074B1B0F075A00438FD5 /* BYLoginVC.m in Sources */,
 				FE3A9B081BC7AFE0008835C1 /* UIResponder+Router.m in Sources */,
 				FE3A9AF61BC7AE9C008835C1 /* UIImageView+EMWebCache.m in Sources */,
@@ -3253,6 +3312,7 @@
 				FE3A9B261BC7B147008835C1 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				F496C3971B317EBF00E503D8 /* BYPassportEngine.m in Sources */,
 				CC3D2E3119C03101000E0E14 /* BYNetwork.m in Sources */,
+				FE47CD711BD7A1E60046CD73 /* BYHomeFloorInfo.m in Sources */,
 				CC6AD05119D16AF8001FB4EA /* MBProgressHUD+Extension.m in Sources */,
 				FE3A9AE11BC7AE9C008835C1 /* MWGridViewController.m in Sources */,
 				F4DB02C31B68ABFD009DAB6F /* BYAddressDetailVC.m in Sources */,
@@ -3274,6 +3334,7 @@
 				CC771F8A19CAE06000E11BAE /* BYAddressService.m in Sources */,
 				F4888A2B1A6D114A0056427E /* SAKPipeSinaWeibo.m in Sources */,
 				F47E6FA81A11FDD300304F46 /* BYMerchantService.m in Sources */,
+				FE47CD621BD79EF40046CD73 /* RESideMenu.m in Sources */,
 				CC771FA419CB3AC900E11BAE /* FMDatabasePool.m in Sources */,
 				FE3A9ADF1BC7AE9C008835C1 /* MWCaptionView.m in Sources */,
 				FE4F77301BBA8D8E00F91692 /* BYIMViewController.m in Sources */,
@@ -3292,6 +3353,7 @@
 				FE3A9AFC1BC7AE9C008835C1 /* PSTCollectionViewData.m in Sources */,
 				F480DFCB19FE18B300301542 /* BYAppService.m in Sources */,
 				F4F20C151B84949800E8D355 /* SDCycleScrollView.m in Sources */,
+				FE47CD611BD79EF40046CD73 /* RECommonFunctions.m in Sources */,
 				FE3A9B691BCD0085008835C1 /* BYIMEngine.m in Sources */,
 				F4505E5719F1170D00A12AD2 /* BYMerchant.m in Sources */,
 				FE4F772B1BBA8D7700F91692 /* BYThemeVC.m in Sources */,
@@ -3320,6 +3382,7 @@
 				F4E8AA281B6F72B200308CFB /* BYNumberTip.m in Sources */,
 				F4422A841A2D7CB300A07598 /* CommonUtil.m in Sources */,
 				F4E0076A1B0F08E100438FD5 /* BYForgetPasswordVC.m in Sources */,
+				FE47CD5B1BD79EF40046CD73 /* BYNavHeaderView.m in Sources */,
 				F4E007471B0F075A00438FD5 /* BYCaptchaView.m in Sources */,
 				F4818DE71AFC99A20023C0A6 /* BYGlassesAnimateView.m in Sources */,
 				FE3A9A851BC7ADCF008835C1 /* MessageReadManager.m in Sources */,

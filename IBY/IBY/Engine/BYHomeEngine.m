@@ -11,7 +11,7 @@
 @implementation BYHomeEngine
 + (void)loadHomePagefinish:(void (^)(BYHomeInfo * info, BYError* error))finished
 {
-    NSString* url = @"/home/show/v1";
+    NSString* url = @"/home/show/v2";
     
     [BYNetwork post:url params:nil finish:^(NSDictionary* data, BYError* error) {
         NSLog(@"%@",data);

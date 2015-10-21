@@ -1,4 +1,4 @@
-
+  
 //
 //  BYHomeVC.m
 //  IBY
@@ -19,6 +19,7 @@
 
 #import "BYHomeInfo.h"
 #import "BYHomeInfoSimple.h"
+#import "BYHomeFloorInfo.h"
 
 #import "MJRefresh.h"
 
@@ -32,6 +33,11 @@
 #import "BYIMViewController.h"
 
 #import "BYThemeVC.h"
+
+#import "RESideMenu.h"
+
+#import "BYLeftMenuViewController.h"
+#import "BYAppDelegate.h"
 @interface BYHomeVC ()<SDCycleScrollViewDelegate,BYImageViewTapDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) BYHomeService * service;
@@ -40,7 +46,9 @@
 @property (nonatomic, strong) UIImageView* hasNewMessage;
 @property (nonatomic, strong) BYPoolNetworkView* poolNetworkView;
 @property (nonatomic, assign) BOOL isLoading;
-@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+//@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+@property (nonatomic, weak) BYLeftMenuViewController * leftViewController;
+
 @end
 @implementation BYHomeVC
 
@@ -66,14 +74,10 @@
     _bodyView.backgroundColor = BYColorBG;
     [self.view addSubview:_bodyView];
     self.bodyView.alwaysBounceVertical = YES;
-//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_meassages" highImgName:@"btn_meassages" handler:^(id sender) {
-//        if (![BYAppCenter sharedAppCenter].isLogin) {
-//            [self loginAction];
-//            return;
-//        }
-//        JumpToWebBlk(@"http://m.biyao.com/message", nil);
-//    }];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImgName:@"icon_index_logo" highImgName:@"icon_index_logo" handler:nil];
+    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_index_menu" highImgName:@"btn_index_menu" target:self action:@selector(presentLeftMenuViewController:)];
+  
+    [self.navigationItem setTitle:@"必要商城"];
     _hasNewMessage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 12, 12)];
     
     _hasNewMessage.image = [UIImage imageNamed:@"bg_messages_hasmessage"];
@@ -113,10 +117,14 @@
         [self updateUI];
     }
     [self reloadData];
+
+    
+  
 }
+
+
 -(void)updateUI
 {
-    
     if (!_info) {
         return;
     }
@@ -129,50 +137,86 @@
     [_bodyView addHeaderWithCallback:^{
         [wself reloadData];
     }];
-    if (_info.bannerArray.count == 1) {
-        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight)];
-        BYHomeInfoSimple * simple = _info.bannerArray[0];
-        image.jumpURL = simple.link;
-        image.categoryId = simple.categoryID;
-        image.tapDelegate = self;
-        image.tag = simple.categoryID;
-        image.image = [UIImage imageNamed:@"bg_placeholder"];
-        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
-        [image addTapAction:@selector(onImagetap:) target:image];
-        [_bodyView by_addSubview:image paddingTop:0];
-
-    }else if (_info.bannerArray.count > 1){
-        NSMutableArray *imagesURL = [NSMutableArray array];
-        for (int i =0; i<_info.bannerArray.count; i++) {
-            BYHomeInfoSimple *simpe = _info.bannerArray[i];
-            [imagesURL addObject:[NSURL URLWithString:simpe.imagePath]];
-        }
-        
-        if (_cycleScrollView) {
-            _cycleScrollView.imageURLsGroup = imagesURL;
+//    for (int i = 0; i < _info.adArray.count; i++) {
+//        //每一个产品是左边间距12  右边间距12
+//        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH-24, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
+//        BYHomeInfoSimple * simple = _info.adArray[i];
+//        image.jumpURL = simple.link;
+//        image.tag = simple.categoryID;
+//        image.categoryId = simple.categoryID;
+//        image.tapDelegate = self;
+//        image.image = [UIImage imageNamed:@"bg_placeholder"];
+//        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
+//        [image addTapAction:@selector(onImagetap:) target:image];
+//        [_bodyView by_addSubview:image paddingTop:8 + (i == 0) * 4];
+//        
+//    }
+//
+    NSLog(@"%@",_info.floorArray);
+    for (int i = 0; i < _info.floorArray.count; i++) {
+        BYHomeFloorInfo *floorInfo = _info.floorArray[i];
+        if (floorInfo.imgtitle.length != 0 ) {
+            //每一个产品是左边间距16
+            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH-32, 60)];
+            // image.tag = simple.categoryID;
+            //image.categoryId = simple.categoryID;
+            image.image = [UIImage imageNamed:@"bg_placeholder"];
+            [image setImageWithUrl:floorInfo.imgtitle placeholderName:@"bg_placeholder"];
+            [image addTapAction:@selector(onImagetap:) target:image];
+            [_bodyView by_addSubview:image paddingTop:8 + (i == 0) * 4];
         }else{
-            _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL placeHolderImage:[UIImage imageNamed:@"bg_placeholder"]];
-            _cycleScrollView.delegate = self;
-            _cycleScrollView.autoScrollTimeInterval = 3.0;
+            if (floorInfo.title.length != 0 && floorInfo.subtitle.length == 0) {
+                UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH - 32, 20)];
+                UILabel *titleLbl = [[UILabel alloc]initWithFrame:titleView.frame];
+                titleLbl.textAlignment = NSTextAlignmentCenter;
+                titleLbl.textColor = BYColorNav;
+                titleLbl.font = ItalicFont(28);
+                titleLbl.text = floorInfo.title;
+                [titleView addSubview:titleLbl];
+                [_bodyView by_addSubview:titleView paddingTop:16 paddingBottom:12];
+            }
+            if (floorInfo.title.length != 0 && floorInfo.subtitle.length != 0) {
+                UILabel *titleLbl = [[UILabel alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH - 32, 20)];
+                titleLbl.textAlignment = NSTextAlignmentCenter;
+                titleLbl.textColor = BYColorNav;
+                titleLbl.font = ItalicFont(28);
+                titleLbl.text = floorInfo.title;
+                [_bodyView by_addSubview:titleLbl paddingTop:16];
+                UILabel *subTitleLbl = [[UILabel alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH - 32, 20)];
+                titleLbl.textAlignment = NSTextAlignmentCenter;
+                titleLbl.textColor = BYColor333;
+                titleLbl.font = ItalicFont(24);
+                titleLbl.text = floorInfo.subtitle;
+                [_bodyView by_addSubview:titleLbl paddingTop:8 paddingBottom:12];
+            }
         }
-        _cycleScrollView.backgroundColor = HEXCOLOR(0xfcfcfc);
-        [_bodyView by_addSubview:_cycleScrollView paddingTop:0];
+        for (int j = 0; j < floorInfo.adsArray.count;j++ ) {
+            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH-32, 196)];
+            //图片边界效果
+            UIView *leftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 196)];
+            leftLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
+            UIView *rightLineView = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 32, 0, 1, 196)];
+            rightLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
+            [image addSubview:leftLineView];
+            [image addSubview:rightLineView];
+            
+            NSArray *adsArray = floorInfo.adsArray;
+            BYHomeInfoSimple * simple = adsArray[j];
+            image.jumpURL = simple.link;
+            // image.tag = simple.categoryID;
+            //image.categoryId = simple.categoryID;
+            image.tapDelegate = self;
+            image.image = [UIImage imageNamed:@"bg_placeholder"];
+            [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
+            [image addTapAction:@selector(onImagetap:) target:image];
+            [_bodyView by_addSubview:image paddingTop:j == 0?2:10];
+        }
+        
+        
+    }
 
-    }
-    for (int i = 0; i < _info.adArray.count; i++) {
-        
-        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH-24, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
-        BYHomeInfoSimple * simple = _info.adArray[i];
-        image.jumpURL = simple.link;
-        image.tag = simple.categoryID;
-        image.categoryId = simple.categoryID;
-        image.tapDelegate = self;
-        image.image = [UIImage imageNamed:@"bg_placeholder"];
-        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
-        [image addTapAction:@selector(onImagetap:) target:image];
-        [_bodyView by_addSubview:image paddingTop:8 + (i == 0) * 4];
-        
-    }
+    
+    
     if (!_info.bbsArray||_info.bbsArray.count == 0) {
         self.isLoading = NO;
         return;
@@ -187,52 +231,7 @@
     NSMutableAttributedString *attributedStr03 = [[NSMutableAttributedString alloc] initWithAttributedString: attrStr1];
     [attributedStr03 appendAttributedString: attrStr2];
     
-    [bbsTitleLabel setAttributedText:attributedStr03];
     
-    UILabel* moreLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.width*.2, 44)];
-    moreLabel.text = @"更多>>";
-    moreLabel.textAlignment = NSTextAlignmentRight;
-    moreLabel.font = Font(12);
-    moreLabel.textColor = HEXCOLOR(0x523669);
-    moreLabel.right = SCREEN_WIDTH - 12;
-    [moreLabel addTapAction:@selector(onMore) target:self];
-    
-    UIView * bbsTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
-    [bbsTitleView addSubview:bbsTitleLabel];
-    [bbsTitleView addSubview:moreLabel];
-    
-    [_bodyView by_addSubview:bbsTitleView paddingTop:0];
-    UIView * bbsTempView;
-    for (int i = 0; i < _info.bbsArray.count; i++) {
-        float bbsImageWith = (SCREEN_WIDTH - 12 * 2 - 8) /2;
-        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(12, 0, bbsImageWith, _info.bbsHeight * bbsImageWith/(float)_info.bbsWidth)];
-        BYHomeInfoSimple * simple = _info.bbsArray[i];
-        image.jumpURL = simple.link;
-        image.image = [UIImage imageNamed:@"bg_placeholder"];
-        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
-        [image addTapAction:@selector(onImagetap:) target:image];
-        UILabel * bbsImageTitle = [[UILabel alloc]initWithFrame:CGRectMake(12, image.height, image.width, 28)];
-        bbsImageTitle.text = simple.title;
-        bbsImageTitle.textColor = BYColor333;
-        bbsImageTitle.textAlignment = NSTextAlignmentCenter;
-        bbsImageTitle.font = Font(12);
-        bbsImageTitle.backgroundColor = BYColorWhite;
-        
-        
-        if (i%2 == 0) {
-            bbsTempView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, image.height + 28)];
-            [bbsTempView addSubview:image];
-            [bbsTempView addSubview:bbsImageTitle];
-            [_bodyView by_addSubview:bbsTempView paddingTop:0 + (i != 0) * 12];
-        }else{
-            image.right = SCREEN_WIDTH - 12;
-            bbsImageTitle.right = SCREEN_WIDTH - 12;
-            [bbsTempView addSubview:bbsImageTitle];
-            [bbsTempView addSubview:image];
-        }
-        
-
-    }
     [self.mutiSwitch setSelectedAtIndex:0];
     self.isLoading = NO;
 }
@@ -247,6 +246,7 @@
                 return;
             }
             wself.info = info;
+            wself.leftViewController.info = info;
             if (wself.isLoading) {
                 return;
             }
@@ -300,6 +300,17 @@
     
 }
 
+- (BYLeftMenuViewController *)leftViewController
+{
+    if (_leftViewController) {
+        return _leftViewController;
+    }
+    BYAppDelegate * dele =(BYAppDelegate*)[UIApplication sharedApplication].delegate;
+    RESideMenu * menu = dele.reSideMenu;
+    _leftViewController = (BYLeftMenuViewController *)menu.leftMenuViewController;
+    return _leftViewController;
+}
+
 - (void)loginAction
 {
     [self.navigationController presentViewController:makeLoginnav(nil,nil) animated:YES completion:nil];
@@ -332,7 +343,11 @@
     }
     
 }
-
+- (void)onCelltap:(NSString*)link
+{
+    
+        JumpToWebBlk(link, nil);
+}
 - (BYMutiSwitch*)mutiSwitch
 {
     if (!_mutiSwitch) {
@@ -354,8 +369,7 @@
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
 //                                   [wself.navigationController pushViewController:[[BYIMViewController alloc]init] animated:YES];
-//                                   JumpToWebBlk(@"http://192.168.98.50:8080/m.biyao.com/product/show?designid=63786",nil);
-//                                   return ;
+                                   
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
                                    [wself.mutiSwitch setSelectedAtIndex:0];
                                }];
@@ -404,6 +418,8 @@
 //        [self onAppShake];
 //    }
 //}
+
+
 
 
 
