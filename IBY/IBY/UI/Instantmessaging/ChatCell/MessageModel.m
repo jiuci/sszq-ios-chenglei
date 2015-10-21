@@ -43,6 +43,9 @@
 - (NSURL *)headImageURL
 {
     if (self.isSender) {
+        if (![BYAppCenter sharedAppCenter].user.avatar) {
+            return nil;
+        }
         NSURL * url = [NSURL URLWithString:[BYAppCenter sharedAppCenter].user.avatar];
         return url;
     }

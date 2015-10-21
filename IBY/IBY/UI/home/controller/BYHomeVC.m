@@ -354,7 +354,8 @@
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
 //                                   [wself.navigationController pushViewController:[[BYIMViewController alloc]init] animated:YES];
-                                   
+//                                   JumpToWebBlk(@"http://192.168.98.50:8080/m.biyao.com/product/show?designid=63786",nil);
+//                                   return ;
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
                                    [wself.mutiSwitch setSelectedAtIndex:0];
                                }];

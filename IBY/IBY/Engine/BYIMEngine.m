@@ -26,8 +26,8 @@
 
 + (void)getTargetStatus:(NSString *)user token:(NSString *)token finish:(void (^)(BOOL online, BYError* error))finished
 {
-    NSString* orgName = @"zhaohua";
-    NSString* appName = @"im";
+    NSString* orgName = @"biyao-tech";
+    NSString* appName = @"biyao";
     NSString* completeUrl = [NSString stringWithFormat:@"https://a1.easemob.com/%@/%@/users/%@/status",orgName,appName,user];
     NSString* brarerToken = [NSString stringWithFormat:@"Bearer %@",token];
     NSDictionary* header = [NSDictionary dictionaryWithObjectsAndKeys:@"application/json",@"Content-Type",
@@ -35,12 +35,11 @@
                          nil];
     
     [BYNetwork getComplete:completeUrl params:nil header:header finish:^(NSDictionary * data, BYError * error){
-//        NSLog(@"%@",data);
         if (error) {
             finished(NO,error);
             return ;
         }
-        BOOL isOnline ;//= YES;
+        BOOL isOnline;
         NSString * str = data[@"data"][user];
         if ([str isEqualToString:@"online"]) {
             isOnline = YES;
@@ -51,15 +50,15 @@
     }];
 }
 
-+ (void)getToken:(void (^)(NSString * token, BYError * error))finished
++ (void)getToken:(void (^)(NSDictionary * dic, BYError * error))finished
 {
-    NSString* orgName = @"zhaohua";
-    NSString* appName = @"im";
+    NSString* orgName = @"biyao-tech";
+    NSString* appName = @"biyao";
     NSString* completeUrl = [NSString stringWithFormat:@"https://a1.easemob.com/%@/%@/token",orgName,appName];
     NSDictionary* header = @{ @"Content-Type" : @"application/json" };
     NSDictionary* body = @{ @"grant_type" : @"client_credentials",
-                             @"client_id" : @"YXA6ux_OcFajEeWnHOsBoSt5KA",
-                             @"client_secret" : @"YXA6S4kyKvezYV8PaDlT3zDZswxvG88"
+                             @"client_id" : @"YXA6pHJU0HcLEeW8lhFDW02otw",
+                             @"client_secret" : @"YXA66rFeMTmPE_LolnNA-Q0V0rGuEtY"
                              };
 
     [BYNetwork postComplete:completeUrl params:body header:header finish:^(NSDictionary * data, BYError * error){
@@ -67,7 +66,7 @@
             finished(nil,error);
             return ;
         }
-        finished(data[@"access_token"],nil);
+        finished(data,nil);
     }];
 }
 @end

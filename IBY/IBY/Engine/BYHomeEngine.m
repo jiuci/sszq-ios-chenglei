@@ -12,14 +12,14 @@
 + (void)loadHomePagefinish:(void (^)(BYHomeInfo * info, BYError* error))finished
 {
     NSString* url = @"/home/show/v1";
-
     
     [BYNetwork post:url params:nil finish:^(NSDictionary* data, BYError* error) {
+        NSLog(@"%@",data);
         if(error){
+            NSLog(@"%@",error);
             finished(nil,error);
             return ;
         }
-//        NSLog(@"%@",data);
         BYHomeInfo * homeInfo = [BYHomeInfo homeWithDict:data];
         if (!homeInfo) {
             BYError* error = [BYError errorWithDomain:@"com.biyao.fu" code:503 userInfo:nil];

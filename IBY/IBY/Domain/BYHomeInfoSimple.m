@@ -20,8 +20,8 @@
     }
     return YES;
 }
--(int)categoryID
-{
-    return 0;
-}
+//-(int)categoryID  //专题页入口
+//{
+//    return 0;
+//}
 @end

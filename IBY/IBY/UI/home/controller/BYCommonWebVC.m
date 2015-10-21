@@ -228,8 +228,9 @@
     }
 //    [iConsole log:@"mark2"];
     //对我们自己的地址进行分类处理
+//    NSLog(@"%@",requestString);
 //    NSLog(@"%@",[BYThemeVC sharedTheme].url);
-    if ([[BYThemeVC sharedTheme].url rangeOfString:preUrlString].length > 0) {
+    if ([[BYThemeVC sharedTheme].url rangeOfString:requestString].length > 0) {
         if ([self.navigationController.viewControllers containsObject:[BYThemeVC sharedTheme]]) {
             [self.navigationController popToViewController:[BYThemeVC sharedTheme] animated:NO];
         }else{

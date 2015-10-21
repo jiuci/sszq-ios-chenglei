@@ -94,6 +94,10 @@
         [wself refresh];
     }];
     BYHomeInfoSimple * simple = _info.headerInfo;
+//    NSLog(@"%d,%d",simple.width,simple.height);
+    if (simple.width == 0 ||simple.height == 0) {
+        return;
+    }
     BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)simple.width*simple.height)];
     
     header.jumpURL = simple.link;

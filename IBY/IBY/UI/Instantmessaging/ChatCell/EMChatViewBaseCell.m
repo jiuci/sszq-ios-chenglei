@@ -32,7 +32,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         if (model.isSender) {
             originX = self.bounds.size.width - HEAD_SIZE - HEAD_PADDING;
         }
-        _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(originX, CELLPADDING, HEAD_SIZE, HEAD_SIZE)];
+        _headImageView = [[BYImageView alloc] initWithFrame:CGRectMake(originX, CELLPADDING, HEAD_SIZE, HEAD_SIZE)];
         [_headImageView addGestureRecognizer:tap];
         _headImageView.userInteractionEnabled = YES;
         _headImageView.multipleTouchEnabled = YES;
@@ -81,12 +81,11 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     _messageModel = messageModel;
     
     _nameLabel.hidden = (messageModel.messageType == eMessageTypeChat);
-    
-    UIImage *placeholderImage = [UIImage imageNamed:@"icon_user_default"];
-    
-    [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
-   
-    
+    if (_messageModel.headImageURL.absoluteString) {
+        [self.headImageView setImageWithUrl:_messageModel.headImageURL.absoluteString placeholderName:@"icon_user_default"];
+    }else{
+        [self.headImageView setImage:[UIImage imageNamed:@"icon_user_default"]];
+    }
 }
 
 #pragma mark - private

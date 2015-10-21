@@ -147,17 +147,22 @@
                title:@"我的订单"
                  top:12
                  sel:@selector(onOrders)];
+    
+    [self appendCell:@"icon_usercenter_book"
+               title:@"我的预约"
+                 top:0
+                 sel:@selector(onMybook)];
 
+    [self appendCell:@"icon_usercenter_mydesign"
+               title:@"我的作品集"
+                 top:0
+                 sel:@selector(onMydesign)];
+    
     [self appendCell:@"icon_usercenter_coupon"
                title:@"我的红包"
                  top:0
                  sel:@selector(onMycoupon)];
     
-    [self appendCell:@"icon_usercenter_mydesign"
-               title:@"我的作品集"
-                 top:0
-                 sel:@selector(onMydesign)];
-
     [self appendCell:@"icon_usercenter_address"
                title:@"我的地址"
                  top:0
@@ -273,6 +278,16 @@
         return;
     }
     JumpToWebBlk(@"http://m.biyao.com/money/money", nil);
+}
+
+- (void)onMybook
+{
+    
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    JumpToWebBlk(@"http://m.biyao.com/book/index.html", nil);
 }
 
 

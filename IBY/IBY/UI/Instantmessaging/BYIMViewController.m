@@ -50,6 +50,7 @@
     scroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     scroll.directionalLockEnabled = YES;
     scroll.scrollEnabled = NO;
+    self.navigationController.navigationBarHidden = NO;
     self.view = scroll;
 }
 
@@ -184,10 +185,13 @@
 
 - (void)updateUI
 {
+    
     if (![BYAppCenter sharedAppCenter].isLogin) {
         [self loginAction];
+        return;
     }
-    
+    [MBProgressHUD topHide];
+    [MBProgressHUD topShow:@"联系客服..."];
     __weak typeof (self) wself = self;
     self.title = _supplierName;
     NSString * easeMobID = [NSString stringWithFormat:@"user_%d",(unsigned int)[BYAppCenter sharedAppCenter].user.userID];
@@ -195,14 +199,15 @@
     BYIMService * service = [[BYIMService alloc]init];
     [service loadpassword:^(NSString * psw,BYError * error){
         if (error) {
-            NSLog(@"error %@",error);
+            alertError(error);
+            [self.navigationController popViewControllerAnimated:YES];
             return;
         }
         if (![EaseMob sharedInstance].chatManager.isLoggedIn) {
             [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:easeMobID password:psw completion:^(NSDictionary *loginInfo, EMError *error) {
                 if (!error && loginInfo) {
-                    NSLog(@"登陆成功");
-                    NSLog(@"%@",loginInfo);
+//                    NSLog(@"登陆成功");
+//                    NSLog(@"%@",loginInfo);
                     [wself loadConversation];
                 }
                 else if ([error.description isEqualToString:@"User do not exist."]){
@@ -213,11 +218,15 @@
                         [wself updateUI];
                     }else{
                         NSLog(@"error :%@",error);
+                        [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
+                        [self.navigationController popViewControllerAnimated:YES];
                     }
                 } onQueue:nil];
                 }
                 else{
                     NSLog(@"---%@",error);
+                    [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
                      
             } onQueue:nil];
@@ -249,6 +258,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     if (!_needScrollToEnd) {
         _needScrollToEnd = YES;
     }else{
@@ -265,11 +275,14 @@
     _conversation = conversation;
     [_conversation markAllMessagesAsRead:YES];
     BYIMService * service = [[BYIMService alloc]init];
+    [MBProgressHUD topHide];
     [service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
         if (!error && status) {
             NSLog(@"online");
-        }else{
+        }else if (!status){
             [MBProgressHUD topShowTmpMessage:@"客服不在线"];
+        }else{
+            [MBProgressHUD topShowTmpMessage:@"获取客服在线状态失败"];
         }
     }];
     long long timestamp = [[NSDate date] timeIntervalSince1970] * 1000 + 1;
@@ -392,6 +405,7 @@
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
         if (error) {
             NSLog(@"发送失败%@",error);
+//            [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
         }else{
             NSLog(@"发送成功%@",message);
         }
@@ -444,6 +458,7 @@
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
         if (error) {
             NSLog(@"发送失败%@",error);
+//            [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
         }else{
             NSLog(@"发送成功%@",message);
         }
@@ -479,7 +494,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.dataSource addObjectsFromArray:messages];
             [weakSelf.textTable reloadData];
-            NSLog(@"add");
+//            NSLog(@"add");
             [weakSelf.textTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
     });
@@ -506,7 +521,8 @@
     }
     
     MessageModel *model = [MessageModelManager modelWithMessage:message];
-        model.nickName = model.username;
+    model.nickName = model.username;
+    model.headImageURL = [NSURL URLWithString:_supplierAvatar];
     
       if (model) {
         [ret addObject:model];
@@ -671,12 +687,7 @@
             
             MessageModel *model = [MessageModelManager modelWithMessage:message];
             model.nickName = model.username;
-            NSString * avatar = [BYAppCenter sharedAppCenter].user.avatar;
-            if ([[avatar class] isSubclassOfClass:[NSString class]]&&avatar.length > 0) {
-                model.headImageURL = [NSURL URLWithString:_supplierAvatar];
-            }else{
-                
-            }
+            model.headImageURL = [NSURL URLWithString:_supplierAvatar];
             
             if (model) {
                 [formatArray addObject:model];

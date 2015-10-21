@@ -14,6 +14,6 @@
 
 + (void)getTargetStatus:(NSString *)user token:(NSString *)token finish:(void (^)(BOOL online, BYError* error))finished;
 
-+ (void)getToken:(void (^)(NSString * token, BYError * error))finished;
++ (void)getToken:(void (^)(NSDictionary * dic, BYError * error))finished;
 
 @end

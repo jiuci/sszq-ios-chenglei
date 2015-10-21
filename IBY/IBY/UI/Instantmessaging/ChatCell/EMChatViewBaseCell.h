@@ -17,6 +17,8 @@
 
 #import "UIResponder+Router.h"
 
+#import "BYImageView.h"
+
 #define HEAD_SIZE 45 // 头像大小
 #define HEAD_PADDING 15 // 头像到cell的内间距和头像到bubble的间距
 #define CELLPADDING 8 // Cell之间间距
@@ -30,7 +32,7 @@ extern NSString *const kRouterEventChatHeadImageTapEventName;
 
 @interface EMChatViewBaseCell : UITableViewCell
 {
-    UIImageView *_headImageView;
+    BYImageView *_headImageView;
     UILabel *_nameLabel;
     EMChatBaseBubbleView *_bubbleView;
     
@@ -40,7 +42,7 @@ extern NSString *const kRouterEventChatHeadImageTapEventName;
 
 @property (nonatomic, strong) MessageModel *messageModel;
 
-@property (nonatomic, strong) UIImageView *headImageView;       //头像
+@property (nonatomic, strong) BYImageView *headImageView;       //头像
 @property (nonatomic, strong) UILabel *nameLabel;               //姓名（暂时不支持显示）
 @property (nonatomic, strong) EMChatBaseBubbleView *bubbleView;   //内容区域
 

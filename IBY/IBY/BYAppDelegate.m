@@ -98,7 +98,7 @@
     [BYMonitorService startMonitoring];
     
     
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"zhaohua#im" apnsCertName:nil];
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"biyao-tech#biyao" apnsCertName:nil];
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     CLLocationManager* location = [CLLocationManager new];
