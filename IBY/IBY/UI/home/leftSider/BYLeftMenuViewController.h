@@ -19,5 +19,6 @@
 @property (nonatomic, assign) BOOL isLoading;
 @property (strong, nonatomic) RESideMenu *reSideMenu;
 @property (strong, nonatomic) BYHomeVC *homeVC;
--(void)reloadNavData;
+
+//-(void)reloadNavData;
 @end

@@ -46,7 +46,7 @@
 @property (nonatomic, strong) UIImageView* hasNewMessage;
 @property (nonatomic, strong) BYPoolNetworkView* poolNetworkView;
 @property (nonatomic, assign) BOOL isLoading;
-//@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @property (nonatomic, weak) BYLeftMenuViewController * leftViewController;
 
 @end
@@ -75,7 +75,7 @@
     [self.view addSubview:_bodyView];
     self.bodyView.alwaysBounceVertical = YES;
     
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_index_menu" highImgName:@"btn_index_menu" target:self action:@selector(presentLeftMenuViewController:)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImgName:@"btn_index_menu" highImgName:@"btn_index_menu" target:self action:@selector(leftNav)];
   
     [self.navigationItem setTitle:@"必要商城"];
     _hasNewMessage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 12, 12)];
@@ -113,6 +113,7 @@
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     _info = [BYHomeInfo loadInfo];
+    self.leftViewController.info = _info;
     if (_info) {
         [self updateUI];
     }
@@ -137,99 +138,79 @@
     [_bodyView addHeaderWithCallback:^{
         [wself reloadData];
     }];
-//    for (int i = 0; i < _info.adArray.count; i++) {
-//        //每一个产品是左边间距12  右边间距12
-//        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH-24, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
-//        BYHomeInfoSimple * simple = _info.adArray[i];
-//        image.jumpURL = simple.link;
-//        image.tag = simple.categoryID;
-//        image.categoryId = simple.categoryID;
-//        image.tapDelegate = self;
-//        image.image = [UIImage imageNamed:@"bg_placeholder"];
-//        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
-//        [image addTapAction:@selector(onImagetap:) target:image];
-//        [_bodyView by_addSubview:image paddingTop:8 + (i == 0) * 4];
-//        
-//    }
-//
-    NSLog(@"%@",_info.floorArray);
+    if (_info.bannerArray.count == 1) {
+        BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight)];
+        BYHomeInfoSimple * simple = _info.bannerArray[0];
+        image.jumpURL = simple.link;
+        image.categoryId = simple.categoryID;
+        image.tapDelegate = self;
+        image.tag = simple.categoryID;
+        image.image = [UIImage imageNamed:@"bg_placeholder"];
+        [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
+        [image addTapAction:@selector(onImagetap:) target:image];
+        [_bodyView by_addSubview:image paddingTop:0];
+    }else if (_info.bannerArray.count > 1){
+        NSMutableArray *imagesURL = [NSMutableArray array];
+        for (int i =0; i<_info.bannerArray.count; i++) {
+            BYHomeInfoSimple *simpe = _info.bannerArray[i];
+            [imagesURL addObject:[NSURL URLWithString:simpe.imagePath]];
+        }
+        if (_cycleScrollView) {
+            _cycleScrollView.imageURLsGroup = imagesURL;
+        }
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)_info.bannerWidth*_info.bannerHeight) imageURLsGroup:imagesURL placeHolderImage:[UIImage imageNamed:@"bg_placeholder"]];
+        _cycleScrollView.delegate = self;
+        _cycleScrollView.autoScrollTimeInterval = 3.0;
+        _cycleScrollView.backgroundColor = HEXCOLOR(0xfcfcfc);
+        [_bodyView by_addSubview:_cycleScrollView paddingTop:0];
+    }
+    
+    
     for (int i = 0; i < _info.floorArray.count; i++) {
         BYHomeFloorInfo *floorInfo = _info.floorArray[i];
-        if (floorInfo.imgtitle.length != 0 ) {
-            //每一个产品是左边间距16
-            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH-32, 60)];
-            // image.tag = simple.categoryID;
-            //image.categoryId = simple.categoryID;
-            image.image = [UIImage imageNamed:@"bg_placeholder"];
+        if (floorInfo.title.length) {
+            UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 28)];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.textColor = BYColorNav;
+            titleLabel.font = Font(18);
+            titleLabel.text = floorInfo.title;
+            [_bodyView by_addSubview:titleLabel paddingTop:16];
+        }
+        if (floorInfo.subtitle.length) {
+            UILabel *subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+            subTitleLabel.textAlignment = NSTextAlignmentCenter;
+            subTitleLabel.textColor = BYColor333;
+            subTitleLabel.font = Font(14);
+            subTitleLabel.text = floorInfo.subtitle;
+            [_bodyView by_addSubview:subTitleLabel paddingTop:8];
+        }
+        if (floorInfo.imgtitle.length) {
+            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adImgTitleHeight *(SCREEN_WIDTH-24)/(float)_info.adImgTitleWidth)];
             [image setImageWithUrl:floorInfo.imgtitle placeholderName:@"bg_placeholder"];
-            [image addTapAction:@selector(onImagetap:) target:image];
-            [_bodyView by_addSubview:image paddingTop:8 + (i == 0) * 4];
-        }else{
-            if (floorInfo.title.length != 0 && floorInfo.subtitle.length == 0) {
-                UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH - 32, 20)];
-                UILabel *titleLbl = [[UILabel alloc]initWithFrame:titleView.frame];
-                titleLbl.textAlignment = NSTextAlignmentCenter;
-                titleLbl.textColor = BYColorNav;
-                titleLbl.font = ItalicFont(28);
-                titleLbl.text = floorInfo.title;
-                [titleView addSubview:titleLbl];
-                [_bodyView by_addSubview:titleView paddingTop:16 paddingBottom:12];
-            }
-            if (floorInfo.title.length != 0 && floorInfo.subtitle.length != 0) {
-                UILabel *titleLbl = [[UILabel alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH - 32, 20)];
-                titleLbl.textAlignment = NSTextAlignmentCenter;
-                titleLbl.textColor = BYColorNav;
-                titleLbl.font = ItalicFont(28);
-                titleLbl.text = floorInfo.title;
-                [_bodyView by_addSubview:titleLbl paddingTop:16];
-                UILabel *subTitleLbl = [[UILabel alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH - 32, 20)];
-                titleLbl.textAlignment = NSTextAlignmentCenter;
-                titleLbl.textColor = BYColor333;
-                titleLbl.font = ItalicFont(24);
-                titleLbl.text = floorInfo.subtitle;
-                [_bodyView by_addSubview:titleLbl paddingTop:8 paddingBottom:12];
-            }
+            [_bodyView by_addSubview:image paddingTop:14];
         }
         for (int j = 0; j < floorInfo.adsArray.count;j++ ) {
-            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH-32, 196)];
+            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
             //图片边界效果
-            UIView *leftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 196)];
-            leftLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
-            UIView *rightLineView = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 32, 0, 1, 196)];
-            rightLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
-            [image addSubview:leftLineView];
-            [image addSubview:rightLineView];
+//            UIView *leftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 196)];
+//            leftLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
+//            UIView *rightLineView = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 32, 0, 1, 196)];
+//            rightLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
+//            [image addSubview:leftLineView];
+            
+//            [image addSubview:rightLineView];
             
             NSArray *adsArray = floorInfo.adsArray;
             BYHomeInfoSimple * simple = adsArray[j];
+            image.categoryId = simple.categoryID;
             image.jumpURL = simple.link;
-            // image.tag = simple.categoryID;
-            //image.categoryId = simple.categoryID;
             image.tapDelegate = self;
-            image.image = [UIImage imageNamed:@"bg_placeholder"];
+//            image.image = [UIImage imageNamed:@"bg_placeholder"];
             [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
             [image addTapAction:@selector(onImagetap:) target:image];
-            [_bodyView by_addSubview:image paddingTop:j == 0?2:10];
+            [_bodyView by_addSubview:image paddingTop:0];
         }
-        
-        
     }
-
-    
-    
-    if (!_info.bbsArray||_info.bbsArray.count == 0) {
-        self.isLoading = NO;
-        return;
-    }
-    NSDictionary *attrDict1 = @{ NSFontAttributeName: Font(14),
-                                NSForegroundColorAttributeName: BYColor333};
-    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString: [_info.bbsTitle substringWithRange: NSMakeRange(0, _info.bbsTitle.length)] attributes: attrDict1];
-    NSDictionary *attrDict2 = @{ NSFontAttributeName: Font(12),
-                                 NSForegroundColorAttributeName: BYColor333 };
-    NSAttributedString *attrStr2 = [[NSAttributedString alloc] initWithString: [_info.bbsHalfTitle substringWithRange: NSMakeRange(0, _info.bbsHalfTitle.length)] attributes: attrDict2];
-    UILabel* bbsTitleLabel= [[UILabel alloc]initWithFrame:CGRectMake(12, 0, self.view.width*.8, 44)];
-    NSMutableAttributedString *attributedStr03 = [[NSMutableAttributedString alloc] initWithAttributedString: attrStr1];
-    [attributedStr03 appendAttributedString: attrStr2];
     
     
     [self.mutiSwitch setSelectedAtIndex:0];
@@ -345,8 +326,14 @@
 }
 - (void)onCelltap:(NSString*)link
 {
-    
+    if ([link hasPrefix:@"http"]) {
         JumpToWebBlk(link, nil);
+        return;
+    }else if (link.intValue > 1000){
+        BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:link.intValue];
+        themeVC.url = [NSString stringWithFormat:@"com.biyao.fu.theme:%d",link.intValue];
+        [self.navigationController pushViewController:themeVC animated:YES];
+    }
 }
 - (BYMutiSwitch*)mutiSwitch
 {
@@ -387,6 +374,16 @@
     }
     return _mutiSwitch;
 }
+
+- (void)leftNav
+{
+    if (!_info) {
+        return;
+    }
+    [self presentLeftMenuViewController:nil];
+}
+
+
 - (void)refreshUIIfNeeded {
 
 }

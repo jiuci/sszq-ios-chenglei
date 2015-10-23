@@ -11,7 +11,7 @@
 	<key>platform</key>
 	<string>iOS</string>
 	<key>numVersion</key>
-	<integer>28</integer>
+	<integer>30</integer>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

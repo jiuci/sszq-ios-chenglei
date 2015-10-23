@@ -15,25 +15,28 @@
     BYHomeInfo * homeInfo = [[BYHomeInfo alloc]init];
     homeInfo.adHeight = [info[@"adHeight"] intValue];
     homeInfo.adWidth = [info[@"adWidth"] intValue];
+    homeInfo.adImgTitleWidth = [info[@"adImgTitleWidth"] intValue];
+    homeInfo.adImgTitleHeight = [info[@"adImgTitleHeight"] intValue];
     NSMutableArray * tempArray = [NSMutableArray array];
-    NSArray * ads = info[@"ads"];
-    for (int i = 0 ; i< ads.count; i++) {
-        BYHomeInfoSimple * simple = [[BYHomeInfoSimple alloc]init];
-        simple.imagePath = ads[i][@"img"];
-        
-        simple.link = ads[i][@"link"];
-        simple.type = [ads[i][@"type"] intValue];
-        simple.categoryID = [ads[i][@"cmsCategoryID"] intValue];
-        if (!simple.isValid) {
-            return nil;
-        }
-        [tempArray addObject:simple];
-    }
-    homeInfo.adArray = [NSArray arrayWithArray:tempArray];
+//    NSArray * ads = info[@"ads"];
+//    for (int i = 0 ; i< ads.count; i++) {
+//        BYHomeInfoSimple * simple = [[BYHomeInfoSimple alloc]init];
+//        simple.imagePath = ads[i][@"img"];
+//        
+//        simple.link = ads[i][@"link"];
+//        simple.type = [ads[i][@"type"] intValue];
+//        simple.categoryID = [ads[i][@"cmsCategoryID"] intValue];
+//        if (!simple.isValid) {
+//            return nil;
+//        }
+//        [tempArray addObject:simple];
+//    }
+//    homeInfo.adArray = [NSArray arrayWithArray:tempArray];
+//
     
-    homeInfo.bannerHeight = [info[@"bannerHeight"] intValue];
-    homeInfo.bannerWidth = [info[@"bannerWidth"] intValue];
-    [tempArray removeAllObjects];
+//    homeInfo.bbsHeight = [info[@"bbsHeight"] intValue];
+//    homeInfo.bbsWidth = [info[@"bbsWidth"] intValue];
+//    [tempArray removeAllObjects];
     
     NSArray * banners = info[@"banners"];
     for (int i = 0 ; i< banners.count; i++) {
@@ -49,23 +52,23 @@
     }
     homeInfo.bannerArray = [NSArray arrayWithArray:tempArray];
     
-    homeInfo.bbsHeight = [info[@"bbsHeight"] intValue];
-    homeInfo.bbsWidth = [info[@"bbsWidth"] intValue];
+    homeInfo.bannerHeight = [info[@"bannerHeight"] intValue];
+    homeInfo.bannerWidth = [info[@"bannerWidth"] intValue];
     [tempArray removeAllObjects];
 //  张 ads
     NSArray *barNodes = info[@"barNodes"];
     for (int i = 0 ; i< barNodes.count; i++) {
         BYHomeNavInfo *simple = [[BYHomeNavInfo alloc]init];
         simple.name = barNodes[i][@"name"];
-        simple.imgurl = barNodes[i][@"imgurl"];
-        // 缺少Link信息
+        simple.link = barNodes[i][@"imgurl"];
+        simple.imgurl = barNodes[i][@"iconimg"];
         if (barNodes[i][@"barNodes"]) {
             NSMutableArray *secTmpArray = [[NSMutableArray alloc]init];
             NSArray *secondsArray = barNodes[i][@"barNodes"];
             for (int j = 0; j < secondsArray.count; j++) {
                 BYHomeNavInfo *second = [[BYHomeNavInfo alloc]init];
                 second.name = secondsArray[j][@"name"];
-                second.imgurl = secondsArray[j][@"imgurl"];
+                second.link = secondsArray[j][@"imgurl"];
                 [secTmpArray addObject:second];
             }
             simple.secondArray = secTmpArray;
@@ -87,10 +90,11 @@
             NSMutableArray *secTmpArray = [[NSMutableArray alloc]init];
             NSArray *secondsArray = floorsArray[i][@"ads"];
             for (int j = 0; j < secondsArray.count; j++) {
-                BYHomeInfoSimple *second = [[BYHomeInfoSimple alloc]init];
-                second.imagePath = secondsArray[j][@"img"];
-                second.link = secondsArray[j][@"link"];
-                [secTmpArray addObject:second];
+                BYHomeInfoSimple *simple = [[BYHomeInfoSimple alloc]init];
+                simple.imagePath = secondsArray[j][@"img"];
+                simple.link = secondsArray[j][@"link"];
+                simple.categoryID = [secondsArray[j][@"cmsCategoryID"] intValue];
+                [secTmpArray addObject:simple];
             }
             simple.adsArray = secTmpArray;
             
@@ -103,22 +107,22 @@
     
     
     
-    NSArray * bbsArray = info[@"bbsAds"];
-    for (int i = 0 ; i< bbsArray.count; i++) {
-        BYHomeInfoSimple * simple = [[BYHomeInfoSimple alloc]init];
-        simple.imagePath = bbsArray[i][@"img"];
-        simple.link = bbsArray[i][@"link"];
-        simple.type = [bbsArray[i][@"type"] intValue];
-        simple.title = bbsArray[i][@"title"];
-        if (!simple.isValid) {
-            return nil;
-        }
-        [tempArray addObject:simple];
-    }
-    homeInfo.bbsArray = [NSArray arrayWithArray:tempArray];
-    
-    homeInfo.bbsTitle = [NSString stringWithFormat:@"%@/",info[@"bbsMainTitle"]];
-    homeInfo.bbsHalfTitle = info[@"bbsHalfTitle"];
+//    NSArray * bbsArray = info[@"bbsAds"];
+//    for (int i = 0 ; i< bbsArray.count; i++) {
+//        BYHomeInfoSimple * simple = [[BYHomeInfoSimple alloc]init];
+//        simple.imagePath = bbsArray[i][@"img"];
+//        simple.link = bbsArray[i][@"link"];
+//        simple.type = [bbsArray[i][@"type"] intValue];
+//        simple.title = bbsArray[i][@"title"];
+//        if (!simple.isValid) {
+//            return nil;
+//        }
+//        [tempArray addObject:simple];
+//    }
+//    homeInfo.bbsArray = [NSArray arrayWithArray:tempArray];
+//    
+//    homeInfo.bbsTitle = [NSString stringWithFormat:@"%@/",info[@"bbsMainTitle"]];
+//    homeInfo.bbsHalfTitle = info[@"bbsHalfTitle"];
     homeInfo.data = info;
     [BYHomeInfo saveInfo:info];
     return homeInfo;

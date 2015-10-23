@@ -13,9 +13,10 @@
 
 @interface BYNavHeaderView : UITableViewHeaderFooterView
 @property (nonatomic, strong) BYHomeNavInfo *group;
-@property (nonatomic, assign) NSInteger myOpen;
+@property (nonatomic, assign) BOOL isOpen;
+@property (nonatomic, assign) BOOL canOpen;
 @property (nonatomic, weak) id<BYNavHeaderViewDelegate> delegate;
 @property (nonatomic, assign) NSInteger isLastSection;
 + (instancetype)headerViewWithTableView:(UITableView *)tableView;
-- (void)changeImageDirection;
+//- (void)changeImageDirection;
 @end

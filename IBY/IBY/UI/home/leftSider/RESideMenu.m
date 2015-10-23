@@ -92,8 +92,8 @@
     _contentViewShadowRadius = 8.0f;
     _contentViewFadeOutAlpha = 1.0f;
     _contentViewInLandscapeOffsetCenterX = 30.f;
-    _contentViewInPortraitOffsetCenterX  = 30.f;
-    _contentViewScaleValue = 0.7f;
+    _contentViewInPortraitOffsetCenterX  = 100.f;
+    _contentViewScaleValue = 1.0f;
 }
 
 #pragma mark -
@@ -376,9 +376,9 @@
         }
         
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
-            self.contentViewContainer.center = CGPointMake((UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetWidth(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y-80);
+            self.contentViewContainer.center = CGPointMake((UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetWidth(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y);
         } else {
-            self.contentViewContainer.center = CGPointMake((UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetHeight(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y-80);
+            self.contentViewContainer.center = CGPointMake((UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetHeight(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y);
         }
 
         self.menuViewContainer.alpha = !self.fadeMenuView ?: 1.0f;
@@ -565,9 +565,9 @@
     CGFloat scale = sqrt(t.a * t.a + t.c * t.c);
     CGRect frame = self.contentViewContainer.frame;
     self.contentViewContainer.transform = CGAffineTransformIdentity;
-    self.contentViewContainer.transform = CGAffineTransformMakeScale(scale, scale);
+//    self.contentViewContainer.transform = CGAffineTransformMakeScale(scale, scale);
    // self.contentViewContainer.frame = frame;
-    self.contentViewContainer.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width-50, frame.size.height+250);
+    self.contentViewContainer.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
     
     //CGSizeMake(frame.size.width+100, frame.size.height+200);
 }

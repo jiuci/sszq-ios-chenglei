@@ -13,10 +13,6 @@
 @property(nonatomic, copy)NSString * imgurl;
 @property(nonatomic, copy)NSString * link;
 
-@property(nonatomic, assign)int Parent_id;
-@property(nonatomic, assign)int depth;
-@property(nonatomic, assign)int isleaf;
-@property(nonatomic, assign)int bar_sort;
 @property(nonatomic, strong)BYHomeNavInfo *navInfo;
 @property(nonatomic, copy)NSArray * secondArray;
 @property (nonatomic, assign) BOOL opened;

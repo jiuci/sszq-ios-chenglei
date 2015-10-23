@@ -14,7 +14,7 @@
     NSString* url = @"/home/show/v2";
     
     [BYNetwork post:url params:nil finish:^(NSDictionary* data, BYError* error) {
-        NSLog(@"%@",data);
+//        NSLog(@"%@",data);
         if(error){
             NSLog(@"%@",error);
             finished(nil,error);

@@ -22,6 +22,7 @@
             finished(nil,error);
             return ;
         }
+        NSLog(@"%@",data);
         BYThemeInfo * themeInfo = [BYThemeInfo themeWithDict:data];
         if (!themeInfo) {
             BYError* error = [BYError errorWithDomain:@"com.biyao.fu" code:503 userInfo:nil];

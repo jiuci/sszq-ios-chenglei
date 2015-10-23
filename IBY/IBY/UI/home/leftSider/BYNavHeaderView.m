@@ -1,6 +1,8 @@
 
 #import "BYNavHeaderView.h"
 #import "UIImageView+WebCache.h"
+
+#import "BYImageView.h"
 #define BYNavGroupLeftImgHeight 20
 #define BYNavGroupImgLeftMargin 24
 #define BYNavGroupImgTopMargin 12
@@ -33,6 +35,8 @@
 @property (nonatomic, weak) UIView *groupView;
 @property (nonatomic, weak) UILabel *groupLbl;
 @property (nonatomic, weak) UIImageView *indicateImg;
+@property (nonatomic, strong) BYImageView * icon;
+@property (nonatomic, strong) UIView *topLine;
 
 @end
 
@@ -60,10 +64,10 @@
         UIView *groupView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 400, BYNavGroupHeight)];
         groupView.backgroundColor = [UIColor clearColor];
         
-        
-        UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(BYNavLineLeftMargin, 0, BYNavLineLength, 1)];
-        topView.backgroundColor = RGBACOLOR(0, 0, 0, 0.1);
-        [groupView addSubview:topView];
+        _topLine = [[UIView alloc]initWithFrame:CGRectMake(BYNavLineLeftMargin, 0, BYNavLineLength, 1)];
+        _topLine.backgroundColor = RGBACOLOR(0, 0, 0, 0.1);
+        [groupView addSubview:_topLine];
+        _topLine.hidden = YES;
         
         
         UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(BYNavLineLeftMargin, BYNavGroupHeight, BYNavLineLength, 1)];
@@ -93,7 +97,7 @@
         self.indicateImg = indicateImg;
 
         [groupView addSubview:indicateImg];
-        indicateImg.image = [UIImage imageNamed:@"btn_arrow_pulldown"];
+//        indicateImg.image = [UIImage imageNamed:@"btn_arrow_pulldown"];
         
         
         UIButton *nameView = [[UIButton alloc]initWithFrame:groupView.frame];
@@ -104,8 +108,11 @@
         
         [nameView addTarget:self action:@selector(nameViewClick) forControlEvents:UIControlEventTouchUpInside];
      
-        
-        
+        float iconWidth = 22;
+        self.icon = [[BYImageView alloc]initWithFrame:CGRectMake((BYNavGroupLblLeftMargin - iconWidth )/2, 0, iconWidth, iconWidth)];
+        self.icon.centerY = BYNavGroupHeight / 2;
+        [groupView addSubview:self.icon];
+        self.icon.backgroundColor = BYColorClear;
         [self.contentView addSubview:groupView];
       
         self.groupView = groupView;
@@ -129,11 +136,13 @@
 - (void)setGroup:(BYHomeNavInfo *)group
 {
     _group = group;
-    // [self.nameView setTitle:group.link forState:UIControlStateNormal];
-    //  [self.nameView setTitle:@"测试" forState:UIControlStateNormal];
-    //[self.groupLbl setText:@"测试" ];
     self.groupLbl.text = group.name;
-
+    [self.icon setImageUrl:_group.imgurl];
+    if (self.tag == 0) {
+        _topLine.hidden = NO;
+    }else{
+        _topLine.hidden = YES;
+    }
 }
 
 /**
@@ -141,37 +150,50 @@
  */
 - (void)nameViewClick
 {
-    
-    // 1.修改组模型的标记(状态取反)
-    //  self.group.opened = !self.group.opened;
-    //  NSLog(@"%d",self.group.opened? 1: 2);
-    
-    
-    // 2.刷新表格
     if ([self.delegate respondsToSelector:@selector(headerViewDidClickedNameView:)]) {
         [self.delegate headerViewDidClickedNameView:self];
     }
 }
 
+- (void)setCanOpen:(BOOL)canOpen
+{
+    _canOpen = canOpen;
+    self.indicateImg.hidden = !canOpen;
+}
+
+- (void)setIsOpen:(BOOL)isOpen
+{
+    _isOpen = isOpen;
+    if (self.isOpen) {
+        self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_packup"];
+    }else{
+        self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_pulldown"];
+    }
+}
 
 /**
  *  当一个控件被添加到父控件中就会调用
  */
-- (void)didMoveToSuperview
-{
-    [self changeImageDirection];
-}
+//- (void)didMoveToSuperview
+//{
+//    [self changeImageDirection];
+//}
+//
+//- (void)changeImageDirection{
+//  
+//    if (self.isOpen) {
+//        self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_packup"];
+//    }else{
+//        self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_pulldown"];
+//    }
+//}
 
-- (void)changeImageDirection{
-  
-    if (self.myOpen == 1) {
-        // self.indicateImg.transform = CGAffineTransformMakeRotation(M_PI_2);
-        self.indicateImg.image = nil;
-        self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_packup"];
-    }else if (self.myOpen == -2){
-        self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_pulldown"];
-    }
-}
+//- (BOOL)canOpen
+//{
+//    if (self.) {
+//        
+//    }
+//}
 
 /**
  *  当一个控件即将被添加到父控件中会调用

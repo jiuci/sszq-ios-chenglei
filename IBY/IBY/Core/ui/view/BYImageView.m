@@ -11,6 +11,10 @@
 #import "BYCommonWebVC.h"
 @implementation BYImageView
 
+{
+    UIImage * _placeholder;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -37,12 +41,22 @@
         BYLog(@"error image");
         return;
     }
-
+    _placeholder = [UIImage imageNamed:placeholder];
     if (placeholder) {
         [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:placeholder]];
     }
     else {
         [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageDelayPlaceholder];
+    }
+}
+
+- (void)setImage:(UIImage *)image
+{
+    [super setImage:image];
+    if ([_placeholder isEqual:image]) {
+        self.contentMode = UIViewContentModeCenter;
+    }else{
+        self.contentMode = UIViewContentModeScaleToFill;
     }
 }
 

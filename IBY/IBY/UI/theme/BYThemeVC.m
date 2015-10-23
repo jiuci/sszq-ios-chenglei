@@ -58,7 +58,7 @@
     _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 44 -20)];
     [self.view addSubview:_scroll];
     _scroll.delegate = self;
-    _scroll.backgroundColor = [UIColor whiteColor];
+    _scroll.backgroundColor = BYColorBG;
     
     _gototop = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:_gototop];
@@ -119,7 +119,7 @@
         offset = [self buildFloorStartWithOffset:offset];
     }
     
-    _scroll.contentSize = CGSizeMake(SCREEN_WIDTH, offset);
+    _scroll.contentSize = CGSizeMake(SCREEN_WIDTH, offset + 12);
     
 }
 
@@ -155,22 +155,23 @@
             offset += 12 + subTitleLabel.height;
         }
         
+        float interval = 10;
+        
         if (floor.width && floor.height) {
             BYImageView * imageTitle = [[BYImageView alloc]initWithFrame:CGRectMake(0, offset, SCREEN_WIDTH ,SCREEN_WIDTH / (float)floor.width*floor.height)];
-            offset += imageTitle.height;
+            offset += imageTitle.height + interval;
             [imageTitle setImageWithUrl:floor.imageTitle placeholderName:@"bg_placeholder"];
             [_scroll addSubview:imageTitle];
         }
         
-        offset += .5;
+//        offset += .5;
         
-        
-        float simpleWidth = SCREEN_WIDTH / floor.column;
+        float simpleWidth = (SCREEN_WIDTH - (floor.column + 1) * interval) / floor.column;
         
         for (int j = 0; j < floor.simples.count; j++) {
             BYHomeInfoSimple * simple = floor.simples[j];
             
-            BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(j % floor.column * simpleWidth ,offset, simpleWidth ,simpleWidth / (float)simple.width*simple.height)];
+            BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(j % floor.column * (simpleWidth + interval) + interval,offset, simpleWidth ,simpleWidth / (float)simple.width*simple.height)];
             
             header.jumpURL = simple.link;
             header.image = [UIImage imageNamed:@"bg_placeholder"];
@@ -179,7 +180,7 @@
             bottom = header.bottom;
 //            NSLog(@"%f,%f",offset,bottom);
             if ((j+1) % floor.column == 0) {
-                offset += header.height;
+                offset += header.height + interval;
             }
 //            offset += (j+1)%floor.column * header.height;
             
@@ -187,21 +188,21 @@
             //            NSLog(@"%d %f  %f",j,header.height,header.top);
             [_scroll addSubview:header];
             
-            if (j%floor.column) {
-                
-                
-                UIView * bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.bottom - .5, SCREEN_WIDTH, 1)];
-                [_scroll addSubview:bottomLine];
-                bottomLine.backgroundColor = HEXCOLOR(0xe8e8e8);
-                
-                UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
-                [_scroll addSubview:topLine];
-                topLine.backgroundColor = HEXCOLOR(0xe8e8e8);
-            }else{
-                UIView * centerLine = [[UIView alloc]initWithFrame:CGRectMake(header.left - .5, header.top, 1, header.height)];
-                [_scroll addSubview:centerLine];
-                centerLine.backgroundColor = HEXCOLOR(0xe8e8e8);
-            }
+//            if (j%floor.column) {
+//                
+//                
+//                UIView * bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.bottom - .5, SCREEN_WIDTH, 1)];
+//                [_scroll addSubview:bottomLine];
+//                bottomLine.backgroundColor = HEXCOLOR(0xe8e8e8);
+//                
+//                UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
+//                [_scroll addSubview:topLine];
+//                topLine.backgroundColor = HEXCOLOR(0xe8e8e8);
+//            }else{
+//                UIView * centerLine = [[UIView alloc]initWithFrame:CGRectMake(header.left - .5, header.top, 1, header.height)];
+//                [_scroll addSubview:centerLine];
+//                centerLine.backgroundColor = HEXCOLOR(0xe8e8e8);
+//            }
             //            if (j == 1) {
             //                UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
             //                [_scroll addSubview:topLine];
