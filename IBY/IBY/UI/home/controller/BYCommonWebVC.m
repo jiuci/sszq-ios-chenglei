@@ -217,11 +217,11 @@
         return NO;
     }
 //    [iConsole log:@"%@",requestString];
-    [iConsole log:@"web is loading %@",preUrlString];
+    [iConsole log:@"web is loading %@",requestString];
     
 
     //非biyao.com域直接放行
-    if ([preUrlString rangeOfString:@"biyao.com"].length == 0) {
+    if ([preUrlString rangeOfString:@"biyao.com"].length == 0 && ([preUrlString rangeOfString:@"biyao.fu"].length == 0)) {
         self.showTabbar = NO;
         _currentUrl = requestString;
         return YES;
@@ -229,7 +229,7 @@
 //    [iConsole log:@"mark2"];
     //对我们自己的地址进行分类处理
 //    NSLog(@"%@",requestString);
-//    NSLog(@"%@",[BYThemeVC sharedTheme].url);
+//    NSLog(@"---%@",[BYThemeVC sharedTheme].url);
     if ([[BYThemeVC sharedTheme].url rangeOfString:requestString].length > 0) {
         if ([self.navigationController.viewControllers containsObject:[BYThemeVC sharedTheme]]) {
             [self.navigationController popToViewController:[BYThemeVC sharedTheme] animated:NO];

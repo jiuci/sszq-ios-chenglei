@@ -89,24 +89,26 @@
     for (UIView * view in _scroll.subviews) {
         [view removeFromSuperview];
     }
+    [_scroll setContentOffset:CGPointMake(0, 0) animated:NO];
+    _gototop.hidden = YES;
     __weak typeof(self) wself = self;
     [self.scroll addHeaderWithCallback:^{
         [wself refresh];
     }];
     BYHomeInfoSimple * simple = _info.headerInfo;
 //    NSLog(@"%d,%d",simple.width,simple.height);
-    if (simple.width == 0 ||simple.height == 0) {
-        return;
+    if (simple.width > 0 && simple.height > 0) {
+        BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)simple.width*simple.height)];
+        
+        header.jumpURL = simple.link;
+        header.image = [UIImage imageNamed:@"bg_placeholder"];
+        [header setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
+        [header addTapAction:@selector(onImagetap:) target:header];
+        
+        [_scroll addSubview:header];
+        offset += header.height + 10;
     }
-    BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_WIDTH/ (float)simple.width*simple.height)];
     
-    header.jumpURL = simple.link;
-    header.image = [UIImage imageNamed:@"bg_placeholder"];
-    [header setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
-    [header addTapAction:@selector(onImagetap:) target:header];
-    
-    [_scroll addSubview:header];
-    offset += header.height ;
     if (_info.layout.intValue == 1) {
         //floor
         offset = [self buildFloorStartWithOffset:offset];
@@ -119,8 +121,7 @@
         offset = [self buildFloorStartWithOffset:offset];
     }
     
-    _scroll.contentSize = CGSizeMake(SCREEN_WIDTH, offset + 12);
-    
+    _scroll.contentSize = CGSizeMake(SCREEN_WIDTH, offset);
 }
 
 - (float)buildFloorStartWithOffset:(float)offset
@@ -178,42 +179,14 @@
             [header setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
             [header addTapAction:@selector(onImagetap:) target:header];
             bottom = header.bottom;
-//            NSLog(@"%f,%f",offset,bottom);
             if ((j+1) % floor.column == 0) {
                 offset += header.height + interval;
             }
-//            offset += (j+1)%floor.column * header.height;
-            
-            //            NSLog(@"offset %f",offset);
-            //            NSLog(@"%d %f  %f",j,header.height,header.top);
             [_scroll addSubview:header];
-            
-//            if (j%floor.column) {
-//                
-//                
-//                UIView * bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.bottom - .5, SCREEN_WIDTH, 1)];
-//                [_scroll addSubview:bottomLine];
-//                bottomLine.backgroundColor = HEXCOLOR(0xe8e8e8);
-//                
-//                UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
-//                [_scroll addSubview:topLine];
-//                topLine.backgroundColor = HEXCOLOR(0xe8e8e8);
-//            }else{
-//                UIView * centerLine = [[UIView alloc]initWithFrame:CGRectMake(header.left - .5, header.top, 1, header.height)];
-//                [_scroll addSubview:centerLine];
-//                centerLine.backgroundColor = HEXCOLOR(0xe8e8e8);
-//            }
-            //            if (j == 1) {
-            //                UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0 , header.top - .5, SCREEN_WIDTH, 1)];
-            //                [_scroll addSubview:topLine];
-            //                topLine.backgroundColor = BYColor999;
-            //            }
-            //            if ((j == floor.simples.count - 1)&& j%2 == 0) {
-            //                offset += header.height;
-            //            }
+         
         }
         offset = bottom;
-        //        offset += 12;
+        offset += interval;
     }
     
     return offset;
@@ -222,7 +195,7 @@
 - (float)buildProductStartWithOffset:(float)offset
 {
     for (int i = 0 ; i < _info.products.count; i++) {
-        offset += 12;
+        
         BYHomeInfoSimple * simple = _info.products[i];
         BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(0 ,offset, SCREEN_WIDTH ,SCREEN_WIDTH / (float)simple.width*simple.height)];
         
@@ -232,7 +205,7 @@
         [header addTapAction:@selector(onImagetap:) target:header];
         offset += header.height;
         [_scroll addSubview:header];
-        
+        offset += 12;
     }
     return offset;
 }
@@ -241,6 +214,7 @@
     __weak BYThemeVC* wself = self;
     [_service loadThemePage:_categoryID type:1 finish:^(BYThemeInfo*info,BYError *error){
         if (!info || error) {
+            wself.gototop.hidden = YES;
             if (!wself.info) {
                 [wself showPoolnetworkView];
 //                [self.tipsView addTapAction:@selector(refresh) target:self];
@@ -255,6 +229,7 @@
         }
         [wself hideTipsView];
         if ([wself.info isSameTo:info]) {
+            wself.title = info.title;
             [wself.scroll headerEndRefreshing];
             return;
         }
@@ -309,6 +284,9 @@
 {
 //    NSLog(@"setgobackuri");
     [super viewDidAppear:animated];
+    if (!self.title || self.title.length == 0) {
+        self.title = _info.title;
+    }
     addCookies(self.url, @"gobackuri", @".biyao.com");
 }
 
@@ -317,6 +295,12 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
 //    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.title = nil;
 }
 
 - (void)didReceiveMemoryWarning {

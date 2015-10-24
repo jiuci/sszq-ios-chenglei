@@ -8,7 +8,7 @@
 
 @protocol BYNavHeaderViewDelegate <NSObject>
 @optional
-- (void)headerViewDidClickedNameView:(BYNavHeaderView *)headerView;
+- (void)headerViewDidClickedNameView:(BYNavHeaderView *)headerView finish:(void (^)(void))finish;
 @end
 
 @interface BYNavHeaderView : UITableViewHeaderFooterView

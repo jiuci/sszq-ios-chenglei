@@ -39,8 +39,8 @@
         simple.width = [floorsData[i][@"width"] intValue];
         simple.column = [floorsData[i][@"column_num"] intValue];
         simple.imageTitle = floorsData[i][@"imgTitle"];
-        simple.mainTitle = floorsData[i][@"mainTitle"];
-        simple.subTitle = floorsData[i][@"subTitle"];
+//        simple.mainTitle = floorsData[i][@"mainTitle"];
+//        simple.subTitle = floorsData[i][@"subTitle"];
         simple.simples = [NSMutableArray array];
         NSArray* items = floorsData[i][@"item"];
 //        NSLog(@"%@",items);
@@ -71,6 +71,8 @@
 
 -(BOOL)isSameTo:(BYThemeInfo*)another
 {
+//    NSLog(@"----xx%@",_info);
+//    NSLog(@"xxxxxx%@",another.info);
     return [_info isEqual:another.info];
 }
 

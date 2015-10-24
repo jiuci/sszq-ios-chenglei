@@ -3,6 +3,9 @@
 #import "UIImageView+WebCache.h"
 
 #import "BYImageView.h"
+
+
+
 #define BYNavGroupLeftImgHeight 20
 #define BYNavGroupImgLeftMargin 24
 #define BYNavGroupImgTopMargin 12
@@ -33,10 +36,11 @@
 @property (nonatomic, weak) UILabel *countView;
 @property (nonatomic, weak) UIButton *nameView;
 @property (nonatomic, weak) UIView *groupView;
-@property (nonatomic, weak) UILabel *groupLbl;
+@property (nonatomic, weak) UILabel *groupLabel;
 @property (nonatomic, weak) UIImageView *indicateImg;
 @property (nonatomic, strong) BYImageView * icon;
 @property (nonatomic, strong) UIView *topLine;
+@property (nonatomic, strong) UIVisualEffectView * visualEfView;
 
 @end
 
@@ -69,8 +73,10 @@
         [groupView addSubview:_topLine];
         _topLine.hidden = YES;
         
+        UIView * backGround = [[UIView alloc]initWithFrame:CGRectMake(BYNavGroupLblLeftMargin, 1, 210 - BYNavGroupLblLeftMargin, BYNavGroupHeight - 2)];
+        [groupView addSubview:backGround];
         
-        UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(BYNavLineLeftMargin, BYNavGroupHeight, BYNavLineLength, 1)];
+        UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(BYNavLineLeftMargin, BYNavGroupHeight - 1, BYNavLineLength, 1)];
         bottomView.backgroundColor = RGBACOLOR(0, 0, 0, 0.1);
         [groupView addSubview:bottomView];
        
@@ -90,7 +96,7 @@
         lbl.tintColor = [UIColor whiteColor];
         [lbl setTextColor:[UIColor whiteColor]];
         [groupView addSubview:lbl];
-        self.groupLbl = lbl;
+        self.groupLabel = lbl;
         
         UIImageView *indicateImg = [[UIImageView alloc]initWithFrame:CGRectMake(194, 14, 16, 16)];
         indicateImg.backgroundColor = [UIColor clearColor];
@@ -116,6 +122,12 @@
         [self.contentView addSubview:groupView];
       
         self.groupView = groupView;
+//        self.visualEfView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
+//       
+//        _visualEfView.alpha = .5;
+//        [self.groupView addSubview:_visualEfView];
+//        _visualEfView.frame = CGRectMake(0, 0, _visualEfView.superview.width, _visualEfView.superview.height);
+//        self.visualEfView.hidden = YES;
  
     }
     return self;
@@ -136,7 +148,7 @@
 - (void)setGroup:(BYHomeNavInfo *)group
 {
     _group = group;
-    self.groupLbl.text = group.name;
+    self.groupLabel.text = group.name;
     [self.icon setImageUrl:_group.imgurl];
     if (self.tag == 0) {
         _topLine.hidden = NO;
@@ -150,9 +162,26 @@
  */
 - (void)nameViewClick
 {
-    if ([self.delegate respondsToSelector:@selector(headerViewDidClickedNameView:)]) {
-        [self.delegate headerViewDidClickedNameView:self];
+    __weak typeof (self) wself = self;
+    if (self.canOpen) {
+        if ([self.delegate respondsToSelector:@selector(headerViewDidClickedNameView:finish:)]) {
+            [self.delegate headerViewDidClickedNameView:self finish:nil];
+        }
+    }else{
+        [UIView animateWithDuration:.3 animations:^{
+            wself.icon.transform = CGAffineTransformMakeScale(1.15, 1.15);
+            wself.icon.alpha = .1;
+        } completion:^(BOOL finish){
+            if ([wself.delegate respondsToSelector:@selector(headerViewDidClickedNameView:finish:)]) {
+                [wself.delegate headerViewDidClickedNameView:wself finish:^{
+                    wself.icon.transform = CGAffineTransformIdentity;
+                    wself.icon.alpha = 1;
+                }];
+            }
+        }];
     }
+    
+    
 }
 
 - (void)setCanOpen:(BOOL)canOpen
@@ -166,8 +195,10 @@
     _isOpen = isOpen;
     if (self.isOpen) {
         self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_packup"];
+        self.visualEfView.hidden = NO;
     }else{
         self.indicateImg.image = [UIImage imageNamed:@"btn_arrow_pulldown"];
+        self.visualEfView.hidden = YES;
     }
 }
 

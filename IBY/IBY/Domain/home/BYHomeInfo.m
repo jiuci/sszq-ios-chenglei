@@ -83,8 +83,8 @@
     NSArray *floorsArray = info[@"adFloorList"];
     for (int i = 0 ; i< floorsArray.count; i++) {
         BYHomeFloorInfo *simple = [[BYHomeFloorInfo alloc]init];
-        simple.title = floorsArray[i][@"title"];
-        simple.subtitle = floorsArray[i][@"subtitle"];
+//        simple.title = floorsArray[i][@"title"]; 首页文字标题
+//        simple.subtitle = floorsArray[i][@"subtitle"];
         simple.imgtitle = floorsArray[i][@"imgtitle"];
         if (floorsArray[i][@"ads"]) {
             NSMutableArray *secTmpArray = [[NSMutableArray alloc]init];

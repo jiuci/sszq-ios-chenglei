@@ -293,8 +293,10 @@
         runOnMainQueue(^{
             cacheLabel.text = [NSString stringWithFormat:@"%.2fMB", 0.0];
             [MBProgressHUD topShowTmpMessage:@"清除完成"];
+            [[SDImageCache sharedImageCache] cleanDisk];
         });
     }];
+    
 }
 
 - (void)onNotification

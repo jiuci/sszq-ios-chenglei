@@ -51,7 +51,7 @@
     if (_tableView) {
         return _tableView;
     }
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20 + 20 + 44, self.view.frame.size.width, self.view.height - 150) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  20 + 44, self.view.frame.size.width, self.view.height - 64 - 40) style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -169,7 +169,7 @@
 /**
  *  点击了headerView上面的名字按钮时就会调用
  */
-- (void)headerViewDidClickedNameView:(BYNavHeaderView *)headerView
+- (void)headerViewDidClickedNameView:(BYNavHeaderView *)headerView finish:(void (^)(void))finish
 {
     if (!headerView.canOpen) {
         BYHomeNavInfo *headerInfo = headerView.group;
@@ -177,6 +177,9 @@
         [self.reSideMenu hideMenuViewControllerAnimated:YES finish:^{
             NSString *link = headerInfo.link;
             [self.homeVC onCelltap:link];
+            if (finish) {
+                finish();
+            }
         }];
         return;
     }
@@ -193,14 +196,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BYHomeNavInfo * navinfo = self.info.barNodesArray[indexPath.section];
-    BYHomeInfoSimple *cellInfo = navinfo.secondArray[indexPath.row];
-  //  [self.reSideMenu hideMenuViewControllerAnimated:YES finish:nil];
-    [self.reSideMenu hideMenuViewControllerAnimated:YES finish:^{
-       NSString *link = cellInfo.link;
-        [self.homeVC onCelltap:link];
+    __weak BYNavSecondCell * cell = (BYNavSecondCell*)[tableView cellForRowAtIndexPath:indexPath];
+//    NSLog(@"%@",cell);
+    [UIView animateWithDuration:.3 animations:^{
+        cell.titleLabel.transform = CGAffineTransformMakeScale(1.15, 1.15);
+        cell.titleLabel.alpha = .1;
+    } completion:^(BOOL finish){
+        
+        
+        BYHomeNavInfo * navinfo = self.info.barNodesArray[indexPath.section];
+        BYHomeInfoSimple *cellInfo = navinfo.secondArray[indexPath.row];
+        [self.reSideMenu hideMenuViewControllerAnimated:YES finish:^{
+            NSString *link = cellInfo.link;
+            [self.homeVC onCelltap:link];
+            cell.titleLabel.transform = CGAffineTransformIdentity;
+            cell.titleLabel.alpha = 1;
+        }];
     }];
-    
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {

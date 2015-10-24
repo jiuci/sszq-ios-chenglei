@@ -188,6 +188,10 @@
             BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adImgTitleHeight *(SCREEN_WIDTH-24)/(float)_info.adImgTitleWidth)];
             [image setImageWithUrl:floorInfo.imgtitle placeholderName:@"bg_placeholder"];
             [_bodyView by_addSubview:image paddingTop:14];
+        }else{
+            UIView * vv =[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 14)];
+//            vv.backgroundColor = [UIColor blackColor];
+            [_bodyView by_addSubview:vv paddingTop:0];
         }
         for (int j = 0; j < floorInfo.adsArray.count;j++ ) {
             BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
@@ -205,7 +209,6 @@
             image.categoryId = simple.categoryID;
             image.jumpURL = simple.link;
             image.tapDelegate = self;
-//            image.image = [UIImage imageNamed:@"bg_placeholder"];
             [image setImageWithUrl:simple.imagePath placeholderName:@"bg_placeholder"];
             [image addTapAction:@selector(onImagetap:) target:image];
             [_bodyView by_addSubview:image paddingTop:0];
@@ -242,6 +245,7 @@
             [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
             return;
         }
+        [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
         _poolNetworkView.hidden = NO;
     }
 
@@ -303,7 +307,7 @@
         JumpToWebBlk(simple.link, nil);
     }else{
         BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:simple.categoryID];
-        themeVC.url = simple.link;
+        themeVC.url = [NSString stringWithFormat:@"http://m.biyao.fu.theme:%d/",simple.categoryID];
         [self.navigationController pushViewController:themeVC animated:YES];
     }
 //    JumpToWebBlk(simple.link, nil);
@@ -319,7 +323,8 @@
         JumpToWebBlk(sender.jumpURL, nil);
     }else{
         BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:sender.categoryId];
-        themeVC.url = sender.jumpURL;
+        themeVC.url = [NSString stringWithFormat:@"http://m.biyao.fu.theme:%d/",sender.categoryId];
+        
         [self.navigationController pushViewController:themeVC animated:YES];
     }
     
@@ -331,7 +336,7 @@
         return;
     }else if (link.intValue > 1000){
         BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:link.intValue];
-        themeVC.url = [NSString stringWithFormat:@"com.biyao.fu.theme:%d",link.intValue];
+        themeVC.url = [NSString stringWithFormat:@"http://m.biyao.fu.theme:%d/",link.intValue];
         [self.navigationController pushViewController:themeVC animated:YES];
     }
 }
@@ -378,6 +383,7 @@
 - (void)leftNav
 {
     if (!_info) {
+        [self reloadData];
         return;
     }
     [self presentLeftMenuViewController:nil];

@@ -15,9 +15,6 @@
     if (!_imagePath||_imagePath.length == 0) {
         return NO;
     }
-    if (!_link||_link.length == 0) {
-        return NO;
-    }
     return YES;
 }
 //-(int)categoryID  //专题页入口

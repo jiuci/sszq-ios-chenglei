@@ -16,7 +16,7 @@
     [BYNetwork post:url params:nil finish:^(NSDictionary* data, BYError* error) {
 //        NSLog(@"%@",data);
         if(error){
-            NSLog(@"%@",error);
+//            NSLog(@"%@",error);
             finished(nil,error);
             return ;
         }

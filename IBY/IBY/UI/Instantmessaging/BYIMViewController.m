@@ -211,20 +211,20 @@
                     [wself loadConversation];
                 }
                 else if ([error.description isEqualToString:@"User do not exist."]){
-                    NSLog(@"未注册");
+//                    NSLog(@"未注册");
                     [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:easeMobID password:psw withCompletion:^(NSString * userName,NSString * passWord,EMError*error){
                     if (!error) {
-                        NSLog(@"注册成功 %@",easeMobID);
+//                        NSLog(@"注册成功 %@",easeMobID);
                         [wself updateUI];
                     }else{
-                        NSLog(@"error :%@",error);
+//                        NSLog(@"error :%@",error);
                         [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
                         [self.navigationController popViewControllerAnimated:YES];
                     }
                 } onQueue:nil];
                 }
                 else{
-                    NSLog(@"---%@",error);
+//                    NSLog(@"---%@",error);
                     [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
