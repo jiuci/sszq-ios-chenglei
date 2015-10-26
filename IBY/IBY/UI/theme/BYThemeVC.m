@@ -33,6 +33,19 @@
     return instance;
 }
 
++ (instancetype)testThemeWithId:(int)categoryID
+{
+    BYThemeVC* instance = [BYThemeVC sharedTheme];
+    if (instance.categoryID != categoryID) {
+        [instance clearUI];
+    }
+    instance.categoryID = categoryID;
+    instance.testType = YES;
+    [instance refresh];
+    return instance;
+
+}
+
 + (instancetype)sharedThemeWithId:(int)categoryID
 {
     BYThemeVC* instance = [BYThemeVC sharedTheme];
@@ -40,7 +53,7 @@
         [instance clearUI];
     }
     instance.categoryID = categoryID;
-    
+    instance.testType = NO;
     [instance refresh];
     return instance;
 }
@@ -212,7 +225,8 @@
 - (void)refresh
 {
     __weak BYThemeVC* wself = self;
-    [_service loadThemePage:_categoryID type:1 finish:^(BYThemeInfo*info,BYError *error){
+    int testType = self.testType ? 0:1;
+    [_service loadThemePage:_categoryID type:testType finish:^(BYThemeInfo*info,BYError *error){
         if (!info || error) {
             wself.gototop.hidden = YES;
             if (!wself.info) {

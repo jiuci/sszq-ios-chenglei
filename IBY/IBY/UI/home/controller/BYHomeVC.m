@@ -331,10 +331,11 @@
 }
 - (void)onCelltap:(NSString*)link
 {
+//    NSLog(@"%@",link);
     if ([link hasPrefix:@"http"]) {
         JumpToWebBlk(link, nil);
         return;
-    }else if (link.intValue > 1000){
+    }else if (link.intValue > 1000 && link.intValue < 10000){
         BYThemeVC * themeVC = [BYThemeVC sharedThemeWithId:link.intValue];
         themeVC.url = [NSString stringWithFormat:@"http://m.biyao.fu.theme:%d/",link.intValue];
         [self.navigationController pushViewController:themeVC animated:YES];

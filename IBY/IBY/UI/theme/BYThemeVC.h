@@ -11,8 +11,10 @@
 @interface BYThemeVC : BYBaseVC
 //+ (instancetype)sharedTheme;
 @property (nonatomic, assign)int categoryID;
+@property (nonatomic, assign)BOOL testType;
 @property (nonatomic)BYThemeInfo * info;
 @property(nonatomic, copy)NSString * url;
 + (instancetype)sharedTheme;
 + (instancetype)sharedThemeWithId:(int)categoryID;
++ (instancetype)testThemeWithId:(int)categoryID;
 @end

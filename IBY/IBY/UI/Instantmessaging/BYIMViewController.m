@@ -217,15 +217,16 @@
 //                        NSLog(@"注册成功 %@",easeMobID);
                         [wself updateUI];
                     }else{
-//                        NSLog(@"error :%@",error);
+                        NSLog(@"error :%@",error);
                         [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
                         [self.navigationController popViewControllerAnimated:YES];
                     }
                 } onQueue:nil];
                 }
                 else{
-//                    NSLog(@"---%@",error);
+                    NSLog(@"---%@",error);
                     [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
                 }
                      
