@@ -187,6 +187,7 @@
         if (floorInfo.imgtitle.length) {
             BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adImgTitleHeight *(SCREEN_WIDTH-24)/(float)_info.adImgTitleWidth)];
             [image setImageWithUrl:floorInfo.imgtitle placeholderName:@"bg_placeholder"];
+            
             [_bodyView by_addSubview:image paddingTop:14];
         }else{
             UIView * vv =[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 14)];
@@ -361,8 +362,26 @@
         [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
+//                                   uitextv
 //                                   [wself.navigationController pushViewController:[[BYIMViewController alloc]init] animated:YES];
+                                   UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+                                   picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                   picker.delegate = wself;
+//                                   picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+                                   picker.mediaTypes =
+                                   [NSArray arrayWithObject:(NSString *)kUTTypeVideo];
+                                   [wself.navigationController presentViewController:picker animated:YES completion:^(){
+                                       
+                                       while (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                                           NSLog(@"%d",[UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]);
+                                       }
+                                       [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+                                       NSLog(@"%d,",[picker startVideoCapture]);
+                                   }];
                                    
+                                   
+                                   return ;
+                                  
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
                                    [wself.mutiSwitch setSelectedAtIndex:0];
                                }];
@@ -380,7 +399,11 @@
     }
     return _mutiSwitch;
 }
-
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"%@",info);
+    
+}
 - (void)leftNav
 {
     if (!_info) {

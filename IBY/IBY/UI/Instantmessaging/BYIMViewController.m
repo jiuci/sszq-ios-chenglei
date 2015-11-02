@@ -36,6 +36,7 @@
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
 @property (strong, nonatomic) MessageReadManager *messageReadManager;
 @property (strong, nonatomic) EMConversation *conversation;
+@property (strong, nonatomic) BYIMService * service;
 
 @property (nonatomic) dispatch_queue_t messageQueue;
 
@@ -72,7 +73,7 @@
     
     self.view.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     self.autoHideKeyboard = YES;
-    
+    _service = [[BYIMService alloc]init];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
 //    [[EaseMob sharedInstance].callManager addDelegate:self delegateQueue:nil];
     
@@ -191,13 +192,13 @@
         return;
     }
     [MBProgressHUD topHide];
-    [MBProgressHUD topShow:@"联系客服..."];
+    [MBProgressHUD topShow:@"请稍候..."];
     __weak typeof (self) wself = self;
     self.title = _supplierName;
     NSString * easeMobID = [NSString stringWithFormat:@"user_%d",(unsigned int)[BYAppCenter sharedAppCenter].user.userID];
 
-    BYIMService * service = [[BYIMService alloc]init];
-    [service loadpassword:^(NSString * psw,BYError * error){
+    
+    [_service loadpassword:^(NSString * psw,BYError * error){
         if (error) {
             alertError(error);
             [self.navigationController popViewControllerAnimated:YES];
@@ -275,11 +276,10 @@
     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_targetUser conversationType:eConversationTypeChat];
     _conversation = conversation;
     [_conversation markAllMessagesAsRead:YES];
-    BYIMService * service = [[BYIMService alloc]init];
     [MBProgressHUD topHide];
-    [service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
+    [_service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
         if (!error && status) {
-            NSLog(@"online");
+            
         }else if (!status){
             [MBProgressHUD topShowTmpMessage:@"客服不在线"];
         }else{
@@ -402,13 +402,21 @@
     // 生成message
     EMMessage *message = [[EMMessage alloc] initWithReceiver:_targetUser bodies:@[body]];
     message.messageType = eMessageTypeChat; // 设置为单聊消息
-    
+    [_service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
+        if (!error && status) {
+            
+        }else if (!status){
+            [MBProgressHUD topShowTmpMessage:@"客服不在线"];
+        }else{
+            [MBProgressHUD topShowTmpMessage:@"获取客服在线状态失败"];
+        }
+    }];
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
         if (error) {
-            NSLog(@"发送失败%@",error);
+//            NSLog(@"发送失败%@",error);
 //            [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
         }else{
-            NSLog(@"发送成功%@",message);
+//            NSLog(@"发送成功%@",message);
         }
     } onQueue:nil];
     _inputTextField.text = @"";
@@ -455,7 +463,15 @@
     // 生成message
     EMMessage *message = [[EMMessage alloc] initWithReceiver:_targetUser bodies:@[body]];
     message.messageType = eMessageTypeChat;
-    
+    [_service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
+        if (!error && status) {
+
+        }else if (!status){
+            [MBProgressHUD topShowTmpMessage:@"客服不在线"];
+        }else{
+            [MBProgressHUD topShowTmpMessage:@"获取客服在线状态失败"];
+        }
+    }];
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
         if (error) {
             NSLog(@"发送失败%@",error);

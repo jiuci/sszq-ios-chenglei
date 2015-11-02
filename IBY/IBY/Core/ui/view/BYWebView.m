@@ -120,13 +120,32 @@
             
         }break;
         case BYH5TypeIM:{
-            NSLog(@"%@",self.h5Params);
-            BYNavVC* nav = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeNav;
-            BYIMViewController * imVC =[[BYIMViewController alloc] init];
-            imVC.targetUser = [NSString stringWithFormat:@"supplier_%@",self.h5Params[@"sjid"]];
-            imVC.supplierName = self.h5Params[@"sjname"];
-            imVC.supplierAvatar = [self.h5Params[@"sjlogo"] URLDecodedString];
-            [nav pushViewController:imVC animated:YES];
+//            NSLog(@"%@",self.h5Params);
+            if (![BYAppCenter sharedAppCenter].isNetConnected) {
+                [MBProgressHUD topShowTmpMessage:@"网络异常，请检查您的网络"];
+                return;
+            }
+            if ([BYAppCenter sharedAppCenter].isLogin) {
+                BYNavVC* nav = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeNav;
+                BYIMViewController * imVC =[[BYIMViewController alloc] init];
+                imVC.targetUser = [NSString stringWithFormat:@"supplier_%@",self.h5Params[@"sjid"]];
+                imVC.supplierName = self.h5Params[@"sjname"];
+                imVC.supplierAvatar = [self.h5Params[@"sjlogo"] URLDecodedString];
+                [nav pushViewController:imVC animated:YES];
+            }else{
+                BYAppDelegate* delegate = (BYAppDelegate*)[UIApplication sharedApplication].delegate;
+                __weak typeof (self) wself = self;
+                BYLoginSuccessBlock successblock = ^(){
+                    BYNavVC* nav = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeNav;
+                    BYIMViewController * imVC =[[BYIMViewController alloc] init];
+                    imVC.targetUser = [NSString stringWithFormat:@"supplier_%@",wself.h5Params[@"sjid"]];
+                    imVC.supplierName = wself.h5Params[@"sjname"];
+                    imVC.supplierAvatar = [wself.h5Params[@"sjlogo"] URLDecodedString];
+                    [nav pushViewController:imVC animated:YES];
+                };
+                [delegate.homeNav presentViewController:makeLoginnav(successblock,nil) animated:YES completion:nil];
+            }
+            
             
         }break;
         default:

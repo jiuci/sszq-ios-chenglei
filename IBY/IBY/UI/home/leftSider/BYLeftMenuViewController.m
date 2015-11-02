@@ -174,12 +174,13 @@
     if (!headerView.canOpen) {
         BYHomeNavInfo *headerInfo = headerView.group;
         //  [self.reSideMenu hideMenuViewControllerAnimated:YES finish:nil];
+        NSString *link = headerInfo.link;
+        [self.homeVC onCelltap:link];
+        if (finish) {
+            finish();
+        }
         [self.reSideMenu hideMenuViewControllerAnimated:YES finish:^{
-            NSString *link = headerInfo.link;
-            [self.homeVC onCelltap:link];
-            if (finish) {
-                finish();
-            }
+           
         }];
         return;
     }
@@ -206,26 +207,27 @@
         
         BYHomeNavInfo * navinfo = self.info.barNodesArray[indexPath.section];
         BYHomeInfoSimple *cellInfo = navinfo.secondArray[indexPath.row];
+        NSString *link = cellInfo.link;
+        [self.homeVC onCelltap:link];
+        
         [self.reSideMenu hideMenuViewControllerAnimated:YES finish:^{
-            NSString *link = cellInfo.link;
-            [self.homeVC onCelltap:link];
             cell.titleLabel.transform = CGAffineTransformIdentity;
             cell.titleLabel.alpha = 1;
         }];
     }];
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    if (scrollView == self.tableView)
-//    {
-//        CGFloat sectionHeaderHeight = 44;
-//        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-//            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-//            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-//        }
-//    }
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.tableView)
+    {
+        CGFloat sectionHeaderHeight = BYNavGroupHeight;
+        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
+    }
+}
 
 
 

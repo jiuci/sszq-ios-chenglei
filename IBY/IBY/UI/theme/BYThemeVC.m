@@ -135,7 +135,11 @@
     }
     
     _scroll.contentSize = CGSizeMake(SCREEN_WIDTH, offset);
+    
+   
 }
+
+
 
 - (float)buildFloorStartWithOffset:(float)offset
 {
@@ -170,7 +174,6 @@
         }
         
         float interval = 10;
-        
         if (floor.width && floor.height) {
             BYImageView * imageTitle = [[BYImageView alloc]initWithFrame:CGRectMake(0, offset, SCREEN_WIDTH ,SCREEN_WIDTH / (float)floor.width*floor.height)];
             offset += imageTitle.height + interval;
@@ -178,13 +181,13 @@
             [_scroll addSubview:imageTitle];
         }
         
-//        offset += .5;
-        
+        if (floor.column == 0) {
+            continue;
+        }
         float simpleWidth = (SCREEN_WIDTH - (floor.column + 1) * interval) / floor.column;
         
         for (int j = 0; j < floor.simples.count; j++) {
             BYHomeInfoSimple * simple = floor.simples[j];
-            
             BYImageView * header = [[BYImageView alloc]initWithFrame:CGRectMake(j % floor.column * (simpleWidth + interval) + interval,offset, simpleWidth ,simpleWidth / (float)simple.width*simple.height)];
             
             header.jumpURL = simple.link;

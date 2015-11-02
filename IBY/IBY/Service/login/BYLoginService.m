@@ -150,7 +150,12 @@
                 
                 if (loginVC.successBlk) {
 //                    [MBProgressHUD topShow:@"登录成功!"];
-                    loginVC.successBlk();
+                    
+                    [loginVC.navigationController
+                     dismissViewControllerAnimated:YES
+                     completion:^{
+                         loginVC.successBlk();
+                     }];
                     
                 }else{
 //                    [MBProgressHUD showSuccess:@"登录成功!"];

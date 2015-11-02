@@ -359,7 +359,12 @@
                         if (!error) {
 //                            NSLog(@"%@",user);
                             if (loginVC.successBlk) {
-                                loginVC.successBlk();
+                                
+                                [loginVC.navigationController
+                                 dismissViewControllerAnimated:YES
+                                 completion:^{
+                                     loginVC.successBlk();
+                                 }];
                                 
                             }else{
                                 [loginVC.navigationController

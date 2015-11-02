@@ -438,7 +438,11 @@
 //                     NSLog(@"%@",user);
                      if (_successBlk) {
                          [MBProgressHUD topShowTmpMessage:@"登录成功!"];
-                         _successBlk();
+                         [self.navigationController
+                          dismissViewControllerAnimated:YES
+                          completion:^{
+                              _successBlk();
+                          }];
                          
                      }else{
                          [MBProgressHUD topShowTmpMessage:@"登录成功!"];

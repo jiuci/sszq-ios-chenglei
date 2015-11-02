@@ -12,6 +12,7 @@
 @implementation BYIMService
 {
     NSString * _token;
+    NSDate * _statusTime;
 }
 - (void)loadpassword:(void (^)(NSString * password, BYError* error))finished
 {
@@ -22,6 +23,15 @@
 - (void)getTargetStatus:(NSString *)user finish:(void (^)(BOOL online, BYError* error))finished
 {
     if (self.token) {
+        BOOL shouldsend = YES;
+        if (_statusTime) {
+            NSLog(@"%f", [[NSDate date]timeIntervalSinceDate:_statusTime] );
+            shouldsend = [[NSDate date]timeIntervalSinceDate:_statusTime] > 60;
+        }
+        if (!shouldsend) {
+            return;
+        }
+        _statusTime = [NSDate date];
         [BYIMEngine getTargetStatus:user token:self.token finish:finished];
         return;
     }
