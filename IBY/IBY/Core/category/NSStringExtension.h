@@ -44,6 +44,10 @@
 //convert 185xxxxxxx to  "+86 185 xxx xxxx"
 - (NSString*)chineseMobileFormat;
 
++ (NSString *)hexStringFromStr:(NSData *)data;
+
+- (NSString *)encryptstr;
+
 @end
 
 NSString* IntToString(int a);

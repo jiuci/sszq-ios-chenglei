@@ -396,6 +396,7 @@
 		FED37FFC1B85C7B700A02FEF /* BYBDmapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F490100E1B589D930062D102 /* BYBDmapVC.m */; };
 		FED3800D1B8C5EA200A02FEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = FED380091B8C5EA200A02FEF /* index.html */; };
 		FED380221B8DD08000A02FEF /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */; };
+		FEF149C71BE8C01C006D3231 /* BYCopyableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF149C61BE8C01C006D3231 /* BYCopyableLabel.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1164,6 +1165,8 @@
 		FED380091B8C5EA200A02FEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		FED3801F1B8DD08000A02FEF /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
 		FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
+		FEF149C51BE8C01C006D3231 /* BYCopyableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYCopyableLabel.h; sourceTree = "<group>"; };
+		FEF149C61BE8C01C006D3231 /* BYCopyableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYCopyableLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2534,6 +2537,8 @@
 				FE3A9A6B1BC7AD43008835C1 /* EMChatTextBubbleView.m */,
 				FE3A9A6C1BC7AD43008835C1 /* EMChatVideoBubbleView.h */,
 				FE3A9A6D1BC7AD43008835C1 /* EMChatVideoBubbleView.m */,
+				FEF149C51BE8C01C006D3231 /* BYCopyableLabel.h */,
+				FEF149C61BE8C01C006D3231 /* BYCopyableLabel.m */,
 			);
 			path = ChatCellBubble;
 			sourceTree = "<group>";
@@ -3372,6 +3377,7 @@
 				FE3A9B431BC7BB78008835C1 /* NSDateFormatter+Category.m in Sources */,
 				F4A7FCDA1AC97BBC000CDEB4 /* BYCommonWebVC.m in Sources */,
 				F4ED1DEC1AF9BEEB00639322 /* BYCaptureController.mm in Sources */,
+				FEF149C71BE8C01C006D3231 /* BYCopyableLabel.m in Sources */,
 				FE3A9B3A1BC7B1F5008835C1 /* wav.mm in Sources */,
 				FE3A9AF01BC7AE9C008835C1 /* NSData+EMImageContentType.m in Sources */,
 				FE3A9AE51BC7AE9C008835C1 /* MWTapDetectingView.m in Sources */,

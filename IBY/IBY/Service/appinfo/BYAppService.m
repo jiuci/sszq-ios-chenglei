@@ -19,7 +19,7 @@
             finished(nil,error);
             return ;
         }
-        
+        NSLog(@"%@",data);
         BYVersionInfo *versionInfo = [BYVersionInfo objectWithKeyValues:data[@"AppUpdate"]];
         finished(versionInfo,nil);
     }];

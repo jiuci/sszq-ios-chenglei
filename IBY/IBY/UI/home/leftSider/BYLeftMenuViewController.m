@@ -84,23 +84,15 @@
 {
     
     [self.view addSubview:self.tableView];
-
-
+    
 }
 
 - (void)setInfo:(BYHomeInfo *)info
 {
     _info = info;
     [self.tableView reloadData];
+    self.tableView.bounces = self.tableView.contentSize.height > self.tableView.height;
 }
-
-- (void)updateTableView
-{
-//    [self.view addSubview:self.tableView];
-    [self.tableView reloadData];
-}
-
-
 
 
 #pragma mark UITableView Datasource
@@ -190,6 +182,7 @@
          self.sectionNum = (int)headerView.tag;
     }
     [self.tableView reloadData];
+    self.tableView.bounces = self.tableView.contentSize.height > self.tableView.height;
 }
 
 #pragma mark -

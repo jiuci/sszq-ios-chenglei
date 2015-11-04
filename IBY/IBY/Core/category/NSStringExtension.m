@@ -9,7 +9,9 @@
 #import "NSStringExtension.h"
 #import "CommonFunc.h"
 #import <CommonCrypto/CommonDigest.h>
-
+#import <CommonCrypto/CommonCryptor.h>
+#define gkey            @"HDALd)9dkA*&1kS$CKSJ}{|A"
+#define gIv             @"A8kz$fKC"
 @implementation NSString (URLEncoding)
 
 - (NSString*)generateMD5
@@ -214,6 +216,64 @@
     return [CommonFunc encryptUseDES:self key:BYDES_EncryptionKey iv:BYDES_EncryptionIV];
 }
 
++ (NSString *)hexStringFromStr:(NSData *)data
+{
+    Byte *bytes = (Byte *)[data bytes];
+    //下面是Byte 转换为16进制。
+    NSString *hexStr=@"";
+    for(int i=0;i<[data length];i++)
+        
+    {
+        NSString *newHexStr = [NSString stringWithFormat:@"%x",bytes[i]&0xff];///16进制数
+        
+        if([newHexStr length]==1)
+            
+            hexStr = [NSString stringWithFormat:@"%@0%@",hexStr,newHexStr];
+        
+        else
+            
+            hexStr = [NSString stringWithFormat:@"%@%@",hexStr,newHexStr];
+    }
+    return hexStr;
+}
+
+- (NSString *)encryptstr
+{
+    NSData* data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    size_t plainTextBufferSize = [data length];
+    const void *vplainText = (const void *)[data bytes];
+    
+    CCCryptorStatus ccStatus;
+    uint8_t *bufferPtr = NULL;
+    size_t bufferPtrSize = 0;
+    size_t movedBytes = 0;
+    
+    bufferPtrSize = (plainTextBufferSize + kCCBlockSize3DES) & ~(kCCBlockSize3DES - 1);
+    bufferPtr = malloc( bufferPtrSize * sizeof(uint8_t));
+    memset((void *)bufferPtr, 0x0, bufferPtrSize);
+    
+    const void *vkey = (const void *) [gkey UTF8String];
+    const void *vinitVec = (const void *) [gIv UTF8String];
+    
+    ccStatus = CCCrypt(kCCEncrypt,
+                       kCCAlgorithm3DES,
+                       kCCOptionPKCS7Padding,
+                       vkey,
+                       kCCKeySize3DES,
+                       vinitVec,
+                       vplainText,
+                       plainTextBufferSize,
+                       (void *)bufferPtr,
+                       bufferPtrSize,
+                       &movedBytes);
+    
+    NSData *myData = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)movedBytes];
+    NSString *hex = [NSString hexStringFromStr:myData];
+    
+    return hex;
+    
+}
+
 #pragma mark - trimhtml
 
 - (NSString*)stripHtml
@@ -224,6 +284,8 @@
         s = [s stringByReplacingCharactersInRange:r withString:@""];
     return s;
 }
+
+
 
 @end
 

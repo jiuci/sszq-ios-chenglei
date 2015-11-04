@@ -164,8 +164,6 @@
         _cycleScrollView.backgroundColor = HEXCOLOR(0xfcfcfc);
         [_bodyView by_addSubview:_cycleScrollView paddingTop:0];
     }
-    
-    
     for (int i = 0; i < _info.floorArray.count; i++) {
         BYHomeFloorInfo *floorInfo = _info.floorArray[i];
         if (floorInfo.title.length) {
@@ -184,8 +182,11 @@
             subTitleLabel.text = floorInfo.subtitle;
             [_bodyView by_addSubview:subTitleLabel paddingTop:8];
         }
+        
         if (floorInfo.imgtitle.length) {
-            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adImgTitleHeight *(SCREEN_WIDTH-24)/(float)_info.adImgTitleWidth)];
+            
+            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ceil(_info.adImgTitleHeight *SCREEN_WIDTH / (float)_info.adImgTitleWidth*2)/2)];
+//            NSLog(@"%@",image);
             [image setImageWithUrl:floorInfo.imgtitle placeholderName:@"bg_placeholder"];
             
             [_bodyView by_addSubview:image paddingTop:14];
@@ -194,8 +195,10 @@
 //            vv.backgroundColor = [UIColor blackColor];
             [_bodyView by_addSubview:vv paddingTop:0];
         }
+        
         for (int j = 0; j < floorInfo.adsArray.count;j++ ) {
-            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adHeight *(SCREEN_WIDTH-24)/(float)_info.adWidth)];
+            
+            BYImageView * image = [[BYImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _info.adHeight * SCREEN_WIDTH / (float)_info.adWidth)];
             //图片边界效果
 //            UIView *leftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 196)];
 //            leftLineView.backgroundColor = HEXCOLOR(0xe8e8e8);
@@ -362,26 +365,6 @@
         [btn2 setTitleColor:BYColorb768 forState:UIControlStateHighlighted];
         [_mutiSwitch addButtonWithBtn:btn2
                                handle:^(id sender) {
-//                                   uitextv
-//                                   [wself.navigationController pushViewController:[[BYIMViewController alloc]init] animated:YES];
-                                   UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-                                   picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                                   picker.delegate = wself;
-//                                   picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-                                   picker.mediaTypes =
-                                   [NSArray arrayWithObject:(NSString *)kUTTypeVideo];
-                                   [wself.navigationController presentViewController:picker animated:YES completion:^(){
-                                       
-                                       while (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                                           NSLog(@"%d",[UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]);
-                                       }
-                                       [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-                                       NSLog(@"%d,",[picker startVideoCapture]);
-                                   }];
-                                   
-                                   
-                                   return ;
-                                  
                                    JumpToWebBlk(BYURL_CARTLIST, nil);
                                    [wself.mutiSwitch setSelectedAtIndex:0];
                                }];
@@ -399,11 +382,11 @@
     }
     return _mutiSwitch;
 }
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSLog(@"%@",info);
-    
-}
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+//{
+//    NSLog(@"%@",info);
+//    
+//}
 - (void)leftNav
 {
     if (!_info) {

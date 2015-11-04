@@ -8,7 +8,8 @@
 
 #import "BYPassportEngine.h"
 #import "BYUser.h"
-
+#import <CommonCrypto/CommonCryptor.h>
+#import "NSStringExtension.h"
 
 @implementation BYPassportEngine
 
@@ -17,7 +18,7 @@
              finish:(void (^)(BYUser* user, BYError* error))finished{
     NSString* url = @"/user/customer/login";
     NSDictionary* params = @{ @"username" : user,
-                              @"password" : pwd
+                              @"epassword" : [pwd encryptstr]
                               };
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {
@@ -37,21 +38,22 @@
         }
     }];
 }
-- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response
-{
-    _tempdata =[NSMutableData data];
-}
-- (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-{
-    [_tempdata appendData:data];
-}
-- (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
-{
-}
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSString*str =[[NSString alloc]initWithData:_tempdata encoding:NSUTF8StringEncoding];
-}
+//
+//- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response
+//{
+//    _tempdata =[NSMutableData data];
+//}
+//- (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
+//{
+//    [_tempdata appendData:data];
+//}
+//- (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
+//{
+//}
+//- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+//{
+//    NSString*str =[[NSString alloc]initWithData:_tempdata encoding:NSUTF8StringEncoding];
+//}
 
 + (void)registByUser:(NSString*)user
                  pwd:(NSString*)pwd
@@ -60,7 +62,7 @@
 {
     NSString* url = @"user/customer/CustomerRegisterServlet";
     NSDictionary* params = @{ @"username" : user,
-                              @"password" : pwd,
+                              @"epassword" : [pwd encryptstr],
                               @"verycode" : code
                               } ;
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
@@ -82,13 +84,13 @@
     
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params safeSetValue:username forKey:@"username"];
-    [params safeSetValue:password forKey:@"NewPassword"];
+    [params safeSetValue:[password encryptstr] forKey:@"eNewPassword"];
     if (needOldPassword) {
         [params safeSetValue:@"true" forKey:@"needOldPasswd"];
     }else{
         [params safeSetValue:@"false" forKey:@"needOldPasswd"];
     }
-    [params safeSetValue:oldPassword forKey:@"OldPassword"];
+    [params safeSetValue:[oldPassword encryptstr] forKey:@"eOldPassword"];
     [params safeSetValue:md5 forKey:@"md5"];
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if(error){

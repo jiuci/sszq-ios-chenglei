@@ -14,7 +14,7 @@
 @property (nonatomic, assign) BYCommonWebVC * commonWebVC;
 @property (nonatomic, strong) BYMutiSwitch *mutiSwitch;
 @property (nonatomic, strong) NSString * needJumpUrl;
--(void)reloadData;
+- (void)reloadData;
 - (void)onCelltap:(NSString*)link;
 
 @end

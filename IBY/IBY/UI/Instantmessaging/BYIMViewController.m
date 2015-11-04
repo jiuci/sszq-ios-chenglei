@@ -22,11 +22,14 @@
 #define KPageCount 20
 //#import "ChatSendHelper.m"
 
-@interface BYIMViewController ()<UITableViewDataSource,UITableViewDelegate,IEMChatProgressDelegate,EMChatManagerChatDelegate,EMChatManagerDelegate,EMCallManagerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface BYIMViewController ()<UITableViewDataSource,UITableViewDelegate,IEMChatProgressDelegate,EMChatManagerChatDelegate,EMChatManagerDelegate,EMCallManagerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate>
 @property (nonatomic)UIScrollView * bodyView;
 @property (nonatomic)UITableView * textTable;
-@property (nonatomic)UITextField * inputTextField;
+@property (nonatomic)UITextView * inputTextField;
 @property (nonatomic)UIView * inputArea;
+@property (nonatomic)UIImageView * inputAreaBg ;
+@property (nonatomic)UIImageView * inputBg;
+@property (nonatomic)UIButton * picture;
 
 @property (nonatomic) NSMutableArray *dataSource;
 @property (nonatomic)BOOL keyboardWasShown;
@@ -37,8 +40,9 @@
 @property (strong, nonatomic) MessageReadManager *messageReadManager;
 @property (strong, nonatomic) EMConversation *conversation;
 @property (strong, nonatomic) BYIMService * service;
-
+@property (assign, nonatomic) NSInteger lineNum;
 @property (nonatomic) dispatch_queue_t messageQueue;
+@property (nonatomic,assign)float inputAreaHeight;
 
 @end
 
@@ -53,29 +57,32 @@
     scroll.scrollEnabled = NO;
     self.navigationController.navigationBarHidden = NO;
     self.view = scroll;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.lineNum = 0;
     self.title = @"客户支持";
+    self.inputAreaHeight = 60;
     
-//    EMError *error = nil;
-//    for (int i = 0; i<10; i++) {
-//        NSString * username = [NSString stringWithFormat:@"iOS%d",i];
-//        NSString * psw = [NSString stringWithFormat:@"%d%d%d%d%d%d",i,i,i,i,i,i];
-//        [[EaseMob sharedInstance].chatManager registerNewAccount:username password:psw error:&error];
-//        if (!error) {
-//            NSLog(@"注册成功 %@",username);
-//        }else{
-//            NSLog(@"error :%@",error);
-//        }
-//    }
+    //    EMError *error = nil;
+    //    for (int i = 0; i<10; i++) {
+    //        NSString * username = [NSString stringWithFormat:@"iOS%d",i];
+    //        NSString * psw = [NSString stringWithFormat:@"%d%d%d%d%d%d",i,i,i,i,i,i];
+    //        [[EaseMob sharedInstance].chatManager registerNewAccount:username password:psw error:&error];
+    //        if (!error) {
+    //            NSLog(@"注册成功 %@",username);
+    //        }else{
+    //            NSLog(@"error :%@",error);
+    //        }
+    //    }
     
     self.view.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     self.autoHideKeyboard = YES;
     _service = [[BYIMService alloc]init];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-//    [[EaseMob sharedInstance].callManager addDelegate:self delegateQueue:nil];
+    //    [[EaseMob sharedInstance].callManager addDelegate:self delegateQueue:nil];
     
     _bodyView = (UIScrollView*)self.view;
     __weak UIScrollView* blockbody = _bodyView;
@@ -84,23 +91,14 @@
     //        return YES;
     //    };
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter]  addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];
-
+    
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     
-    self.inputTextField.bk_shouldBeginEditingBlock = ^(UITextField* textField) {
-        [blockbody TPKeyboardAvoiding_scrollToActiveTextField];
-        return YES;
-    };
     
-    self.inputTextField.bk_shouldBeginEditingBlock = ^(UITextField* textField) {
-        [blockbody TPKeyboardAvoiding_scrollToActiveTextField];
-        return YES;
-    };
     [self setupUI];
-//    [self updateUI];
     
     // Do any additional setup after loading the view.
 }
@@ -125,53 +123,57 @@
 }
 - (void)setupUI
 {
-    float inputAreaHeight = 60;
     float offset = 8;
     _needScrollToEnd = YES;
-    _inputArea = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 20 - 44 - inputAreaHeight, SCREEN_WIDTH, inputAreaHeight)];
-    UIImageView * inputAreaBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _inputArea.width, _inputArea.height)];
-    [_inputArea addSubview:inputAreaBg];
+    _inputArea = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 20 - 44 - self.inputAreaHeight, SCREEN_WIDTH, self.inputAreaHeight)];
+    _inputAreaBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _inputArea.width, _inputArea.height)];
+    [_inputArea addSubview:_inputAreaBg];
     
-    inputAreaBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
+    _inputAreaBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
     
     [self.view addSubview:_inputArea];
     
     
-    UIImageView * inputBg = [[UIImageView alloc]initWithFrame:CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, inputAreaHeight - offset * 2)];
-    [_inputArea addSubview:inputBg];
-    inputBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
+    _inputBg = [[UIImageView alloc]initWithFrame:CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, self.inputAreaHeight - offset * 2+4)];
+    [_inputArea addSubview:_inputBg];
+    _inputBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
     
     
-    _inputTextField = [[UITextField alloc]initWithFrame:CGRectMake(55 + 8, offset, inputBg.width - 10 ,inputAreaHeight - offset * 2)];
-//    _inputTextField.backgroundColor = BYColorWhite;
+    _inputTextField = [[UITextView alloc]initWithFrame:CGRectMake(55 + 8, offset+2, _inputBg.width - 10 ,self.inputAreaHeight - offset * 2)];
+    //    _inputTextField.backgroundColor = BYColorWhite;
     _inputTextField.font = Font(18);
-    _inputTextField.placeholder = @"输入聊天内容";
+    //_inputTextField.placeholder = @"输入聊天内容";
+    
     [_inputArea addSubview:_inputTextField];
     _inputTextField.returnKeyType = UIReturnKeySend;
     _inputTextField.enablesReturnKeyAutomatically = YES;
-    __weak typeof (self) wself = self;
-    [_inputTextField setBk_shouldReturnBlock:^BOOL(UITextField * textfield){
-        [wself sendMessage];
-        return YES;
-    }];
+    //_inputTextField.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _inputTextField.delegate = self;
     
-    UIButton * picture = [UIButton buttonWithType:UIButtonTypeCustom];
-    picture.frame = CGRectMake(13 , (inputAreaHeight - 28)/2, 28, 28);
-    [_inputArea addSubview:picture];
-//    picture.backgroundColor = [UIColor blackColor];
-//    [picture setBackgroundImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>]
-    [picture setBackgroundImage:[UIImage imageNamed:@"btn_im_addpic"] forState:UIControlStateNormal];
-    [picture addTarget:self action:@selector(addPicture) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIButton * emoji = [UIButton buttonWithType:UIButtonTypeCustom];
-//    emoji.frame = CGRectMake(_inputTextField.right + 10, 10, 60, 60);
-//    [_inputArea addSubview:emoji];
-//    emoji.backgroundColor = BYColor333;
-//    emoji.titleLabel.text = @"emoji";
-//    
-//    [emoji addTarget:self action:@selector(sendEmoji) forControlEvents:UIControlEventTouchUpInside];
+    //    __weak typeof (self) wself = self;
+    //    [_inputTextField setBk_shouldReturnBlock:^BOOL(UITextField * textfield){
+    //        [wself sendMessage];
+    //        return YES;
+    //    }];
     
-    _textTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH  , SCREEN_HEIGHT - 44 - 20 - inputAreaHeight)];
+    _picture = [UIButton buttonWithType:UIButtonTypeCustom];
+    _picture.frame = CGRectMake(13 , (self.inputAreaHeight - 28)/2, 28, 28);
+    [_inputArea addSubview:_picture];
+    //    picture.backgroundColor = [UIColor blackColor];
+    //    [picture setBackgroundImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>]
+    [_picture setBackgroundImage:[UIImage imageNamed:@"btn_im_addpic"] forState:UIControlStateNormal];
+    [_picture addTarget:self action:@selector(addPicture) forControlEvents:UIControlEventTouchUpInside];
+    
+    //    UIButton * emoji = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    emoji.frame = CGRectMake(_inputTextField.right + 10, 10, 60, 60);
+    //    [_inputArea addSubview:emoji];
+    //    emoji.backgroundColor = BYColor333;
+    //    emoji.titleLabel.text = @"emoji";
+    //
+    //    [emoji addTarget:self action:@selector(sendEmoji) forControlEvents:UIControlEventTouchUpInside];
+    
+    _textTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH  , SCREEN_HEIGHT - 44 - 20 - self.inputAreaHeight)];
     _textTable.delegate = self;
     _textTable.dataSource = self;
     _textTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -181,8 +183,59 @@
     
     _dataSource = [NSMutableArray array];
     _messages = [NSMutableArray array];
-
+    
 }
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
+        
+        //在这里做你响应return键的代码
+        [_inputTextField resignFirstResponder];
+        [self sendMessage];
+        
+        return NO; //这里返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    float offset = 8;
+    
+    float height = textView.contentSize.height > 40 ? textView.contentSize.height - 40+2 : 0;
+    if (textView.contentSize.height < 40) {
+        _inputArea.frame = CGRectMake(0, SCREEN_HEIGHT - 20 - 44 - self.inputAreaHeight, SCREEN_WIDTH, self.inputAreaHeight);
+        
+        _inputAreaBg.frame = CGRectMake(0, 0, _inputArea.width, _inputArea.height);
+        
+        _inputAreaBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
+        
+        _inputBg.frame = CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, self.inputAreaHeight - offset * 2+4);
+        _inputBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
+        _picture.frame = CGRectMake(13 , (self.inputAreaHeight - 28)/2, 28, 28);
+        _inputTextField.frame = CGRectMake(55 + offset, offset+2, _inputBg.width - 10 ,self.inputAreaHeight - offset * 2);
+        
+    }else if (textView.contentSize.height > 40 && textView.contentSize.height < 60) {
+        _textTable.frame = CGRectMake(0,  0 , SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 20 - 60 - height);
+        _inputArea.frame = CGRectMake(0,SCREEN_HEIGHT - 20 - 44 - 60-height , SCREEN_WIDTH, self.inputAreaHeight+textView.contentSize.height);
+        _inputAreaBg.frame = CGRectMake(0, 0,_inputArea.width, _inputArea.height);
+        _inputAreaBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
+        _picture.frame = CGRectMake(13 , (_inputArea.frame.size.height - 28)/2, 28, 28);
+        self.inputTextField.frame = CGRectMake(self.inputTextField.frame.origin.x, self.inputTextField.frame.origin.y, self.inputTextField.frame.size.width, textView.contentSize.height);
+        _inputBg.frame = CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, textView.contentSize.height+10);
+        
+    } else if(textView.contentSize.height > 60){
+        
+        [_inputTextField scrollRangeToVisible:NSMakeRange(_inputTextField.text.length, 1)];
+        
+        self.inputTextField.layoutManager.allowsNonContiguousLayout = NO;
+        
+    }
+}
+
+
 
 - (void)updateUI
 {
@@ -207,22 +260,22 @@
         if (![EaseMob sharedInstance].chatManager.isLoggedIn) {
             [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:easeMobID password:psw completion:^(NSDictionary *loginInfo, EMError *error) {
                 if (!error && loginInfo) {
-//                    NSLog(@"登陆成功");
-//                    NSLog(@"%@",loginInfo);
+                    //                    NSLog(@"登陆成功");
+                    //                    NSLog(@"%@",loginInfo);
                     [wself loadConversation];
                 }
                 else if ([error.description isEqualToString:@"User do not exist."]){
-//                    NSLog(@"未注册");
+                    //                    NSLog(@"未注册");
                     [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:easeMobID password:psw withCompletion:^(NSString * userName,NSString * passWord,EMError*error){
-                    if (!error) {
-//                        NSLog(@"注册成功 %@",easeMobID);
-                        [wself updateUI];
-                    }else{
-                        NSLog(@"error :%@",error);
-                        [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                } onQueue:nil];
+                        if (!error) {
+                            //                        NSLog(@"注册成功 %@",easeMobID);
+                            [wself updateUI];
+                        }else{
+                            NSLog(@"error :%@",error);
+                            [MBProgressHUD topShowTmpMessage:@"登陆客服系统失败，请重试"];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                    } onQueue:nil];
                 }
                 else{
                     NSLog(@"---%@",error);
@@ -230,14 +283,14 @@
                     
                     [self.navigationController popViewControllerAnimated:YES];
                 }
-                     
+                
             } onQueue:nil];
         }else{
             [wself loadConversation];
         }
     }];
     
-   
+    
 }
 
 - (void)easeMobLogin
@@ -252,7 +305,7 @@
         [[BYLoginVC sharedLoginVC] clearData];
         [self.navigationController popViewControllerAnimated:YES];
     };
-
+    
     [self.navigationController presentViewController:makeLoginnav(nil,cblk) animated:YES completion:nil];
 }
 
@@ -279,7 +332,7 @@
     [MBProgressHUD topHide];
     [_service getTargetStatus:_targetUser finish:^(BOOL status,BYError * error){
         if (!error && status) {
-            
+//            NSLog(@"online");
         }else if (!status){
             [MBProgressHUD topShowTmpMessage:@"客服不在线"];
         }else{
@@ -288,7 +341,7 @@
     }];
     long long timestamp = [[NSDate date] timeIntervalSince1970] * 1000 + 1;
     [self loadMoreMessagesFrom:timestamp count:KPageCount append:NO];
-   
+    
 }
 
 
@@ -348,10 +401,10 @@
             });
             
             //从数据库导入时重新下载没有下载成功的附件
-//            for (EMMessage *message in messages)
-//            {
-//                [weakSelf downloadMessageAttachments:message];
-//            }
+            //            for (EMMessage *message in messages)
+            //            {
+            //                [weakSelf downloadMessageAttachments:message];
+            //            }
             
             NSMutableArray *unreadMessages = [NSMutableArray array];
             for (NSInteger i = 0; i < [messages count]; i++)
@@ -379,13 +432,13 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
-  
-        UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
-        [picker dismissViewControllerAnimated:YES completion:^{
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isShowPicker"];
-        }];
-        [self sendImageMessage:orgImage];
-
+    
+    UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isShowPicker"];
+    }];
+    [self sendImageMessage:orgImage];
+    
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -414,7 +467,7 @@
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
         if (error) {
 //            NSLog(@"发送失败%@",error);
-//            [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
+//                        [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
         }else{
 //            NSLog(@"发送成功%@",message);
         }
@@ -424,7 +477,7 @@
     [self reloadData];
     NSIndexPath * index = [NSIndexPath indexPathForRow:_dataSource.count - 1 inSection:0];
     [_textTable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionNone animated:YES];
-
+    
     
 }
 #pragma mark -- end
@@ -438,7 +491,7 @@
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     [self presentViewController:self.imagePicker animated:YES completion:NULL];
-//    self.isInvisible = YES;
+    //    self.isInvisible = YES;
 }
 - (void)addPicture
 {
@@ -475,7 +528,7 @@
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:self prepare:nil onQueue:nil completion:^(EMMessage * message, EMError *error){
         if (error) {
             NSLog(@"发送失败%@",error);
-//            [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
+            //            [MBProgressHUD topShowTmpMessage:@"消息发送失败"];
         }else{
             NSLog(@"发送成功%@",message);
         }
@@ -511,7 +564,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.dataSource addObjectsFromArray:messages];
             [weakSelf.textTable reloadData];
-//            NSLog(@"add");
+            //            NSLog(@"add");
             [weakSelf.textTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
     });
@@ -541,7 +594,7 @@
     model.nickName = model.username;
     model.headImageURL = [NSURL URLWithString:_supplierAvatar];
     
-      if (model) {
+    if (model) {
         [ret addObject:model];
     }
     
@@ -555,7 +608,7 @@
 //        {
 //            // 收到的文字消息
 //            NSString *txt = ((EMTextMessageBody *)msgBody).text;
-//            
+//
 //            NSLog(@"收到的文字是 txt -- %@",txt);
 //        }
 //            break;
@@ -568,8 +621,8 @@
 //            NSLog(@"大图的secret -- %@"    ,body.secretKey);
 //            NSLog(@"大图的W -- %f ,大图的H -- %f",body.size.width,body.size.height);
 //            NSLog(@"大图的下载状态 -- %lu",(unsigned long)body.attachmentDownloadStatus);
-//            
-//            
+//
+//
 //            // 缩略图sdk会自动下载
 //            NSLog(@"小图remote路径 -- %@"   ,body.thumbnailRemotePath);
 //            NSLog(@"小图local路径 -- %@"    ,body.thumbnailLocalPath);
@@ -601,7 +654,7 @@
 //        case eMessageBodyType_Video:
 //        {
 //            EMVideoMessageBody *body = (EMVideoMessageBody *)msgBody;
-//            
+//
 //            NSLog(@"视频remote路径 -- %@"      ,body.remotePath);
 //            NSLog(@"视频local路径 -- %@"       ,body.localPath); // 需要使用sdk提供的下载方法后才会存在
 //            NSLog(@"视频的secret -- %@"        ,body.secretKey);
@@ -609,7 +662,7 @@
 //            NSLog(@"视频文件的下载状态 -- %lu"   ,(unsigned long)body.attachmentDownloadStatus);
 //            NSLog(@"视频的时间长度 -- %lu"      ,(long)body.duration);
 //            NSLog(@"视频的W -- %f ,视频的H -- %f", body.size.width, body.size.height);
-//            
+//
 //            // 缩略图sdk会自动下载
 //            NSLog(@"缩略图的remote路径 -- %@"     ,body.thumbnailRemotePath);
 //            NSLog(@"缩略图的local路径 -- %@"      ,body.thumbnailRemotePath);
@@ -627,7 +680,7 @@
 //            NSLog(@"文件文件的下载状态 -- %lu"   ,(unsigned long)body.attachmentDownloadStatus);
 //        }
 //            break;
-//            
+//
 //        default:
 //            break;
 //    }
@@ -714,29 +767,63 @@
     
     return formatArray;
 }
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MessageModel *message = self.dataSource[indexPath.row];
+    if (message.content.length) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    
+    if (action == @selector(cut:) || action == @selector(paste:)) {
+        return NO;
+    }else{
+    }
+    MessageModel *message = self.dataSource[indexPath.row];
+    if (message.content.length) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    MessageModel *message = self.dataSource[indexPath.row];
+    if (action == @selector(copy:)) {
+        if (message.content.length) {
+            [UIPasteboard generalPasteboard].string = message.content;
+        }
+    }
+}
+
 - (void)reloadData{
     _chatTagDate = nil;
     self.dataSource = [[self formatMessages:self.messages] mutableCopy];
     [self.textTable reloadData];
     
     //回到前台时
-//    if (!self.isInvisible)
-//    {
-//        NSMutableArray *unreadMessages = [NSMutableArray array];
-//        for (EMMessage *message in self.messages)
-//        {
-//            if ([self shouldAckMessage:message read:NO])
-//            {
-//                [unreadMessages addObject:message];
-//            }
-//        }
-//        if ([unreadMessages count])
-//        {
-//            [self sendHasReadResponseForMessages:unreadMessages];
-//        }
-//        
-//        [_conversation markAllMessagesAsRead:YES];
-//    }
+    //    if (!self.isInvisible)
+    //    {
+    //        NSMutableArray *unreadMessages = [NSMutableArray array];
+    //        for (EMMessage *message in self.messages)
+    //        {
+    //            if ([self shouldAckMessage:message read:NO])
+    //            {
+    //                [unreadMessages addObject:message];
+    //            }
+    //        }
+    //        if ([unreadMessages count])
+    //        {
+    //            [self sendHasReadResponseForMessages:unreadMessages];
+    //        }
+    //
+    //        [_conversation markAllMessagesAsRead:YES];
+    //    }
 }
 - (NSDate *)chatTagDate
 {
@@ -750,7 +837,7 @@
          forMessage:(EMMessage *)message
      forMessageBody:(id<IEMMessageBody>)messageBody
 {
-    NSLog(@"%f,%@",progress,message.messageBodies);
+//    NSLog(@"%f,%@",progress,message.messageBodies);
 }
 
 - (void) keyboardWasShown:(NSNotification *) notif
@@ -759,7 +846,7 @@
     NSValue *value = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGSize keyboardSize = [value CGRectValue].size;
     
-//    NSLog(@"keyBoard:%f", keyboardSize.height);  //216
+    //    NSLog(@"keyBoard:%f", keyboardSize.height);  //216
     [self.bodyView setContentOffset:CGPointMake(0, keyboardSize.height) animated:YES];
     _keyboardWasShown = YES;
 }
@@ -769,28 +856,28 @@
     
     NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
     CGSize keyboardSize = [value CGRectValue].size;
-//    NSLog(@"keyboardWasHidden keyBoard:%f", keyboardSize.height);
+    //    NSLog(@"keyboardWasHidden keyBoard:%f", keyboardSize.height);
     [self.bodyView setContentOffset:CGPointMake(0,0) animated:YES];
-     _keyboardWasShown = NO;
+    _keyboardWasShown = NO;
     
 }
 
 - (void)routerEventWithName:(NSString *)eventName userInfo:(NSDictionary *)userInfo
 {
     MessageModel *model = [userInfo objectForKey:KMESSAGEKEY];
-//    if ([eventName isEqualToString:kRouterEventTextURLTapEventName]) {
-//        [self chatTextCellUrlPressed:[userInfo objectForKey:@"url"]];
-//    }
-//    else if ([eventName isEqualToString:kRouterEventAudioBubbleTapEventName]) {
-//        [self chatAudioCellBubblePressed:model];
-//    }
-//    else
+    //    if ([eventName isEqualToString:kRouterEventTextURLTapEventName]) {
+    //        [self chatTextCellUrlPressed:[userInfo objectForKey:@"url"]];
+    //    }
+    //    else if ([eventName isEqualToString:kRouterEventAudioBubbleTapEventName]) {
+    //        [self chatAudioCellBubblePressed:model];
+    //    }
+    //    else
     if ([eventName isEqualToString:kRouterEventImageBubbleTapEventName]){
         [self chatImageCellBubblePressed:model];
     }
-//    else if ([eventName isEqualToString:kRouterEventLocationBubbleTapEventName]){
-//        [self chatLocationCellBubblePressed:model];
-//    }
+    //    else if ([eventName isEqualToString:kRouterEventLocationBubbleTapEventName]){
+    //        [self chatLocationCellBubblePressed:model];
+    //    }
     else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];
         MessageModel *messageModel = resendCell.messageModel;
@@ -806,11 +893,11 @@
                               withRowAnimation:UITableViewRowAnimationNone];
         [self.textTable endUpdates];
     }
-//        else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]){
-//        [self chatVideoCellPressed:model];
-//    }else if ([eventName isEqualToString:kRouterEventMenuTapEventName]) {
-//        [self sendTextMessage:[userInfo objectForKey:@"text"]];
-//    }
+    //        else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]){
+    //        [self chatVideoCellPressed:model];
+    //    }else if ([eventName isEqualToString:kRouterEventMenuTapEventName]) {
+    //        [self sendTextMessage:[userInfo objectForKey:@"text"]];
+    //    }
 }
 
 // 图片的bubble被点击
@@ -962,13 +1049,13 @@
     });
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
