@@ -397,6 +397,7 @@
 		FED3800D1B8C5EA200A02FEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = FED380091B8C5EA200A02FEF /* index.html */; };
 		FED380221B8DD08000A02FEF /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */; };
 		FEF149C71BE8C01C006D3231 /* BYCopyableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF149C61BE8C01C006D3231 /* BYCopyableLabel.m */; settings = {ASSET_TAGS = (); }; };
+		FEF149CA1BEB4686006D3231 /* BYRealTime.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF149C91BEB4686006D3231 /* BYRealTime.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1167,6 +1168,8 @@
 		FED380201B8DD08000A02FEF /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		FEF149C51BE8C01C006D3231 /* BYCopyableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYCopyableLabel.h; sourceTree = "<group>"; };
 		FEF149C61BE8C01C006D3231 /* BYCopyableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYCopyableLabel.m; sourceTree = "<group>"; };
+		FEF149C81BEB4686006D3231 /* BYRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYRealTime.h; sourceTree = "<group>"; };
+		FEF149C91BEB4686006D3231 /* BYRealTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYRealTime.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2185,6 +2188,8 @@
 				F4818DE11AFC997D0023C0A6 /* animate */,
 				F4ED1DEA1AF9BEEB00639322 /* BYCaptureController.h */,
 				F4ED1DEB1AF9BEEB00639322 /* BYCaptureController.mm */,
+				FEF149C81BEB4686006D3231 /* BYRealTime.h */,
+				FEF149C91BEB4686006D3231 /* BYRealTime.m */,
 			);
 			path = glassWearing;
 			sourceTree = "<group>";
@@ -3262,6 +3267,7 @@
 				F4E2D6351B72094500E18CA8 /* BYGenderSelectView.m in Sources */,
 				F415EFD91AFB3B04001F840A /* BYFaceDataUnit.m in Sources */,
 				F42618041A2C4CBD0076B273 /* BYPayFailVC.m in Sources */,
+				FEF149CA1BEB4686006D3231 /* BYRealTime.m in Sources */,
 				F4A251071A787B7A00127EB2 /* BYPayCenter.m in Sources */,
 				FE47CD5D1BD79EF40046CD73 /* BYLeftMenuViewController.m in Sources */,
 				F43D4CCE1AA4037B007A8D4C /* BYWebView.m in Sources */,

@@ -86,13 +86,13 @@
 //    [_loginView addSubview:_registButton];
 
     //setup 订单项目
-    CGFloat btnWidth = (SCREEN_WIDTH - 2) / 3;
-    CGFloat btnHeight = 52;
+    CGFloat btnWidth = (SCREEN_WIDTH - 1) / 2;
+    CGFloat btnHeight = 44;
     //
-    _notPayOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_orderpayment" iconEdge:UIEdgeInsetsMake(0, 20, 10, 0) bgIcon:nil title:@"待付款"];
+    _notPayOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_orderpayment" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"待付款"];
     CGSize size = [_notPayOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
-    [_notPayOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_notPayOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
-    [_notPayOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
+//    [_notPayOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_notPayOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
+//    [_notPayOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
     _notPayOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_notPayOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
     _notPayOrderBtn.left = 0;
@@ -101,38 +101,39 @@
     notPayOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_notPayOrderBtn];
     
 
-    UIImageView* orderSepLineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 32)];
+    UIImageView* orderSepLineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, btnHeight - 15)];
     orderSepLineView1.image = [UIImage imageNamed:@"line_usercenter_separate"];
     orderSepLineView1.left = _notPayOrderBtn.right;
     orderSepLineView1.centerY = _orderStatusView.height / 2;
     [_orderStatusView addSubview:orderSepLineView1];
 
     //
-    _notReceivedOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_receive" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"待收货"];
-    size = [_notReceivedOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
-    [_notReceivedOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_notReceivedOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
-    [_notReceivedOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
-    _notReceivedOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [_notReceivedOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
-    _notReceivedOrderBtn.left = orderSepLineView1.right;
-    [_notReceivedOrderBtn addTarget:_mineVC action:@selector(onToDeliverConfirmOrders) forControlEvents:UIControlEventTouchUpInside];
-    [_orderStatusView addSubview:_notReceivedOrderBtn];
+//    _notReceivedOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_receive" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"待收货"];
+//    size = [_notReceivedOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
+//    [_notReceivedOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_notReceivedOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
+//    [_notReceivedOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
+//    _notReceivedOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+//    [_notReceivedOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
+//    _notReceivedOrderBtn.left = orderSepLineView1.right;
+//    [_notReceivedOrderBtn addTarget:_mineVC action:@selector(onToDeliverConfirmOrders) forControlEvents:UIControlEventTouchUpInside];
+//    [_orderStatusView addSubview:_notReceivedOrderBtn];
     
-    toReceiveOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_notReceivedOrderBtn];
+//    toReceiveOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_notReceivedOrderBtn];
 
-    UIImageView* orderSepLineView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 32)];
-    orderSepLineView2.image = [UIImage imageNamed:@"line_usercenter_separate"];
-    orderSepLineView2.left = _notReceivedOrderBtn.right;
-    orderSepLineView2.centerY = _orderStatusView.height / 2;
-    [_orderStatusView addSubview:orderSepLineView2];
+//    UIImageView* orderSepLineView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 32)];
+//    orderSepLineView2.image = [UIImage imageNamed:@"line_usercenter_separate"];
+//    orderSepLineView2.left = _notReceivedOrderBtn.right;
+//    orderSepLineView2.centerY = _orderStatusView.height / 2;
+//    [_orderStatusView addSubview:orderSepLineView2];
 
     _refundOrderBtn = [UIButton buttonWithFrame:CGRectMake(0, 0, btnWidth, btnHeight) icon:@"icon_usercenter_refund" iconEdge:UIEdgeInsetsMake(0, 0, 0, 10) bgIcon:nil title:@"退款/售后"];
+//    NSLog(@"%@",[UIImage imageNamed:@"icon_usercenter_refund"]);
     size = [_refundOrderBtn.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12],NSFontAttributeName, nil]];
-    [_refundOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_refundOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
-    [_refundOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
+//    [_refundOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake( 0,-[_refundOrderBtn imageForState:UIControlStateNormal].size.width, -26,0)];
+//    [_refundOrderBtn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0,0, -size.width)];
     _refundOrderBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_refundOrderBtn setTitleColor:BYColorWhite forState:UIControlStateNormal];
-    _refundOrderBtn.left = orderSepLineView2.right;
+    _refundOrderBtn.left = orderSepLineView1.right;
     [_refundOrderBtn addTarget:_mineVC action:@selector(onInRefundOrders) forControlEvents:UIControlEventTouchUpInside];
     [_orderStatusView addSubview:_refundOrderBtn];
     refundOrderTip = [BYNumberTip numberTipwithFrame:CGRectMake(20, 0, 8, 8) inView:_refundOrderBtn];

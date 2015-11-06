@@ -38,6 +38,7 @@
 
 #import "BYLeftMenuViewController.h"
 #import "BYAppDelegate.h"
+
 @interface BYHomeVC ()<SDCycleScrollViewDelegate,BYImageViewTapDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) BYHomeService * service;

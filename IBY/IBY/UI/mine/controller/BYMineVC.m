@@ -143,15 +143,25 @@
     
     [self.bodyView by_addSubview:_headerView paddingTop:0];
 
+    [self appendCell:@"icon_usercenter_share"
+               title:@"分享有利"
+                 top:12
+                 sel:@selector(onShare)];
+    
     [self appendCell:@"icon_usercenter_orderinquiry"
                title:@"我的订单"
-                 top:12
+                 top:0
                  sel:@selector(onOrders)];
     
     [self appendCell:@"icon_usercenter_book"
                title:@"我的预约"
                  top:0
                  sel:@selector(onMybook)];
+    
+    [self appendCell:@"icon_usercenter_wallet"
+               title:@"我的钱包"
+                 top:0
+                 sel:@selector(onWallet)];
 
     [self appendCell:@"icon_usercenter_mydesign"
                title:@"我的作品集"
@@ -182,6 +192,8 @@
                title:@"设置"
                  top:0
                  sel:@selector(onSetting)];
+    
+    [self.bodyView by_addSubview:[[UIView alloc]init] paddingTop:12];
     
     
 //    [self appendCell:@"icon_usercenter_setting"
@@ -268,6 +280,27 @@
         BYGlassPageVC* pageVC = [[BYGlassPageVC alloc]init];
         [self.navigationController pushViewController:pageVC animated:YES];
     }
+}
+
+
+- (void)onWallet
+{
+    
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    JumpToWebBlk(@"http://m.biyao.com/share/money.html", nil);
+}
+
+- (void)onShare
+{
+    
+    if (![BYAppCenter sharedAppCenter].isLogin) {
+        [self loginAction];
+        return;
+    }
+    JumpToWebBlk(@"http://m.biyao.com/share/income.html", nil);
 }
 
 - (void)onMycoupon
