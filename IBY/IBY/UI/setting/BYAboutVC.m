@@ -29,8 +29,8 @@
 {
     //3个cell高度44*3
     self.view.height = SCREEN_HEIGHT - self.navigationController.navigationBar.height - [[UIApplication sharedApplication] statusBarFrame].size.height;
-    float cellsTop =self.view.height - 20 - 21 - 21 - 16 - 44 * 3;
-    _bodyView = [[BYLinearScrollView alloc] initWithFrame:BYRectMake(0, cellsTop, SCREEN_WIDTH, 44 * 3)];
+    float cellsTop =self.view.height - 20 - 21 - 21 - 16 - 44 * 4;
+    _bodyView = [[BYLinearScrollView alloc] initWithFrame:BYRectMake(0, cellsTop, SCREEN_WIDTH, 44 * 4)];
     //    _bodyView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _bodyView.autoAdjustContentSize = YES;
     _bodyView.minContentSizeHeight = 0;
@@ -58,6 +58,20 @@
                title:@"用户协议"
                  top:0
                  sel:@selector(onProtocol)];
+    
+    NSString * str = [NSString stringWithFormat:@"版本号"];
+    BYMineCell* cell = [BYMineCell cellWithTitle:str icon:nil target:self sel:nil];
+    UILabel * label = [[UILabel alloc]initWithFrame:cell.titleLabel.frame];
+    [cell addSubview:label];
+    label.right= cell.width - 12;
+    label.textAlignment = NSTextAlignmentRight;
+    label.font = Font(14);
+    label.textColor = BYColor999;
+    label.text = @"v2.2.2";
+    cell.showRightArrow = NO;
+    cell.showBottomLine = YES;
+    [self.bodyView by_addSubview:cell paddingTop:0];
+   
 
 }
 - (void)viewWillAppear:(BOOL)animated

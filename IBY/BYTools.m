@@ -24,10 +24,10 @@ void clearCookies()
 void inputCookies()
 {
     setCookies(@"DZVISIT", [BYAppCenter sharedAppCenter].visitCode);
-    setCookies(@"fromapp", @"ios|20");
+    setCookies(@"fromapp", @"ios|21");
     setCookies(@"uuid", [BYAppCenter sharedAppCenter].uuid);
     setCookies(@"platform", @"iOS");
-    setCookies(@"__appversion", @"20");
+    setCookies(@"__appversion", @"21");
     setCookies(@"source", @"biyao");
     setCookies(@"__osv", [BYAppCenter sharedAppCenter].systemVersion);
 
