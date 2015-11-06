@@ -194,6 +194,7 @@
         [_inputTextField resignFirstResponder];
         [self sendMessage];
         
+        [self textViewDidChange:textView];
         return NO; //这里返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
     }
     
@@ -206,6 +207,9 @@
     
     float height = textView.contentSize.height > 40 ? textView.contentSize.height - 40+2 : 0;
     if (textView.contentSize.height < 40) {
+        _textTable.frame = CGRectMake(0, 0, SCREEN_WIDTH  , SCREEN_HEIGHT - 44 - 20 - self.inputAreaHeight);
+        
+        
         _inputArea.frame = CGRectMake(0, SCREEN_HEIGHT - 20 - 44 - self.inputAreaHeight, SCREEN_WIDTH, self.inputAreaHeight);
         
         _inputAreaBg.frame = CGRectMake(0, 0, _inputArea.width, _inputArea.height);
@@ -214,24 +218,27 @@
         
         _inputBg.frame = CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, self.inputAreaHeight - offset * 2+4);
         _inputBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
-        _picture.frame = CGRectMake(13 , (self.inputAreaHeight - 28)/2, 28, 28);
+        
         _inputTextField.frame = CGRectMake(55 + offset, offset+2, _inputBg.width - 10 ,self.inputAreaHeight - offset * 2);
+        
+        _picture.top = 16;
         
     }else if (textView.contentSize.height > 40 && textView.contentSize.height < 60) {
         _textTable.frame = CGRectMake(0,  0 , SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 20 - 60 - height);
         _inputArea.frame = CGRectMake(0,SCREEN_HEIGHT - 20 - 44 - 60-height , SCREEN_WIDTH, self.inputAreaHeight+textView.contentSize.height);
         _inputAreaBg.frame = CGRectMake(0, 0,_inputArea.width, _inputArea.height);
         _inputAreaBg.image = [[UIImage imageNamed:@"bg_im_input"] resizableImage];
-        _picture.frame = CGRectMake(13 , (_inputArea.frame.size.height - 28)/2, 28, 28);
+//        _picture.frame = CGRectMake(13 , (_inputArea.frame.size.height - 28)/2, 28, 28);
         self.inputTextField.frame = CGRectMake(self.inputTextField.frame.origin.x, self.inputTextField.frame.origin.y, self.inputTextField.frame.size.width, textView.contentSize.height);
         _inputBg.frame = CGRectMake(55, offset, SCREEN_WIDTH - 55 -10, textView.contentSize.height+10);
+        _picture.top = 16 + height;
         
     } else if(textView.contentSize.height > 60){
         
         [_inputTextField scrollRangeToVisible:NSMakeRange(_inputTextField.text.length, 1)];
         
         self.inputTextField.layoutManager.allowsNonContiguousLayout = NO;
-        
+//        _picture.top = 16 + height;
     }
 }
 
@@ -394,7 +401,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf reloadData];
                 if (weakSelf.dataSource.count && !append) {
-                    NSLog(@"load");
+//                    NSLog(@"load");
                     NSIndexPath * index = [NSIndexPath indexPathForRow:weakSelf.dataSource.count - 1 inSection:0];
                     [weakSelf.textTable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionNone animated:NO];
                 }
