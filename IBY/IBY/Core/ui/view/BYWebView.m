@@ -77,6 +77,7 @@
 
 - (void)runFromVC:(UIViewController*)fromVC
 {
+    __weak typeof (self) wself = self;
     switch (_type) {
         case BYH5TypeHome: {
             [[BYPortalCenter sharedPortalCenter] portTo:BYPortalHome];
@@ -134,13 +135,13 @@
                 [nav pushViewController:imVC animated:YES];
             }else{
                 BYAppDelegate* delegate = (BYAppDelegate*)[UIApplication sharedApplication].delegate;
-                __weak typeof (self) wself = self;
+                NSDictionary * supplierDic = [NSDictionary dictionaryWithDictionary:self.h5Params];
                 BYLoginSuccessBlock successblock = ^(){
                     BYNavVC* nav = ((BYAppDelegate*)[UIApplication sharedApplication].delegate).homeNav;
                     BYIMViewController * imVC =[[BYIMViewController alloc] init];
-                    imVC.targetUser = [NSString stringWithFormat:@"supplier_%@",wself.h5Params[@"sjid"]];
-                    imVC.supplierName = wself.h5Params[@"sjname"];
-                    imVC.supplierAvatar = [wself.h5Params[@"sjlogo"] URLDecodedString];
+                    imVC.targetUser = [NSString stringWithFormat:@"supplier_%@",supplierDic[@"sjid"]];
+                    imVC.supplierName = supplierDic[@"sjname"];
+                    imVC.supplierAvatar = [supplierDic[@"sjlogo"] URLDecodedString];
                     [nav pushViewController:imVC animated:YES];
                 };
                 [delegate.homeNav presentViewController:makeLoginnav(successblock,nil) animated:YES completion:nil];

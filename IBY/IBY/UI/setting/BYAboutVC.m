@@ -67,7 +67,7 @@
     label.textAlignment = NSTextAlignmentRight;
     label.font = Font(14);
     label.textColor = BYColor999;
-    label.text = @"v2.2.4";
+    label.text = @"v2.2.6";
     cell.showRightArrow = NO;
     cell.showBottomLine = YES;
     [self.bodyView by_addSubview:cell paddingTop:0];

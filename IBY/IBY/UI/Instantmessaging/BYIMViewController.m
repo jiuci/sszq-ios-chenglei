@@ -508,14 +508,14 @@
 - (void)sendMessage
 {
     [self.view endEditing:YES];
-    NSMutableString * inputtext = [_inputTextField.text mutableCopy];
-    if ([inputtext hasPrefix:@"change"]) {
-        [inputtext replaceCharactersInRange:NSMakeRange(0, 6) withString:@""];
-        _targetUser = inputtext;
-        _inputTextField.text = @"";
-        [self loadConversation];
-        return;
-    }
+//    NSMutableString * inputtext = [_inputTextField.text mutableCopy];
+//    if ([inputtext hasPrefix:@"change"]) {
+//        [inputtext replaceCharactersInRange:NSMakeRange(0, 6) withString:@""];
+//        _targetUser = inputtext;
+//        _inputTextField.text = @"";
+//        [self loadConversation];
+//        return;
+//    }
     NSString * text = [NSString stringWithString:_inputTextField.text];
     EMChatText *txtChat = [[EMChatText alloc] initWithText:text];
     EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:txtChat];
