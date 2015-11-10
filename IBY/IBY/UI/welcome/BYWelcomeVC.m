@@ -168,6 +168,13 @@
         scrollView.userInteractionEnabled = NO;
         _needDismiss = YES;
     }
+    
+    // _pageControl在最后一页随着界面移动
+    if (scrollView.contentOffset.x > SCREEN_WIDTH * (_frontImglist.count - 1)) {
+        CGFloat currentViewOffsetX = scrollView.contentOffset.x - SCREEN_WIDTH * (_frontImglist.count + 1 - 2);
+        _pageControl.left = (SCREEN_WIDTH - _pageControl.width) / 2 - currentViewOffsetX;
+    }
+
 }
 
 //手滑动，结束的时候会触发这个方法
