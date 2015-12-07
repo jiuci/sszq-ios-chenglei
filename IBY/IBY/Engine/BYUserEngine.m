@@ -14,7 +14,7 @@
 
 + (void)refreshUserToken:(void (^)(BOOL isSuccess, BYError* error))finished
 {
-    NSString* url = @"/user/customer/refreshtoken";
+    NSString* url = SSZQAPI_USER_REFRESHTOKEN;
     [BYNetwork post:url params:nil finish:^(NSDictionary* data, BYError* error) {
         if (error) {
             finished(NO,error);

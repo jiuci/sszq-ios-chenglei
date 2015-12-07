@@ -38,6 +38,33 @@
 #define BYURL_TEST_MINE @"http://192.168.97.69:8080/m.biyao.com/account/mine"
 
 
+#pragma mark - 顺手赚钱
+// 网页部分
+#define SSZQURL_BASE    @"http://sf.m.biyao.com"    // sf.m.biyao.com 或 m.biyao.com
+#define SSZQURL_ERROR   @"/error.html"
+#define SSZQURL_HOME    @"/share/income.html"
+#define SSZQURL_WALLET  @"/share/money.html"
+#define SSZQURL_RANK    @"/share/ranklisk.html"
+#define SSZQURL_SERVICE @"/service.html"
+#define SSZQURL_SERVICE_PROTOCOL @"/Static/statichtml/registxy.html"
+#define SSZQURL_SERVICE_SMSCODEHELPER @"/Static/statichtml/registxy.html"
+
+//    NSString *urlStr = [NSString stringWithFormat:@"%@%@", SSZQURL_BASE, SSZQURL_SERVICE_SMSCODEHELPER];
+
+
+// 后台数据接口
+#define SSZQAPI_BASE                @"http://sf-api.biyao.com"      // 必要@"http://appapi.biyao.com/"
+#define SSZQAPI_BASE_LGOIN          @"http://192.168.98.60:8085"    // @"http://192.168.99.60:8085/",
+
+#define SSZQAPI_USER_LGOIN          @"/user/customer/login"
+#define SSZQAPI_USER_REFRESHTOKEN   @"/user/customer/refreshtoken"
+
+
+// 以下未做替换
+#define SSZQURL_M_DetailDesign @""
+#define SSZQAPP_SCHEMA @"sszq"  // 无用
+
+
 
 
 

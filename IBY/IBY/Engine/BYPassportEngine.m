@@ -16,9 +16,10 @@
 + (void)loginByUser:(NSString*)user
                 pwd:(NSString*)pwd
              finish:(void (^)(BYUser* user, BYError* error))finished{
-    NSString* url = @"/user/customer/login";
+    NSString* url = SSZQAPI_USER_LGOIN;
     NSDictionary* params = @{ @"username" : user,
-                              @"epassword" : [pwd encryptstr]
+//                              @"epassword" : [pwd encryptstr]
+                              @"password" : pwd
                               };
     [BYNetwork post:url params:params finish:^(NSDictionary* data, BYError* error) {
         if (data && !error) {

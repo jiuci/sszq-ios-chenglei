@@ -9,6 +9,8 @@
 #import "BYBaseVC.h"
 #import "BYCommonWebVC.h"
 #import "BYMutiSwitch.h"
+
+
 @interface BYHomeVC : BYBaseVC
 
 @property (nonatomic, assign) BYCommonWebVC * commonWebVC;

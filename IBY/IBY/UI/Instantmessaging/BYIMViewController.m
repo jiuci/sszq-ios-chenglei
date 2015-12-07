@@ -16,7 +16,7 @@
 #import "NSDate+Category.h"
 #import "MessageReadManager.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "MJRefresh.h"
+//#import "MJRefresh.h"
 #import "BYIMService.h"
 
 #define KPageCount 20
@@ -178,7 +178,7 @@
     _textTable.dataSource = self;
     _textTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_textTable];
-    [self.textTable addHeaderWithTarget:self action:@selector(headerRereshing)];
+//    [self.textTable addHeaderWithTarget:self action:@selector(headerRereshing)];
     _textTable.backgroundColor = BYColorBG;
     
     _dataSource = [NSMutableArray array];
@@ -361,7 +361,7 @@
         [self loadMoreMessagesFrom:firstMessage.timestamp count:KPageCount append:YES];
     }
     [self reloadData];
-    [self.textTable headerEndRefreshing];
+//    [self.textTable headerEndRefreshing];
 }
 
 - (void)loadMoreMessagesFrom:(long long)timestamp count:(NSInteger)count append:(BOOL)append

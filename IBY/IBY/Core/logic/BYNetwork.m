@@ -38,10 +38,12 @@ AFHTTPRequestOperationManager* makeNetManager(NSString* baseUrl)
 NSString* baseUrlByMode(BYNetMode mode)
 {
     NSArray* urls = @[
-        @"http://192.168.99.60:8085/",
+//        @"http://192.168.99.60:8085/",
+        SSZQAPI_BASE_LGOIN,
         @"http://192.168.99.231:8085/",
         @"http://118.144.72.200:8085/",
-        @"http://appapi.biyao.com/"
+//        @"http://appapi.biyao.com/"
+        SSZQAPI_BASE
     ];
     return urls[mode];
 }

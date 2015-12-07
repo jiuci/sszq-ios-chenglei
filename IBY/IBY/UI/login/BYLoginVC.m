@@ -116,6 +116,10 @@
             [self.navigationController dismissViewControllerAnimated:YES
                                                           completion:nil];
         }];
+    if (_isHomeLogin) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    
     self.view.height = SCREEN_HEIGHT - self.navigationController.navigationBar.height -20;
     //logo
     UIImageView* biyaoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 144, 90)];
@@ -355,6 +359,7 @@
     [super viewWillAppear:animated];
     BOOL showQQ = [_loginService canUseQQlogin];
     BOOL showWX = [_loginService canUseWXlogin];
+    
     
     if (_showThirdPartyLogin == NO) {
         showQQ = NO;
@@ -610,3 +615,24 @@ BYNavVC* makeLoginnav(BYLoginSuccessBlock blk,BYLoginCancelBlock cblk)
 
     return nav;
 }
+
+
+BYNavVC* makeLoginNavFromHome(BYLoginSuccessBlock blk,BYLoginCancelBlock cblk)
+{
+    BYLoginVC* vc = [BYLoginVC sharedLoginVC];
+    vc.showThirdPartyLogin = NO;
+    vc.isHomeLogin = YES;
+    vc.successBlk = blk;
+    vc.cancelBlk = cblk;
+    BYNavVC* nav = [BYNavVC nav:vc title:@"登录"];
+    return nav;
+}
+
+
+
+
+
+
+
+
+
